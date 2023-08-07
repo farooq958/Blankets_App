@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 children: [
                   CustomButton(onTap: () {
-                 //   Navigate.to(context, const BottomNavigationScreen());
+                   Navigate.to(context, const BottomNavigationScreen());
 
                   }, text: 'Login'),
                   CustomSizedBox.height(10.h),

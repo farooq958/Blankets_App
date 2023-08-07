@@ -10,18 +10,27 @@ class AssetImageWidget extends StatelessWidget {
   final double? width;
   final double? height;
   final Color? color;
+  final bool? isCircle;
+  final double? radius;
   const AssetImageWidget({
     Key? key,
     required this.url,
     this.scale = 1,
     this.width = 25,
     this.height = 25,
-    this.color,
+    this.color, this.isCircle, this.radius,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
+    return    isCircle != null
+        ?
+    CircleAvatar(
+        radius: radius,
+        backgroundImage:  AssetImage(url)
+
+
+    ): Image.asset(
       url,
       fit: BoxFit.fill,
       color: color,

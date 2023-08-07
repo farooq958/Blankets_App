@@ -29,11 +29,12 @@ class Styles {
   // }
 
   static TextStyle circularStdBold(BuildContext context,
-      {double? fontSize, Color? color}) {
+      {double? fontSize, Color? color,FontWeight? fontWeight}) {
     return TextStyle(
       fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
       color: color ?? AppColors.blackColor,
       fontFamily: "circularStd Bold",
+      fontWeight: fontWeight?? FontWeight.normal
     );
   }
 

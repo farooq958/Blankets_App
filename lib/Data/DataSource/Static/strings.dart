@@ -9,4 +9,11 @@ class AppStrings{
   static const String confirmPassword = 'Confirm Password';
   static const String createNewPassword = 'Create new password';
   static const String passwordChangeSuccessFull = 'Password Change Successfully';
+
+
+  ///home Screen Strings
+  static const String accountBalance = 'Account Balance';
+  static const String category = 'Categories';
+  static const String newArrival = 'New arrivals';
+
 }

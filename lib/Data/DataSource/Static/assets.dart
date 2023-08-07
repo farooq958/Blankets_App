@@ -19,5 +19,7 @@ static const String productIcon='assets/images/productIcon.svg';
 static const String cartIcon='assets/images/cartIcon.svg';
 static const String profileIcon='assets/images/profile.svg';
 
+static const String babyImage='assets/images/babyImage.png';
+
 
 }

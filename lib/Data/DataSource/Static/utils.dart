@@ -1,5 +1,6 @@
 
 import 'package:hbk/Data/DataSource/Static/assets.dart';
+import 'package:hbk/Domain/Models/HomeScreen/category_model.dart';
 
 class Utils {
  static List<String> textList = [
@@ -23,6 +24,14 @@ static List<String> imageList = [
    // Add more images...
  ];
 
+static List<CategoryProduct> categoryDummyProduct=[
 
+  CategoryProduct(productId: "1",productImage: "assets/images/dummy.png",productName: "General Product"),
+  CategoryProduct(productId: "2",productImage: "assets/images/dummy2.png",productName: "Baby Blanket"),
+  CategoryProduct(productId: "3",productImage: "assets/images/dummy3.png",productName: "Flannel Blanket"),
+  CategoryProduct(productId: "4",productImage: "assets/images/dummy2.png",productName: "Baby Blanket"),
+  CategoryProduct(productId: "5",productImage: "assets/images/dummy.png",productName: "General Product")
+
+];
 
 }

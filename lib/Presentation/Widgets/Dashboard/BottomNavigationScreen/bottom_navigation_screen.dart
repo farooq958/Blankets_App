@@ -5,6 +5,7 @@ import 'package:hbk/Data/DataSource/Static/assets.dart';
 import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Static/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
+import 'package:hbk/Presentation/Common/custom_app_bar.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Controller/BottomNavigationNotifier/bottom_navigation_notifier.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/cart_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
@@ -26,6 +27,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
       key: scaffoldKey,
+      appBar: CustomAppBar(onBackTap: (){
+        scaffoldKey.currentState!.openDrawer();
+
+      },),
       drawer: const Drawer(),
 body: SizedBox(
   height: 1.sh,
@@ -39,7 +44,7 @@ onPageChanged: (x)
 
     },
     children:  [
-HomeScreen(scaffoldKey),
+HomeScreen(),
       const DashboardBottom(),
       const ProductScreen(),
       const CartScreen(),

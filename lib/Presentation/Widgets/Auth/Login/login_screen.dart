@@ -21,61 +21,59 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-        decoration: const BoxDecoration(color: AppColors.whiteColor),
-        child: Center(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomSizedBox.height(100.h),
-              const AssetImageWidget(
-                url: 'assets/images/applogo.png',
-                height: 130,
-                width: 130,
-                color: AppColors.primaryColor,
+              const Center(
+                child: AssetImageWidget(
+                  url: 'assets/images/applogo.png',
+                  height: 130,
+                  width: 130,
+                  color: AppColors.primaryColor,
+                ),
               ),
               CustomSizedBox.height(20.h),
               AppText(AppStrings.login,
-                  style: Styles.circularStdBold(context, fontSize: 20.sp)),
+                  style: Styles.circularStdBold(context, fontSize: 16.sp)),
               CustomSizedBox.height(20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: CustomTextFieldWithOnTap(
-                  controller: TextEditingController(),
-                  hintText: 'Card Code',
-                  textInputType: TextInputType.number,
-                  titleTextColor: Colors.black,
-                  prefixIcon: const Icon(Icons.email),
-                ),
+              CustomTextFieldWithOnTap(
+                controller: TextEditingController(),
+                hintText: 'Card Code',
+                textInputType: TextInputType.number,
+                titleTextColor: Colors.black,
+                prefixIcon: const Icon(Icons.email),
+                isShadowRequired: true,
+                isBorderRequired: false,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: CustomTextFieldWithOnTap(
-                  controller: TextEditingController(),
-                  hintText: 'Password',
-                  textInputType: TextInputType.visiblePassword,
-                  titleTextColor: Colors.black,
-                  prefixIcon: const Icon(Icons.lock),
-                  obscureText: true,
-                  suffixIcon: const Icon(Icons.remove_red_eye) ,
-                ),
+              CustomTextFieldWithOnTap(
+                controller: TextEditingController(),
+                hintText: 'Password',
+                textInputType: TextInputType.visiblePassword,
+                titleTextColor: Colors.black,
+                prefixIcon: const Icon(Icons.lock),
+                obscureText: true,
+                suffixIcon: const Icon(Icons.remove_red_eye),
+                isShadowRequired: true,
+                isBorderRequired: false,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: CustomButton(
-                      onTap: () {
-                        Navigate.to(context, const ResetPasswordScreen());
-                      },
-                      text: 'Forgot password?',
-                      isBorder: false,
-                      borderColor: Colors.transparent,
-                      bgColor: Colors.transparent,
-                      textColor: AppColors.primaryColor,
-                    ),
+                  CustomButton(
+                    onTap: () {
+                      Navigate.to(context, const ResetPasswordScreen());
+                    },
+                    text: 'Forgot password?',
+                    isBorder: false,
+                    borderColor: Colors.transparent,
+                    bgColor: Colors.transparent,
+                    textColor: AppColors.primaryColor,
                   ),
                 ],
               ),
@@ -84,8 +82,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   CustomButton(onTap: () {}, text: 'Login'),
                   CustomSizedBox.height(10.h),
-                  CustomButton(onTap: () {},
-                    text: 'Login as guest',bgColor: Colors.transparent,borderColor: Colors.transparent,textColor: AppColors.primaryColor,)
+                  CustomButton(
+                    onTap: () {},
+                    text: 'Login as guest',
+                    bgColor: Colors.transparent,
+                    borderColor: Colors.transparent,
+                    textColor: AppColors.primaryColor,
+                  )
                 ],
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/NavigationService/navigation.dart';
+import 'package:hbk/Data/DataSource/Static/assets.dart';
 import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Static/sized_box.dart';
 import 'package:hbk/Data/DataSource/Static/text_styles.dart';
@@ -30,9 +31,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleIconButton(icon: Icons.arrow_back, onPressed: () {
-                    Navigator.of(context).pop();
-                  }),
+                  CircleIconButton(
+                      icon: Icons.arrow_back,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
                   CustomSizedBox.height(80.h),
                   Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
@@ -48,21 +51,34 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       ),
                       CustomSizedBox.height(16.h),
                       AppText('Can\'t Sign In',
-                          style: Styles.circularStdBold(context, fontSize: 25.sp)),
+                          style:
+                              Styles.circularStdBold(context, fontSize: 25.sp)),
                       CustomSizedBox.height(8.h),
                       AppText('Enter your email to reset password',
                           style: Styles.circularStdMedium(context)),
                       CustomSizedBox.height(8.h),
                       CustomTextFieldWithOnTap(
-                          controller: TextEditingController(),
-                          hintText: 'Email',
-                          textInputType: TextInputType.emailAddress),
+                        controller: TextEditingController(),
+                        hintText: 'example@gmail.com',
+hintTextColor: AppColors.primaryColor,
+                        textInputType: TextInputType.emailAddress,
+                        isBorderRequired: false,
+                        isShadowRequired: true,
+                        prefixIcon: const AssetImageWidget(
+                          url: Assets.emailIcon,
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
                       // Add a spacer to push the button to the bottom
                       CustomSizedBox.height(150.h),
-                      CustomButton(onTap: () {
-                        // Navigate.to(context, const VerificationScreen());
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const VerificationScreen()));
-                      }, text: 'Next'),
+                      CustomButton(
+                          onTap: () {
+                            // Navigate.to(context, const VerificationScreen());
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const VerificationScreen()));
+                          },
+                          text: 'Next'),
                     ],
                   ),
                 ],
@@ -74,7 +90,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 }
-
 
 class CircleIconButton extends StatelessWidget {
   final IconData icon;

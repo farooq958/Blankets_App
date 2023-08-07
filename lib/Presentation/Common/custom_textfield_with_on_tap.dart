@@ -27,6 +27,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
   final GestureTapCallback? onTap;
   final bool? readOnly;
   final FocusNode? focusNode;
+  final Color? hintTextColor;
 
  final EdgeInsets? contentPadding;
 
@@ -52,6 +53,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
     this.contentPadding,
     this.onTap, this.readOnly,
     this.focusNode,
+    this.hintTextColor
   }) : super(key: key);
 
   final double borderRadius = 12;
@@ -83,8 +85,8 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
               : Container(),
           Container(
             decoration: BoxDecoration(
-             // boxShadow: isShadowRequired! ? [AppShadow.normal()] : [],
-              borderRadius: BorderRadius.circular(50)
+             boxShadow: isShadowRequired! ? [AppShadow.normal()] : [],
+              // borderRadius: BorderRadius.circular(),
             ),
             child: TextFormField(
               onTap: onTap,
@@ -134,7 +136,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                     : null,
                 hintStyle: Styles.circularStdRegular(
                   context,
-                  color: AppColors.greyColor,
+                  color:hintTextColor?? AppColors.greyColor,
                   fontSize: 14.sp,
                 ),
                 ///changess

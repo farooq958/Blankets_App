@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Application/NavigationService/navigation.dart';
 import 'package:hbk/Data/DataSource/Static/assets.dart';
 import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Static/strings.dart';
@@ -8,6 +9,7 @@ import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
+import 'package:hbk/Presentation/Widgets/Auth/create_new_password.dart';
 import 'package:pinput/pinput.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -18,22 +20,6 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-  final List<TextEditingController> _controllers =
-      List.generate(4, (_) => TextEditingController());
-  final List<FocusNode> _focusNodes = List.generate(4, (_) => FocusNode());
-  int _currentFieldIndex = 0;
-
-  @override
-  void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    for (var focusNode in _focusNodes) {
-      focusNode.dispose();
-    }
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,43 +53,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         style: Styles.circularStdMedium(context),
                         maxLine: 2,
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: List.generate(
-                      //     4,
-                      //         (index) => Container(
-                      //       padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      //       decoration: const BoxDecoration(),
-                      //       width: 77.w,
-                      //       height: 76.h,
-                      //       child: CustomTextFieldWithOnTap(
-                      //         controller: _controllers[index],
-                      //         focusNode: _focusNodes[index],
-                      //         hintText: '',
-                      //         textInputType: TextInputType.number,
-                      //         onChanged: (value) {
-                      //           if (value.isNotEmpty) {
-                      //             if (index < 3) {
-                      //               // Move focus to the next input field
-                      //               _focusNodes[index].unfocus();
-                      //               _focusNodes[index + 1].requestFocus();
-                      //             } else {
-                      //               // All input fields are filled, you can perform the code verification logic here
-                      //               // For example, you can concatenate the inputs and check against the actual code
-                      //               String verificationCode = _controllers
-                      //                   .map((controller) => controller.text)
-                      //                   .join();
-                      //               print('Verification code: $verificationCode');
-                      //             }
-                      //           }
-                      //         },
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      //
-                      //
-
                       Center(
                         child: Padding(
                           padding: EdgeInsets.only(top: 20.h),
@@ -118,7 +67,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   bottom: 0,
                   right: 0,
                   left: 0,
-                  child: CustomButton(onTap: () {}, text: "text")),
+                  child: CustomButton(onTap: () {
+                    Navigate.to(context, const CreateNewPasswordScreen());
+                  }, text: AppStrings.verify)),
             ],
           ),
         ),
@@ -156,14 +107,14 @@ class _PinputExampleState extends State<PinputExample> {
 
     final defaultPinTheme = PinTheme(
       width: 77.w,
-      height: 76.h ,
+      height: 60.h,
       textStyle: const TextStyle(
         fontSize: 22,
         color: Color.fromRGBO(30, 60, 87, 1),
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(19),
-        border: Border.all(color: borderColor),
+        border: Border.all(color: AppColors.blackColor),
       ),
     );
 
@@ -177,6 +128,7 @@ class _PinputExampleState extends State<PinputExample> {
             // Specify direction if desired
             textDirection: TextDirection.ltr,
             child: Pinput(
+
               controller: pinController,
               focusNode: focusNode,
               androidSmsAutofillMethod:
@@ -227,13 +179,6 @@ class _PinputExampleState extends State<PinputExample> {
               ),
             ),
           ),
-          // TextButton(
-          //   onPressed: () {
-          //     focusNode.unfocus();
-          //     formKey.currentState!.validate();
-          //   },
-          //   child: const Text('Validate'),
-          // ),
         ],
       ),
     );

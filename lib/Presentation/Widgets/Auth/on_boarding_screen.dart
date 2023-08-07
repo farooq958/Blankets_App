@@ -54,13 +54,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 AppText(Utils.textList[currentIndex],
                     style: Styles.circularStdBold(
                       context,
-                      fontSize: 24,
+                      fontSize: 18.sp,
                     )),
                 CustomSizedBox.height(8.0),
                 Text(
                  Utils.textSubtitles[currentIndex],
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16.0),
+                  style:  TextStyle(fontSize: 16.sp),
                 ),
 
                 CustomSizedBox.height(32.h),

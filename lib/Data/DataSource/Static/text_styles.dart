@@ -52,7 +52,7 @@ class Styles {
       fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
       color: color ?? AppColors.blackColor,
 
-      fontFamily: "circularStd Regular",
+      fontFamily: "CircularStd Regular",
       height: height,
       fontWeight: fontWeight
     );
@@ -63,7 +63,7 @@ class Styles {
     return TextStyle(
       fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
       color: color ?? AppColors.blackColor,
-      fontFamily: "circularStd Medium",
+      fontFamily: "CircularStd Medium",
     );
   }
 }

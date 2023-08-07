@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Data/DataSource/Static/assets.dart';
 import 'package:hbk/Data/DataSource/Static/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
@@ -16,12 +17,7 @@ Widget notificationTile(BuildContext context) {
       color: AppColors.whiteColor,
       child: ListTile(
         tileColor: AppColors.whiteColor,
-        leading: AssetImageWidget(
-          url: Assets.appLogo,
-          width: 60.w,
-          height: 100.h,
-          color: AppColors.primaryColor,
-        ),
+        leading: SvgPicture.asset(Assets.notificationImage),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

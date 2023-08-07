@@ -10,6 +10,7 @@ import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
 import 'package:hbk/Presentation/Widgets/Auth/reset_password_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -83,7 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomSizedBox.height(80.h),
               Column(
                 children: [
-                  CustomButton(onTap: () {}, text: 'Login'),
+                  CustomButton(onTap: () {
+                 //   Navigate.to(context, const BottomNavigationScreen());
+
+                  }, text: 'Login'),
                   CustomSizedBox.height(10.h),
                   CustomButton(
                     onTap: () {},

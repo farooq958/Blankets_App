@@ -8,4 +8,16 @@ static const String passwordIcon = "assets/images/Lock.png";
 
 static const String passwordSuccessFull = 'assets/images/passwordSuccessFull.png';
 
+
+///Dashboard
+static const String sideMenuIcon='assets/images/sideMenu.svg';
+static const String notificationIcon='assets/images/notificationIcon.svg';
+static const String searchIcon='assets/images/searchIcon.svg';
+static const String homeIcon='assets/images/homeIcon.svg';
+static const String dashboardBottomIcon='assets/images/dashboardBottomIcon.svg';
+static const String productIcon='assets/images/productIcon.svg';
+static const String cartIcon='assets/images/cartIcon.svg';
+static const String profileIcon='assets/images/profile.svg';
+
+
 }

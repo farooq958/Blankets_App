@@ -22,9 +22,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Timer.periodic(const Duration(seconds: 2), (timer) {
-      Navigate.toReplace(context, const OnboardingScreen());
-    });
+   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+     Future.delayed(const Duration(seconds: 2), () {
+       Navigate.toReplace(context, const OnboardingScreen());
+     });
+   });
     super.initState();
   }
   @override

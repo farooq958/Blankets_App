@@ -53,10 +53,11 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
     this.contentPadding,
     this.onTap, this.readOnly,
     this.focusNode,
-    this.hintTextColor
+    this.hintTextColor,
+    this.borderRadius,
   }) : super(key: key);
 
-  final double borderRadius = 12;
+  final double? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +147,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                 ).r,
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(
-                    borderRadius.r,
+                   borderRadius?? 12.r,
                   ),
                   borderSide: BorderSide(
                     color: isBorderRequired ? Colors.red : Colors.transparent,
@@ -155,7 +156,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                 errorBorder: isBorderRequired
                     ? OutlineInputBorder(
                   borderRadius: BorderRadius.circular(
-                    borderRadius.r,
+                    borderRadius ??12.r,
                   ),
                   borderSide: const BorderSide(
                     color: Colors.red,
@@ -165,14 +166,14 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                 border: isBorderRequired
                     ? OutlineInputBorder(
                   borderRadius: BorderRadius.circular(
-                    borderRadius.r,
+                    borderRadius??12.r,
                   ),
                 )
                     : outlineInputBorder(),
                 focusedBorder: isBorderRequired
                     ? OutlineInputBorder(
                   borderRadius: BorderRadius.circular(
-                    borderRadius.r,
+                    borderRadius??12.r,
                   ),
                   borderSide: const BorderSide(
                     color: AppColors.primaryColor,
@@ -182,7 +183,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                 enabledBorder: isBorderRequired
                     ? OutlineInputBorder(
                   borderRadius: BorderRadius.circular(
-                    borderRadius.r,
+                    borderRadius??12.r,
                   ),
                   borderSide: BorderSide(
                     color: AppColors.lightGreyColor,
@@ -199,7 +200,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
 
   outlineInputBorder() {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRadius.r),
+      borderRadius: BorderRadius.circular(borderRadius??12.r),
       borderSide: const BorderSide(color: Colors.transparent),
     );
   }

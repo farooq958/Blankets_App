@@ -6,6 +6,7 @@ import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Static/strings.dart';
 import 'package:hbk/Data/DataSource/Static/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
+import 'package:hbk/Presentation/Common/app_shadow.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
@@ -30,46 +31,42 @@ class _VerificationScreenState extends State<VerificationScreen> {
           height: 1.sh,
           child: Stack(
             children: [
-              Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: AssetImageWidget(
-                          url: Assets.appLogo,
-                          color: AppColors.primaryColor,
-                          height: 150.h,
-                          width: 150.w,
-                        ),
-                      ),
-                      AppText(
-                        AppStrings.almostThere,
-                        style: Styles.circularStdBold(context, fontSize: 24.sp),
-                      ),
-                      AppText(
-                        AppStrings.verificationCodeNote,
-                        style: Styles.circularStdMedium(context),
-                        maxLine: 2,
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 20.h),
-                          child: const PinputExample(),
-                        ),
-                      ),
-                    ],
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: AssetImageWidget(
+                      url: Assets.appLogo,
+                      color: AppColors.primaryColor,
+                      height: 150.h,
+                      width: 150.w,
+                    ),
                   ),
-                ),
+                  AppText(
+                    AppStrings.almostThere,
+                    style: Styles.circularStdBold(context, fontSize: 24.sp),
+                  ),
+                  AppText(
+                    AppStrings.verificationCodeNote,
+                    style: Styles.circularStdMedium(context),
+                    maxLine: 2,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.h),
+                    child: const PinputExample(),
+                  ),
+                ],
               ),
               Positioned(
-                  bottom: 0,
+                  bottom: 10.h,
                   right: 0,
                   left: 0,
-                  child: CustomButton(onTap: () {
-                    Navigate.to(context, const CreateNewPasswordScreen());
-                  }, text: AppStrings.verify)),
+                  child: CustomButton(
+                      onTap: () {
+                        Navigate.to(context, const CreateNewPasswordScreen());
+                      },
+                      text: AppStrings.verify)),
             ],
           ),
         ),
@@ -101,7 +98,7 @@ class _PinputExampleState extends State<PinputExample> {
 
   @override
   Widget build(BuildContext context) {
-    const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
+    const focusedBorderColor = AppColors.primaryColor;
     const fillColor = Color.fromRGBO(243, 246, 249, 0);
     const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
 
@@ -113,8 +110,9 @@ class _PinputExampleState extends State<PinputExample> {
         color: Color.fromRGBO(30, 60, 87, 1),
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(19),
-        border: Border.all(color: AppColors.blackColor),
+        borderRadius: BorderRadius.circular(20),
+         border: Border.all(color: AppColors.greyColor.withOpacity(0.2)),
+        boxShadow: const [BoxShadow(color: Colors.white,blurRadius: 4.0,offset: Offset(0, 2))]
       ),
     );
 
@@ -128,7 +126,6 @@ class _PinputExampleState extends State<PinputExample> {
             // Specify direction if desired
             textDirection: TextDirection.ltr,
             child: Pinput(
-
               controller: pinController,
               focusNode: focusNode,
               androidSmsAutofillMethod:

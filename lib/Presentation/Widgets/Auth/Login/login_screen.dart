@@ -51,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 prefixIcon: const Icon(Icons.email),
                 isShadowRequired: true,
                 isBorderRequired: false,
+                borderRadius: 30.r,
               ),
               CustomTextFieldWithOnTap(
                 controller: TextEditingController(),
@@ -59,9 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 titleTextColor: Colors.black,
                 prefixIcon: const Icon(Icons.lock),
                 obscureText: true,
+                borderRadius: 30.r,
                 suffixIcon: const Icon(Icons.remove_red_eye),
                 isShadowRequired: true,
                 isBorderRequired: false,
+
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -78,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              CustomSizedBox.height(100.h),
+              CustomSizedBox.height(80.h),
               Column(
                 children: [
                   CustomButton(onTap: () {

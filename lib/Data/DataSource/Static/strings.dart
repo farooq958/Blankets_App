@@ -16,4 +16,7 @@ class AppStrings{
   static const String category = 'Categories';
   static const String newArrival = 'New arrivals';
 
+  static const String notifications = 'Notifications';
+
+  static const String noInternetConnection = 'No internet connection';
 }

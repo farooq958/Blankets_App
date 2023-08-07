@@ -156,7 +156,7 @@ class _PinputExampleState extends State<PinputExample> {
 
     final defaultPinTheme = PinTheme(
       width: 77.w,
-      height: 76.h,
+      height: 76.h ,
       textStyle: const TextStyle(
         fontSize: 22,
         color: Color.fromRGBO(30, 60, 87, 1),

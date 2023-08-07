@@ -26,6 +26,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
   final ValueChanged? onChanged;
   final GestureTapCallback? onTap;
   final bool? readOnly;
+  final FocusNode? focusNode;
 
  final EdgeInsets? contentPadding;
 
@@ -50,6 +51,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
     this.onChanged,
     this.contentPadding,
     this.onTap, this.readOnly,
+    this.focusNode,
   }) : super(key: key);
 
   final double borderRadius = 12;
@@ -87,6 +89,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
             child: TextFormField(
               onTap: onTap,
               readOnly: readOnly??false,
+              focusNode: focusNode,
 
               //autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: isValid

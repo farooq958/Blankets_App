@@ -84,7 +84,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   CustomButton(onTap: () {}, text: 'Login'),
                   CustomSizedBox.height(10.h),
-                  CustomButton(onTap: () {}, text: 'Login as guest',bgColor: Colors.transparent,borderColor: Colors.transparent,textColor: AppColors.primaryColor,)
+                  CustomButton(onTap: () {},
+                    text: 'Login as guest',bgColor: Colors.transparent,borderColor: Colors.transparent,textColor: AppColors.primaryColor,)
                 ],
               ),
             ],

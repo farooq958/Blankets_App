@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Data/DataSource/Static/assets.dart';
 import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Static/sized_box.dart';
 import 'package:hbk/Data/DataSource/Static/strings.dart';
 import 'package:hbk/Data/DataSource/Static/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
@@ -29,8 +30,9 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
           padding: EdgeInsets.all(20.r),
           child: Stack(
             children: [
-              Center(
-                child: SingleChildScrollView(
+              SingleChildScrollView(
+                child: Padding(
+                  padding:  EdgeInsets.only(top: 80.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -47,16 +49,19 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                         AppStrings.createNewAccount,
                         style: Styles.circularStdBold(context, fontSize: 24.sp),
                       ),
+                      CustomSizedBox.height(5.h),
                       AppText(
                         AppStrings.setNewPasswordNote,
                         style: Styles.circularStdMedium(context),
                         maxLine: 2,
                       ),
+                      CustomSizedBox.height(10.h),
                       CustomTextFieldWithOnTap(
                         controller: TextEditingController(),
                         hintText: AppStrings.newPassword,
                         textInputType: TextInputType.visiblePassword,
                         titleTextColor: Colors.black,
+                        borderRadius: 30.r,
                         prefixIcon: const Icon(Icons.lock),
                         obscureText: true,
                         suffixIcon: IconButton(
@@ -70,6 +75,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                         hintText: AppStrings.confirmPassword,
                         textInputType: TextInputType.visiblePassword,
                         titleTextColor: Colors.black,
+                        borderRadius: 30.r,
                         prefixIcon: const Icon(Icons.lock),
                         obscureText: true,
                         suffixIcon: IconButton(
@@ -83,7 +89,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 ),
               ),
               Positioned(
-                  bottom: 0,
+                  bottom: 10.h,
                   right: 0,
                   left: 0,
                   child: CustomButton(onTap: () {

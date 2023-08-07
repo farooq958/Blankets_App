@@ -19,6 +19,9 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentIndex = 0;
+  final List<String> onboardingImageList = Utils.imageList;
+  final List<String> onboardingTextList = Utils.textList;
+  final List<String> onboardingSubtitlesList = Utils.textSubtitles;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 _goToLoginScreen();
               },
               child:
-                  AppText(style: Styles.circularStdRegular(context), 'Skip')),
+                  AppText(style: Styles.circularStdRegular(context,color: AppColors.greyColor), 'Skip')),
         ],
       ),
       body: Padding(
@@ -46,8 +49,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 AssetImageWidget(
                   url: Utils.imageList[currentIndex],
-                  width: 200.w,
-                  height: 180.h,
+                  width: 300.w,
+                  height: 230.h,
                 ),
 
                 CustomSizedBox.height(16.h),
@@ -63,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   style:  TextStyle(fontSize: 16.sp),
                 ),
 
-                CustomSizedBox.height(32.h),
+                CustomSizedBox.height(20.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
@@ -72,7 +75,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
 
-                CustomSizedBox.height(32.h),
+                // CustomSizedBox.height(.h),
                 Padding(
                   padding: EdgeInsets.only(top: 80.h),
                   child: CustomButton(
@@ -109,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
-        width:  isActive ? 30.w : 15.w,
+        width: isActive ? 30.w : 15.w,
         height: 5.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

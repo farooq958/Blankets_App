@@ -9,4 +9,5 @@ class AppStrings{
   static const String confirmPassword = 'Confirm Password';
   static const String createNewPassword = 'Create new password';
   static const String passwordChangeSuccessFull = 'Password Change Successfully';
+  static const String notifications = 'Notifications';
 }

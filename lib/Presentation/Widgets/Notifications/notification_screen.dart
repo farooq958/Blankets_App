@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Application/NavigationService/navigation.dart';
 import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Static/strings.dart';
 import 'package:hbk/Data/DataSource/Static/text_styles.dart';
@@ -14,14 +15,16 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      appBar: AppBar(
+      appBar: AppBar(automaticallyImplyLeading: false,
         title: AppText(
             style: Styles.circularStdBold(context, fontSize: 24.sp),
             AppStrings.notifications),
         actions: [
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: CircleIconButton(icon: Icons.close, onPressed: () {}))
+              child: CircleIconButton(icon: Icons.close, onPressed: () {
+                Navigator.pop(context);
+              }))
         ],
         centerTitle: true,
         backgroundColor: Colors.transparent,

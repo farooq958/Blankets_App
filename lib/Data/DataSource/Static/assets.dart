@@ -10,6 +10,12 @@ static const String passwordSuccessFull = 'assets/images/passwordSuccessFull.png
 
 static const String noInternetConnection = 'assets/images/no_internet_connection.svg';
 
+static const String cart = "assets/images/cart.svg";
+
+static const String shoppingCart = 'assets/images/Buy.png';
+
+static const String borjanLogo = 'assets/images/borjanLogo.png';
+
 
 ///Dashboard
 static const String sideMenuIcon='assets/images/sideMenu.svg';

@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
      Future.delayed(const Duration(seconds: 2), () {
-       Navigate.toReplace(context, const OnboardingScreen());
+       Navigate.toReplace(context,  OnboardingScreen());
      });
    });
     super.initState();

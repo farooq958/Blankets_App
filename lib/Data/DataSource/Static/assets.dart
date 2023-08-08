@@ -22,6 +22,18 @@ static const String cartIcon='assets/images/cartIcon.svg';
 static const String profileIcon='assets/images/profile.svg';
 
 static const String babyImage='assets/images/babyImage.png';
+static const String bagIcon='assets/images/bagIcon.svg';
+static const String statementIcon='assets/images/statementIcon.svg';
+static const String priceIcon='assets/images/priceIcon.svg';
+static const String rewardIcon='assets/images/rewardIcon.svg';
+static const String invoiceIcon='assets/images/invoice.svg';
+static const String salePolicyIcon='assets/images/salePolicyIcon.svg';
+static const String feedbackIcon='assets/images/feedbackIcon.svg';
+static const String faqIcon='assets/images/faqIcon.svg';
+static const String contactUsIcon='assets/images/contactUsIcon.svg';
+static const String customerSurveyIcon='assets/images/customerSurveyIcon.svg';
+static const String aboutUsIcon='assets/images/bagIcon.svg';
+static const String logoutIcon='assets/images/logOutIcon.svg';
 
 ///notification
 static const String notificationImage = 'assets/images/notification_image.svg';

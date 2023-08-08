@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hbk/Application/NavigationService/navigation.dart';
 import 'package:hbk/Data/DataSource/Static/assets.dart';
 import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Static/sized_box.dart';
 import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Data/DataSource/Static/utils.dart';
+import 'package:hbk/Presentation/Common/app_drawer.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_app_bar.dart';
+import 'package:hbk/Presentation/Common/image_widgets.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Component/drawer_row.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Controller/BottomNavigationNotifier/bottom_navigation_notifier.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/cart_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
@@ -30,8 +36,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       appBar: CustomAppBar(onBackTap: (){
         scaffoldKey.currentState!.openDrawer();
 
-      },),
-      drawer: const Drawer(),
+      }),
+      drawer:  const AppDrawer(),
 body: SizedBox(
   height: 1.sh,
   width: 1.sw,
@@ -43,12 +49,12 @@ onPageChanged: (x)
       BottomNotifier.bottomNavigationNotifier.value=x;
 
     },
-    children:  [
-HomeScreen(),
-      const DashboardBottom(),
-      const ProductScreen(),
-      const CartScreen(),
-      const ProfileScreen()
+    children:  const [
+      HomeScreen(),
+      DashboardBottom(),
+      ProductScreen(),
+      CartScreen(),
+      ProfileScreen()
 
 
     ],

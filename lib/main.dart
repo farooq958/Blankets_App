@@ -2,6 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
+import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
+import 'package:hbk/Presentation/Widgets/Auth/splash_screen.dart';
+import 'package:hbk/Presentation/Widgets/Notifications/notification_screen.dart';
+
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +31,8 @@ class MyApp extends StatelessWidget {
               // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               // useMaterial3: true,
             ),
-            home: const BottomNavigationScreen(),
+            //home: const LoginScreen(),
+            home: const SplashScreen(),
             debugShowCheckedModeBanner: false,
           );
         });

@@ -4,9 +4,11 @@ import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Static/sized_box.dart';
 import 'package:hbk/Data/DataSource/Static/strings.dart';
 import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Data/DataSource/Static/utils.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_app_bar.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/category_product.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/new_arrival_product_widget.dart';
 
 import 'Components/home_carousel.dart';
 
@@ -61,15 +63,48 @@ class HomeScreen extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: AppText(AppStrings.category, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 20.sp),)),
               CustomSizedBox.height(20),
-const CategoryProduct(),
+             const CategoryProduct(),
 
               ///New Arrival
 
               Align(
                   alignment: Alignment.centerLeft,
                   child: AppText(AppStrings.newArrival, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 20.sp),)),
-///to be continued ..
-              CustomSizedBox.height(200),
+///to be continued ...
+               SizedBox(
+                   width: 1.sw,
+                   height: 250.h,
+
+                   child: ListView.separated(
+                     scrollDirection: Axis.horizontal,
+                     itemBuilder: (context,index) {
+                       return NewArrivalProduct(dummyProduct: Utils.dummyProduct[index],onAddToCardTap: () { print("tap $index"); },);
+                     }, separatorBuilder: (context,index){
+
+                     return CustomSizedBox.width(15);
+
+                   }, itemCount: Utils.dummyProduct.length,
+                   )),
+
+              ///Most Sold Product replace the product dummy list with actual list of most sold product
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: AppText(AppStrings.mostSoldProduct, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 20.sp),)),
+              SizedBox(
+                  width: 1.sw,
+                  height: 250.h,
+
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context,index) {
+                      return NewArrivalProduct(dummyProduct: Utils.dummyProduct[index], onAddToCardTap: () { print("tap $index"); },);
+                    }, separatorBuilder: (context,index){
+
+                    return CustomSizedBox.width(15);
+
+                  }, itemCount: Utils.dummyProduct.length,
+                  )),
+              CustomSizedBox.height(5),
 
             ],),
           )

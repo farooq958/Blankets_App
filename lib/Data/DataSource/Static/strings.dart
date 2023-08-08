@@ -15,6 +15,7 @@ class AppStrings{
   static const String accountBalance = 'Account Balance';
   static const String category = 'Categories';
   static const String newArrival = 'New arrivals';
+  static const String mostSoldProduct='Most sold products';
 
   static const String notifications = 'Notifications';
 

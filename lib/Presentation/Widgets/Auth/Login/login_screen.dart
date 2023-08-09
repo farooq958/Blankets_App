@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Application/NavigationService/navigation.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/sized_box.dart';
-import 'package:hbk/Data/DataSource/Static/strings.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
+import 'package:hbk/Data/DataSource/Resources/strings.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
@@ -30,12 +30,12 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomSizedBox.height(100.h),
-              const Center(
+              CustomSizedBox.height(80.h),
+               Center(
                 child: AssetImageWidget(
                   url: 'assets/images/applogo.png',
-                  height: 130,
-                  width: 130,
+                  height: 150.h,
+                  width: 150.w,
                   color: AppColors.primaryColor,
                 ),
               ),

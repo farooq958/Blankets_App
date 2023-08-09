@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 
 class CircleIconButton extends StatelessWidget {
   final IconData icon;

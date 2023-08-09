@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Application/NavigationService/navigation.dart';
-import 'package:hbk/Data/DataSource/Static/assets.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/sized_box.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/assets.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/circle_icon_button.dart';
@@ -23,11 +22,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(top: 30.h),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,16 +34,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     }),
-                CustomSizedBox.height(80.h),
+                CustomSizedBox.height(40.h),
                 Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Center(
+                     Center(
                       child: AssetImageWidget(
                         url: 'assets/images/applogo.png',
-                        height: 150,
-                        width: 150,
+                        height: 150.h,
+                        width: 150.w,
                         color: AppColors.primaryColor,
                       ),
                     ),
@@ -71,7 +69,7 @@ hintTextColor: AppColors.primaryColor,
                       ),
                     ),
                     // Add a spacer to push the button to the bottom
-                    CustomSizedBox.height(150.h),
+                    CustomSizedBox.height(180.h),
                     CustomButton(
                         onTap: () {
                           // Navigate.to(context, const VerificationScreen());

@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/sized_box.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
-import 'package:hbk/Data/DataSource/Static/utils.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/utils.dart';
+import 'package:hbk/Domain/Models/Cart/cart_item.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/circle_icon_button.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
 
 class CartItemTile extends StatefulWidget {
-  final String? imageUrl;
-  final String? title;
-  final int? pcsAvailable;
-  final double? price;
-  int? totalPrice;
-  int? quantity;
+  final CartItem? cartItem;
+  final VoidCallback? onRemove;
 
-  CartItemTile(
-      {Key? key,
-      this.imageUrl,
-      this.title,
-      this.pcsAvailable,
-      this.price,
-      this.totalPrice,this.quantity})
+  const CartItemTile({Key? key, required this.cartItem, this.onRemove})
       : super(key: key);
 
   @override
@@ -37,8 +28,7 @@ class _CartItemTileState extends State<CartItemTile> {
       child: Card(
         elevation: 4.0,
         child: Padding(
-          padding:
-              EdgeInsets.only(top: 5.h, left: 10.w, bottom: 10.h),
+          padding: EdgeInsets.only(top: 5.h, left: 10.w, bottom: 10.h),
           child: Column(
             children: [
               Row(
@@ -46,13 +36,12 @@ class _CartItemTileState extends State<CartItemTile> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   AssetImageWidget(
-                    url: widget.imageUrl!,
-                    color: widget.imageUrl!.contains('appLogo.png')
+                    url: widget.cartItem!.image!,
+                    color: widget.cartItem!.image!.contains('appLogo.png')
                         ? AppColors.primaryColor
                         : null,
                     width: 80.w,
                     height: 80.h,
-
                   ),
                   CustomSizedBox.width(5.w),
                   SizedBox(
@@ -61,12 +50,12 @@ class _CartItemTileState extends State<CartItemTile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
-                          widget.title!,
+                          widget.cartItem!.title!,
                           style: Styles.circularStdMedium(context),
                           maxLine: 3,
                         ),
                         AppText(
-                          'Pcs/Ctn : ${widget.pcsAvailable}',
+                          'Pcs/Ctn : ${widget.cartItem!.pcsAvailable}',
                           style: Styles.circularStdMedium(context),
                           maxLine: 2,
                         ),
@@ -79,7 +68,7 @@ class _CartItemTileState extends State<CartItemTile> {
                                   style: Styles.circularStdBold(context,
                                       fontSize: 16.sp)),
                               TextSpan(
-                                  text: '${widget.price}',
+                                  text: '${widget.cartItem!.price}',
                                   style: Styles.circularStdBold(context,
                                       fontWeight: FontWeight.w900,
                                       fontSize: 20,
@@ -91,14 +80,13 @@ class _CartItemTileState extends State<CartItemTile> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(bottom: 10.h,left: 20.w),
+                    padding: EdgeInsets.only(bottom: 10.h, left: 20.w),
                     child: CircleIconButton(
                       icon: Icons.close,
                       onPressed: () {
-                        Utils.cartItems.removeAt(0);
-                        setState(() {
-
-                        });
+                        if(widget.onRemove != null){
+                          widget.onRemove!();
+                        }
                       },
                       width: 30.w,
                       height: 30.h,
@@ -120,23 +108,24 @@ class _CartItemTileState extends State<CartItemTile> {
                         style:
                             Styles.circularStdBold(context, fontSize: 16.sp)),
                     TextSpan(
-                        text: '${widget.totalPrice}',
+                        text: '${widget.cartItem!.price}',
                         style: Styles.circularStdBold(context,
                             fontWeight: FontWeight.w900, fontSize: 20.sp)),
                   ])),
                   Padding(
-                    padding:  EdgeInsets.only(right: 10.w),
+                    padding: EdgeInsets.only(right: 10.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CircleIconButton(
                           icon: Icons.remove,
-                          onPressed: () {},
+                          onPressed: (){},
                           width: 25.w,
                           height: 25.h,
                         ),
                         CustomSizedBox.width(10.w),
-                        AppText('2', style: Styles.circularStdMedium(context)),
+                        AppText(widget.cartItem!.quantity.toString(),
+                            style: Styles.circularStdMedium(context)),
                         CustomSizedBox.width(10.w),
                         CircleIconButton(
                           icon: Icons.add,

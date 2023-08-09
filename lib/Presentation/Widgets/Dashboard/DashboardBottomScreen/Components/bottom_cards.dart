@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 
 class BottomCards extends StatelessWidget {

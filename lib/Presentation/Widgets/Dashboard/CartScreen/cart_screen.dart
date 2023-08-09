@@ -1,9 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
+import 'package:hbk/Data/DataSource/Resources/strings.dart';
 
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
-import 'package:hbk/Data/DataSource/Static/utils.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/utils.dart';
+import 'package:hbk/Domain/Models/Cart/cart_item.dart';
+import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Checkout/check_out_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/cart_item_tile.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/empty_cart_screen.dart';
 
@@ -44,23 +52,61 @@ class _CartScreenState extends State<CartScreen> {
             ],
           ),
           Utils.cartItems.isNotEmpty
-              ? Expanded(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return CartItemTile(
-                          imageUrl: Utils.cartItems[index].image,
-                          title: Utils.cartItems[index].title,
-                          pcsAvailable: Utils.cartItems[index].pcsAvailable,
-                          price: Utils.cartItems[index].price,
-                          quantity: Utils.cartItems[index].quantity,
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          height: 10.h,
-                        );
-                      },
-                      itemCount: Utils.cartItems.length),
+              ? Column(
+                  children: [
+                    SizedBox(
+                      width: 1.sw,
+                      height: 1.sh / 2,
+                      child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            final cartItem = CartItem(
+                                Random().nextInt(100).toString(),
+                                Utils.cartItems[index].image,
+                                Utils.cartItems[index].title,
+                                Utils.cartItems[index].pcsAvailable,
+                                Utils.cartItems[index].price,
+                                Utils.cartItems[index].quantity);
+                            return CartItemTile(
+                              cartItem: cartItem,
+                              onRemove: () {
+                                Utils.cartItems.removeAt(index);
+                                setState(() {});
+                              },
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(
+                              height: 10.h,
+                            );
+                          },
+                          itemCount: Utils.cartItems.length),
+                    ),
+                    CustomSizedBox.height(30.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppText('Total ctn',
+                            style: Styles.circularStdMedium(context)),
+                        AppText('07', style: Styles.circularStdMedium(context)),
+                      ],
+                    ),
+                    CustomSizedBox.height(10.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppText('Total amount',
+                            style: Styles.circularStdBold(context,
+                                fontSize: 18.sp)),
+                        AppText('50,790',
+                            style: Styles.circularStdBold(context,
+                                fontSize: 18.sp)),
+                      ],
+                    ),
+                    CustomSizedBox.height(10.h),
+                    CustomButton(onTap: () {
+                      Navigate.to(context,  CheckOutScreen(totalCtn: '07',totalPayment: Utils.cartItems[0].price!,));
+                    }, text: AppStrings.checkOut),
+                  ],
                 )
               : EmptyCartScreen(
                   pageController: widget.pageController,

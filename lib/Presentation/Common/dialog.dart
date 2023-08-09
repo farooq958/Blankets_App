@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 
 import 'Dialogs/successfull_dialog.dart';
 
@@ -71,6 +71,30 @@ class CustomDialog {
             borderRadius: BorderRadius.circular(10).r,
           ),
           child: SuccessFulDialog.show(
+              context: context, title: title, message: message),
+        );
+      },
+    );
+  }
+
+  static Future<void> successConfirmDialog(BuildContext context,
+      {required String? title,
+        required String? message,
+
+        bool? barrierDismissible}) async {
+    return showDialog<void>(
+      context: context,
+      barrierColor: Colors.black12,
+      barrierDismissible: barrierDismissible ?? true,
+      builder: (BuildContext context) {
+        return Dialog(
+          insetPadding: const EdgeInsets.all(15).r,
+          elevation: 0.0,
+          backgroundColor: AppColors.whiteColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10).r,
+          ),
+          child: SuccessFulDialog.showConfirmDialog(
               context: context, title: title, message: message),
         );
       },

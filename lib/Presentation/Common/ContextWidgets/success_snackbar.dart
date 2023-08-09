@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 
 SnackBar successSnackBar({required String? text,required BuildContext context ,required Color? bgColor, TextStyle? textStyle})
 {

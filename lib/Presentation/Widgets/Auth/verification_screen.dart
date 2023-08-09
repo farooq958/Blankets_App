@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Application/NavigationService/navigation.dart';
-import 'package:hbk/Data/DataSource/Static/assets.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/strings.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/DataSource/Resources/assets.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
+import 'package:hbk/Data/DataSource/Resources/strings.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_shadow.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
@@ -25,55 +26,59 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SizedBox(
-          width: 1.sw,
-          height: 1.sh,
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: AssetImageWidget(
-                      url: Assets.appLogo,
-                      color: AppColors.primaryColor,
-                      height: 150.h,
-                      width: 150.w,
-                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          
+          padding: const EdgeInsets.all(20.0),
+          child: SizedBox(
+            width: 1.sw,
+            height: 1.sh,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 100.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: AssetImageWidget(
+                          url: Assets.appLogo,
+                          color: AppColors.primaryColor,
+                          height: 150.h,
+                          width: 150.w,
+                        ),
+                      ),
+                      AppText(
+                        AppStrings.almostThere,
+                        style: Styles.circularStdBold(context, fontSize: 24.sp),
+                      ),
+                      AppText(
+                        AppStrings.verificationCodeNote,
+                        style: Styles.circularStdMedium(context),
+                        maxLine: 2,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20.h),
+                        child: const PinputExample(),
+                      ),
+                    ],
                   ),
-                  AppText(
-                    AppStrings.almostThere,
-                    style: Styles.circularStdBold(context, fontSize: 24.sp),
-                  ),
-                  AppText(
-                    AppStrings.verificationCodeNote,
-                    style: Styles.circularStdMedium(context),
-                    maxLine: 2,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20.h),
-                    child: const PinputExample(),
-                  ),
-                ],
-              ),
-              Positioned(
-                  bottom: 10.h,
-                  right: 0,
-                  left: 0,
-                  child: CustomButton(
-                      onTap: () {
-                        Navigate.to(context, const CreateNewPasswordScreen());
-                      },
-                      text: AppStrings.verify)),
-            ],
+                ),
+                Positioned(
+                    bottom: 40.h,
+                    right: 0,
+                    left: 0,
+                    child: CustomButton(
+                        onTap: () {
+                          Navigate.to(context, const CreateNewPasswordScreen());
+                        },
+                        text: AppStrings.verify)),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-

@@ -10,14 +10,28 @@ class AppStrings{
   static const String createNewPassword = 'Create new password';
   static const String passwordChangeSuccessFull = 'Password Change Successfully';
 
+  static const String orderConfirmation = 'Order Confirmation';
+
+
+
+
 
   ///home Screen Strings
   static const String accountBalance = 'Account Balance';
   static const String category = 'Categories';
   static const String newArrival = 'New arrivals';
   static const String mostSoldProduct='Most sold products';
-
+  static const String instructionNote = 'Instruction note';
   static const String notifications = 'Notifications';
 
+  static const String userName = 'User name';
+  static const String mobileNumber = 'Mobile number';
+  static const String address = 'Address';
+
   static const String noInternetConnection = 'No internet connection';
+
+  static const String placeOrder = 'Place Order';
+
+
+  static const String checkOut = 'Checkout';
 }

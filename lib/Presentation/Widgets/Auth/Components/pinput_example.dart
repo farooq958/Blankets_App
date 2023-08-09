@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:pinput/pinput.dart';
 
 /// This is the basic usage of Pinput
@@ -38,9 +38,14 @@ class _PinputExampleState extends State<PinputExample> {
         color: Color.fromRGBO(30, 60, 87, 1),
       ),
       decoration: BoxDecoration(
+        color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: AppColors.greyColor.withOpacity(0.2)),
-          boxShadow: const [BoxShadow(color: Colors.white,blurRadius: 4.0,offset: Offset(0, 2))]
+          boxShadow:  [BoxShadow(
+            color: Colors.grey[400]!,
+            offset: Offset(0.0, 1.0), //(x,y)
+            blurRadius: 6.0,
+          ),]
       ),
     );
 

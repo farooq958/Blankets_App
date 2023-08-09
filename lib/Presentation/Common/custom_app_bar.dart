@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hbk/Data/DataSource/Static/assets.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/assets.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Presentation/Common/app_buttons.dart';
+import 'package:hbk/Presentation/Common/circle_icon_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Controller/BottomNavigationNotifier/bottom_navigation_notifier.dart';
 
 import 'app_text.dart';
@@ -15,11 +17,15 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   bool isHome;
   bool? isShowNotificationButton;
   final VoidCallback? onBackTap;
+  final PageController? pageController;
 
-  CustomAppBar({key,
-    this.title,
-    this.isHome = false,
-    this.isShowNotificationButton , this.onBackTap})
+  CustomAppBar(
+      {key,
+      this.title,
+      this.isHome = false,
+      this.isShowNotificationButton,
+      this.onBackTap,
+      this.pageController})
       : preferredSize = const Size.fromHeight(65),
         super(key: key);
   @override
@@ -30,8 +36,6 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class CustomAppBarState extends State<CustomAppBar> {
-
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -40,41 +44,91 @@ class CustomAppBarState extends State<CustomAppBar> {
       backgroundColor: AppColors.whiteColor,
       automaticallyImplyLeading: false,
       centerTitle: true,
-      leading:  GestureDetector(
+      leading: GestureDetector(
         onTap: widget.onBackTap,
         behavior: HitTestBehavior.opaque,
-        child: Center(child: SvgPicture.asset(Assets.sideMenuIcon,width: 25.w,height: 25.h,fit: BoxFit.fitHeight,)),
+        child: Center(
+          child: Icon(
+            Icons.menu,
+            size: 25.r,
+          ),
+        ),
       ),
       title: ValueListenableBuilder(
-        builder: (context,state,child) {
+        builder: (context, state, child) {
           return Padding(
             padding: const EdgeInsets.only(top: 5).r,
             child: AppText(
-               state==1?"Customer dashboard": widget.title??"",
-              style: Styles.circularStdBold(
-                context,
-                fontSize: 19.sp,
-                fontWeight: FontWeight.w500
-              ),
+              state == 3
+                  ? "Cart"
+                  : state == 1
+                      ? "Customer dashboard"
+                      : widget.title ?? "",
+              style: Styles.circularStdBold(context,
+                  fontSize: 19.sp, fontWeight: FontWeight.w500),
             ),
           );
-        }, valueListenable: BottomNotifier.bottomNavigationNotifier,
+        },
+        valueListenable: BottomNotifier.bottomNavigationNotifier,
       ),
       actions: [
-        ValueListenableBuilder(
-          builder: (context,state,child) {
-            return Row(
-              children: <Widget>[
-                widget.isShowNotificationButton!=null || state>0? const SizedBox(height: 0,width: 0,): SvgPicture.asset(Assets.searchIcon,height: 20.h,width: 20.w,),
-                SizedBox(width: 10.sp,),
-                widget.isShowNotificationButton!=null || state >0? const SizedBox(height: 0,width: 0,):    SvgPicture.asset(Assets.notificationIcon,height: 20.h,width: 20.w,),
-                SizedBox(width: 20.sp,),
-              ],
-            );
-          }, valueListenable: BottomNotifier.bottomNavigationNotifier,
+        widget.isHome
+            ? SvgPicture.asset(
+                Assets.searchIcon,
+                height: 20.h,
+                width: 20.w,
+              )
+            : const SizedBox(),
+        SizedBox(
+          width: 10.sp,
         ),
-
-
+        widget.isHome
+            ? SvgPicture.asset(
+                Assets.notificationIcon,
+                height: 20.h,
+                width: 20.w,
+              )
+            : const SizedBox(),
+        SizedBox(
+          width: 20.sp,
+        ),
+        ValueListenableBuilder(
+            valueListenable: BottomNotifier.bottomNavigationNotifier,
+            builder: (context, state, child) {
+              return state == 3
+                  ? GestureDetector(
+                      onTap: () {
+                        widget.pageController!.jumpToPage(0);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.circular(20)),
+                          width: 120.w,
+                          height: 40.h,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.add,
+                                color: AppColors.whiteColor,
+                              ),
+                              AppText(
+                                'Add items',
+                                style: Styles.circularStdMedium(context,
+                                    color: AppColors.whiteColor),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox();
+            })
       ],
     );
   }

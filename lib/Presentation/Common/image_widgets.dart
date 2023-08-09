@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 
 class AssetImageWidget extends StatelessWidget {
   final String url;

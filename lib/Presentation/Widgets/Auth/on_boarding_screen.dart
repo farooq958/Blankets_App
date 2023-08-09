@@ -159,16 +159,20 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Application/NavigationService/navigation.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
+import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
@@ -178,20 +182,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentPageIndex = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(systemNavigationBarColor: AppColors.whiteColor));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-         currentPageIndex==2?const SizedBox(): TextButton(
-            onPressed: () {
-              introKey.currentState?.animateScroll(2);
-            },
-            child: AppText(
-              'Skip',
-              style:
-                  Styles.circularStdMedium(context, color: AppColors.greyColor),
-            ),
-          ),
+          currentPageIndex == 2
+              ? const SizedBox()
+              : TextButton(
+                  onPressed: () {
+                    introKey.currentState?.animateScroll(2);
+                  },
+                  child: AppText(
+                    'Skip',
+                    style: Styles.circularStdMedium(context,
+                        color: AppColors.greyColor),
+                  ),
+                ),
         ],
       ),
       body: Padding(
@@ -202,24 +216,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               key: introKey,
               pages: [
                 PageViewModel(
-                  title: "Discover Warmth",
-                  body:
-                      "Start your journey with us and discover a wide selection of high-quality blankets that will keep you and your loved ones warm and cozy during chilly nights.",
-                  image: Image.asset('assets/images/onboarding1.png'),
+                  title: Utils.textList[0],
+                  body: Utils.textSubtitles[0],
+                  image: Image.asset(Utils.imageList[0]),
                   decoration: pageDecoration(),
                 ),
                 PageViewModel(
-                  title: "Effortless Shopping Experience",
-                  body:
-                      "Experience hassle-free shopping with our intuitive app interface. Browse through a wide variety of blankets, filter by size and material, and find the perfect match for your needs.",
-                  image: Image.asset('assets/images/onboarding2.png'),
+                  title: Utils.textList[1],
+                  body: Utils.textSubtitles[1],
+                  image: Image.asset(Utils.imageList[1]),
                   decoration: pageDecoration(),
                 ),
                 PageViewModel(
-                  title: "Secure Checkout & Fast Delivery",
-                  body:
-                      "Rest easy knowing your payments are safe and secure. Our speedy delivery service ensures your cozy blanket will arrive at your doorstep in no time, ready to envelop you in warmth.",
-                  image: Image.asset('assets/images/onboarding3.png'),
+                  title: Utils.textList[2],
+                  body: Utils.textSubtitles[2],
+                  image: Image.asset(Utils.imageList[2]),
                   // Replace with your image
                   decoration: pageDecoration(),
                 ),
@@ -244,10 +255,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               showBottomPart: false,
             ),
             Positioned(
-                bottom: 1.sh /6,
+                bottom: 1.sh / 6,
                 left: 0,
                 right: 0,
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:

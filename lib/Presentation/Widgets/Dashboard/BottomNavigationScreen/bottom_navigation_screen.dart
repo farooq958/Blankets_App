@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hbk/Application/NavigationService/navigation.dart';
-import 'package:hbk/Data/DataSource/Static/assets.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/sized_box.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
-import 'package:hbk/Data/DataSource/Static/utils.dart';
-import 'package:hbk/Presentation/Common/app_drawer.dart';
+import 'package:hbk/Application/Services/Connectivity/connectivity_service.dart';
+import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/DataSource/Resources/assets.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_app_bar.dart';
-import 'package:hbk/Presentation/Common/image_widgets.dart';
-import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Component/drawer_row.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Controller/BottomNavigationNotifier/bottom_navigation_notifier.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/cart_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/home_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/profile_screen.dart';
+import 'package:hbk/Presentation/Widgets/no_internet_connection.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -29,15 +26,30 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   PageController pageController = PageController(initialPage: 0);
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // init();
+    super.initState();
+  }
+
+  init() {
+    AppConnectivity.connectionChanged(onDisconnected: (){
+      Navigate.to(context, const NoInternetConnectionScreen());
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       key: scaffoldKey,
-      appBar: CustomAppBar(onBackTap: (){
+      appBar: CustomAppBar(
+pageController: pageController,
+        onBackTap: (){
         scaffoldKey.currentState!.openDrawer();
 
-      }),
-      drawer:  const AppDrawer(),
+      },),
+      drawer: const Drawer(),
 body: SizedBox(
   height: 1.sh,
   width: 1.sw,
@@ -49,12 +61,12 @@ onPageChanged: (x)
       BottomNotifier.bottomNavigationNotifier.value=x;
 
     },
-    children:  const [
-      HomeScreen(),
-      DashboardBottom(),
-      ProductScreen(),
-      CartScreen(),
-      ProfileScreen()
+    children:  [
+HomeScreen(),
+      const DashboardBottom(),
+      const ProductScreen(),
+       CartScreen(pageController: pageController,),
+      const ProfileScreen()
 
 
     ],

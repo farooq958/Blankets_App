@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Static/sized_box.dart';
-import 'package:hbk/Data/DataSource/Static/strings.dart';
-import 'package:hbk/Data/DataSource/Static/text_styles.dart';
-import 'package:hbk/Data/DataSource/Static/utils.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
+import 'package:hbk/Data/DataSource/Resources/strings.dart';
+import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_app_bar.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/category_product.dart';

@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:hbk/Data/DataSource/Static/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 
 class AppShadow {
   static BoxShadow normal() => BoxShadow(

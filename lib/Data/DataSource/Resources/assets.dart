@@ -18,7 +18,6 @@ static const String borjanLogo = 'assets/images/borjanLogo.png';
 
 
 ///Dashboard
-static const String sideMenuIcon='assets/images/sideMenu.svg';
 static const String notificationIcon='assets/images/notificationIcon.svg';
 static const String searchIcon='assets/images/searchIcon.svg';
 static const String homeIcon='assets/images/homeIcon.svg';
@@ -26,6 +25,13 @@ static const String dashboardBottomIcon='assets/images/dashboardBottomIcon.svg';
 static const String productIcon='assets/images/productIcon.svg';
 static const String cartIcon='assets/images/cartIcon.svg';
 static const String profileIcon='assets/images/profile.svg';
+
+static const String dashboardRunningStatus = 'assets/images/dashboardRunningStatus.svg';
+static const String dashboardNextTime = 'assets/images/dashboardNextTime.svg';
+static const String dashboardPendingOrders = 'assets/images/dashboardPendingOrders.png';
+static const String dashboardSaleOfSession = 'assets/images/dashboardSaleOfSession.svg';
+static const String dashboardSaleRequired = 'assets/images/dashboardSaleRequired.svg';
+static const String dashboardTotalWinning = 'assets/images/dashboardTotalWinning.svg';
 
 static const String babyImage='assets/images/babyImage.png';
 static const String bagIcon='assets/images/bagIcon.svg';
@@ -40,7 +46,13 @@ static const String contactUsIcon='assets/images/contactUsIcon.svg';
 static const String customerSurveyIcon='assets/images/customerSurveyIcon.svg';
 static const String aboutUsIcon='assets/images/bagIcon.svg';
 static const String logoutIcon='assets/images/logOutIcon.svg';
+static const String calling = 'assets/images/Calling.svg';
 
+static const String orderConfirm = 'assets/images/orderConfirm.png';
+
+static const String addIcon = 'assets/images/addIcon.png';
+
+static const String location = 'assets/images/Location.svg';
 ///notification
 static const String notificationImage = 'assets/images/notification_image.svg';
 

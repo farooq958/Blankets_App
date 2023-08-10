@@ -18,8 +18,8 @@ class NewArrivalProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 169.w,
-      height: 240.h,
+      width: 158.w,
+      height: 260.h,
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -42,26 +42,32 @@ class NewArrivalProduct extends StatelessWidget {
             CustomSizedBox.height(15),
             AssetImageWidget(url:dummyProduct!.productImage.toString(),radius: 40.sp,width: 120.w,height: 100.h,),
             CustomSizedBox.height(15),
-            AppText(dummyProduct!.productDescription.toString(),
-                maxLine: 3,
-                style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: AppText(dummyProduct!.productDescription.toString(),
+                  maxLine: 3,
+                  style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
 
+              ),
             ),
             CustomSizedBox.height(15),
-            Row(
-              children: [
-                AppText( "RS",
-                    maxLine: 1,
-                    style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,)
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: [
+                  AppText( "RS",
+                      maxLine: 1,
+                      style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,)
 
-                ),
-                CustomSizedBox.width(2),
-                AppText( "${dummyProduct!.productPrice}",
-                    maxLine: 1,
-                    style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,color: AppColors.primaryColor)
+                  ),
+                  CustomSizedBox.width(2),
+                  AppText( "${dummyProduct!.productPrice}",
+                      maxLine: 1,
+                      style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,color: AppColors.primaryColor)
 
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
             CustomSizedBox.height(10),
             GestureDetector(
@@ -105,7 +111,7 @@ class NewArrivalProduct extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 2),
-                        AppText("Add to cart", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 13.sp,color: AppColors.whiteColor))
+                        AppText("Add to cart", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppColors.whiteColor))
                       ],
                     ),
                   ],

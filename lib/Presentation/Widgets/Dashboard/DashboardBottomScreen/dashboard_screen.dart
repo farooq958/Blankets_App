@@ -68,7 +68,7 @@ class DashboardBottom extends StatelessWidget {
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(
-                        width: 15.sp,
+                        width: 20.sp,
                       );
                     },
                     itemCount: Utils.customInfoData.length),

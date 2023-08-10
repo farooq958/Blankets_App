@@ -29,9 +29,10 @@ class Styles {
   // }
 
   static TextStyle circularStdBold(BuildContext context,
-      {double? fontSize, Color? color,FontWeight? fontWeight}) {
+      {double? fontSize, Color? color,FontWeight? fontWeight,double? letterSpacing}) {
     return TextStyle(
       fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
+      letterSpacing: letterSpacing??1,
       color: color ?? AppColors.blackColor,
       fontFamily: "circularStd Bold",
       fontWeight: fontWeight?? FontWeight.normal
@@ -48,8 +49,9 @@ class Styles {
   // }
 
   static TextStyle circularStdRegular(BuildContext context,
-      {double? fontSize, Color? color, double height = 1.4,FontWeight fontWeight = FontWeight.normal}) {
+      {double? fontSize, Color? color, double height = 1.4,FontWeight fontWeight = FontWeight.normal,double? letterSpacing}) {
     return TextStyle(
+      letterSpacing: letterSpacing??1,
       fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
       color: color ?? AppColors.blackColor,
 

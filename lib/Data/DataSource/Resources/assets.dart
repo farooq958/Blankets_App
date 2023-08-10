@@ -56,6 +56,7 @@ static const String location = 'assets/images/Location.svg';
 ///notification
 static const String notificationImage = 'assets/images/notification_image.svg';
 
-
+static const String sortIcon='assets/images/sortIcon.svg';
+static const String filterIcon='assets/images/filterIcon.svg';
 
 }

@@ -18,7 +18,7 @@ class CircleIconButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: width?? 50.w,
-         height: height?? 40.h,
+         height: height?? 30.h,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color?? Colors.white,

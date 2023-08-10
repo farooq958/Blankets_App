@@ -6,7 +6,10 @@ import 'package:hbk/Domain/Models/Cart/cart_item.dart';
 import 'package:hbk/Domain/Models/HomeScreen/category_model.dart';
 import 'package:hbk/Domain/Models/HomeScreen/drawer_model.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
+import 'package:hbk/Domain/Models/Order/order_item.dart';
+import 'package:hbk/Domain/Models/orderModel.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
 
 class Utils {
   static List<String> textList = [
@@ -84,7 +87,7 @@ class Utils {
     DrawerModel(
         screenName: 'Order',
         iconPath: Assets.bagIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate: const OrderScreen()),
     DrawerModel(
         screenName: 'Statement',
         iconPath: Assets.statementIcon,
@@ -145,10 +148,12 @@ class Utils {
   static List<BottomCardModel> customCardData2 = [
     BottomCardModel('Running Status', 'Blue', Assets.dashboardRunningStatus),
     BottomCardModel('Next Target', 'Bronze', Assets.dashboardNextTime),
-    BottomCardModel('Sale Required', 'Rs 2,500,000', Assets.dashboardSaleRequired),
-    BottomCardModel('Total Winning Points', 'Rs 0', Assets.dashboardTotalWinning),
-    BottomCardModel('Sale of Session', 'Rs 2,500,000', Assets.dashboardSaleOfSession),
-
+    BottomCardModel(
+        'Sale Required', 'Rs 2,500,000', Assets.dashboardSaleRequired),
+    BottomCardModel(
+        'Total Winning Points', 'Rs 0', Assets.dashboardTotalWinning),
+    BottomCardModel(
+        'Sale of Session', 'Rs 2,500,000', Assets.dashboardSaleOfSession),
     BottomCardModel('Pending Orders', 'Rs 0', Assets.dashboardPendingOrders),
   ];
   static List<CustomCardModel> customInfoData = [
@@ -164,12 +169,107 @@ class Utils {
         'Burjjan 1 ply Double bed embossed blanket', 5, 5490, 4),
   ];
 
+  static List<OrderModel> orders = [
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.pending,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.active,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.active,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.pending,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.pending,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.completed,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.completed,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.completed,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.completed,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    )
+  ];
+
+  static final List<OrderItem> orderItems = [
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',
+        itemCount: 03,
+        amount: 2000),
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Burjjan 1 ply Double bed embossed blanket',
+        itemCount: 03,
+        amount: 2000),
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',
+        itemCount: 03,
+        amount: 2000),
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Burjjan 1 ply Double bed embossed blanket',
+        itemCount: 03,
+        amount: 2000),
+  ];
+
   void function() {
     Data data = Data();
 
     data.user;
   }
-
-
-
 }

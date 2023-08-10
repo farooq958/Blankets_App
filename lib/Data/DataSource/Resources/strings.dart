@@ -12,6 +12,12 @@ class AppStrings{
 
   static const String orderConfirmation = 'Order Confirmation';
 
+  static const String orderSuccessFull = 'Order successful';
+
+  static const String orderSuccessFullNote = 'Congratulations! Your order was successful. Get ready to enjoy your purchase!';
+
+  static const String pleaseCallMe = 'Please call me when you’re here.';
+
 
 
 

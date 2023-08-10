@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
@@ -8,6 +9,7 @@ import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Checkout/order_successfull.dart';
 
 class SuccessFulDialog {
   static Widget show(
@@ -105,6 +107,7 @@ class SuccessFulDialog {
             maxLine: 2,
             textAlign: TextAlign.center,
           ),
+          CustomSizedBox.height(5.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -117,9 +120,17 @@ class SuccessFulDialog {
                 textColor: AppColors.greyColor,
                 borderColor: Colors.transparent,
                 verticalPadding: 10.h,
-                horizontalPadding: 30.w,
+                horizontalPadding: 20.w,
               ),
-              CustomButton(onTap: () { Navigator.of(context).pop(true);}, text: 'Confirm'),
+              CustomButton(
+                onTap: () {
+                  Navigate.to(context, const OrderSuccessFull());
+
+                },
+                text: 'Confirm',
+                verticalPadding: 5.h,
+                horizontalPadding: 20.w,
+              ),
             ],
           )
         ],

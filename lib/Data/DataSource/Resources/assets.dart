@@ -16,6 +16,10 @@ static const String shoppingCart = 'assets/images/Buy.png';
 
 static const String borjanLogo = 'assets/images/borjanLogo.png';
 
+static const String orderSuccessFull = 'assets/images/ordersuccessfull.svg';
+
+static const String invoice = 'assets/images/invoice.png';
+
 
 ///Dashboard
 static const String notificationIcon='assets/images/notificationIcon.svg';

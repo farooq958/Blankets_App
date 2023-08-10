@@ -6,6 +6,7 @@ import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Presentation/Common/app_drawer.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_app_bar.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Controller/BottomNavigationNotifier/bottom_navigation_notifier.dart';
@@ -49,7 +50,7 @@ pageController: pageController,
         scaffoldKey.currentState!.openDrawer();
 
       },),
-      drawer: const Drawer(),
+      drawer: const AppDrawer(),
 body: SizedBox(
   height: 1.sh,
   width: 1.sw,
@@ -62,7 +63,7 @@ onPageChanged: (x)
 
     },
     children:  [
-HomeScreen(),
+const HomeScreen(),
       const DashboardBottom(),
       const ProductScreen(),
        CartScreen(pageController: pageController,),

@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
               CustomSizedBox.height(20),
 ///Home Coruosel sliding Images
               const HomeCarousel(),
-              CustomSizedBox.height(20),
+              CustomSizedBox.height(5),
               ///Category Product
               Align(
                   alignment: Alignment.centerLeft,

@@ -167,6 +167,7 @@ import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
+import 'package:hbk/Presentation/Common/custom_app_bar.dart';
 import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -192,22 +193,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          currentPageIndex == 2
-              ? const SizedBox()
-              : TextButton(
-                  onPressed: () {
-                    introKey.currentState?.animateScroll(2);
-                  },
-                  child: AppText(
-                    'Skip',
-                    style: Styles.circularStdMedium(context,
-                        color: AppColors.greyColor),
-                  ),
-                ),
-        ],
-      ),
+     // backgroundColor: Colors.white,
+      appBar:CustomAppBar(isSplashScreen: true ,onSkipTap: (){
+        introKey.currentState?.animateScroll(2);
+
+      },splashPageNumber: currentPageIndex,),
       body: Padding(
         padding: EdgeInsets.only(left: 10.w, right: 10.w),
         child: Stack(

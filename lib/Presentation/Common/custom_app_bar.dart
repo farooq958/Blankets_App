@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/circle_icon_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Controller/BottomNavigationNotifier/bottom_navigation_notifier.dart';
+import 'package:hbk/Presentation/Widgets/Notifications/notification_screen.dart';
 
 import 'app_text.dart';
 import 'image_widgets.dart';
@@ -18,6 +20,10 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   bool? isShowNotificationButton;
   final VoidCallback? onBackTap;
   final PageController? pageController;
+  final bool? isNotificationScreen;
+  final bool? isSplashScreen;
+  final int? splashPageNumber;
+  final VoidCallback? onSkipTap;
 
   CustomAppBar(
       {key,
@@ -25,7 +31,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
       this.isHome = false,
       this.isShowNotificationButton,
       this.onBackTap,
-      this.pageController})
+      this.pageController,  this.isNotificationScreen, this.isSplashScreen, this.splashPageNumber, this.onSkipTap})
       : preferredSize = const Size.fromHeight(65),
         super(key: key);
   @override
@@ -44,12 +50,14 @@ class CustomAppBarState extends State<CustomAppBar> {
       backgroundColor: AppColors.whiteColor,
       automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: GestureDetector(
+      leading: widget.isSplashScreen !=null?SizedBox(height: 0.sp,width: 0.sp,) :widget.isNotificationScreen !=null?SizedBox(height: 0.sp,width: 0.sp,) : GestureDetector(
         onTap: widget.onBackTap,
         behavior: HitTestBehavior.opaque,
         child: Center(
           child: Icon(
+
             Icons.menu,
+            color: Colors.black,
             size: 25.r,
           ),
         ),
@@ -71,64 +79,95 @@ class CustomAppBarState extends State<CustomAppBar> {
         },
         valueListenable: BottomNotifier.bottomNavigationNotifier,
       ),
+
       actions: [
-        widget.isHome
-            ? SvgPicture.asset(
-                Assets.searchIcon,
-                height: 20.h,
-                width: 20.w,
-              )
-            : const SizedBox(),
-        SizedBox(
-          width: 10.sp,
-        ),
-        widget.isHome
-            ? SvgPicture.asset(
-                Assets.notificationIcon,
-                height: 20.h,
-                width: 20.w,
-              )
-            : const SizedBox(),
-        SizedBox(
-          width: 20.sp,
-        ),
-        ValueListenableBuilder(
-            valueListenable: BottomNotifier.bottomNavigationNotifier,
-            builder: (context, state, child) {
-              return state == 3
-                  ? GestureDetector(
-                      onTap: () {
-                        widget.pageController!.jumpToPage(0);
-                      },
-                      child: Padding(
+        widget.isSplashScreen !=null?widget.splashPageNumber == 2
+        ? const SizedBox()
+        : TextButton(
+    onPressed: widget.onSkipTap,
+    child: AppText(
+    'Skip',
+    style: Styles.circularStdMedium(context,
+    color: AppColors.greyColor),
+    ),
+    )  :  widget.isNotificationScreen != null?      Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          child: Align(
+            child: CircleIconButton(icon: Icons.close, onPressed: () {
+              Navigator.pop(context);
+            }),
+          ))  :  Row(
+          children: <Widget>[
+            ValueListenableBuilder(
+              builder: (context,state,child) {
+                return Row(
+                  children: <Widget>[
+                    widget.isShowNotificationButton!=null || state>0? const SizedBox(height: 0,width: 0,): GestureDetector(
+
+
+                        onTap:(){
+
+
+                      //    Navigate.to(context, const NotificationScreen());
+                        },
+                        child: SvgPicture.asset(Assets.searchIcon,height: 20.h,width: 20.w,)),
+                    SizedBox(width: 10.sp,),
+                    widget.isShowNotificationButton!=null || state >0? const SizedBox(height: 0,width: 0,):    GestureDetector(
+                onTap:(){
+
+
+                Navigate.to(context, const NotificationScreen());
+                },
+                        child: SvgPicture.asset(Assets.notificationIcon,height: 20.h,width: 20.w,)),
+                    SizedBox(width: 20.sp,),
+                  ],
+                );
+              }, valueListenable: BottomNotifier.bottomNavigationNotifier,
+            ),
+            SizedBox(
+              width: 20.sp,
+            ),
+            ValueListenableBuilder(
+                valueListenable: BottomNotifier.bottomNavigationNotifier,
+                builder: (context, state, child) {
+                  return state == 3
+                      ? GestureDetector(
+                    onTap: () {
+                      widget.pageController!.jumpToPage(0);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        alignment: Alignment.center,
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                              color: AppColors.primaryColor,
-                              borderRadius: BorderRadius.circular(20)),
-                          width: 120.w,
-                          height: 40.h,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.add,
-                                color: AppColors.whiteColor,
-                              ),
-                              AppText(
-                                'Add items',
-                                style: Styles.circularStdMedium(context,
-                                    color: AppColors.whiteColor),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
+                        decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(20)),
+                        width: 120.w,
+                        height: 40.h,
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.add,
+                              color: AppColors.whiteColor,
+                            ),
+                            AppText(
+                              'Add items',
+                              style: Styles.circularStdMedium(context,
+                                  color: AppColors.whiteColor),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
                         ),
                       ),
-                    )
-                  : const SizedBox();
-            })
+                    ),
+                  )
+                      : const SizedBox();
+                })
+
+          ],
+        ),
+
       ],
     );
   }

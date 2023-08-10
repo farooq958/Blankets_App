@@ -7,7 +7,7 @@ mixin AppMedia {
 
    double get height => mediaQuery.size.height;
 
-  static TextScaler get textScale => mediaQuery.textScaler;
+  //static TextScale get textScale => mediaQuery.textScaler;
 
   static double get devicePixel => mediaQuery.devicePixelRatio;
 }

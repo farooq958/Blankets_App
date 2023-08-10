@@ -22,7 +22,7 @@ class DrawerRow extends StatelessWidget {
         child: Row(
           children: <Widget>[
             SvgPicture.asset(iconPath!,width: 20.sp,height: 20.sp,),
-            CustomSizedBox.width(5),
+            CustomSizedBox.width(10),
             AppText(screenName!, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w400,color: AppColors.whiteColor,fontSize: 15.sp))
 
 

@@ -5,6 +5,7 @@ import 'package:hbk/Data/DataSource/Resources/strings.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/circle_icon_button.dart';
+import 'package:hbk/Presentation/Common/custom_app_bar.dart';
 import 'package:hbk/Presentation/Widgets/Notifications/Comonents/notification_tile.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -14,20 +15,9 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      appBar: AppBar(automaticallyImplyLeading: false,
-        title: AppText(
-            style: Styles.circularStdBold(context, fontSize: 24.sp),
-            AppStrings.notifications),
-        actions: [
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: CircleIconButton(icon: Icons.close, onPressed: () {
-                Navigator.pop(context);
-              }))
-        ],
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: CustomAppBar(
+        title: "Notifications",
+        isNotificationScreen: true,isShowNotificationButton: true,),
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: 5,

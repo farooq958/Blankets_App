@@ -69,7 +69,8 @@ class CustomAppBarState extends State<CustomAppBar> {
               state == 3
                   ? "Cart"
                   : state == 1
-                      ? "Customer dashboard"
+                      ? "Customer dashboard" :
+              state ==2?' All Products'
                       : widget.title ?? "",
               style: Styles.circularStdBold(context,
                   fontSize: 19.sp, fontWeight: FontWeight.w500),
@@ -80,7 +81,8 @@ class CustomAppBarState extends State<CustomAppBar> {
       ),
 
       actions: [
-        widget.isSplashScreen !=null?widget.splashPageNumber == 2
+        widget.isSplashScreen !=null?
+        widget.splashPageNumber == 2
         ? const SizedBox()
         : TextButton(
     onPressed: widget.onSkipTap,

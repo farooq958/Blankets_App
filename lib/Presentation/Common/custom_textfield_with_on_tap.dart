@@ -8,7 +8,7 @@ import 'app_text.dart';
 
 class CustomTextFieldWithOnTap extends StatelessWidget {
   final TextEditingController controller;
-  final String hintText;
+  final String? hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
@@ -139,10 +139,11 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                         ),
                       )
                     : null,
-                hintStyle: Styles.circularStdRegular(
+                hintStyle: Styles.circularStdBold(
                   context,
                   color: hintTextColor ?? AppColors.greyColor,
-                  fontSize: 14.sp,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400
                 ),
 
                 ///changess

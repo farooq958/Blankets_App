@@ -31,7 +31,7 @@ class OrderTab extends StatelessWidget {
             );
           },
         ),
-        orderStatus == OrderStatus.completed
+        orderStatus == OrderStatus.Completed
             ? Positioned(
                 bottom: 10.h,
                 left: 10.w,
@@ -41,7 +41,7 @@ class OrderTab extends StatelessWidget {
                     Navigate.to(
                         context,
                         const OrderHistory(
-                          orderStatus: OrderStatus.completed,
+                          orderStatus: OrderStatus.Completed,
                         ));
                   },
                   text: 'Invoice',

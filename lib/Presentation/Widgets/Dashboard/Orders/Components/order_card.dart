@@ -94,9 +94,9 @@ class OrderCard extends StatelessWidget {
   }
 
   Color _getStatusColor(OrderStatus status) {
-    if (status == OrderStatus.active) {
+    if (status == OrderStatus.Active) {
       return AppColors.primaryColor;
-    } else if (status == OrderStatus.completed) {
+    } else if (status == OrderStatus.Completed) {
       return Colors.green;
     } else {
       return Colors.yellow.shade700;

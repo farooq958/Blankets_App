@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
 ///to be continued ...
                SizedBox(
                    width: 1.sw,
-                   height: 250.h,
+                   height: 260.h,
 
                    child: ListView.separated(
                      scrollDirection: Axis.horizontal,
@@ -92,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                   child: AppText(AppStrings.mostSoldProduct, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 20.sp),)),
               SizedBox(
                   width: 1.sw,
-                  height: 250.h,
+                  height: 270.h,
 
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,

@@ -49,9 +49,9 @@ class _OrderScreenState extends State<OrderScreen> {
             ]),
           ),
           body: const TabBarView(children: [
-            OrderTab(orderStatus: OrderStatus.active),
-            OrderTab(orderStatus: OrderStatus.pending),
-            OrderTab(orderStatus: OrderStatus.completed,),
+            OrderTab(orderStatus: OrderStatus.Active),
+            OrderTab(orderStatus: OrderStatus.Pending),
+            OrderTab(orderStatus: OrderStatus.Completed,),
           ])),
     );
   }

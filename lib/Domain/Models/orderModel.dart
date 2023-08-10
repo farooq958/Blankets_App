@@ -18,7 +18,7 @@ class OrderModel {
 }
 
 enum OrderStatus {
-  pending,
-  completed,
-  active,
+  Pending,
+  Completed,
+  Active,
 }

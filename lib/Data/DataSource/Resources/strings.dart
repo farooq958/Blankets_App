@@ -18,6 +18,22 @@ class AppStrings{
 
   static const String pleaseCallMe = 'Please call me when you’re here.';
 
+  /// profile
+  static const String manageAccount = 'Manage account';
+  static const String notificationPreferences = 'Notification preferences';
+  static const String privacyPolicy = 'Privacy policy';
+  static const String orderHistory = 'Order history';
+  static const String editProfile = 'Edit profile';
+  static const String logout = 'Logout';
+  static const String changePassword = 'Change password';
+
+  static const String deleteAccount = 'Delete account';
+  static const String oldPassword = 'Old password';
+  static const String update = 'Update';
+
+  static const String deleteAccountNote = 'We\'re sorry to see you go, but we understand that circumstances may change. If you wish to delete your account, please be aware that this action is irreversible and will remove all your account information and order history.';
+
+
 
 
 
@@ -40,4 +56,9 @@ class AppStrings{
 
 
   static const String checkOut = 'Checkout';
+
+  static const String salesPolicy = 'Sale policy';
+  static const String feedback = 'Feeback';
+
+  static const String customerSurvey = 'Customer survey';
 }

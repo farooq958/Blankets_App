@@ -57,6 +57,8 @@ class CustomDialog {
   static Future<void> successDialog(BuildContext context,
       {required String? title,
       required String? message,
+        String? image,
+        Color? imageColor,
       bool? barrierDismissible}) async {
     return showDialog<void>(
       context: context,
@@ -71,7 +73,7 @@ class CustomDialog {
             borderRadius: BorderRadius.circular(10).r,
           ),
           child: SuccessFulDialog.show(
-              context: context, title: title, message: message),
+              context: context, title: title, message: message,image: image,imageColor: imageColor),
         );
       },
     );
@@ -79,9 +81,18 @@ class CustomDialog {
 
   static Future<void> successConfirmDialog(BuildContext context,
       {required String? title,
-        required String? message,
-
-        bool? barrierDismissible}) async {
+      required String? message,
+      required String? assetImage,
+      String? button1Text,
+      String? button2Text,
+      required VoidCallback? button1Tap,
+      required VoidCallback? button2Tap,
+      Color? imageColor,
+      double? height,
+      double? width,
+      Color? button1bgColor,
+      Color? button2BgColor,
+      bool? barrierDismissible}) async {
     return showDialog<void>(
       context: context,
       barrierColor: Colors.black12,
@@ -95,95 +106,107 @@ class CustomDialog {
             borderRadius: BorderRadius.circular(10).r,
           ),
           child: SuccessFulDialog.showConfirmDialog(
-              context: context, title: title, message: message),
+              context: context,
+              title: title,
+              message: message,
+              imageAsset: assetImage,
+              buttonText1: button1Text,
+              buttonText2: button2Text,
+              button1Tap: button1Tap,
+              button2Tap: button2Tap,
+              imageColor: imageColor,
+              height: height,
+              width: width,
+              button1BgColor: button1bgColor,
+              button2BgColor: button2BgColor),
         );
       },
     );
   }
 
-  // static Future<void> errorDialog(BuildContext context,
-  //     {required String? title,
-  //     required String? message,
-  //     bool? barrierDismissible}) async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierColor: Colors.black12,
-  //     barrierDismissible: barrierDismissible ?? true,
-  //     builder: (BuildContext context) {
-  //       return Dialog(
-  //         insetPadding: const EdgeInsets.all(15).r,
-  //         elevation: 0.0,
-  //         backgroundColor: AppColors.whiteColor,
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(10).r,
-  //         ),
-  //         child: ErrorDialog.show(
-  //             context: context, title: title, message: message),
-  //       );
-  //       //return ErrorDialog.show(context: context, title: title, message: message);
-  //     },
-  //   );
-  // }
+// static Future<void> errorDialog(BuildContext context,
+//     {required String? title,
+//     required String? message,
+//     bool? barrierDismissible}) async {
+//   return showDialog<void>(
+//     context: context,
+//     barrierColor: Colors.black12,
+//     barrierDismissible: barrierDismissible ?? true,
+//     builder: (BuildContext context) {
+//       return Dialog(
+//         insetPadding: const EdgeInsets.all(15).r,
+//         elevation: 0.0,
+//         backgroundColor: AppColors.whiteColor,
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(10).r,
+//         ),
+//         child: ErrorDialog.show(
+//             context: context, title: title, message: message),
+//       );
+//       //return ErrorDialog.show(context: context, title: title, message: message);
+//     },
+//   );
+// }
 
-  // static show(BuildContext context, VoidCallback? onTap) {
-  //   return CustomDialog.iosDialog(
-  //       context,
-  //       SizedBox(
-  //         height: 50.h,
-  //         // width: 130.w,
-  //         child: Column(
-  //           // physics: const NeverScrollableScrollPhysics(),
-  //           //shrinkWrap: true,
-  //           children: [
-  //             // Padding(
-  //             //   padding: const EdgeInsets.symmetric(vertical: 10).h,
-  //             //   child: Text(
-  //             //     'Logout',
-  //             //     style: Styles.latoBold(context, fontSize: 22.sp),
-  //             //   ),
-  //             // ),
-  //             SizedBox(
-  //               height: 5.h,
-  //             ),
-  //             //Divider(color: AppColors.primaryColor,height: 2.sp,thickness: 1,),
-  //             SizedBox(
-  //               height: 2.h,
-  //             ),
-  //             Expanded(
-  //               child: Row(
-  //                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                 children: [
-  //                   //   SizedBox(width: 40.sp,),
-  //                   Expanded(
-  //                     child: CustomButton(
-  //                       onTap: () {
-  //                         Navigator.of(context).pop(true);
-  //                       },
-  //                       text: "Cancel",
-  //                       bgColor: AppColors.whiteColor,
-  //                       textColor: AppColors.greyColor,
-  //                       horizontalPadding: 30.w,
-  //                       verticalPadding: 8.sp,
-  //                     ),
-  //                   ),
-  //
-  //                   SizedBox(
-  //                     width: 5.sp,
-  //                   ),
-  //                   //  SizedBox(width: 10,),
-  //                   CustomButton(
-  //                     onTap: onTap!,
-  //                     text: "Confirm",
-  //                     horizontalPadding: 30.w,
-  //                     textColor: AppColors.blackColor,
-  //                     // verticalPadding: 8.sp,
-  //                   )
-  //                 ],
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //       ).animate().fade(),
-  //       'Are You Sure want to delete account?');
-  // }
+// static show(BuildContext context, VoidCallback? onTap) {
+//   return CustomDialog.iosDialog(
+//       context,
+//       SizedBox(
+//         height: 50.h,
+//         // width: 130.w,
+//         child: Column(
+//           // physics: const NeverScrollableScrollPhysics(),
+//           //shrinkWrap: true,
+//           children: [
+//             // Padding(
+//             //   padding: const EdgeInsets.symmetric(vertical: 10).h,
+//             //   child: Text(
+//             //     'Logout',
+//             //     style: Styles.latoBold(context, fontSize: 22.sp),
+//             //   ),
+//             // ),
+//             SizedBox(
+//               height: 5.h,
+//             ),
+//             //Divider(color: AppColors.primaryColor,height: 2.sp,thickness: 1,),
+//             SizedBox(
+//               height: 2.h,
+//             ),
+//             Expanded(
+//               child: Row(
+//                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                 children: [
+//                   //   SizedBox(width: 40.sp,),
+//                   Expanded(
+//                     child: CustomButton(
+//                       onTap: () {
+//                         Navigator.of(context).pop(true);
+//                       },
+//                       text: "Cancel",
+//                       bgColor: AppColors.whiteColor,
+//                       textColor: AppColors.greyColor,
+//                       horizontalPadding: 30.w,
+//                       verticalPadding: 8.sp,
+//                     ),
+//                   ),
+//
+//                   SizedBox(
+//                     width: 5.sp,
+//                   ),
+//                   //  SizedBox(width: 10,),
+//                   CustomButton(
+//                     onTap: onTap!,
+//                     text: "Confirm",
+//                     horizontalPadding: 30.w,
+//                     textColor: AppColors.blackColor,
+//                     // verticalPadding: 8.sp,
+//                   )
+//                 ],
+//               ),
+//             )
+//           ],
+//         ),
+//       ).animate().fade(),
+//       'Are You Sure want to delete account?');
+// }
 }

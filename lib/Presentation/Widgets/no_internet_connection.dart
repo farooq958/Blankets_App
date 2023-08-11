@@ -38,7 +38,7 @@ class _NoInternetConnectionScreenState extends State<NoInternetConnectionScreen>
       });
     }else{
       AppConnectivity.connectionChanged(onConnected: () {
-        Navigate.toReplaceAll(context, const BottomNavigationScreen());
+        Navigate.toReplaceAll(context,  const BottomNavigationScreen());
       });
     }
   }

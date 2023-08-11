@@ -12,7 +12,7 @@ import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
 import 'package:hbk/Presentation/Widgets/Auth/Components/pinput_example.dart';
-import 'package:hbk/Presentation/Widgets/Auth/create_new_password.dart';
+import 'package:hbk/Presentation/Widgets/Auth/create_new_account.dart';
 import 'package:pinput/pinput.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -71,7 +71,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     left: 0,
                     child: CustomButton(
                         onTap: () {
-                          Navigate.to(context, const CreateNewPasswordScreen());
+                          Navigate.to(context, const CreateNewAccountScreen());
                         },
                         text: AppStrings.verify)),
               ],

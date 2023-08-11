@@ -37,13 +37,7 @@ class OrderTab extends StatelessWidget {
                 left: 10.w,
                 right: 10.w,
                 child: CustomButton(
-                  onTap: () {
-                    Navigate.to(
-                        context,
-                        const OrderHistory(
-                          orderStatus: OrderStatus.Completed,
-                        ));
-                  },
+                  onTap: () {},
                   text: 'Invoice',
                   leadingIcon: Assets.invoice,
                 ),

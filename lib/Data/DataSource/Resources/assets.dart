@@ -20,6 +20,19 @@ static const String orderSuccessFull = 'assets/images/ordersuccessfull.svg';
 
 static const String invoice = 'assets/images/invoice.png';
 
+/// profile icons
+
+static const String userProfile = 'assets/images/userprofile.svg';
+static const String manageAccountIcon = 'assets/images/manageaccount.svg';
+static const String orderHistory = 'assets/images/orderhistory.svg';
+static const String logout = 'assets/images/Logout.svg';
+static const String privacyPolicy = 'assets/images/privacypolicy.svg';
+static const String notificationPreferences = 'assets/images/notificationpreferences.svg';
+
+static const String user = 'assets/images/userPng.png';
+
+static const String deleteAccount = 'assets/images/Delete.png';
+static const String delete = 'assets/images/delete_account.png';
 
 ///Dashboard
 static const String notificationIcon='assets/images/notificationIcon.svg';
@@ -62,5 +75,11 @@ static const String notificationImage = 'assets/images/notification_image.svg';
 
 static const String sortIcon='assets/images/sortIcon.svg';
 static const String filterIcon='assets/images/filterIcon.svg';
+
+static const String loyalPolicy = 'assets/images/loyalpolicy.png';
+static const String transportPolicy = 'assets/images/transportpolicy.png';
+static const String rebatePolicy = 'assets/images/rebatepolicy.png';
+static const String arrowDown = 'assets/images/arrowdown.png';
+static const String customerSurvey = 'assets/images/customersurvey.svg';
 
 }

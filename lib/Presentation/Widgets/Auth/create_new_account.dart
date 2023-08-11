@@ -13,15 +13,15 @@ import 'package:hbk/Presentation/Common/dialog.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
 import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
 
-class CreateNewPasswordScreen extends StatefulWidget {
-  const CreateNewPasswordScreen({Key? key}) : super(key: key);
+class CreateNewAccountScreen extends StatefulWidget {
+  const CreateNewAccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreateNewPasswordScreen> createState() =>
-      _CreateNewPasswordScreenState();
+  State<CreateNewAccountScreen> createState() =>
+      _CreateNewAccountScreenState();
 }
 
-class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
+class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

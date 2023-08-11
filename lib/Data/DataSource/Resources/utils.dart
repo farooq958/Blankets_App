@@ -9,8 +9,11 @@ import 'package:hbk/Domain/Models/HomeScreen/drawer_model.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
 import 'package:hbk/Domain/Models/Order/order_item.dart';
 import 'package:hbk/Domain/Models/orderModel.dart';
+import 'package:hbk/Presentation/Widgets/CustomerSurvery/customer_survery.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
+import 'package:hbk/Presentation/Widgets/Feedback/feedback.dart';
+import 'package:hbk/Presentation/Widgets/SalePolicy/sales_policy.dart';
 
 class Utils {
   static  ValueNotifier<String> productTitle=ValueNotifier('All Products');
@@ -109,11 +112,11 @@ class Utils {
     DrawerModel(
         screenName: 'Sale policies',
         iconPath: Assets.salePolicyIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate: const SalesPolicy()),
     DrawerModel(
         screenName: 'Feedback',
         iconPath: Assets.feedbackIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate: const Feedback()),
     DrawerModel(
         screenName: 'FAQ\'s',
         iconPath: Assets.faqIcon,
@@ -125,7 +128,7 @@ class Utils {
     DrawerModel(
         screenName: 'Customer survey',
         iconPath: Assets.customerSurveyIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate: const CustomerSurvey()),
     DrawerModel(
         screenName: 'About us',
         iconPath: Assets.aboutUsIcon,

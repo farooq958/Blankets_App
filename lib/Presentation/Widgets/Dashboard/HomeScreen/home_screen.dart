@@ -13,8 +13,9 @@ import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/new_arr
 import 'Components/home_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
+  final PageController? pageController;
   //GlobalKey<ScaffoldState> scaffoldKey;
-   const HomeScreen( {super.key});
+   const HomeScreen( {super.key, this.pageController});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: AppText(AppStrings.category, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 20.sp),)),
               CustomSizedBox.height(20),
-             const CategoryProduct(),
+              CategoryProduct(pageController:pageController),
 
               ///New Arrival
 
@@ -92,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                   child: AppText(AppStrings.mostSoldProduct, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 20.sp),)),
               SizedBox(
                   width: 1.sw,
-                  height: 270.h,
+                  height: 250.h,
 
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,

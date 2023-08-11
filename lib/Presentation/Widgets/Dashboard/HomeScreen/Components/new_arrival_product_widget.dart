@@ -13,7 +13,8 @@ import 'package:hbk/Presentation/Common/image_widgets.dart';
 class NewArrivalProduct extends StatelessWidget {
  final ProductModel? dummyProduct;
  final VoidCallback onAddToCardTap;
-  const NewArrivalProduct({super.key, this.dummyProduct, required this.onAddToCardTap});
+ final VoidCallback? onDetailTap;
+  const NewArrivalProduct({super.key, this.dummyProduct, required this.onAddToCardTap, this.onDetailTap});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,10 @@ class NewArrivalProduct extends StatelessWidget {
 
           children: [
             CustomSizedBox.height(15),
-            AssetImageWidget(url:dummyProduct!.productImage.toString(),radius: 40.sp,width: 120.w,height: 100.h,),
+            GestureDetector(
+                onTap: onDetailTap ,
+
+                child: AssetImageWidget(url:dummyProduct!.productImage.toString(),radius: 40.sp,width: 120.w,height: 100.h,)),
             CustomSizedBox.height(15),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),

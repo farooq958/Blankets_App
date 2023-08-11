@@ -9,8 +9,10 @@ class CircleIconButton extends StatelessWidget {
   final double? height;
   final Color? color;
   final Color? iconColor;
+  final double? iconSize;
+final  EdgeInsetsGeometry? padding;
   const CircleIconButton(
-      {super.key, required this.icon, required this.onPressed,this.width,this.height,this.color,this.iconColor});
+      {super.key, required this.icon, required this.onPressed,this.width,this.height,this.color,this.iconColor, this.iconSize, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,8 @@ class CircleIconButton extends StatelessWidget {
       child: Container(
         width: width?? 50.w,
          height: height?? 30.h,
+       padding: padding?? EdgeInsets.zero,
+       // margin: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color?? Colors.white,
@@ -30,7 +34,7 @@ class CircleIconButton extends StatelessWidget {
             ),
           ],
         ),
-        child: Icon(icon, size: 25,color: iconColor??AppColors.blackColor,),
+        child: Icon(icon, size:iconSize?? 25,color: iconColor??AppColors.blackColor,),
       ),
     );
   }

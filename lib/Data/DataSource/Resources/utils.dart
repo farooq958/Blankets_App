@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:hbk/Data/AppData/data.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Domain/Models/DashboardBottomModel/bottom_card_model.dart';
@@ -12,6 +13,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboa
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
 
 class Utils {
+  static  ValueNotifier<String> productTitle=ValueNotifier('All Products');
   static List<String> textList = [
     'Discover Warmth',
     'Effortless Shopping Experience',
@@ -266,6 +268,8 @@ class Utils {
         itemCount: 03,
         amount: 2000),
   ];
+
+
 
   void function() {
     Data data = Data();

@@ -70,7 +70,7 @@ class CustomAppBarState extends State<CustomAppBar> {
                   ? "Cart"
                   : state == 1
                       ? "Customer dashboard" :
-              state ==2?' All Products'
+              state == 2?' All Products'
                       : widget.title ?? "",
               style: Styles.circularStdBold(context,
                   fontSize: 19.sp, fontWeight: FontWeight.w500),

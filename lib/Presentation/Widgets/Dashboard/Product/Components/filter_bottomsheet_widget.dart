@@ -20,12 +20,18 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
   String? selectedCategory;
   @override
   Widget build(BuildContext context) {
-    return  Align(
+    return  Padding(
 
-      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.symmetric(horizontal: 10.sp),
       child:  Column(
         children: <Widget>[
-
+          CustomSizedBox.height(40.sp),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: AppText('Filters', style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
+            FontWeight.w600,fontSize: 19.sp),),
+          ),
+          CustomSizedBox.height(40.sp),
           Align(
             alignment: Alignment.centerLeft,
             child: AppText('Price Range', style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
@@ -62,7 +68,7 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
                       ),
                     ),
                   ),
-                  AppText('25000', style: Styles.circularStdBold(context,color: AppColors.greyLightColor),),
+                  AppText('250,000', style: Styles.circularStdBold(context,color: AppColors.greyLightColor),),
                 ],
               ),
             ),

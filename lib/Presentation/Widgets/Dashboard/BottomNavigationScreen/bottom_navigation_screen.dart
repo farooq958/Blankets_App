@@ -63,7 +63,7 @@ onPageChanged: (x)
 
     },
     children:  [
-const HomeScreen(),
+ HomeScreen(pageController:pageController),
       const DashboardBottom(),
        ProductScreen(),
        CartScreen(pageController: pageController,),

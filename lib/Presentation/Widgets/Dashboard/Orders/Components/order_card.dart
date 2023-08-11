@@ -68,7 +68,7 @@ class OrderCard extends StatelessWidget {
                       Chip(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.r)),
-                        color: MaterialStateColor.resolveWith((states) =>
+                        backgroundColor: MaterialStateColor.resolveWith((states) =>
                             _getStatusColor(orderModel!.orderStatus)),
                         label: AppText(
                           orderModel!.orderStatus.toString().split('.').last,

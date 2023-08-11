@@ -10,23 +10,13 @@ class SortSheet  {
 
 
   static void  showBottomSheet(BuildContext context,Widget messageWidget,String title) {
-    showCupertinoModalPopup(
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r),topRight: Radius.circular(20.r))),
       context: context,
 
       builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          title:  FractionallySizedBox(
-            widthFactor: 1.2,
-            child: Align(
-
-                alignment: Alignment.centerLeft,
-                child:
-                AppText(title, style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
-                FontWeight.w600,fontSize: 19.sp),)),
-          ),
-          message: FractionallySizedBox(
-              widthFactor: 1.2,
-              child: messageWidget),
+        return
+           messageWidget;
           // actions: <Widget>[
           //   // CupertinoActionSheetAction(
           //   //   child: Text('Option 1'),
@@ -42,7 +32,7 @@ class SortSheet  {
           //   // ),
           // ],
 
-        );
+
       },
     );
   }

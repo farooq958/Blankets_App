@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 
@@ -29,6 +30,9 @@ class CustomButton extends StatelessWidget {
   final double? imageHeight;
   final bool isBorder;
   final Color? borderColor;
+final FontWeight? textFontWeight;
+final double? textSize;
+  final bool? leadingSvgIcon;
 
   const CustomButton({
     Key? key,
@@ -44,9 +48,10 @@ class CustomButton extends StatelessWidget {
     this.iconColor,
     this.isBorder = true,
     this.leadingIcon,
+    this.leadingSvgIcon,
     this.imageWidth = 22,
     this.imageHeight = 25,
-    this.borderColor = AppColors.primaryColor,
+    this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize,
   }) : super(key: key);
 
   @override
@@ -83,7 +88,8 @@ class CustomButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               leadingIcon != null
-                  ? Padding(
+                  ? leadingSvgIcon !=null? SvgPicture.asset(leadingIcon!,color: iconColor, width: imageWidth,
+                height: imageHeight, ): Padding(
                       padding: const EdgeInsets.only(right: 10.0),
                       child: AssetImageWidget(
                         url: leadingIcon!,
@@ -98,8 +104,8 @@ class CustomButton extends StatelessWidget {
                 style: Styles.circularStdRegular(
                   context,
                   color: textColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold
+                  fontSize: textSize?? 16.sp,
+                  fontWeight: textFontWeight?? FontWeight.bold
                 ),
               ),
               trailingIcon != null

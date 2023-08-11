@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
 
 class CategoryProduct extends StatelessWidget {
-  const CategoryProduct({super.key});
+ final PageController? pageController;
+  const CategoryProduct({super.key, this.pageController});
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +23,31 @@ class CategoryProduct extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context,index){
 
-        return SizedBox(
-          height: 105.sp,
-          width: 120.sp,
+        return GestureDetector(
+          onTap:(){
+            ///not used
+Utils.productTitle.value=Utils.categoryDummyProduct[index].productName.toString();
+///used
+            Navigate.to(context, ProductScreen(title: Utils.categoryDummyProduct[index].productName.toString(),));
 
-          child: Column(
+//pageController?.jumpToPage(2);
 
-            children: [
 
-              AssetImageWidget(url: Utils.categoryDummyProduct[index].productImage.toString(),isCircle: true,radius: 40.sp,),
-            CustomSizedBox.height(5),
-              AppText(Utils.categoryDummyProduct[index].productName.toString(), style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))
-            ],
+          },
+          child: SizedBox(
+            height: 105.sp,
+            width: 120.sp,
 
+            child: Column(
+
+              children: [
+
+                AssetImageWidget(url: Utils.categoryDummyProduct[index].productImage.toString(),isCircle: true,radius: 40.sp,),
+              CustomSizedBox.height(5),
+                AppText(Utils.categoryDummyProduct[index].productName.toString(), style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))
+              ],
+
+            ),
           ),
         );
 

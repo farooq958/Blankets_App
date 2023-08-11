@@ -16,5 +16,5 @@ static const Color greyLightColor=Color(0xff8C8C8C);
   static var greyColor = Colors.grey;
 
   static var redColor = Colors.red;
-
+static const productTileColor=Color(0x0C4A756E);
 }

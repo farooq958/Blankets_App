@@ -248,74 +248,13 @@ trailIconWidth: 19.sp,
         return SizedBox(
           height: 600,
           width: 1.sw,
-          child: _buildDatePicker(context),
+          child: buildDatePicker(context),
         );
       },
     );
   }
 
-  Widget _buildDatePicker(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        CustomSizedBox.height(10),
-         Padding(
-           padding:  EdgeInsets.only(top: 8.0,left: 20.sp),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: AppText(
 
-              'From Date',
-              style: Styles.circularStdBold(context,fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-
-
-            child: SingleChildScrollView(child: _buildSingleDatePicker(context))), // First date picker for "From"
-         Padding(
-          padding:  EdgeInsets.only(top: 8.0,left: 20.sp),
-          child:Align(
-            alignment: Alignment.centerLeft,
-            child: AppText(
-
-              'To Date',
-              style: Styles.circularStdBold(context,fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-        Expanded(
-            flex: 1,
-            child: Align(
-
-                alignment: Alignment.topCenter,
-                child: SingleChildScrollView(child: _buildSingleDatePicker(context)))),
-        CustomSizedBox.height(10),
-        CustomButton(onTap: (){}, text: "Apply",horizontalMargin: 15,)// Second date picker for "To"
-      ],
-    );
-  }
-
-  Widget _buildSingleDatePicker(context) {
-    return LinearDatePicker(
-      showLabels: true,
-      initialDate: '2023/08/03',
-      endDate: '2050/09/01',
-      columnWidth: 1.sw/3,
-      unselectedRowStyle: Styles.circularStdRegular(context,color: AppColors.lightGreyColor),
-      selectedRowStyle: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight: FontWeight.w500) ,
-      yearText: '',
-      monthText: '',
-      dayText: '',
-      //initialDate: ,
-      showMonthName: true,
-      dateChangeListener: (String date) {
-
-        print(date);
-
-      },);
-  }
 
   Widget showInvoiceData(context) {
     List<List<InvoiceData>> invoiceFinalData = [
@@ -346,7 +285,7 @@ alignment: Alignment.centerLeft,
       textWidget.add(SizedBox(width: 20.sp,));
     textWidget.add(Container(
       padding: invoiceData[i].type==""? EdgeInsets.only(left: 50.sp):null,
-      height: 50.sp,
+     // height: 50.sp,
       width: 100,
       margin: const EdgeInsets.only(left: 20),
       child: invoiceData[i].type==""?Center(
@@ -384,7 +323,7 @@ alignment: Alignment.centerLeft,
               ],
             ),
           ),
-           SizedBox(height: 30.sp,)
+           SizedBox(height: 20.sp,)
         ],
       ));
 

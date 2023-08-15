@@ -1,19 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Application/Services/Navigation/navigation.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Presentation/Common/app_buttons.dart';
-import 'package:hbk/Presentation/Common/app_shadow.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
-import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
-import 'package:hbk/Presentation/Common/image_widgets.dart';
-import 'package:hbk/Presentation/Widgets/Auth/Components/pinput_example.dart';
+
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
+
 import 'package:hbk/Presentation/Widgets/Auth/create_new_account.dart';
-import 'package:pinput/pinput.dart';
+
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);

@@ -1,16 +1,7 @@
 
 
-import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Application/Services/Navigation/navigation.dart';
-import 'package:hbk/Data/AppData/app_media.dart';
-import 'package:hbk/Data/AppData/data.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Presentation/Common/image_widgets.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Widgets/Auth/on_boarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {

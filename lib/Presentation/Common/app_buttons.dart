@@ -77,7 +77,8 @@ final double? gapWidth;
         ).r,
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(30).r,
+          borderRadius: BorderRadius.circular(
+               30).r,
           border: isBorder
               ? Border.all(
                   color: borderColor!,
@@ -87,7 +88,7 @@ final double? gapWidth;
         ),
         child: Center(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

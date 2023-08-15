@@ -20,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,12 +86,14 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 children: [
                   CustomButton(onTap: () {
-                   Navigate.to(context, const BottomNavigationScreen());
+                   Navigate.to(context, const BottomNavigationScreen(isGuest: false,));
 
                   }, text: 'Login'),
                   CustomSizedBox.height(10.h),
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      Navigate.to(context, const BottomNavigationScreen(isGuest: true,));
+                    },
                     text: 'Login as guest',
                     bgColor: Colors.transparent,
                     borderColor: Colors.transparent,

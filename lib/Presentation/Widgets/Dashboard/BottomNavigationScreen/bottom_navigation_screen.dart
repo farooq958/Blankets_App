@@ -18,7 +18,9 @@ import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/profile_screen.
 import 'package:hbk/Presentation/Widgets/no_internet_connection.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({super.key});
+  final bool? isGuest;
+
+  const BottomNavigationScreen({super.key,this.isGuest});
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
@@ -67,7 +69,7 @@ onPageChanged: (x)
       const DashboardBottom(),
        ProductScreen(),
        CartScreen(pageController: pageController,),
-      const ProfileScreen()
+      ProfileScreen(isGuest: widget.isGuest!,)
 
 
     ],

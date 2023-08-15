@@ -16,6 +16,8 @@ class SuccessFulDialog {
       {required BuildContext context,
       required String? title,
       required String? message,
+        required Color? imageColor,
+        required String? image,
       double? height,
       double? width}) {
     return Container(
@@ -34,59 +36,10 @@ class SuccessFulDialog {
           ),
           Center(
             child: Image.asset(
-              Assets.passwordSuccessFull,
+              image?? Assets.passwordSuccessFull,
               height: 85.sp,
               width: 85.sp,
-            ),
-          ),
-          SizedBox(
-            height: 10.sp,
-          ),
-          Center(
-              child: FittedBox(
-                  child: AppText(
-            title!,
-            style: Styles.circularStdBold(context, fontSize: 22.sp),
-          ))),
-          SizedBox(
-            height: 10.sp,
-          ),
-          AppText(
-            message!,
-            style: Styles.circularStdRegular(context, fontSize: 12.sp),
-            maxLine: 2,
-            textAlign: TextAlign.center,
-          )
-        ],
-      ),
-    );
-  }
-
-  static Widget showConfirmDialog(
-      {required BuildContext context,
-      required String? title,
-      required String? message,
-      double? height,
-      double? width}) {
-    return Container(
-      height: height ?? 260.sp,
-      width: width ?? 290.sp,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.sp),
-      ),
-      child: ListView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 30.sp),
-        children: <Widget>[
-          SizedBox(
-            height: 20.sp,
-          ),
-          Center(
-            child: Image.asset(
-              Assets.passwordSuccessFull,
-              height: 85.sp,
-              width: 85.sp,
+              color: imageColor??AppColors.primaryColor,
             ),
           ),
           SizedBox(
@@ -104,32 +57,89 @@ class SuccessFulDialog {
           AppText(
             message!,
             style: Styles.circularStdRegular(context, fontSize: 16.sp),
-            maxLine: 2,
+            maxLine: 3,
             textAlign: TextAlign.center,
+          )
+        ],
+      ),
+    );
+  }
+
+  static Widget showConfirmDialog(
+      {required BuildContext context,
+      required String? title,
+      required String? message,
+        required String? imageAsset,
+        required String? buttonText1,
+        required String? buttonText2,
+        required VoidCallback? button1Tap,
+        required VoidCallback? button2Tap,
+        required Color? imageColor,
+        Color? button1BgColor,
+        Color? button2BgColor,
+      double? height,
+      double? width}) {
+    return Container(
+      height: height ?? 260.sp,
+      width: width ?? 290.sp,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.sp),
+      ),
+      child: ListView(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 30.sp),
+        children: <Widget>[
+          SizedBox(
+            height: 10.sp,
+          ),
+          Center(
+            child: Image.asset(
+              imageAsset!,
+              height: 85.sp,
+              width: 85.sp,color: imageColor!,
+            ),
+          ),
+          SizedBox(
+            height: 20.sp,
+          ),
+
+          Center(
+              child: FittedBox(
+                  child: AppText(
+            title!,
+            style: Styles.circularStdBold(context, fontSize: 22.sp),
+          ))),
+          SizedBox(
+            height: 10.sp,
+          ),
+          AppText(
+            message!,
+            style: Styles.circularStdRegular(context, fontSize: 16.sp),
+            maxLine: 6,
+            // textAlign: TextAlign.center,
           ),
           CustomSizedBox.height(5.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomButton(
-                onTap: () {
-                  Navigator.of(context).pop(true);
-                },
-                text: 'Cancel',
-                bgColor: AppColors.whiteColor,
+                onTap: button1Tap!,
+                text: buttonText1!,
+                bgColor: button1BgColor?? AppColors.whiteColor,
                 textColor: AppColors.greyColor,
                 borderColor: Colors.transparent,
                 verticalPadding: 10.h,
                 horizontalPadding: 20.w,
+                isBorder: false,
               ),
               CustomButton(
-                onTap: () {
-                  Navigate.to(context, const OrderSuccessFull());
-
-                },
-                text: 'Confirm',
+                onTap: button2Tap!,
+                text: buttonText2!,
                 verticalPadding: 5.h,
                 horizontalPadding: 20.w,
+                isBorder: false,
+                bgColor: button2BgColor??AppColors.primaryColor,
               ),
             ],
           )

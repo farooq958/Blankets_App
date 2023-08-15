@@ -10,6 +10,8 @@ static const String passwordSuccessFull = 'assets/images/passwordSuccessFull.png
 
 static const String noInternetConnection = 'assets/images/no_internet_connection.svg';
 
+static const String map = 'assets/images/map.png';
+
 static const String cart = "assets/images/cart.svg";
 
 static const String shoppingCart = 'assets/images/Buy.png';
@@ -82,5 +84,21 @@ static const String transportPolicy = 'assets/images/transportpolicy.png';
 static const String rebatePolicy = 'assets/images/rebatepolicy.png';
 static const String arrowDown = 'assets/images/arrowdown.png';
 static const String customerSurvey = 'assets/images/customersurvey.svg';
+
+static const String customerSurveySuccess = 'assets/images/customersurvey.png';
+
+
+/// about us
+
+static const String flag = 'assets/images/Flag.svg';
+static const String handShake = 'assets/images/Handshake.svg';
+
+static const String houseLine = 'assets/images/HouseLine.svg';
+static const String trophy = 'assets/images/Trophy.svg';
+
+static const String usersThree = 'assets/images/UsersThree.svg';
+static const String ourVision = 'assets/images/Webcam.svg';
+
+
 
 }

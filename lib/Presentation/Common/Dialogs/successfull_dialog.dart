@@ -18,6 +18,8 @@ class SuccessFulDialog {
       required String? message,
         required Color? imageColor,
         required String? image,
+        required double? messageFontSize,
+        required double? titleFontSize,
       double? height,
       double? width}) {
     return Container(
@@ -47,16 +49,18 @@ class SuccessFulDialog {
           ),
           Center(
               child: FittedBox(
-                  child: AppText(
+                child: AppText(
             title!,
-            style: Styles.circularStdBold(context, fontSize: 22.sp),
-          ))),
+            maxLine: 2,
+            style: Styles.circularStdBold(context, fontSize: titleFontSize?? 22.sp),
+          ),
+              )),
           SizedBox(
             height: 10.sp,
           ),
           AppText(
             message!,
-            style: Styles.circularStdRegular(context, fontSize: 16.sp),
+            style: Styles.circularStdRegular(context, fontSize: messageFontSize?? 16.sp),
             maxLine: 3,
             textAlign: TextAlign.center,
           )

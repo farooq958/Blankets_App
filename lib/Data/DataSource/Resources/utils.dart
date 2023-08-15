@@ -9,12 +9,16 @@ import 'package:hbk/Domain/Models/HomeScreen/drawer_model.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
 import 'package:hbk/Domain/Models/Order/order_item.dart';
 import 'package:hbk/Domain/Models/orderModel.dart';
+import 'package:hbk/Presentation/Widgets/AboutUs/about_us.dart';
+import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
+import 'package:hbk/Presentation/Widgets/ContactUs/contact_us.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/customer_survery.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/reward_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/statement_screen.dart';
+import 'package:hbk/Presentation/Widgets/FAQS/faqs_screen.dart';
 import 'package:hbk/Presentation/Widgets/Feedback/feedback.dart';
 import 'package:hbk/Presentation/Widgets/SalePolicy/sales_policy.dart';
 
@@ -123,11 +127,11 @@ class Utils {
     DrawerModel(
         screenName: 'FAQ\'s',
         iconPath: Assets.faqIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate: const FAQS()),
     DrawerModel(
         screenName: 'Contact us',
         iconPath: Assets.contactUsIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate: const ContactUs()),
     DrawerModel(
         screenName: 'Customer survey',
         iconPath: Assets.customerSurveyIcon,
@@ -135,11 +139,37 @@ class Utils {
     DrawerModel(
         screenName: 'About us',
         iconPath: Assets.aboutUsIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate: const AboutUs()),
     DrawerModel(
         screenName: 'Logout',
         iconPath: Assets.logoutIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate: const LoginScreen()),
+  ];
+
+  static List<DrawerModel> drawerGuestData = [
+    DrawerModel(
+        screenName: 'About us',
+        iconPath: Assets.aboutUsIcon,
+        widgetToNavigate: const AboutUs()),
+    DrawerModel(
+        screenName: 'Feedback',
+        iconPath: Assets.feedbackIcon,
+        widgetToNavigate: const Feedback()),
+
+    DrawerModel(
+        screenName: 'FAQ\'s',
+        iconPath: Assets.faqIcon,
+        widgetToNavigate: const FAQS()),
+    DrawerModel(
+        screenName: 'Contact us',
+        iconPath: Assets.contactUsIcon,
+        widgetToNavigate: const ContactUs()),
+
+
+    DrawerModel(
+        screenName: 'Login',
+        iconPath: Assets.logoutIcon,
+        widgetToNavigate: const LoginScreen()),
   ];
 
   static List<CustomCardModel> customCardData = [

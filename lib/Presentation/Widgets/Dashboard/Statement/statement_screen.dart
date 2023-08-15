@@ -128,6 +128,8 @@ trailIconWidth: 19.sp,
                     Container(
                       height: 60.sp,
                       width: 100.sp,
+                     // margin: EdgeInsets.only(right: 0),
+
                       alignment: Alignment.center,
                       padding: EdgeInsets.only(right: 20.sp),
                       color: AppColors.primaryColor,
@@ -346,6 +348,7 @@ alignment: Alignment.centerLeft,
       padding: invoiceData[i].type==""? EdgeInsets.only(left: 50.sp):null,
       height: 50.sp,
       width: 100,
+      margin: const EdgeInsets.only(left: 15),
       child: Center(
         child: SingleChildScrollView(
           child: AppText(invoiceData[i].narration,
@@ -361,7 +364,7 @@ alignment: Alignment.centerLeft,
       row.add(Column(
         children: [
           Container(
-            width:invoiceData[i].type==""? 1.sw *1.1:null,
+            width:invoiceData[i].type==""? 1.sw *1.15:null,
 
             color: invoiceData[i].type==""?AppColors.lightInvoiceColor:AppColors.whiteColor,
             child: Row(

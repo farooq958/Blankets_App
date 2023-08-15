@@ -113,7 +113,7 @@ trailIconWidth: 19.sp,
 
         ,
           child: Container(
-            padding: const EdgeInsets.all(2),
+           // padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
                 color: AppColors.whiteColor,
                 borderRadius: BorderRadius.circular(10)),
@@ -127,7 +127,7 @@ trailIconWidth: 19.sp,
                   for (var i = 0; i < invoiceTitle.length; i++)
                     Container(
                       height: 60.sp,
-                      width: 100.sp,
+                     width: 110.sp,
                      // margin: EdgeInsets.only(right: 0),
 
                       alignment: Alignment.center,
@@ -348,8 +348,15 @@ alignment: Alignment.centerLeft,
       padding: invoiceData[i].type==""? EdgeInsets.only(left: 50.sp):null,
       height: 50.sp,
       width: 100,
-      margin: const EdgeInsets.only(left: 15),
-      child: Center(
+      margin: const EdgeInsets.only(left: 20),
+      child: invoiceData[i].type==""?Center(
+        child: SingleChildScrollView(
+          child: FittedBox(
+            child: AppText(invoiceData[i].narration,
+                maxLine:4,style: Styles.circularStdRegular(context,color: invoiceData[i].type==""?AppColors.primaryColor:AppColors.blackColor,fontWeight:  invoiceData[i].type==""?FontWeight.w500:FontWeight.normal)),
+          ),
+        ),
+      ) : Center(
         child: SingleChildScrollView(
           child: AppText(invoiceData[i].narration,
               maxLine:4,style: Styles.circularStdRegular(context,color: invoiceData[i].type==""?AppColors.primaryColor:AppColors.blackColor,fontWeight:  invoiceData[i].type==""?FontWeight.w500:FontWeight.normal)),

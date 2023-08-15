@@ -106,7 +106,7 @@ RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1
                     ),
                     Padding(
 
-                        padding: EdgeInsets.only(right: 10.sp),
+                        padding: EdgeInsets.only(right: 0.sp),
                         child: showRewardListData(context)),
 
 
@@ -216,25 +216,28 @@ RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1
 
       textWidget.add(Container(
         alignment: Alignment.centerLeft,
-       // width: 200,
+      //  width: 130,
        // color: Colors.red,
-        //  padding: EdgeInsets.only(left: 20.sp),
+         // margin: EdgeInsets.only(right: 50.sp),
           child: AppText(rewardListData[i].session.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 30.sp,));
+    //  textWidget.add(SizedBox(width: 10.sp,));
+      textWidget.add(SizedBox(width: 40.sp,));
       textWidget.add(Container(
-          width: 100.sp,
+          //width: 100.sp,
           //   color: Colors.black,
+          alignment: Alignment.centerLeft,
+        //  padding: EdgeInsets.only(right: 100.sp),
 
           child: AppText(rewardListData[i].status.toString(),
              // maxLine: 4,
               style: Styles.circularStdRegular(context,color:  AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 20.sp,));
+      textWidget.add(SizedBox(width: 40.sp,));
       textWidget.add(Container(
         // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
         // height: 50.sp,
-        width: 100,
+       // width: 100,
         alignment: Alignment.centerLeft,
-        padding: EdgeInsets.only(right: 10.sp),
+       // padding: EdgeInsets.only(right: 10.sp),
 
         // margin: const EdgeInsets.only(left: 20),
         child:  Center(
@@ -244,21 +247,21 @@ RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1
           ),
         ),
       ));
-      textWidget.add(SizedBox(width: 30.sp,));
+      textWidget.add(SizedBox(width: 40.sp,));
 
 
       textWidget.add(Container(
         // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(right: 30.sp),
+          //padding: EdgeInsets.only(right: 30.sp),
           child: AppText(rewardListData[i].bonusReward.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 10.sp,));
+      textWidget.add(SizedBox(width: 40.sp,));
       textWidget.add(Container(
         // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           //padding: EdgeInsets.only(right: 30.sp),
           child: AppText(rewardListData[i].loyalReward.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 10.sp,));
+      textWidget.add(SizedBox(width: 40.sp,));
       textWidget.add(Container(
         // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,

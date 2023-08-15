@@ -14,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
+
         children: [
           AssetImageWidget(
             url: Assets.user,
@@ -39,6 +40,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _userList(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTileWidget(
           tileTitle: AppStrings.manageAccount,
@@ -77,6 +79,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _guestList(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTileWidget(
           tileTitle: AppStrings.notificationPreferences,

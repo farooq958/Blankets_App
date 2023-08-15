@@ -1,16 +1,8 @@
-import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Application/Services/Navigation/navigation.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
 
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Data/DataSource/Resources/utils.dart';
-import 'package:hbk/Domain/Models/Cart/cart_item.dart';
-import 'package:hbk/Presentation/Common/app_buttons.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
+
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
+
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Checkout/check_out_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/cart_item_tile.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/empty_cart_screen.dart';

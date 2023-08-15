@@ -46,7 +46,7 @@ class _CustomerSurveyState extends State<CustomerSurvey> {
               ),
             ),
             CustomButton(onTap: () {
-              Navigate.to(context, CustomerSurveySteps());
+              Navigate.to(context, const CustomerSurveySteps());
             }, text: 'Submit')
           ],
         ),

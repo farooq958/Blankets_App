@@ -28,9 +28,7 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Customer Survey'),
-      ),
+      appBar: CustomAppBarWithBackButton(title: 'Customer survey',),
       body: Column(
         children: [
           Padding(

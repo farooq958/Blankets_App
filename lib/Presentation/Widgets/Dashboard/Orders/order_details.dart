@@ -1,17 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Data/DataSource/Resources/utils.dart';
 
-import 'package:hbk/Domain/Models/orderModel.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
-import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
-import 'package:hbk/Presentation/Widgets/Dashboard/Orders/Components/order_item_row.dart';
-import 'package:hbk/Presentation/Widgets/Dashboard/Orders/Components/row_widget.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
+
+
 
 class OrderDetailsScreen extends StatelessWidget {
   final OrderModel? orderModel;

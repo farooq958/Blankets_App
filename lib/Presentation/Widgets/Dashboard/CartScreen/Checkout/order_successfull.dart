@@ -1,13 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Presentation/Common/app_buttons.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
+
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 class OrderSuccessFull extends StatelessWidget {
   const OrderSuccessFull({Key? key}) : super(key: key);

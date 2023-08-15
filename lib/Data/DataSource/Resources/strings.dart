@@ -23,7 +23,7 @@ class AppStrings{
 
 
   ///home Screen Strings
-  static const String accountBalance = 'Account Balance';
+  static const String accountBalance = 'Account balance';
   static const String category = 'Categories';
   static const String newArrival = 'New arrivals';
   static const String mostSoldProduct='Most sold products';

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 
 
@@ -33,7 +34,10 @@ class CustomButton extends StatelessWidget {
 final FontWeight? textFontWeight;
 final double? textSize;
   final bool? leadingSvgIcon;
-
+final double? trailIconWidth;
+final double? borderThickness;
+final double? trailIconHeight;
+final double? gapWidth;
   const CustomButton({
     Key? key,
     required this.onTap,
@@ -51,7 +55,7 @@ final double? textSize;
     this.leadingSvgIcon,
     this.imageWidth = 22,
     this.imageHeight = 25,
-    this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize,
+    this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize, this.trailIconWidth, this.borderThickness, this.trailIconHeight, this.gapWidth,
   }) : super(key: key);
 
   @override
@@ -77,7 +81,7 @@ final double? textSize;
           border: isBorder
               ? Border.all(
                   color: borderColor!,
-                  width: 1.w,
+                  width: borderThickness?? 1.w,
                 )
               : null,
         ),
@@ -99,6 +103,7 @@ final double? textSize;
                       ),
                     )
                   : Container(),
+              CustomSizedBox.width(gapWidth??0),
               AppText(
                 text,
                 style: Styles.circularStdRegular(
@@ -113,7 +118,8 @@ final double? textSize;
                       padding: const EdgeInsets.only(left: 10.0),
                       child: AssetImageWidget(
                         url: trailingIcon!,
-                        width: 22,
+                        width: trailIconWidth??22,
+                        height: trailIconHeight??22,
                         color: iconColor,
                       ),
                     )

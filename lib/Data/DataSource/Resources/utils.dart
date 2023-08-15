@@ -11,6 +11,7 @@ import 'package:hbk/Domain/Models/Order/order_item.dart';
 import 'package:hbk/Domain/Models/orderModel.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Statement/statement_screen.dart';
 
 class Utils {
   static  ValueNotifier<String> productTitle=ValueNotifier('All Products');
@@ -93,7 +94,7 @@ class Utils {
     DrawerModel(
         screenName: 'Statement',
         iconPath: Assets.statementIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate:  CustomerStatementScreen()),
     DrawerModel(
         screenName: 'Price list',
         iconPath: Assets.priceIcon,

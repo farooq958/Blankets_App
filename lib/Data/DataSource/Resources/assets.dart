@@ -19,7 +19,7 @@ static const String borjanLogo = 'assets/images/borjanLogo.png';
 static const String orderSuccessFull = 'assets/images/ordersuccessfull.svg';
 
 static const String invoice = 'assets/images/invoice.png';
-
+static const String downloadIcon='assets/images/downlaodIcon.svg';
 
 ///Dashboard
 static const String notificationIcon='assets/images/notificationIcon.svg';
@@ -55,7 +55,7 @@ static const String calling = 'assets/images/Calling.svg';
 static const String orderConfirm = 'assets/images/orderConfirm.png';
 
 static const String addIcon = 'assets/images/addIcon.png';
-
+static const String calenderIcon = 'assets/images/calenderIcon.png';
 static const String location = 'assets/images/Location.svg';
 ///notification
 static const String notificationImage = 'assets/images/notification_image.svg';

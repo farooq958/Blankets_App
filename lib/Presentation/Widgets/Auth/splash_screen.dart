@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/AppData/app_media.dart';
+import 'package:hbk/Data/AppData/data.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
@@ -39,6 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     AppMedia.mediaQuery= MediaQuery.of(context);
+
     return  Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Center(

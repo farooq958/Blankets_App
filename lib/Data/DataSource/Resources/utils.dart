@@ -12,6 +12,8 @@ import 'package:hbk/Domain/Models/orderModel.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/customer_survery.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/reward_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/statement_screen.dart';
 import 'package:hbk/Presentation/Widgets/Feedback/feedback.dart';
 import 'package:hbk/Presentation/Widgets/SalePolicy/sales_policy.dart';
@@ -101,11 +103,11 @@ class Utils {
     DrawerModel(
         screenName: 'Price list',
         iconPath: Assets.priceIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate:  PriceListScreen()),
     DrawerModel(
         screenName: 'Reward',
         iconPath: Assets.rewardIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate:  RewardScreen()),
     DrawerModel(
         screenName: 'Invoice',
         iconPath: Assets.invoiceIcon,

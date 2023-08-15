@@ -33,7 +33,14 @@ class AppStrings{
 
   static const String deleteAccountNote = 'We\'re sorry to see you go, but we understand that circumstances may change. If you wish to delete your account, please be aware that this action is irreversible and will remove all your account information and order history.';
 
-
+/// about us
+static const String aboutUs = 'About Us';
+static const String achievement = 'Achievement';
+static const String getStarted = 'Get Started with HBK blankets';
+static const String ourVision  ='Our Vision';
+static const String ourMission = 'Our Mission';
+static const String ourValue = 'Our Value';
+static const  String whatMakeUs = 'What make us different';
 
 
 
@@ -57,8 +64,20 @@ class AppStrings{
 
   static const String checkOut = 'Checkout';
 
+  /// Sale policy screen
+
   static const String salesPolicy = 'Sale policy';
   static const String feedback = 'Feeback';
 
   static const String customerSurvey = 'Customer survey';
+
+  /// contact us
+
+  static const String headOfficeHbk = 'Head Office (HBK Complex)';
+
+  static const String contactUs = 'Contact us';
+
+
+
+
 }

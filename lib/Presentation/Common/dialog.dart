@@ -25,6 +25,16 @@ class CustomDialog {
     );
   }
 
+  static Future<void> alertDialog(BuildContext context, Widget child) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: child,
+          );
+        });
+  }
+
   static Future<void> iosDialog(
       BuildContext context, Widget child, String title) async {
     return showDialog<void>(
@@ -57,8 +67,10 @@ class CustomDialog {
   static Future<void> successDialog(BuildContext context,
       {required String? title,
       required String? message,
-        String? image,
-        Color? imageColor,
+      String? image,
+      Color? imageColor,
+      double? titleFontSize,
+      double? messageFontSize,
       bool? barrierDismissible}) async {
     return showDialog<void>(
       context: context,
@@ -73,7 +85,13 @@ class CustomDialog {
             borderRadius: BorderRadius.circular(10).r,
           ),
           child: SuccessFulDialog.show(
-              context: context, title: title, message: message,image: image,imageColor: imageColor),
+              context: context,
+              title: title,
+              message: message,
+              image: image,
+              imageColor: imageColor,
+              titleFontSize: titleFontSize,
+              messageFontSize: messageFontSize),
         );
       },
     );

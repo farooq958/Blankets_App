@@ -1,118 +1,16 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-// import 'package:hbk/Presentation/Common/app_buttons.dart';
-//
-// class CustomerSurveySteps extends StatefulWidget {
-//   const CustomerSurveySteps({super.key});
-//
-//   @override
-//   _CustomerSurveyStepsState createState() => _CustomerSurveyStepsState();
-// }
-//
-// class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
-//   int currentStep = 0;
-//   List<bool> stepCompletion = [false, false, false, false, false];
-//
-//   void _goToNextStep() {
-//     setState(() {
-//       if (currentStep <= 4) {
-//         stepCompletion[currentStep] = true;
-//         currentStep++;
-//       }
-//     });
-//   }
-//
-//   void _goToPreviousStep() {
-//     setState(() {
-//       if (currentStep > 0) {
-//         currentStep--;
-//       }
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Customer Survey'),
-//       ),
-//       body: Column(
-//         children: [
-//           Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.end,
-//               children: [
-//                 Text('${currentStep + 1}/5'),
-//               ],
-//             ),
-//           ),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: List.generate(
-//                 5,
-//                 (index) => Padding(
-//                       padding: EdgeInsets.symmetric(
-//                           vertical: 10.h, horizontal: 10.w),
-//                       child: Container(
-//                         width: 50.w,
-//                         height: 5.h,
-//                         decoration: BoxDecoration(
-//                             color: stepCompletion[index]
-//                                 ? AppColors.primaryColor
-//                                 : Colors.grey,
-//                             borderRadius: BorderRadius.circular(20.r)),
-//                       ),
-//                     )),
-//           ),
-//           Expanded(
-//             child: _buildStepContent(currentStep),
-//           ),
-//            SizedBox(height: 20.h),
-//           if (currentStep < 4)
-//             CustomButton(
-//               onTap: _goToNextStep,
-//               text: 'Next',
-//               horizontalMargin: 20.w,
-//             ),
-//           if (currentStep == 4)
-//             CustomButton(
-//               onTap: () {},
-//               text: 'Submit',
-//               horizontalMargin: 20.w,
-//             ),
-//           const SizedBox(height: 20),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildStepContent(int step) {
-//     switch (step) {
-//       case 0:
-//         return Center(child: Text('Step 1 content'));
-//       case 1:
-//         return Center(child: Text('Step 2 content'));
-//       case 2:
-//         return Center(child: Text('Step 3 content'));
-//       case 3:
-//         return Center(child: Text('Step 4 content'));
-//       case 4:
-//         return Center(child: Text('Step 5 content'));
-//       default:
-//         return Container();
-//     }
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
+import 'package:hbk/Presentation/Common/custom_radio_tile.dart';
+import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
+import 'package:hbk/Presentation/Common/dialog.dart';
+
+enum CustomerSurveySelection { excellent, good, average, belowAverage, poor }
 
 class CustomerSurveySteps extends StatefulWidget {
   const CustomerSurveySteps({super.key});
@@ -124,6 +22,10 @@ class CustomerSurveySteps extends StatefulWidget {
 class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
   final ValueNotifier<int> currentPageNotifier = ValueNotifier<int>(0);
   List<bool> stepCompletion = [false, false, false, false, false];
+  final pageController = PageController();
+  final suggestionController = TextEditingController();
+
+  CustomerSurveySelection selection = CustomerSurveySelection.excellent;
 
   @override
   void dispose() {
@@ -186,6 +88,7 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
           ),
           Expanded(
             child: PageView.builder(
+              controller: pageController,
               onPageChanged: (index) {
                 currentPageNotifier.value = index;
               },
@@ -203,6 +106,7 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
                 return CustomButton(
                   onTap: () {
                     if (currentPage < 4) {
+                      pageController.jumpToPage(currentPageNotifier.value + 1);
                       currentPageNotifier.value = currentPage + 1;
                     }
                   },
@@ -211,7 +115,13 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
                 );
               } else {
                 return CustomButton(
-                  onTap: () {},
+                  onTap: () {
+                    CustomDialog.successDialog(context,
+                        title: 'Thank You for Your Valuable Feedback!',
+                        message:
+                            'We sincerely appreciate you taking the time to participate in our customer survey.',
+                        image: Assets.customerSurveySuccess);
+                  },
                   text: 'Submit',
                   horizontalMargin: 20.w,
                 );
@@ -238,53 +148,101 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
                 maxLine: 3,
               ),
             ),
-            _buildRadioRow(true),
-            _buildRadioRow(false),
-            _buildRadioRow(false),
-            _buildRadioRow(false),
-            _buildRadioRow(false),
-
+            CustomRadioSelectionTile(
+              title: "Excellent",
+              value: CustomerSurveySelection.excellent,
+              groupValue: selection,
+              onChanged: (CustomerSurveySelection? value) {
+                setState(() {
+                  selection = value!;
+                  print(selection);
+                });
+              },
+            ),
+            CustomRadioSelectionTile(
+              title: "Good",
+              value: CustomerSurveySelection.good,
+              groupValue: selection,
+              onChanged: (CustomerSurveySelection? value) {
+                setState(() {
+                  selection = value!;
+                  print(selection);
+                });
+              },
+            ),
+            CustomRadioSelectionTile(
+              title: "Average",
+              value: CustomerSurveySelection.average,
+              groupValue: selection,
+              onChanged: (CustomerSurveySelection? value) {
+                setState(() {
+                  selection = value!;
+                  print(selection);
+                });
+              },
+            ),
+            CustomRadioSelectionTile(
+              title: "Below Average",
+              value: CustomerSurveySelection.belowAverage,
+              groupValue: selection,
+              onChanged: (CustomerSurveySelection? value) {
+                setState(() {
+                  selection = value!;
+                  print(selection);
+                });
+              },
+            ),
+            CustomRadioSelectionTile(
+              title: "Poor",
+              value: CustomerSurveySelection.poor,
+              groupValue: selection,
+              onChanged: (CustomerSurveySelection? value) {
+                setState(() {
+                  selection = value!;
+                  print(selection);
+                });
+              },
+            ),
           ],
         );
       case 1:
-        return Center(child: Text('Step 2 content'));
+        return const Center(child: Text('Step 2 content'));
       case 2:
-        return Center(child: Text('Step 3 content'));
+        return const Center(child: Text('Step 3 content'));
       case 3:
-        return Center(child: Text('Step 4 content'));
+        return const Center(child: Text('Step 4 content'));
       case 4:
-        return Center(child: Text('Step 5 content'));
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                AppText(
+                  'Do you have any additional suggestions or ideas to enhance your product experience with our app?',
+                  style: Styles.circularStdMedium(context, fontSize: 16.sp),
+                  maxLine: 3,
+                ),
+                AppText(
+                  'Feel free to share your thoughts below. Your feedback matters to us!',
+                  style: Styles.circularStdMedium(context, fontSize: 16.sp),
+                  maxLine: 2,
+                ),
+                CustomTextFieldWithOnTap(
+                  controller: suggestionController,
+                  hintText: 'Write your suggestion',
+                  hintTextColor: AppColors.blackColor,
+                  textInputType: TextInputType.text,
+                  maxline: 8,
+                  isBorderRequired: false,
+                  borderRadius: 20.r,
+                  isShadowRequired: true,
+                ),
+              ],
+            ),
+          ),
+        );
       default:
         return Container();
     }
-  }
-
-  Widget _buildRadioRow(bool selected) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Material(
-        elevation: 2,
-        child: Container(
-          width: 1.sw,
-          height: 50.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: selected == true? AppColors.primaryColor : Colors.transparent),
-          ),
-          child: Row(
-            children: [
-              Radio(
-                activeColor: AppColors.primaryColor,
-                value: 0,
-                groupValue: 0,
-                onChanged: (value) {},
-              ),
-              AppText('Excellent',
-                  style: Styles.circularStdBold(context)),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

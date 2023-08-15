@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 
@@ -38,6 +39,7 @@ final double? trailIconWidth;
 final double? borderThickness;
 final double? trailIconHeight;
 final double? gapWidth;
+final double? width;
   const CustomButton({
     Key? key,
     required this.onTap,
@@ -55,7 +57,10 @@ final double? gapWidth;
     this.leadingSvgIcon,
     this.imageWidth = 22,
     this.imageHeight = 25,
-    this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize, this.trailIconWidth, this.borderThickness, this.trailIconHeight, this.gapWidth,
+    this.width,
+    this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize,
+    // this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize, this.trailIconWidth,
+    this.borderThickness, this.trailIconHeight, this.gapWidth, this.trailIconWidth,
   }) : super(key: key);
 
   @override

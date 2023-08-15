@@ -52,7 +52,7 @@ pageController: pageController,
         scaffoldKey.currentState!.openDrawer();
 
       },),
-      drawer: const AppDrawer(),
+      drawer:   AppDrawer(isGuest:widget.isGuest!),
 body: SizedBox(
   height: 1.sh,
   width: 1.sw,
@@ -65,7 +65,7 @@ onPageChanged: (x)
 
     },
     children:  [
- HomeScreen(pageController:pageController),
+ HomeScreen(pageController:pageController,isGuest:widget.isGuest),
       const DashboardBottom(),
        ProductScreen(),
        CartScreen(pageController: pageController,),

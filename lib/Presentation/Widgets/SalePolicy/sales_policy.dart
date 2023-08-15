@@ -1,14 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Presentation/Common/app_buttons.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
-import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
-import 'package:hbk/Presentation/Common/image_widgets.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 class SalesPolicy extends StatelessWidget {
   const SalesPolicy({Key? key}) : super(key: key);
@@ -20,16 +10,28 @@ class SalesPolicy extends StatelessWidget {
         title: AppStrings.salesPolicy,
       ),
       body: Padding(
-        padding:  EdgeInsets.all(15.w),
+        padding: EdgeInsets.all(15.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomSizedBox.height(20.h),
-            _button(context, () {},'Rebate policy',Assets.rebatePolicy),
+            const ExpandableTileWidget(
+                text: 'Rebate policy',
+                imageUrl: Assets.rebatePolicy,
+                isImageRequired: true,
+                expendedContent: Column()),
             CustomSizedBox.height(20.h),
-            _button(context, () {},'Loyal policy',Assets.loyalPolicy),
+            const ExpandableTileWidget(
+                isImageRequired: true,
+                imageUrl: Assets.loyalPolicy,
+                text: 'Loyal policy',
+                expendedContent: Column()),
             CustomSizedBox.height(20.h),
-            _button(context, () {},'Transport policy',Assets.transportPolicy),
+            const ExpandableTileWidget(
+                isImageRequired: true,
+                imageUrl: Assets.transportPolicy,
+                text: 'Transport policy',
+                expendedContent: Column()),
           ],
         ),
       ),
@@ -37,7 +39,7 @@ class SalesPolicy extends StatelessWidget {
   }
 
   Widget _button(
-      BuildContext context, VoidCallback onTap, String title,String imageUrl) {
+      BuildContext context, VoidCallback onTap, String title, String imageUrl) {
     return GestureDetector(
       onTap: onTap,
       child: Material(

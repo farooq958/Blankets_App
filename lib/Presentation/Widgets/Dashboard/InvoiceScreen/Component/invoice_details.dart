@@ -255,7 +255,8 @@ horizontalBar: const CrossScrollBar(thickness: 2),
            alignment: Alignment.centerLeft,
            //  width: 130,
            width: 40,
-           padding: const EdgeInsets.only(right: 10),
+           margin:  EdgeInsets.only(right: 40.w),
+           padding:  EdgeInsets.only(left: 2.w),
            // color: Colors.red,
             //margin: EdgeInsets.only(right: 200.sp),
            child: AppText(i.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight: FontWeight.normal))));
@@ -266,7 +267,7 @@ horizontalBar: const CrossScrollBar(thickness: 2),
          width: 180.sp,
          //   color: Colors.black,
            alignment: Alignment.centerLeft,
-           padding: const EdgeInsets.only(left: 10),
+           // padding: const EdgeInsets.only(left: 10),
            //  padding: EdgeInsets.only(right: 100.sp),
 
            child: AppText(rewardListData[i].productName.toString(),
@@ -277,25 +278,21 @@ horizontalBar: const CrossScrollBar(thickness: 2),
        textWidget.add(Container(
          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
          // height: 50.sp,
-          width: 180,
+          width: 180.sp,
          alignment: Alignment.centerLeft,
          // padding: EdgeInsets.only(right: 10.sp),
 
          // margin: const EdgeInsets.only(left: 20),
-         child:  Center(
-           child: SingleChildScrollView(
-             child: AppText(rewardListData[i].type.toString(),
-                 style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight:  FontWeight.normal)),
-           ),
-         ),
+         child:  AppText(rewardListData[i].type.toString(),
+             style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight:  FontWeight.normal)),
        ));
 //       textWidget.add(SizedBox(width: 40.sp,));
        textWidget.add(SizedBox(width: 10.sp,));
 
        textWidget.add(Container(
-           padding: const EdgeInsets.only(left: 10),
+           // padding: const EdgeInsets.only(left: 10),
          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
-           alignment: Alignment.centerLeft, width: 180,
+           alignment: Alignment.centerLeft, width: 180.sp,
            //padding: const EdgeInsets.only(right: 60),
            //padding: EdgeInsets.only(right: 30.sp),
            child: AppText(rewardListData[i].packing.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
@@ -304,7 +301,7 @@ horizontalBar: const CrossScrollBar(thickness: 2),
        textWidget.add(Container(
          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
            alignment: Alignment.centerLeft,
-           width: 180,
+           width: 180.sp,
            //padding: EdgeInsets.only(right: 30.sp),
            child: AppText(rewardListData[i].ctn.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
        textWidget.add(SizedBox(width: 10.sp,));
@@ -327,7 +324,7 @@ horizontalBar: const CrossScrollBar(thickness: 2),
        textWidget.add(SizedBox(width: 30.sp,));
      //  textWidget.add(SizedBox(width: 40.sp,));
        textWidget.add(Container(
-         width: 180,
+         width: 180.sp,
          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
            alignment: Alignment.centerLeft,
           //margin: EdgeInsets.only(left: 10.sp),

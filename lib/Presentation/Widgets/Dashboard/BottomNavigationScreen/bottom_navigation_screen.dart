@@ -5,6 +5,7 @@ import 'package:hbk/Application/Services/Connectivity/connectivity_service.dart'
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_drawer.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
@@ -63,11 +64,13 @@ onPageChanged: (x)
     {
       BottomNotifier.bottomNavigationNotifier.value=x;
 
+
+
     },
     children:  [
  HomeScreen(pageController:pageController,isGuest:widget.isGuest),
       const DashboardBottom(),
-       ProductScreen(),
+       ProductScreen(isGuest: widget.isGuest,),
        CartScreen(pageController: pageController,),
       ProfileScreen(isGuest: widget.isGuest!,)
 
@@ -146,8 +149,54 @@ onPageChanged: (x)
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      BottomNotifier.bottomNavigationNotifier.value=1;
-                      pageController.jumpToPage(1);
+                      if(widget.isGuest == true){
+                        CustomDialog.dialog(
+                            context,
+                            SizedBox(
+                                width: 1.sw,
+                                height: 250.h,
+                                child: Center(
+                                  child: Column(
+                                    // crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        Assets.logout,
+                                        width: 50.w,
+                                        height: 50.h,
+                                      ),
+                                      CustomSizedBox.height(10.h),
+                                      AppText('Please login first',
+                                          style: Styles.circularStdBold(
+                                              context,
+                                              fontSize: 22.sp)),
+                                      CustomSizedBox.height(10.h),
+                                      AppText('Please login first',
+                                          style: Styles.circularStdBold(
+                                              context,
+                                              fontSize: 16.sp)),
+                                      CustomSizedBox.height(10.h),
+
+                                      CustomButton(
+                                        onTap: () {
+                                          Navigator.of(context).pop(true);
+                                          Navigate.to(context, const LoginScreen());
+                                        },
+                                        text: 'Login',
+                                        width: 1.sw,
+                                        horizontalMargin: 20.w,
+                                      ),
+
+                                    ],
+
+                                  ),
+                                )));
+                      }
+                      else{
+                        BottomNotifier.bottomNavigationNotifier.value=1;
+                        pageController.jumpToPage(1);
+                      }
                     },
                     child: Column(
                       children: [

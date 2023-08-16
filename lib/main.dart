@@ -1,5 +1,4 @@
 
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Presentation/Widgets/Auth/splash_screen.dart';
 
 import 'Data/DataSource/Resources/imports.dart';

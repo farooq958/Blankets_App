@@ -32,10 +32,10 @@ class _ExpandableTileWidgetState extends State<ExpandableTileWidget> {
         borderRadius: BorderRadius.circular(20.r),
         child: ExpansionTile(
           expandedAlignment: Alignment.center,
-
+// maintainState: true,
           title: Text(
             widget.text ?? 'Head Office',
-            style: Styles.circularStdMedium(context, fontSize: 16.sp),
+            style: Styles.circularStdBold(context, fontSize: 16.sp),
           ),
           iconColor: AppColors.primaryColor,
           collapsedIconColor: AppColors.primaryColor,
@@ -63,10 +63,11 @@ class _ExpandableTileWidgetState extends State<ExpandableTileWidget> {
               isExpanded = !isExpanded;
             });
           },
-          backgroundColor: AppColors.whiteColor,
+          backgroundColor:const Color(0xffE7EDF5),
+          collapsedBackgroundColor:AppColors.whiteColor ,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.r),
-              side: BorderSide(color: Colors.white)
+              side: const BorderSide(color: Colors.white)
           ),
           children: [
             if (isExpanded) ...[

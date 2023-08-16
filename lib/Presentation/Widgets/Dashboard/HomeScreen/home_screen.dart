@@ -169,37 +169,42 @@ class HomeScreen extends StatelessWidget {
                                     context,
                                     SizedBox(
                                         width: 1.sw,
-                                        height: 200.h,
+                                        height: 250.h,
                                         child: Center(
                                           child: Column(
                                             // crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             children: [
                                               SvgPicture.asset(
                                                 Assets.logout,
                                                 width: 50.w,
                                                 height: 50.h,
                                               ),
+                                              CustomSizedBox.height(10.h),
                                               AppText('Please login first',
                                                   style: Styles.circularStdBold(
                                                       context,
                                                       fontSize: 22.sp)),
+                                              CustomSizedBox.height(10.h),
                                               AppText('Please login first',
                                                   style: Styles.circularStdBold(
                                                       context,
                                                       fontSize: 16.sp)),
                                               CustomSizedBox.height(10.h),
+
                                               CustomButton(
                                                 onTap: () {
-                                                  Navigator.of(context)
-                                                      .pop(true);
+                                                  Navigator.of(context).pop(true);
+                                                  Navigate.to(context, const LoginScreen());
                                                 },
                                                 text: 'Login',
                                                 width: 1.sw,
                                                 horizontalMargin: 20.w,
                                               ),
+
                                             ],
+
                                           ),
                                         )));
                               }

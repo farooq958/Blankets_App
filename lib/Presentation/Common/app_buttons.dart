@@ -40,6 +40,8 @@ final double? borderThickness;
 final double? trailIconHeight;
 final double? gapWidth;
 final double? width;
+final double? height;
+final double? borderRadius;
   const CustomButton({
     Key? key,
     required this.onTap,
@@ -58,6 +60,8 @@ final double? width;
     this.imageWidth = 22,
     this.imageHeight = 25,
     this.width,
+    this.height,
+    this.borderRadius,
     this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize,
     // this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize, this.trailIconWidth,
     this.borderThickness, this.trailIconHeight, this.gapWidth, this.trailIconWidth,
@@ -69,7 +73,8 @@ final double? width;
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
-       // height: 70,
+         height: height??50,
+        width: width,
         duration: const Duration(milliseconds: 300),
         curve: Curves.fastOutSlowIn,
         margin: EdgeInsets.symmetric(
@@ -83,7 +88,7 @@ final double? width;
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(
-               30).r,
+              borderRadius?? 10).r,
           border: isBorder
               ? Border.all(
                   color: borderColor!,

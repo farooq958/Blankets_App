@@ -133,9 +133,10 @@ class SuccessFulDialog {
             maxLine: 6,
             // textAlign: TextAlign.center,
           ),
-          CustomSizedBox.height(5.h),
+
+          CustomSizedBox.height(10.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomButton(
                 onTap: button1Tap!,
@@ -144,7 +145,7 @@ class SuccessFulDialog {
                 textColor: AppColors.greyColor,
                 borderColor: Colors.transparent,
                 verticalPadding: 10.h,
-                horizontalPadding: 20.w,
+                horizontalPadding: 20.w,width: 120.w,
                 isBorder: false,
               ),
               CustomButton(
@@ -152,11 +153,15 @@ class SuccessFulDialog {
                 text: buttonText2!,
                 verticalPadding: 5.h,
                 horizontalPadding: 20.w,
+                borderRadius: 30.r,
                 isBorder: false,
+                width: 120.w,
                 bgColor: button2BgColor ?? AppColors.primaryColor,
               ),
+
             ],
-          )
+          ),
+          CustomSizedBox.height(10.h)
         ],
       ),
     );

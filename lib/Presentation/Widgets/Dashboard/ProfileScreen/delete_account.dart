@@ -68,6 +68,7 @@ class DeleteAccount extends StatelessWidget {
               right: 10.w,
               child: CustomButton(
                 text: AppStrings.deleteAccount,
+
                 onTap: () {
                   CustomDialog.successConfirmDialog(
                     context,
@@ -90,7 +91,7 @@ class DeleteAccount extends StatelessWidget {
                           imageColor: AppColors.primaryColor);
                     },
                     imageColor: AppColors.redColor,
-                    height: 300.h,
+                    height: 320.h,
                     width: 300.h,
                     button2BgColor: AppColors.redColor,
                   );

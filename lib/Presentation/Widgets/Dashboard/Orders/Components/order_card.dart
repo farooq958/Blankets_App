@@ -56,10 +56,23 @@ class OrderCard extends StatelessWidget {
                             children: [
                               AppText('S# ${orderModel!.orderNo}',
                                   style: Styles.circularStdMedium(context)),
+                              CustomSizedBox.height(5.h),
                               AppText('Items ${orderModel!.noOfItems}',
                                   style: Styles.circularStdMedium(context)),
-                              AppText('Total: RS ${orderModel!.totalRS} ',
-                                  style: Styles.circularStdMedium(context)),
+                              CustomSizedBox.height(5.h),
+                              RichText(
+                                  text: TextSpan(children: [
+                                    TextSpan(
+                                        text: 'Total Rs ',
+                                        style: Styles.circularStdBold(context, fontSize: 16.sp)),
+
+                                    TextSpan(
+                                        text: '50,490 ',
+                                        style: Styles.circularStdBold(context,
+                                            fontWeight: FontWeight.w900, fontSize: 20,color: Colors.blue)),
+                                  ])),
+                              // AppText('Total: RS ${orderModel!.totalRS} ',
+                              //     style: Styles.circularStdMedium(context,color: Colors.blue)),
                             ],
                           ),
                         ],

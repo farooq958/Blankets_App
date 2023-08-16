@@ -19,7 +19,7 @@ class ManageAccount extends StatelessWidget {
           children: [
             CustomSizedBox.height(20.h),
             Material(
-              borderRadius: BorderRadius.circular(20.r),
+              borderRadius: BorderRadius.circular(10.r),
               elevation: 2,
               child: CustomButton(
                 onTap: () {
@@ -31,12 +31,13 @@ class ManageAccount extends StatelessWidget {
                 textColor: AppColors.blackColor,
                 leadingIcon: Assets.passwordIcon,
                 // borderRadius: 15,
+                height: 55.h,
                 iconColor: AppColors.blackColor,
               ),
             ),
             CustomSizedBox.height(20.h),
             Material(
-              borderRadius: BorderRadius.circular(20.r),
+              borderRadius: BorderRadius.circular(10.r),
               elevation: 2,
               child: CustomButton(
                 onTap: () {
@@ -45,9 +46,11 @@ class ManageAccount extends StatelessWidget {
                 text: AppStrings.deleteAccount,
                 bgColor: AppColors.whiteColor,
                 isBorder: false,
+                height: 55.h,
                 textColor: AppColors.blackColor,
                 leadingIcon: Assets.deleteAccount,
                 // borderRadius: 15,
+
                 iconColor: AppColors.blackColor,
               ),
             ),

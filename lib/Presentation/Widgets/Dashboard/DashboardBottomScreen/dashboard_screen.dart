@@ -1,21 +1,30 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Data/DataSource/Resources/utils.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Components/bottom_cards.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Components/chart_dashboard.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Components/custom_card.dart';
 
 import 'Components/info_card.dart';
 
-class DashboardBottom extends StatelessWidget {
-  const DashboardBottom({super.key});
+class DashboardBottom extends StatefulWidget {
+  final bool? isGuest;
+  const DashboardBottom({super.key,this.isGuest});
 
+  @override
+  State<DashboardBottom> createState() => _DashboardBottomState();
+}
+
+class _DashboardBottomState extends State<DashboardBottom> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    if(widget.isGuest==true){
+      CustomDialog.dialog(context, Column());
+    }
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

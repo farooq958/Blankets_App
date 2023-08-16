@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
@@ -20,7 +21,8 @@ import 'Components/sort_filter.dart';
 
 class ProductScreen extends StatelessWidget {
   final String? title;
-   ProductScreen({super.key, this.title});
+  final bool? isGuest;
+   ProductScreen({super.key, this.title,this.isGuest});
 
  final TextEditingController searchController=TextEditingController();
   @override
@@ -116,7 +118,52 @@ CustomSizedBox.height(10),
 
                     for(var i in Utils.dummyProduct)
 
-                      NewArrivalProduct(dummyProduct: i, onAddToCardTap: () { print("tap $i"); },onDetailTap: (){
+                      NewArrivalProduct(dummyProduct: i, onAddToCardTap: () { print("tap $i");
+                        if(isGuest == true){
+                          CustomDialog.dialog(
+                              context,
+                              SizedBox(
+                                  width: 1.sw,
+                                  height: 250.h,
+                                  child: Center(
+                                    child: Column(
+                                      // crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          Assets.logout,
+                                          width: 50.w,
+                                          height: 50.h,
+                                        ),
+                                        CustomSizedBox.height(10.h),
+                                        AppText('Please login first',
+                                            style: Styles.circularStdBold(
+                                                context,
+                                                fontSize: 22.sp)),
+                                        CustomSizedBox.height(10.h),
+                                        AppText('Please login first',
+                                            style: Styles.circularStdBold(
+                                                context,
+                                                fontSize: 16.sp)),
+                                        CustomSizedBox.height(10.h),
+
+                                        CustomButton(
+                                          onTap: () {
+                                            Navigator.of(context).pop(true);
+                                            Navigate.to(context, const LoginScreen());
+                                          },
+                                          text: 'Login',
+                                          width: 1.sw,
+                                          horizontalMargin: 20.w,
+                                        ),
+
+                                      ],
+
+                                    ),
+                                  )));
+                        }
+                        },onDetailTap: (){
 
 Navigate.to(context,  ProductDetails(pd: i,));
 

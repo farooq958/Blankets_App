@@ -200,7 +200,7 @@ horizontalBar: const CrossScrollBar(thickness: 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(text1??'', style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 14.sp)),
+                    AppText(text1??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp)),
                     CustomSizedBox.height(10),
                     AppText(text2??'',
                         maxLine: 3,
@@ -217,7 +217,7 @@ horizontalBar: const CrossScrollBar(thickness: 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(text3??'', style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 14.sp)),
+                    AppText(text3??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp)),
                     CustomSizedBox.height(10),
                     AppText(text4??'',
                         maxLine: 4,

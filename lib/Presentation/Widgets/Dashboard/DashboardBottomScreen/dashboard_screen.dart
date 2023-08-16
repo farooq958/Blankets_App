@@ -42,7 +42,7 @@ class _DashboardBottomState extends State<DashboardBottom> {
                 children: <Widget>[
                   AppText(
                     AppStrings.accountBalance,
-                    style: Styles.circularStdRegular(context,
+                    style: Styles.circularStdBold(context,
                         fontWeight: FontWeight.w500, fontSize: 16),
                   ),
                   RichText(
@@ -85,7 +85,7 @@ class _DashboardBottomState extends State<DashboardBottom> {
 
               ///Chart
               FractionallySizedBox(
-                widthFactor: 1.12,
+                widthFactor: 1.07,
                 child: VerticalBarChart(),
               ),
 

@@ -17,17 +17,20 @@ class DrawerRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return  GestureDetector(
       onTap: onTap,
-      child: SizedBox(
-        height: 20.sp,
-        child: Row(
-          children: <Widget>[
-            SvgPicture.asset(iconPath!,width: 20.sp,height: 20.sp,),
-            CustomSizedBox.width(10),
-            AppText(screenName!, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w400,color: AppColors.whiteColor,fontSize: 15.sp))
+      child: Material(
+        color: Colors.transparent,
+        child: SizedBox(
+          height: 20.sp,
+          child: Row(
+            children: <Widget>[
+              SvgPicture.asset(iconPath!,width: 20.sp,height: 20.sp,),
+              CustomSizedBox.width(10),
+              AppText(screenName!, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w400,color: AppColors.whiteColor,fontSize: 15.sp))
 
 
 
-          ],
+            ],
+          ),
         ),
       ),
     );

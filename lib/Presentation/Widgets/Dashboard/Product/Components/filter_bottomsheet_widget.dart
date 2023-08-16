@@ -28,7 +28,7 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
           CustomSizedBox.height(40.sp),
           Align(
             alignment: Alignment.centerLeft,
-            child: AppText('Filters', style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
+            child: AppText('Filters', style: Styles.circularStdBold(context,letterSpacing: 1.1,fontWeight:
             FontWeight.w600,fontSize: 19.sp),),
           ),
           CustomSizedBox.height(40.sp),

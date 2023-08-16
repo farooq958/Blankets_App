@@ -48,8 +48,8 @@ class HomeScreen extends StatelessWidget {
                     children: <Widget>[
                       AppText(
                         AppStrings.accountBalance,
-                        style: Styles.circularStdRegular(context,
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                        style: Styles.circularStdBold(context,
+                            fontWeight: FontWeight.w500, fontSize: 16.sp),
                       ),
                       RichText(
                           text: TextSpan(children: [
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                         TextSpan(
                             text: '50,490 ',
                             style: Styles.circularStdBold(context,
-                                fontWeight: FontWeight.w900, fontSize: 20)),
+                                fontWeight: FontWeight.w900, fontSize: 20.sp)),
                       ]))
                     ],
                   ),
@@ -75,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: AppText(
                         AppStrings.category,
-                        style: Styles.circularStdRegular(context,
+                        style: Styles.circularStdBold(context,
                             fontWeight: FontWeight.w500, fontSize: 20.sp),
                       )),
                   CustomSizedBox.height(20),
@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           AppText(
                             AppStrings.newArrival,
-                            style: Styles.circularStdRegular(context,
+                            style: Styles.circularStdBold(context,
                                 fontWeight: FontWeight.w500, fontSize: 20.sp),
                           ),
                           const Spacer(),
@@ -178,7 +178,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           AppText(
                             AppStrings.mostSoldProduct,
-                            style: Styles.circularStdRegular(context,
+                            style: Styles.circularStdBold(context,
                                 fontWeight: FontWeight.w500, fontSize: 20.sp),
                           ),
                           const Spacer(),

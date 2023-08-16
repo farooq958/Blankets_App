@@ -45,7 +45,7 @@ Utils.productTitle.value=Utils.categoryDummyProduct[index].productName.toString(
 
                 AssetImageWidget(url: Utils.categoryDummyProduct[index].productImage.toString(),isCircle: true,radius: 40.sp,),
               CustomSizedBox.height(5),
-                AppText(Utils.categoryDummyProduct[index].productName.toString(), style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))
+                AppText(Utils.categoryDummyProduct[index].productName.toString(), style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,color: Colors.black))
               ],
 
             ),

@@ -139,7 +139,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                         ),
                       )
                     : null,
-                hintStyle: Styles.circularStdBold(
+                hintStyle: Styles.circularStdRegular(
                   context,
                   color: hintTextColor ?? AppColors.greyColor,
                   fontSize: 16.sp,

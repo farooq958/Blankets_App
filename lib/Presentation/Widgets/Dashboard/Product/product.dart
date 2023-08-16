@@ -45,6 +45,7 @@ class ProductScreen extends StatelessWidget {
                 onChanged: (v){
                 ///tobe evaluated
                 },
+
                 borderRadius:20.sp,
                 hintTextColor: AppColors.greyColor,
                 controller: searchController, hintText: 'Search products', textInputType: TextInputType.text),
@@ -65,7 +66,7 @@ class ProductScreen extends StatelessWidget {
                        CustomSizedBox.height(30.sp),
                        Align(
                          alignment: Alignment.centerLeft,
-                         child: AppText('Sort By', style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
+                         child: AppText('Sort By', style: Styles.circularStdBold(context,letterSpacing: 1.1,fontWeight:
                          FontWeight.w600,fontSize: 19.sp),),
                        ),
                        CustomSizedBox.height(10.sp),

@@ -14,6 +14,7 @@ import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
 import 'package:hbk/Presentation/Widgets/ContactUs/contact_us.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/customer_survery.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/invoice_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/reward_screen.dart';
@@ -115,7 +116,7 @@ class Utils {
     DrawerModel(
         screenName: 'Invoice',
         iconPath: Assets.invoiceIcon,
-        widgetToNavigate: const DashboardBottom()),
+        widgetToNavigate:  InvoiceScreen()),
     DrawerModel(
         screenName: 'Sale policies',
         iconPath: Assets.salePolicyIcon,

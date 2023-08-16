@@ -248,7 +248,7 @@ trailIconWidth: 19.sp,
         return SizedBox(
           height: 600,
           width: 1.sw,
-          child: buildDatePicker(context),
+          child: buildDateRangePicker(context),
         );
       },
     );

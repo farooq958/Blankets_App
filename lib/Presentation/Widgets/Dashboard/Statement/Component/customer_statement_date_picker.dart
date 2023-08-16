@@ -10,7 +10,7 @@ import 'package:hbk/Presentation/Common/app_text.dart';
 
 
 
-Widget buildDatePicker(BuildContext context) {
+Widget buildDateRangePicker(BuildContext context) {
   return Column(
     children: <Widget>[
       CustomSizedBox.height(10),
@@ -53,6 +53,31 @@ Widget buildDatePicker(BuildContext context) {
   );
 }
 
+Widget buildDateSinglePicker(BuildContext context,{VoidCallback? onTap}) {
+  return Column(
+    children: <Widget>[
+      CustomSizedBox.height(10),
+      Padding(
+        padding:  EdgeInsets.only(top: 8.0,left: 20.sp),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: AppText(
+
+            'Date',
+            style: Styles.circularStdBold(context,fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      Expanded(
+          flex: 1,
+
+
+          child: SingleChildScrollView(child: _buildSingleDatePicker(context))), // First date picker for "From"
+
+      CustomButton(onTap:onTap??(){}, text: "Apply",horizontalMargin: 15,)// Second date picker for "To"
+    ],
+  );
+}
 Widget _buildSingleDatePicker(context) {
   return LinearDatePicker(
     showLabels: true,

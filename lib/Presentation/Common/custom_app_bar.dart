@@ -66,6 +66,7 @@ class CustomAppBarState extends State<CustomAppBar> {
           return Padding(
             padding: const EdgeInsets.only(top: 5).r,
             child: AppText(
+
               state == 3
                   ? "Cart"
                   : state == 1
@@ -136,30 +137,30 @@ class CustomAppBarState extends State<CustomAppBar> {
                     onTap: () {
                       widget.pageController!.jumpToPage(0);
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(20)),
-                        width: 120.w,
-                        height: 40.h,
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.add,
-                              color: AppColors.whiteColor,
-                            ),
-                            AppText(
-                              'Add items',
-                              style: Styles.circularStdMedium(context,
-                                  color: AppColors.whiteColor),
-                              textAlign: TextAlign.center,
-                            )
-                          ],
-                        ),
+                    child: Container(
+                      alignment: Alignment.center,
+
+                      margin: EdgeInsets.only(right: 10.w),
+                      decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                          borderRadius: BorderRadius.circular(20)),
+                      width: 100.w,
+                      height: 40.h,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                           Icon(
+                            Icons.add,
+                            color: AppColors.whiteColor,
+                            size: 15.r,
+                          ),
+                          AppText(
+                            'Add items',
+                            style: Styles.circularStdMedium(context,
+                                color: AppColors.whiteColor,fontSize: 12.sp),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
                       ),
                     ),
                   )

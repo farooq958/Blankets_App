@@ -1,5 +1,4 @@
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
-import 'package:hbk/Presentation/Common/expandable_section.dart';
 
 class FAQS extends StatelessWidget {
   const FAQS({Key? key}) : super(key: key);

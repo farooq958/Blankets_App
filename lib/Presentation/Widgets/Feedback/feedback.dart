@@ -1,11 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Presentation/Common/app_buttons.dart';
-import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
-import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
+
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 class Feedback extends StatefulWidget {
   const Feedback({Key? key}) : super(key: key);

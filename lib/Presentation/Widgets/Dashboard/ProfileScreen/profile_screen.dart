@@ -1,16 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hbk/Application/Services/Navigation/navigation.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Domain/Models/orderModel.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
-import 'package:hbk/Presentation/Common/image_widgets.dart';
-import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
+
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
+
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/order_history.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/manage_account.dart';
 
@@ -24,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
+
         children: [
           AssetImageWidget(
             url: Assets.user,
@@ -49,6 +40,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _userList(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTileWidget(
           tileTitle: AppStrings.manageAccount,
@@ -87,6 +79,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _guestList(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTileWidget(
           tileTitle: AppStrings.notificationPreferences,

@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:pinput/pinput.dart';
+
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
+
 
 /// This is the basic usage of Pinput
 /// For more examples check out the demo directory

@@ -1,18 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Data/DataSource/Resources/utils.dart';
-import 'package:hbk/Presentation/Common/app_buttons.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
-import 'package:hbk/Presentation/Common/circle_icon_button.dart';
-import 'package:hbk/Presentation/Common/custom_app_bar.dart';
-import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
-import 'package:hbk/Presentation/Common/dialog.dart';
+
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
+
 
 class CheckOutScreen extends StatefulWidget {
   final String totalCtn;
@@ -133,9 +121,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 onTap: () {
                   CustomDialog.successConfirmDialog(
                     context,
+                    isSvg: true,
                     title: AppStrings.orderConfirmation,
                     message: 'Are you sure you want to place order ?',
-                    assetImage: '',
+                    assetImage: Assets.orderSuccessFull,
                     button1Text: '',
                     button2Text: '',
                     button1Tap: () {},

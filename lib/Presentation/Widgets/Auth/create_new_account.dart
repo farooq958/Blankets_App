@@ -1,24 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Application/Services/Navigation/navigation.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/strings.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Presentation/Common/app_buttons.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
-import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
-import 'package:hbk/Presentation/Common/dialog.dart';
-import 'package:hbk/Presentation/Common/image_widgets.dart';
-import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 class CreateNewAccountScreen extends StatefulWidget {
   const CreateNewAccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreateNewAccountScreen> createState() =>
-      _CreateNewAccountScreenState();
+  State<CreateNewAccountScreen> createState() => _CreateNewAccountScreenState();
 }
 
 class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
@@ -34,7 +20,7 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
             children: [
               SingleChildScrollView(
                 child: Padding(
-                  padding:  EdgeInsets.only(top: 100.h),
+                  padding: EdgeInsets.only(top: 100.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -67,8 +53,8 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
                         prefixIcon: const Icon(Icons.lock),
                         obscureText: true,
                         suffixIcon: IconButton(
-                            onPressed: () {}, icon: const Icon(Icons
-                            .remove_red_eye)),
+                            onPressed: () {},
+                            icon: const Icon(Icons.remove_red_eye)),
                         isBorderRequired: false,
                         isShadowRequired: true,
                       ),
@@ -81,11 +67,11 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
                         prefixIcon: const Icon(Icons.lock),
                         obscureText: true,
                         suffixIcon: IconButton(
-                            onPressed: () {}, icon: const Icon(Icons
-                            .remove_red_eye)),
+                            onPressed: () {},
+                            icon: const Icon(Icons.remove_red_eye)),
                         isBorderRequired: false,
                         isShadowRequired: true,
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -94,13 +80,15 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
                   bottom: 10.h,
                   right: 0,
                   left: 0,
-                  child: CustomButton(onTap: () {
-                    // CustomDialog.successDialog(
-                    //     context, title: AppStrings.passwordChangeSuccessFull,
-                    //     message: 'Awesome! you’ve successfully change your password');
-                    Navigate.toReplace(context, const LoginScreen());
-
-                  }, text: AppStrings.createNewPassword,))
+                  child: CustomButton(
+                    onTap: () {
+                      // CustomDialog.successDialog(
+                      //     context, title: AppStrings.passwordChangeSuccessFull,
+                      //     message: 'Awesome! you’ve successfully change your password');
+                      Navigate.toReplace(context, const LoginScreen());
+                    },
+                    text: AppStrings.createNewPassword,
+                  ))
             ],
           ),
         ),

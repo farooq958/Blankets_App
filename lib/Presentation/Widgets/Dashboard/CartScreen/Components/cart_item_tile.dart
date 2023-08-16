@@ -1,13 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
-import 'package:hbk/Data/DataSource/Resources/utils.dart';
-import 'package:hbk/Domain/Models/Cart/cart_item.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
-import 'package:hbk/Presentation/Common/circle_icon_button.dart';
-import 'package:hbk/Presentation/Common/image_widgets.dart';
+
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 class CartItemTile extends StatefulWidget {
   final CartItem? cartItem;

@@ -70,6 +70,7 @@ class _ContactUsState extends State<ContactUs> {
                 isImageRequired: true,
                 imageUrl: Assets.appLogo,
                 text: 'Lahore Office',
+
                 expendedContent: ExpandableContents(
                   button1onTap: () {
                     CustomDialog.dialog(

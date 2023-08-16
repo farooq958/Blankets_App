@@ -11,28 +11,71 @@ class SalesPolicy extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(15.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomSizedBox.height(20.h),
-            const ExpandableTileWidget(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomSizedBox.height(20.h),
+              ExpandableTileWidget(
                 text: 'Rebate policy',
                 imageUrl: Assets.rebatePolicy,
+                leadingSvgIcon: true,
                 isImageRequired: true,
-                expendedContent: Column()),
-            CustomSizedBox.height(20.h),
-            const ExpandableTileWidget(
-                isImageRequired: true,
-                imageUrl: Assets.loyalPolicy,
-                text: 'Loyal policy',
-                expendedContent: Column()),
-            CustomSizedBox.height(20.h),
-            const ExpandableTileWidget(
-                isImageRequired: true,
-                imageUrl: Assets.transportPolicy,
-                text: 'Transport policy',
-                expendedContent: Column()),
-          ],
+                expendedContent: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+
+                      AssetImageWidget(
+                        url: Assets.policy,
+                        width: 1.sw,
+                        height: 300.h,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              CustomSizedBox.height(20.h),
+               ExpandableTileWidget(
+                  isImageRequired: true,
+                  imageUrl: Assets.loyalPolicy,
+                  leadingSvgIcon: true,
+                  text: 'Loyal policy',
+                  expendedContent: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+
+                        AssetImageWidget(
+                          url: Assets.policy,
+                          width: 1.sw,
+                          height: 300.h,
+                        ),
+                      ],
+                    ),
+                  ),),
+              CustomSizedBox.height(20.h),
+               ExpandableTileWidget(
+                  isImageRequired: true,
+                  imageUrl: Assets.transportPolicy,
+                  leadingSvgIcon: true,
+                  text: 'Transport policy',
+                  expendedContent: Padding(
+                    padding:  const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+
+                        AssetImageWidget(
+                          url: Assets.policy,
+                          width: 1.sw,
+                          height: 300.h,
+                        ),
+                      ],
+                    ),
+                  ),),
+              CustomSizedBox.height(20.h),
+            ],
+          ),
         ),
       ),
     );

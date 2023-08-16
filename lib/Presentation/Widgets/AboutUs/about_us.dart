@@ -10,70 +10,139 @@ class AboutUs extends StatelessWidget {
         title: AppStrings.aboutUs,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ExpandableTileWidget(
-              leadingSvgIcon: true,
-              isImageRequired: true,
-              imageUrl: Assets.homeIcon,
-              text: AppStrings.getStarted,
-              expendedContent: Column(
-                children: [],
+        padding: EdgeInsets.all(20.r),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ExpandableTileWidget(
+                leadingSvgIcon: true,
+                isImageRequired: true,
+                imageUrl: Assets.homeIcon,
+                text: AppStrings.getStarted,
+                expendedContent: Padding(
+                  padding:
+                      EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(
+                        AppStrings.companyAchievement,
+                        style: Styles.circularStdMedium(context),
+                        maxLine: 15,
+                        textAlign: TextAlign.left,
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-            CustomSizedBox.height(10.h),
-            const ExpandableTileWidget(
-              leadingSvgIcon: true,
-              isImageRequired: true,
-              imageUrl: Assets.trophy,
-              text: AppStrings.achievement,
-              expendedContent: Column(
-                children: [],
+              CustomSizedBox.height(10.h),
+               ExpandableTileWidget(
+                leadingSvgIcon: true,
+                isImageRequired: true,
+                imageUrl: Assets.trophy,
+                text: AppStrings.achievement,
+                expendedContent: Padding(
+                  padding:
+                  EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+                  child: Column(
+                    children: [
+                      AppText(
+                        AppStrings.companyAchievement,
+                        style: Styles.circularStdMedium(context),
+                        maxLine: 15,
+                        textAlign: TextAlign.left,
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-            CustomSizedBox.height(10.h),
-            const ExpandableTileWidget(
-              leadingSvgIcon: true,
-              isImageRequired: true,
-              imageUrl: Assets.ourVision,
-              text: AppStrings.ourVision,
-              expendedContent: Column(
-                children: [],
+              CustomSizedBox.height(10.h),
+               ExpandableTileWidget(
+                leadingSvgIcon: true,
+                isImageRequired: true,
+                imageUrl: Assets.ourVision,
+                text: AppStrings.ourVision,
+                expendedContent: Padding(
+                  padding:
+                  EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+                  child: Column(
+                    children: [
+                      AppText(
+                        AppStrings.companyAchievement,
+                        style: Styles.circularStdMedium(context),
+                        maxLine: 15,
+                        textAlign: TextAlign.left,
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-            CustomSizedBox.height(10.h),
-            const ExpandableTileWidget(
-              leadingSvgIcon: true,
-              isImageRequired: true,
-              imageUrl: Assets.flag,
-              text: AppStrings.ourMission,
-              expendedContent: Column(
-                children: [],
+              CustomSizedBox.height(10.h),
+               ExpandableTileWidget(
+                leadingSvgIcon: true,
+                isImageRequired: true,
+                imageUrl: Assets.flag,
+                text: AppStrings.ourMission,
+                expendedContent: Padding(
+                  padding:
+                  EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+                  child: Column(
+                    children: [
+                      AppText(
+                        AppStrings.companyAchievement,
+                        style: Styles.circularStdMedium(context),
+                        maxLine: 15,
+                        textAlign: TextAlign.left,
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-            CustomSizedBox.height(10.h),
-            const ExpandableTileWidget(
-              leadingSvgIcon: true,
-              isImageRequired: true,
-              imageUrl: Assets.handShake,
-              text: AppStrings.ourValue,
-              expendedContent: Column(
-                children: [],
+              CustomSizedBox.height(10.h),
+               ExpandableTileWidget(
+                leadingSvgIcon: true,
+                isImageRequired: true,
+                imageUrl: Assets.handShake,
+                text: AppStrings.ourValue,
+                expendedContent: Padding(
+                  padding:
+                  EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+                  child: Column(
+                    children: [
+                      AppText(
+                        AppStrings.companyAchievement,
+                        style: Styles.circularStdMedium(context),
+                        maxLine: 15,
+                        textAlign: TextAlign.left,
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-            CustomSizedBox.height(10.h),
-            const ExpandableTileWidget(
-              leadingSvgIcon: true,
-              isImageRequired: true,
-              imageUrl: Assets.usersThree,
-              text:AppStrings.whatMakeUs,
-              expendedContent: Column(
-                children: [],
+              CustomSizedBox.height(10.h),
+               ExpandableTileWidget(
+                leadingSvgIcon: true,
+                isImageRequired: true,
+                imageUrl: Assets.usersThree,
+                text: AppStrings.whatMakeUs,
+                expendedContent: Padding(
+                  padding:
+                  EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+                  child: Column(
+                    children: [
+                      AppText(
+                        AppStrings.companyAchievement,
+                        style: Styles.circularStdMedium(context),
+                        maxLine: 15,
+                        textAlign: TextAlign.left,
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -14,13 +14,14 @@ class NewArrivalProduct extends StatelessWidget {
  final ProductModel? dummyProduct;
  final VoidCallback onAddToCardTap;
  final VoidCallback? onDetailTap;
-  const NewArrivalProduct({super.key, this.dummyProduct, required this.onAddToCardTap, this.onDetailTap});
+ final  bool? isGuest;
+  const NewArrivalProduct({super.key, this.dummyProduct, required this.onAddToCardTap, this.onDetailTap, this.isGuest});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 158.w,
-      height: 260.h,
+      height:  isGuest==true? 200.h:260.h,
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -55,7 +56,7 @@ class NewArrivalProduct extends StatelessWidget {
               ),
             ),
             CustomSizedBox.height(15),
-            Padding(
+           isGuest==true? const SizedBox(height: 0,width: 0,): Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
                 children: [
@@ -74,7 +75,7 @@ class NewArrivalProduct extends StatelessWidget {
               ),
             ),
             CustomSizedBox.height(10),
-            GestureDetector(
+            isGuest==true? const SizedBox(height: 0,width: 0,):  GestureDetector(
               onTap: onAddToCardTap,
               child: Container(
                 width: 150.sp,

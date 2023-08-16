@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
@@ -13,7 +14,8 @@ import 'package:hbk/Presentation/Common/image_widgets.dart';
 
 class ProductDetails extends  StatelessWidget {
   final ProductModel? pd;
-  const ProductDetails( {super.key,this.pd,});
+  final  bool? isGuest;
+  const ProductDetails( {super.key,this.pd, this.isGuest,});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,8 @@ Row(
             child:
             AppText("Belpla Teenagers 1 Ply Single Bed Blanket",maxLine: 2, style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 18.sp))
         ),
-    Expanded(
+
+   isGuest==true? const Expanded(child: SizedBox(height: 0,width: 0,)): Expanded(
       child: Padding(
         padding: EdgeInsets.only(right: 10.w),
         child: Row(
@@ -73,8 +76,8 @@ Row(
 
   ],
 ),
-        CustomSizedBox.height(10),
-        Align(
+        isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(10),
+        isGuest==true? const SizedBox(height: 0,width: 0,): Align(
           alignment: Alignment.centerLeft,
           child: RichText(
             text: TextSpan(
@@ -116,7 +119,11 @@ Row(
         const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Product packaging',trailingName: 'Play bag',),
         const ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Specification',trailingName: '200 x 240 CMS',),
         const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Embossed',trailingName: 'Yes',),
-        ListTile(
+        isGuest==true?  CustomButton(onTap: () {
+
+          Navigate.toReplaceAll(context, const LoginScreen());
+
+        }, text: 'Login first to order',):ListTile(
           tileColor: AppColors.whiteColor,
 
           contentPadding: const EdgeInsets.only(left: 10),

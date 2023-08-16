@@ -113,7 +113,7 @@ class CustomAppBarState extends State<CustomAppBar> {
                       //    Navigate.to(context, const NotificationScreen());
                         },
                         child: SvgPicture.asset(Assets.searchIcon,height: 20.h,width: 20.w,)),
-                    SizedBox(width: 10.sp,),
+                    SizedBox(width: 20.sp,),
                     widget.isShowNotificationButton!=null || state >0? const SizedBox(height: 0,width: 0,):    GestureDetector(
                 onTap:(){
 

@@ -11,7 +11,8 @@ import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
 
 class CategoryProduct extends StatelessWidget {
  final PageController? pageController;
-  const CategoryProduct({super.key, this.pageController});
+ final bool? isGuest;
+  const CategoryProduct({super.key, this.pageController, this.isGuest});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class CategoryProduct extends StatelessWidget {
             ///not used
 Utils.productTitle.value=Utils.categoryDummyProduct[index].productName.toString();
 ///used
-            Navigate.to(context, ProductScreen(title: Utils.categoryDummyProduct[index].productName.toString(),));
+            Navigate.to(context, ProductScreen(title: Utils.categoryDummyProduct[index].productName.toString(),isGuest: isGuest,));
 
 //pageController?.jumpToPage(2);
 

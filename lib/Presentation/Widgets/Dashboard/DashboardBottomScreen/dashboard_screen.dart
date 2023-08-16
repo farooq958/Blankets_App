@@ -140,17 +140,17 @@ class _DashboardBottomState extends State<DashboardBottom> {
                     //  shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return const BottomCards(
-                          imageAsset: Assets.rewardIcon,
-                          mainStatus: "Running",
-                          statusValue: "blue");
+                      return  BottomCards(
+                          imageAsset: Utils.bottomCardData1[index].icon!,
+                          mainStatus: Utils.bottomCardData1[index].title!,
+                          statusValue: Utils.bottomCardData1[index].status!);
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(
                         width: 5.sp,
                       );
                     },
-                    itemCount: 2),
+                    itemCount: Utils.bottomCardData1.length),
               ),
               CustomSizedBox.height(10),
               SizedBox(
@@ -162,16 +162,16 @@ class _DashboardBottomState extends State<DashboardBottom> {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return BottomCards(
-                          imageAsset: Utils.customCardData2[index].icon!,
-                          mainStatus: Utils.customCardData2[index].title!,
-                          statusValue: Utils.customCardData2[index].status!);
+                          imageAsset: Utils.bottomCardData2[index].icon!,
+                          mainStatus: Utils.bottomCardData2[index].title!,
+                          statusValue: Utils.bottomCardData2[index].status!);
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(
                         width: 5.sp,
                       );
                     },
-                    itemCount: Utils.customCardData2.length),
+                    itemCount: Utils.bottomCardData2.length),
               ),
               CustomSizedBox.height(10),
               SizedBox(
@@ -182,17 +182,17 @@ class _DashboardBottomState extends State<DashboardBottom> {
                     //shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return const BottomCards(
-                          imageAsset: Assets.rewardIcon,
-                          mainStatus: "Running",
-                          statusValue: "blue");
+                      return BottomCards(
+                          imageAsset: Utils.bottomCardData3[index].icon!,
+                          mainStatus: Utils.bottomCardData3[index].title!,
+                          statusValue: Utils.bottomCardData3[index].status!);
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(
                         width: 5.sp,
                       );
                     },
-                    itemCount: 2),
+                    itemCount: Utils.bottomCardData3.length),
               ),
               CustomSizedBox.height(10),
 

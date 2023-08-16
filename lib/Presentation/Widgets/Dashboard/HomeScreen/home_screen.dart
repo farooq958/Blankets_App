@@ -12,6 +12,8 @@ import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
 
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/category_product.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/new_arrival_product_widget.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Product/Components/product_detail.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
 
 import 'Components/home_carousel.dart';
 
@@ -77,26 +79,48 @@ class HomeScreen extends StatelessWidget {
                             fontWeight: FontWeight.w500, fontSize: 20.sp),
                       )),
                   CustomSizedBox.height(20),
-                  CategoryProduct(pageController: pageController),
+                  CategoryProduct(pageController: pageController,  isGuest: isGuest,),
 
                   ///New Arrival
 
                   Align(
                       alignment: Alignment.centerLeft,
-                      child: AppText(
-                        AppStrings.newArrival,
-                        style: Styles.circularStdRegular(context,
-                            fontWeight: FontWeight.w500, fontSize: 20.sp),
+                      child: Row(
+                        children: [
+                          AppText(
+                            AppStrings.newArrival,
+                            style: Styles.circularStdRegular(context,
+                                fontWeight: FontWeight.w500, fontSize: 20.sp),
+                          ),
+                          const Spacer(),
+                          isGuest==true?const SizedBox(height: 0,width: 0,) :GestureDetector(
+
+                            onTap: (){
+                              pageController?.jumpToPage(2);
+                            },
+                            child: AppText(
+                             'See all',
+                              style: Styles.circularStdRegular(context,
+                                  fontWeight: FontWeight.w500, fontSize: 14.sp),
+                            ),
+                          ),
+
+                        ],
                       )),
 
                   ///to be continued ...
                   SizedBox(
                       width: 1.sw,
-                      height: 260.h,
+                      height:  isGuest==true? 200.h:260.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return NewArrivalProduct(
+                            onDetailTap: (){
+
+                              Navigate.to(context, ProductDetails(isGuest: isGuest,));
+                            },
+                            isGuest: isGuest,
                             dummyProduct: Utils.dummyProduct[index],
                             onAddToCardTap: () {
                               if (isGuest == true) {
@@ -150,18 +174,39 @@ class HomeScreen extends StatelessWidget {
                   ///Most Sold Product replace the product dummy list with actual list of most sold product
                   Align(
                       alignment: Alignment.centerLeft,
-                      child: AppText(
-                        AppStrings.mostSoldProduct,
-                        style: Styles.circularStdRegular(context,
-                            fontWeight: FontWeight.w500, fontSize: 20.sp),
+                      child: Row(
+                        children: [
+                          AppText(
+                            AppStrings.mostSoldProduct,
+                            style: Styles.circularStdRegular(context,
+                                fontWeight: FontWeight.w500, fontSize: 20.sp),
+                          ),
+                          const Spacer(),
+                          isGuest==true?const SizedBox(height: 0,width: 0,) :  GestureDetector(
+                            onTap: (){
+
+                              pageController?.jumpToPage(2);
+                            },
+                            child: AppText(
+                              'See all',
+                              style: Styles.circularStdRegular(context,
+                                  fontWeight: FontWeight.w500, fontSize: 14.sp),
+                            ),
+                          ),
+                        ],
                       )),
                   SizedBox(
                       width: 1.sw,
-                      height: 250.h,
+                      height:  isGuest==true? 200.h:250.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return NewArrivalProduct(
+                            isGuest: isGuest,
+                            onDetailTap: (){
+
+                              Navigate.to(context, ProductScreen(title: "",isGuest: isGuest,));
+                            },
                             dummyProduct: Utils.dummyProduct[index],
                             onAddToCardTap: () {
                               if (isGuest == true) {

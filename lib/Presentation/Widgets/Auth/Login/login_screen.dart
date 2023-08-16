@@ -1,6 +1,7 @@
 
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Widgets/Auth/reset_password_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Controller/BottomNavigationNotifier/bottom_navigation_notifier.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -78,12 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   CustomButton(onTap: () {
                    Navigate.to(context, const BottomNavigationScreen(isGuest: false,));
+                  // BottomNotifier.bottomNavigationNotifier.value=0;
 
                   }, text: 'Login'),
                   CustomSizedBox.height(10.h),
                   CustomButton(
                     onTap: () {
                       Navigate.to(context, const BottomNavigationScreen(isGuest: true,));
+                   //   BottomNotifier.bottomNavigationNotifier.value=0;
                     },
                     text: 'Login as guest',
                     bgColor: Colors.transparent,

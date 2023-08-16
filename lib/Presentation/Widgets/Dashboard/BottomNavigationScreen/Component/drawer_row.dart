@@ -15,10 +15,10 @@ class DrawerRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
-      height: 20.sp,
-      child: GestureDetector(
-        onTap: onTap,
+    return  GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        height: 20.sp,
         child: Row(
           children: <Widget>[
             SvgPicture.asset(iconPath!,width: 20.sp,height: 20.sp,),

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Presentation/Common/app_shadow.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 
 class BottomCards extends StatelessWidget {
@@ -17,18 +18,16 @@ class BottomCards extends StatelessWidget {
         width: 160.w,
         height: 100,
        // padding: const EdgeInsets.symmetric(horizontal: 9.50, vertical: 20),
-    decoration: ShapeDecoration(
+    decoration: BoxDecoration(
+
     color: Colors.white,
-    shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10),
-    ),
-    shadows: const [
-    BoxShadow(
-    color: Color(0x0F000000),
-    blurRadius: 12,
-    offset: Offset(2, 6),
-    spreadRadius: 0,
-    )
+      borderRadius: BorderRadius.circular(10.sp),
+
+border: Border.all(color: AppColors.lightInvoiceColor),
+
+
+    boxShadow:  [
+    AppShadow.normal()
     ],
     ),
     child: Row(

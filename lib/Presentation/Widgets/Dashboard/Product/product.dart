@@ -36,7 +36,7 @@ class ProductScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(children: [
             ///Search products
-            CustomTextFieldWithOnTap(
+          isGuest==true? const SizedBox(height: 0,width: 0,):  CustomTextFieldWithOnTap(
               isShadowRequired: true,
 
                 prefixIcon: SvgPicture.asset(Assets.searchIcon,color: AppColors.greyColor,) ,
@@ -49,6 +49,7 @@ class ProductScreen extends StatelessWidget {
                 hintTextColor: AppColors.greyColor,
                 controller: searchController, hintText: 'Search products', textInputType: TextInputType.text),
             ///sort and filters
+            isGuest==true? const SizedBox(height: 10,width: 10,):const SizedBox(height: 0,width: 0,),
              SortAndFilter(
                onFilterTap:(){
                SortSheet.showBottomSheet(context,const FilterBottomSheetWidget(),'Filters');
@@ -165,9 +166,11 @@ CustomSizedBox.height(10),
                         }
                         },onDetailTap: (){
 
-Navigate.to(context,  ProductDetails(pd: i,));
+Navigate.to(context,  ProductDetails(pd: i,isGuest:isGuest));
 
-                      },)
+                      },
+                      isGuest:isGuest
+                      )
 
 
 

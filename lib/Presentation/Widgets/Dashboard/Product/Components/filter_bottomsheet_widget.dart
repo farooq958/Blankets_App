@@ -113,12 +113,12 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
 
               Expanded(child: CustomButton(onTap: (){}, text: 'Clear All',bgColor: Colors.transparent,textColor: AppColors.greyColor,
 borderColor: AppColors.greyColor,
-                verticalPadding: 15,
+                verticalPadding: 10.sp,
 
               )),
               Expanded(child: CustomButton(onTap: (){}, text: 'Apply'
 
-              , verticalPadding: 15,
+              , verticalPadding: 10.sp,
               )),
 
             ],

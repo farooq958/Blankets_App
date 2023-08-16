@@ -67,7 +67,7 @@ static const String customerSurveyIcon='assets/images/customerSurveyIcon.svg';
 static const String aboutUsIcon='assets/images/bagIcon.svg';
 static const String logoutIcon='assets/images/logOutIcon.svg';
 static const String calling = 'assets/images/Calling.svg';
-
+static const String policy = 'assets/images/policy.png';
 static const String orderConfirm = 'assets/images/orderConfirm.png';
 
 static const String addIcon = 'assets/images/addIcon.png';
@@ -79,9 +79,9 @@ static const String notificationImage = 'assets/images/notification_image.svg';
 static const String sortIcon='assets/images/sortIcon.svg';
 static const String filterIcon='assets/images/filterIcon.svg';
 
-static const String loyalPolicy = 'assets/images/loyalpolicy.png';
-static const String transportPolicy = 'assets/images/transportpolicy.png';
-static const String rebatePolicy = 'assets/images/rebatepolicy.png';
+static const String loyalPolicy = 'assets/images/loyalPolicy.svg';
+static const String transportPolicy = 'assets/images/transportPolicy.svg';
+static const String rebatePolicy = 'assets/images/rebateIcon.svg';
 static const String arrowDown = 'assets/images/arrowdown.png';
 static const String customerSurvey = 'assets/images/customersurvey.svg';
 
@@ -98,6 +98,8 @@ static const String trophy = 'assets/images/Trophy.svg';
 
 static const String usersThree = 'assets/images/UsersThree.svg';
 static const String ourVision = 'assets/images/Webcam.svg';
+
+
 
 
 

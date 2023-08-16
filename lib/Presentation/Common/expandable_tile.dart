@@ -33,47 +33,51 @@ class _ExpandableTileWidgetState extends State<ExpandableTileWidget> {
         child: ExpansionTile(
           expandedAlignment: Alignment.center,
 // maintainState: true,
-          title: Text(
-            widget.text ?? 'Head Office',
-            style: Styles.circularStdBold(context, fontSize: 16.sp),
-          ),
-          iconColor: AppColors.primaryColor,
-          collapsedIconColor: AppColors.primaryColor,
-          leading: widget.isImageRequired != null
-              ? widget.leadingSvgIcon != null
-                  ? SvgPicture.asset(
-                      widget.imageUrl!,
-                      color: AppColors.primaryColor,
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: AssetImageWidget(
-                        url: widget.imageUrl!,
-                        color: AppColors.primaryColor,
-                        width: 50.w,
-                        height: 100.h,
-                      ),
-                    )
-              : const SizedBox(),
-          tilePadding: widget.isPaddingRequired != null
-              ? EdgeInsets.only(right: 15.w)
-              : null,
-          onExpansionChanged: (value) {
-            setState(() {
-              isExpanded = !isExpanded;
-            });
-          },
-          backgroundColor:const Color(0xffE7EDF5),
-          collapsedBackgroundColor:AppColors.whiteColor ,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.r),
-              side: const BorderSide(color: Colors.white)
-          ),
-          children: [
-            if (isExpanded) ...[
-              widget.expendedContent,
-            ]
-          ],
-        ));
+      title: Text(
+        widget.text ?? 'Head Office',
+        style: Styles.circularStdBold(context, fontSize: 16.sp),
+      ),
+      iconColor: AppColors.primaryColor,
+      collapsedIconColor: AppColors.primaryColor,
+      leading: widget.isImageRequired != null
+          ? widget.leadingSvgIcon != null
+              ? SvgPicture.asset(
+                  widget.imageUrl!,
+                  color: AppColors.primaryColor,
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: AssetImageWidget(
+                    url: widget.imageUrl!,
+                    color: AppColors.primaryColor,
+                    width: 50.w,
+                    height: 100.h,
+                  ),
+                )
+          : const SizedBox(),
+      tilePadding: widget.isPaddingRequired != null
+          ? EdgeInsets.only(right: 15.w)
+          : null,
+      onExpansionChanged: (value) {
+        setState(() {
+          isExpanded = !isExpanded;
+        });
+      },
+      backgroundColor:const Color(0xffE7EDF5),
+      collapsedBackgroundColor:AppColors.whiteColor ,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.r),
+          side: const BorderSide(color: Colors.white)
+      ),
+      collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+          side: const BorderSide(color: Colors.white)
+      ),
+      children: [
+        if (isExpanded) ...[
+          widget.expendedContent,
+        ]
+      ],
+    ));
   }
 }

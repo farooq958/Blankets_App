@@ -36,11 +36,13 @@ class AppStrings{
 /// about us
 static const String aboutUs = 'About Us';
 static const String achievement = 'Achievement';
-static const String getStarted = 'Get Started with HBK blankets';
+static const String getStarted = 'Started with HBK blankets';
 static const String ourVision  ='Our Vision';
 static const String ourMission = 'Our Mission';
 static const String ourValue = 'Our Value';
 static const  String whatMakeUs = 'What make us different';
+
+static const String companyAchievement = 'The company has been honored in KPCCI by awarding the Gold Medal for Business Excellence Award 2012-13 by the Honorable President of Pakistan Mr. Mammoon Hussain. Further the company has been awarded Trophies and Gold Medal for the last 10 consective years for being the Top income & Sale Tax payer and Top commercial importer in KPK province. After three year of incorporation M/S Al-Imdad Textille(Pvt) ltd in tax year 2019 paid Fifteen million seven hundred sixty two thousand two hundred twenty four only as Income and Sale Tax.';
 
 
 

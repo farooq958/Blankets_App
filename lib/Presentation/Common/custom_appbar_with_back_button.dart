@@ -50,6 +50,7 @@ class _CustomAppBarWithBackButtonState
           padding: widget.padding,
           iconColor: widget.iconColor ,
           iconSize: widget.iconSize,
+          isSvg: true,
 
           onPressed: () {
             Navigator.of(context).pop();

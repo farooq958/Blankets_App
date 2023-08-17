@@ -55,10 +55,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   ),
                 ),
                 Positioned(
-                    bottom: 40.h,
+                    bottom: 30.h,
                     right: 0,
                     left: 0,
                     child: CustomButton(
+                      borderRadius: 30.r,
                         onTap: () {
                           Navigate.to(context, const CreateNewAccountScreen());
                         },

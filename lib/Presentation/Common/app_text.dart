@@ -23,6 +23,7 @@ class AppText extends StatelessWidget {
       text,
       maxLines: maxLine,
       textAlign: textAlign,
+      textScaleFactor: 1,
       overflow: overflow ?? TextOverflow.ellipsis,
       style: style,
     );

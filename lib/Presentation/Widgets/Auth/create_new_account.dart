@@ -66,6 +66,7 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
               ),
               CustomSizedBox.height(130.h),
               CustomButton(
+                borderRadius: 30.r,
                 onTap: () {
                   // CustomDialog.successDialog(
                   //     context, title: AppStrings.passwordChangeSuccessFull,

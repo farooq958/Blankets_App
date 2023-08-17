@@ -1,8 +1,11 @@
 
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Widgets/Auth/reset_password_screen.dart';
-import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Controller/BottomNavigationNotifier/bottom_navigation_notifier.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
+
+
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('Text Scale ${MediaQuery.of(context).textScaleFactor}');
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -32,7 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: AppColors.primaryColor,
                 ),
               ),
+
               CustomSizedBox.height(20.h),
+
               AppText(AppStrings.login,
                   style: Styles.circularStdBold(context, fontSize: 16.sp)),
               CustomSizedBox.height(20.h),
@@ -74,10 +80,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              CustomSizedBox.height(80.h),
+
+              80.y,
               Column(
                 children: [
-                  CustomButton(onTap: () {
+                  CustomButton(
+                    borderRadius: 30.r,
+                      onTap: () {
                    Navigate.to(context, const BottomNavigationScreen(isGuest: false,));
                   // BottomNotifier.bottomNavigationNotifier.value=0;
 

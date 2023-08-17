@@ -37,6 +37,7 @@ class OrderTab extends StatelessWidget {
                 left: 10.w,
                 right: 10.w,
                 child: CustomButton(
+                  borderRadius: 30.r,
                   onTap: () {},
                   text: 'Invoice',
                   leadingIcon: Assets.invoice,

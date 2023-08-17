@@ -95,7 +95,8 @@ class CustomAppBarState extends State<CustomAppBar> {
     )  :  widget.isNotificationScreen != null?      Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: Align(
-            child: CircleIconButton(icon: Icons.close, onPressed: () {
+            child: CircleIconButton(
+                icon: Icons.close, onPressed: () {
               Navigator.pop(context);
             }),
           ))  :  Row(

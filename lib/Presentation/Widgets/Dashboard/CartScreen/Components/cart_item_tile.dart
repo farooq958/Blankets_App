@@ -18,7 +18,10 @@ class _CartItemTileState extends State<CartItemTile> {
     return Padding(
       padding: EdgeInsets.only(top: 5.h),
       child: Card(
-        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r)
+        ),
+        elevation: 3.0,
         child: Padding(
           padding: EdgeInsets.only(top: 5.h, left: 10.w, bottom: 10.h),
           child: Column(

@@ -7,21 +7,27 @@ class NotificationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
       child: Card(
-        elevation: 4.0,
+        elevation: 5.0,
         shadowColor: AppColors.whiteColor,
         color: AppColors.whiteColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r)
+        ),
         child: ListTile(
           tileColor: AppColors.whiteColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.r)
+          ),
           leading: SvgPicture.asset(Assets.notificationImage),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AppText('Order Successful',
-                  style: Styles.circularStdBold(context, fontSize: 16.sp)),
+                  style: Styles.circularStdBold(context, fontSize: 16.sp,fontWeight: FontWeight.w700)),
               AppText('1h ago',
-                  style: Styles.circularStdBold(context, fontSize: 12.sp))
+                  style: Styles.circularStdBold(context, fontSize: 12.sp,fontWeight: FontWeight.w400))
             ],
           ),
           subtitle: AppText(

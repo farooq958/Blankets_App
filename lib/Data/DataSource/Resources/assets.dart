@@ -10,7 +10,11 @@ static const String passwordSuccessFull = 'assets/images/passwordSuccessFull.png
 
 static const String noInternetConnection = 'assets/images/no_internet_connection.svg';
 
+static const String emailIconSvg = 'assets/images/email.svg';
+
 static const String map = 'assets/images/map.png';
+
+static const String backIcon = 'assets/images/backIcon.svg';
 
 static const String cart = "assets/images/cart.svg";
 

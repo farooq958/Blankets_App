@@ -78,6 +78,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
               left: 10.w,
               right: 10.w,
               child: CustomButton(
+                borderRadius: 30.r,
                 text: AppStrings.update,
                 onTap: () {},
               )),

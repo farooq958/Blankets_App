@@ -57,7 +57,9 @@ class _FeedbackState extends State<Feedback> {
                 ),
               ),
             ),
-            CustomButton(onTap: () {}, text: 'submit'),
+            CustomButton(
+              borderRadius: 30.r,
+                onTap: () {}, text: 'submit'),
           ],
         ),
       ),

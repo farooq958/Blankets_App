@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,7 +11,7 @@ class Styles {
   static double _textScale(
     BuildContext context,
   ) {
-     //print(MediaQuery.of(context).textScaleFactor);
+    //print(MediaQuery.of(context).textScaleFactor);
     return MediaQuery.of(context).textScaleFactor > 1.0
         ? 0.9
         : MediaQuery.of(context).textScaleFactor;
@@ -29,14 +27,16 @@ class Styles {
   // }
 
   static TextStyle circularStdBold(BuildContext context,
-      {double? fontSize, Color? color,FontWeight? fontWeight,double? letterSpacing}) {
+      {double? fontSize,
+      Color? color,
+      FontWeight? fontWeight,
+      double? letterSpacing}) {
     return TextStyle(
-      fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
-      letterSpacing: letterSpacing??0,
-      color: color ?? AppColors.blackColor,
-      fontFamily: "circularStd Bold",
-      fontWeight: fontWeight?? FontWeight.normal
-    );
+        fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
+        letterSpacing: letterSpacing ?? 0,
+        color: color ?? AppColors.blackColor,
+        fontFamily: "circularStd Bold",
+        fontWeight: fontWeight ?? FontWeight.normal);
   }
 
   // static TextStyle plusJakartaSansLight(BuildContext context,
@@ -49,16 +49,18 @@ class Styles {
   // }
 
   static TextStyle circularStdRegular(BuildContext context,
-      {double? fontSize, Color? color, double height = 1.4,FontWeight fontWeight = FontWeight.normal,double? letterSpacing}) {
+      {double? fontSize,
+      Color? color,
+      double height = 1.4,
+      FontWeight fontWeight = FontWeight.normal,
+      double? letterSpacing}) {
     return TextStyle(
-      letterSpacing: letterSpacing??0,
-      fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
-      color: color ?? AppColors.blackColor,
-
-      fontFamily: "CircularStd Regular",
-      height: height,
-      fontWeight: fontWeight
-    );
+        letterSpacing: letterSpacing ?? 0,
+        fontSize: (fontSize ?? 14.0.sp) * _textScale(context),
+        color: color ?? AppColors.blackColor,
+        fontFamily: "CircularStd Regular",
+        height: height,
+        fontWeight: fontWeight);
   }
 
   static TextStyle circularStdMedium(BuildContext context,

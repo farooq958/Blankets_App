@@ -88,6 +88,7 @@ class SuccessFulDialog {
       double? height,
       double? width}) {
     return Container(
+      alignment: Alignment.center,
       height: height ?? 300.sp,
       width: width ?? 290.sp,
       decoration: BoxDecoration(
@@ -127,11 +128,14 @@ class SuccessFulDialog {
           SizedBox(
             height: 10.sp,
           ),
-          AppText(
-            message!,
-            style: Styles.circularStdRegular(context, fontSize: 16.sp),
-            maxLine: 6,
-            // textAlign: TextAlign.center,
+          Align(
+            alignment: Alignment.center,
+            child: AppText(
+              message!,
+              style: Styles.circularStdRegular(context, fontSize: 16.sp),
+              maxLine: 6,
+              // textAlign: TextAlign.center,
+            ),
           ),
 
           CustomSizedBox.height(10.h),

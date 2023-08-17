@@ -12,7 +12,7 @@ export 'package:hbk/Data/DataSource/Resources/strings.dart';
 export 'package:hbk/Data/DataSource/Resources/assets.dart';
 
 export 'package:hbk/Presentation/Common/custom_button_2.dart';
-
+export 'package:hbk/Domain/Models/Order/order_item.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:hbk/Presentation/Common/app_buttons.dart';
 export 'package:hbk/Presentation/Common/app_buttons.dart';

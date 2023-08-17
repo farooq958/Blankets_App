@@ -1,13 +1,15 @@
 
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Checkout/order_successfull.dart';
 
 
 class CheckOutScreen extends StatefulWidget {
   final String totalCtn;
   final double totalPayment;
+  final PageController? pageController;
 
   const CheckOutScreen(
-      {Key? key, required this.totalCtn, required this.totalPayment})
+      {Key? key, required this.totalCtn, required this.totalPayment,this.pageController})
       : super(key: key);
 
   @override
@@ -118,6 +120,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ),
               CustomSizedBox.height(30.h),
               CustomButton(
+                borderRadius: 30.r,
                 onTap: () {
                   CustomDialog.successConfirmDialog(
                     context,
@@ -127,10 +130,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     assetImage: Assets.orderSuccessFull,
                     button1Text: 'Cancel',
                     button2Text: 'Confirm',
-                    button1Tap: () {},
-                    button2Tap: () {},
+                    button1Tap: () {Navigator.of(context).pop(true);},
+                    button2Tap: () {
+                      Navigator.of(context).pop(true);
+                      Navigate.to(context,  OrderSuccessFull(pageController: widget.pageController,));
+                    },
                     imageColor: AppColors.blackColor,
-                    height: 250.h,
+                    height: 260.h,
                     width: 1.sw,
                   );
                 },

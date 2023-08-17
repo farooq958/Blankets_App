@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Data/AppData/data.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 
@@ -64,6 +65,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8).r,
       child: Column(
@@ -121,6 +123,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                 fillColor: AppColors.whiteColor,
                 filled: true,
                 hintText: hintText,
+
                 prefixIcon: prefixIcon != null
                     ? SizedBox(
                         width: 15.w,
@@ -141,10 +144,12 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                     : null,
                 hintStyle: Styles.circularStdRegular(
                   context,
-                  color: hintTextColor ?? AppColors.greyColor,
-                  fontSize: 16.sp,
+                  color: FocusScope.of(context).hasFocus ? hintTextColor :AppColors.greyColor,
+                  fontSize: Data().textScale > 1.1  ? 12.sp :16.sp,
                   fontWeight: FontWeight.w400
                 ),
+
+
 
                 ///changess
                 contentPadding: contentPadding ??

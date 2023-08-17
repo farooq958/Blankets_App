@@ -1,4 +1,3 @@
-
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 import 'package:hbk/Presentation/Widgets/Auth/verification_screen.dart';
@@ -11,6 +10,8 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final _focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +23,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircleIconButton(
-                    icon: Icons.arrow_back,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }),
+                  isSvg: true,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  width: 46.w,
+                  height: 46.h,
+                ),
                 CustomSizedBox.height(40.h),
                 Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Center(
+                    Center(
                       child: AssetImageWidget(
                         url: 'assets/images/applogo.png',
                         height: 150.h,
@@ -50,19 +54,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     CustomTextFieldWithOnTap(
                       controller: TextEditingController(),
                       hintText: 'example@gmail.com',
-hintTextColor: AppColors.primaryColor,
+                      hintTextColor: _focusNode.hasFocus ? AppColors.primaryColor : AppColors.greyColor,
                       textInputType: TextInputType.emailAddress,
                       isBorderRequired: false,
                       isShadowRequired: true,
                       borderRadius: 30.r,
-                      prefixIcon: const AssetImageWidget(
-                        url: Assets.emailIcon,
-                        color: AppColors.primaryColor,
-                      ),
+                      prefixIcon: SvgPicture.asset(Assets.emailIconSvg,color: _focusNode.hasFocus ? AppColors.primaryColor : AppColors.greyColor,),
+                      focusNode: _focusNode,
+                      onTap: (){
+                        FocusScope.of(context).requestFocus(_focusNode);
+                      },
                     ),
                     // Add a spacer to push the button to the bottom
                     CustomSizedBox.height(180.h),
                     CustomButton(
+                        borderRadius: 30.r,
                         onTap: () {
                           // Navigate.to(context, const VerificationScreen());
                           Navigator.of(context).push(MaterialPageRoute(
@@ -80,5 +86,3 @@ hintTextColor: AppColors.primaryColor,
     );
   }
 }
-
-

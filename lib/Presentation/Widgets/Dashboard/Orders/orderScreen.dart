@@ -25,6 +25,7 @@ class _OrderScreenState extends State<OrderScreen> {
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleIconButton(
+                isSvg:true,
                 icon: Icons.arrow_back,
                 onPressed: () {
                   Navigator.of(context).pop();

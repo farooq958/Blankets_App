@@ -27,7 +27,7 @@ class _PinputExampleState extends State<PinputExample> {
   Widget build(BuildContext context) {
     const focusedBorderColor = AppColors.primaryColor;
     const fillColor = Color.fromRGBO(243, 246, 249, 0);
-    const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
+
 
     final defaultPinTheme = PinTheme(
       width: 77.w,
@@ -38,13 +38,17 @@ class _PinputExampleState extends State<PinputExample> {
       ),
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: AppColors.greyColor.withOpacity(0.2)),
-          boxShadow:  [BoxShadow(
-            color: Colors.grey[400]!,
-            offset: Offset(0.0, 1.0), //(x,y)
-            blurRadius: 6.0,
-          ),]
+
+          boxShadow:  const[
+            BoxShadow(
+              color: Color(0x0F000000),
+              blurRadius: 12,
+              offset: Offset(0, 6),
+              spreadRadius: 0,
+            )
+          ]
       ),
     );
 

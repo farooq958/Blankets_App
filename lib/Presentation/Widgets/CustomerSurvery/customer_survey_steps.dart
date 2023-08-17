@@ -94,6 +94,7 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
             builder: (context, currentPage, child) {
               if (currentPage < 4) {
                 return CustomButton(
+                  borderRadius: 30.r,
                   onTap: () {
                     if (currentPage < 4) {
                       pageController.jumpToPage(currentPageNotifier.value + 1);
@@ -105,6 +106,7 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
                 );
               } else {
                 return CustomButton(
+                  borderRadius: 30.r,
                   onTap: () {
                     CustomDialog.successDialog(context,
                         title: 'Thank You for Your Valuable Feedback!',

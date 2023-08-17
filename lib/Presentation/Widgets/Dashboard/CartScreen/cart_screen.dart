@@ -95,8 +95,10 @@ class _CartScreenState extends State<CartScreen> {
                       ],
                     ),
                     CustomSizedBox.height(10.h),
-                    CustomButton(onTap: () {
-                      Navigate.to(context,  CheckOutScreen(totalCtn: '07',totalPayment: Utils.cartItems[0].price!,));
+                    CustomButton(
+                      borderRadius: 30.r,
+                        onTap: () {
+                      Navigate.to(context,  CheckOutScreen(totalCtn: '07',totalPayment: Utils.cartItems[0].price!,pageController: widget.pageController,));
                     }, text: AppStrings.checkOut),
                   ],
                 )

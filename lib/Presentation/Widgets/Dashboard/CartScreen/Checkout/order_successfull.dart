@@ -1,8 +1,10 @@
 
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
 
 class OrderSuccessFull extends StatelessWidget {
-  const OrderSuccessFull({Key? key}) : super(key: key);
+  final PageController? pageController;
+  const OrderSuccessFull({Key? key,this.pageController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,13 @@ class OrderSuccessFull extends StatelessWidget {
             ),
             CustomSizedBox.height(20.h),
             CustomButton(
-              onTap: () {},
+              borderRadius: 30.r,
+              onTap: () {
+
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+          pageController!.jumpToPage(2);
+              },
               text: 'Explore more products',
               leadingIcon: Assets.shoppingCart,
               bgColor: AppColors.whiteColor,

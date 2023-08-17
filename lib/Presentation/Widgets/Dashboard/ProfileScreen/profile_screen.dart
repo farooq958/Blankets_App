@@ -156,7 +156,7 @@ class ListTileWidget extends StatelessWidget {
 
       ListTile(
 
-      title: Text(
+      title: AppText(
         tileTitle!,
         style: Styles.circularStdBold(context, fontSize: 18.sp),
       ),

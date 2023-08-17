@@ -45,19 +45,19 @@ class _CustomAppBarWithBackButtonState
       ),
       leading: Padding(
         padding: const EdgeInsets.only(bottom: 8.0,top: 8,left: 8),
-        child:  widget.typeIconSvg !=null? SvgPicture.asset(widget.svgIconPath.toString()): CircleIconButton(
+        child:  widget.typeIconSvg !=null? SvgPicture.asset(widget.svgIconPath.toString(),): CircleIconButton(
           icon: widget.iconData??Icons.arrow_back_sharp,
           padding: widget.padding,
           iconColor: widget.iconColor ,
           iconSize: widget.iconSize,
-          isSvg: true,
+          isSvg: widget.typeIconSvg,
 
           onPressed: () {
             Navigator.of(context).pop();
           },
-          width: 5.w,
+          width: 15.w,
          // iconSize: 15,
-          height: 5.h,
+          height: 15.h,
         ),
       ),
     );

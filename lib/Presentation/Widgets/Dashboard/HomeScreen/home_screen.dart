@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                   ///to be continued ...
                   SizedBox(
                       width: 1.sw,
-                      height:  isGuest==true? 190.h:260.h,
+                      height:  isGuest==true? 195.h:260.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
@@ -189,7 +189,7 @@ class HomeScreen extends StatelessWidget {
                       )),
                   SizedBox(
                       width: 1.sw,
-                      height:  isGuest==true? 190.h:250.h,
+                      height:  isGuest==true? 195.h:250.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {

@@ -105,9 +105,9 @@ CustomSizedBox.height(10),
 
             Wrap(
               direction: Axis.horizontal,
-              spacing: 2,
+              spacing: 12,
 
-              runSpacing: 2,
+              runSpacing: 12,
 
               alignment: WrapAlignment.start,
 

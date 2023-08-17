@@ -24,14 +24,16 @@ class _OrderScreenState extends State<OrderScreen> {
             title: AppText('Orders',style: Styles.circularStdBold(context,fontSize: 20.sp),),
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CircleIconButton(
-                isSvg:true,
-                icon: Icons.arrow_back,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                width: 10.w,
-                height: 10.h,
+              child: Center(
+                child: CircleIconButton(
+                  isSvg:true,
+                  icon: Icons.arrow_back,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  width: 15.w,
+                  height: 15.h,
+                ),
               ),
             ),
             bottom:   TabBar(

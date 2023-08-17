@@ -46,7 +46,7 @@ class CustomAppBarState extends State<CustomAppBar> {
     return AppBar(
       elevation: 0,
       //shadowColor: Colors.black12,
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: Colors.transparent,
       automaticallyImplyLeading: false,
       centerTitle: true,
       leading: widget.isSplashScreen !=null?SizedBox(height: 0.sp,width: 0.sp,) :widget.isNotificationScreen !=null?SizedBox(height: 0.sp,width: 0.sp,) : GestureDetector(

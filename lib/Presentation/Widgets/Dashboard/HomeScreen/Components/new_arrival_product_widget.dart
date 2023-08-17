@@ -20,8 +20,8 @@ class NewArrivalProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 158.w,
-      height:  isGuest==true? 187.h:245.h,
+      width: 150.w,
+      height:  isGuest==true? 194.h:245.h,
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -45,8 +45,8 @@ class NewArrivalProduct extends StatelessWidget {
             GestureDetector(
                 onTap: onDetailTap ,
 
-                child: AssetImageWidget(url:dummyProduct!.productImage.toString(),radius: 40.sp,width: 120.w,height: 100.h,)),
-            CustomSizedBox.height(15),
+                child: AssetImageWidget(url:dummyProduct!.productImage.toString(),radius: 40.sp,width: 110.w,height: 100.h,)),
+            CustomSizedBox.height(10),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: AppText(dummyProduct!.productDescription.toString(),
@@ -55,7 +55,7 @@ class NewArrivalProduct extends StatelessWidget {
 
               ),
             ),
-            CustomSizedBox.height(15),
+            CustomSizedBox.height(10),
            isGuest==true? const SizedBox(height: 0,width: 0,): Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
@@ -78,9 +78,9 @@ class NewArrivalProduct extends StatelessWidget {
             isGuest==true? const SizedBox(height: 0,width: 0,):  GestureDetector(
               onTap: onAddToCardTap,
               child: Container(
-                width: 150.sp,
+                width: 145.sp,
                 height: 32,
-                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 0),
                 clipBehavior: Clip.antiAlias,
                 decoration: ShapeDecoration(
                   color: AppColors.primaryColor,
@@ -99,8 +99,8 @@ class NewArrivalProduct extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 20,
-                          height: 20,
+                          width: 20.w,
+                          height: 20.h,
                           padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 1.33),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,

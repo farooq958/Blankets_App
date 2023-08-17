@@ -46,7 +46,7 @@ class PriceListScreen extends  StatelessWidget {
 
 
     return Scaffold(
-      appBar: const CustomAppBarWithBackButton(title: 'Price list',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
+      appBar: const CustomAppBarWithBackButton(title: 'Price list',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 6),iconSize: 15,),
       body: Column(
         children: [
 

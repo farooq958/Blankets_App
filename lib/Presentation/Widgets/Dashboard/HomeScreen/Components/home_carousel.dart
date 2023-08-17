@@ -30,7 +30,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
         CarouselSlider.builder(
           itemCount: imageList.length,
           itemBuilder: (context, index, realIndex) {
-            return AssetImageWidget(url: imageList[index],width: 1.sw/1.15);
+            return AssetImageWidget(url: imageList[index],width: 1.sw/1);
           },
           carouselController: _carouselController,
           options: CarouselOptions(
@@ -40,7 +40,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
             autoPlayCurve: Curves.fastOutSlowIn,
             enlargeCenterPage: true,
             aspectRatio: 16 / 9,
-            viewportFraction: 0.8,
+            viewportFraction: 1,
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;

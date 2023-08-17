@@ -1,9 +1,30 @@
 
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hbk/Presentation/Widgets/Auth/splash_screen.dart';
 
+import 'Application/Services/NotificationServices/notification_services.dart';
 import 'Data/DataSource/Resources/imports.dart';
+class DownloadCallBack{
+
+  static void downloadCallBackTest (id, status, progress) {
+
+    print(id);
+    print(status);
+    print(progress);
+
+  }
+
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationServices().initNotification();
+  await FlutterDownloader.initialize(
+      debug: true,
+      // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl:
+      true // option: set to false to disable working with http links (default: false)
+  );
+  await FlutterDownloader.registerCallback(DownloadCallBack.downloadCallBackTest);
   runApp(const MyApp());
 }
 

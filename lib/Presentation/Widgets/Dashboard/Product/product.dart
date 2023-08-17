@@ -103,82 +103,75 @@ CustomSizedBox.height(10),
             // ),
 
 
-            ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children:[Align(
-                alignment: Alignment.centerLeft,
-                child: Wrap(
-                  direction: Axis.horizontal,
-                  spacing: 2,
+            Wrap(
+              direction: Axis.horizontal,
+              spacing: 2,
 
-                  runSpacing: 10,
+              runSpacing: 2,
 
-                  alignment: WrapAlignment.start,
+              alignment: WrapAlignment.start,
 
-                  children: [
+              children: [
 
-                    for(var i in Utils.dummyProduct)
+                for(var i in Utils.dummyProduct)
 
-                      NewArrivalProduct(dummyProduct: i, onAddToCardTap: () { print("tap $i");
-                        if(isGuest == true){
-                          CustomDialog.dialog(
-                              context,
-                              SizedBox(
-                                  width: 1.sw,
-                                  height: 250.h,
-                                  child: Center(
-                                    child: Column(
-                                      // crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          Assets.logout,
-                                          width: 50.w,
-                                          height: 50.h,
-                                        ),
-                                        CustomSizedBox.height(10.h),
-                                        AppText('Please login first',
-                                            style: Styles.circularStdBold(
-                                                context,
-                                                fontSize: 22.sp)),
-                                        CustomSizedBox.height(10.h),
-                                        AppText('Please login first',
-                                            style: Styles.circularStdBold(
-                                                context,
-                                                fontSize: 16.sp)),
-                                        CustomSizedBox.height(10.h),
-
-                                        CustomButton(
-                                          onTap: () {
-                                            Navigator.of(context).pop(true);
-                                            Navigate.to(context, const LoginScreen());
-                                          },
-                                          text: 'Login',
-                                          width: 1.sw,
-                                          horizontalMargin: 20.w,
-                                        ),
-
-                                      ],
-
+                  NewArrivalProduct(dummyProduct: i, onAddToCardTap: () { print("tap $i");
+                    if(isGuest == true){
+                      CustomDialog.dialog(
+                          context,
+                          SizedBox(
+                              width: 1.sw,
+                              height: 250.h,
+                              child: Center(
+                                child: Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      Assets.logout,
+                                      width: 50.w,
+                                      height: 50.h,
                                     ),
-                                  )));
-                        }
-                        },onDetailTap: (){
+                                    CustomSizedBox.height(10.h),
+                                    AppText('Please login first',
+                                        style: Styles.circularStdBold(
+                                            context,
+                                            fontSize: 22.sp)),
+                                    CustomSizedBox.height(10.h),
+                                    AppText('Please login first',
+                                        style: Styles.circularStdBold(
+                                            context,
+                                            fontSize: 16.sp)),
+                                    CustomSizedBox.height(10.h),
+
+                                    CustomButton(
+                                      onTap: () {
+                                        Navigator.of(context).pop(true);
+                                        Navigate.to(context, const LoginScreen());
+                                      },
+                                      text: 'Login',
+                                      width: 1.sw,
+                                      horizontalMargin: 20.w,
+                                    ),
+
+                                  ],
+
+                                ),
+                              )));
+                    }
+                    },onDetailTap: (){
 
 Navigate.to(context,  ProductDetails(pd: i,isGuest:isGuest));
 
-                      },
-                      isGuest:isGuest
-                      )
+                  },
+                  isGuest:isGuest
+                  )
 
 
 
 
-                  ],),
-              )] ,
-            ),
+              ],),
             //CustomSizedBox.height(100)
             ],),
         ),

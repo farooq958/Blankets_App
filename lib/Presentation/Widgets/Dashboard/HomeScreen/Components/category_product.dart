@@ -37,15 +37,17 @@ Utils.productTitle.value=Utils.categoryDummyProduct[index].productName.toString(
           },
           child: SizedBox(
             height: 105.sp,
-            width: 120.sp,
+            width: 100.sp,
 
             child: Column(
 
               children: [
 
-                AssetImageWidget(url: Utils.categoryDummyProduct[index].productImage.toString(),isCircle: true,radius: 40.sp,),
+                AssetImageWidget(url: Utils.categoryDummyProduct[index].productImage.toString(),isCircle: true,radius: 35.sp,),
               CustomSizedBox.height(5),
-                AppText(Utils.categoryDummyProduct[index].productName.toString(), style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,color: Colors.black))
+                AppText(Utils.categoryDummyProduct[index].productName.toString(), style: Styles.circularStdRegular(context,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w600,color: Colors.black))
               ],
 
             ),
@@ -54,7 +56,7 @@ Utils.productTitle.value=Utils.categoryDummyProduct[index].productName.toString(
 
       }, separatorBuilder: (context,index){
 
-        return index!=0?CustomSizedBox.width(5):CustomSizedBox.width(0);
+        return index!=0?CustomSizedBox.width(0):CustomSizedBox.width(0);
 
       }, itemCount: Utils.categoryDummyProduct.length),
     );

@@ -41,6 +41,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               pages: [
                 PageViewModel(
                   title: Utils.textList[0],
+                 // titleWidget: AppText( Utils.textList[0] ,style: Styles.circularStdRegular(context),),
                   body: Utils.textSubtitles[0],
                   image: Image.asset(Utils.imageList[0]),
                   decoration: pageDecoration(),

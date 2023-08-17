@@ -26,16 +26,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColors.whiteColor,
-
-        //  drawer: Drawer(),
-
-        // appBar: CustomAppBar(onBackTap: (){
-        //   scaffoldKey.currentState!.openDrawer();
-        //
-        // },),
-        body: Padding(
+    return  Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.sp),
             child: SingleChildScrollView(
               child: Column(
@@ -43,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                   CustomSizedBox.height(10),
 
                   ///Top Row
-                  Row(
+               isGuest==true? const SizedBox(height: 0,width: 0,):   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       AppText(
@@ -111,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                   ///to be continued ...
                   SizedBox(
                       width: 1.sw,
-                      height:  isGuest==true? 200.h:260.h,
+                      height:  isGuest==true? 190.h:260.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
@@ -170,6 +161,7 @@ class HomeScreen extends StatelessWidget {
                         },
                         itemCount: Utils.dummyProduct.length,
                       )),
+                  CustomSizedBox.height(10),
 
                   ///Most Sold Product replace the product dummy list with actual list of most sold product
                   Align(
@@ -197,7 +189,7 @@ class HomeScreen extends StatelessWidget {
                       )),
                   SizedBox(
                       width: 1.sw,
-                      height:  isGuest==true? 200.h:250.h,
+                      height:  isGuest==true? 190.h:250.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
@@ -264,6 +256,6 @@ class HomeScreen extends StatelessWidget {
                   CustomSizedBox.height(5),
                 ],
               ),
-            )));
+            ));
   }
 }

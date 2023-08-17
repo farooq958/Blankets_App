@@ -21,8 +21,8 @@ class SortAndFilter extends StatelessWidget {
             child: GestureDetector(
               onTap: onSortTap,
               child: Container(
-                width: 179.67,
-                height: 56,
+                width: 179.67.w,
+                height: 53.h,
               //  padding: const EdgeInsets.symmetric(horizontal: 59, vertical: 18),
                 decoration: ShapeDecoration(
                   color: Colors.white,
@@ -69,7 +69,7 @@ class SortAndFilter extends StatelessWidget {
               onTap: onFilterTap,
               child: Container(
                 width: 179.67.w,
-                height: 56.h,
+                height: 53.h,
           //    padding: const EdgeInsets.symmetric(horizontal: 59, vertical: 18),
                 decoration: ShapeDecoration(
                   color: Colors.white,

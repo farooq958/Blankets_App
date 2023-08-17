@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
@@ -15,6 +16,7 @@ import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
 
 
 
@@ -124,7 +126,12 @@ class PriceListScreen extends  StatelessWidget {
                       width: 1.sw,
                       child: FractionallySizedBox(
                         widthFactor: 1,
-                        child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: (){}, text: "Download",horizontalMargin: 20,),
+                        child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+
+                          await PdfDownload().generatePdf(invoiceTitle,priceListData,PDFLayouts().showPdfPriceListData(priceListData),PDFLayouts().pdfTitlePriceList(invoiceTitle)).then((value) => null);
+
+
+                        }, text: "Download",horizontalMargin: 20,),
                       ),
                     )
 

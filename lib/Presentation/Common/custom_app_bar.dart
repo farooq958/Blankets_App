@@ -44,8 +44,8 @@ class CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 8,
-      shadowColor: Colors.black12,
+      elevation: 0,
+      //shadowColor: Colors.black12,
       backgroundColor: AppColors.whiteColor,
       automaticallyImplyLeading: false,
       centerTitle: true,

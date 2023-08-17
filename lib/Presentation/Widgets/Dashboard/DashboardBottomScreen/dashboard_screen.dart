@@ -90,111 +90,140 @@ class _DashboardBottomState extends State<DashboardBottom> {
               ),
 
               ///row
-              SizedBox(
-                // color: Colors.red,
-                height: 65.sp,
-                width: 1.sw / 1.15,
-                child: ListView.separated(
-                    //  shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return CustomCard(
+              ///
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  // color: Colors.red,
+                  height: 150.sp,
+                  width: 1.sw / 1,
+                  child: Wrap(
+                    spacing: 5.sp,
+                    runSpacing: 10.sp,
+                    alignment: WrapAlignment.start,
+                    children: List.generate(Utils.customCardData.length, (index) {
+                      return SizedBox(
+                        width: (1.sw / 1 - 10.sp) / 3, // Adjust width to fit three items
+                        child: CustomCard(
                           name: Utils.customCardData[index].name.toString(),
-                          amount:
-                              Utils.customCardData[index].amount.toString());
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        width: 5.sp,
+                          amount: Utils.customCardData[index].amount.toString(),
+                        ),
                       );
-                    },
-                    itemCount: Utils.customCardData.length),
-              ),
+                    }),
+                  ),
+                ),
+              )
+,
+
+              // SizedBox(
+              //   // color: Colors.red,
+              //   height: 65.sp,
+              //   width: 1.sw / 1.15,
+              //   child: ListView.separated(
+              //       //  shrinkWrap: true,
+              //       scrollDirection: Axis.horizontal,
+              //       itemBuilder: (context, index) {
+              //         return CustomCard(
+              //             name: Utils.customCardData[index].name.toString(),
+              //             amount:
+              //                 Utils.customCardData[index].amount.toString());
+              //       },
+              //       separatorBuilder: (context, index) {
+              //         return SizedBox(
+              //           width: 5.sp,
+              //         );
+              //       },
+              //       itemCount: Utils.customCardData.length),
+              // ),
+              // CustomSizedBox.height(10),
+              // SizedBox(
+              //   // color: Colors.red,
+              //   height: 65.sp,
+              //   width: 1.sw / 1.15,
+              //   child: ListView.separated(
+              //       // shrinkWrap: true,
+              //       scrollDirection: Axis.horizontal,
+              //       itemBuilder: (context, index) {
+              //         return CustomCard(
+              //             name: Utils.customCardData1[index].name.toString(),
+              //             amount:
+              //                 Utils.customCardData1[index].amount.toString());
+              //       },
+              //       separatorBuilder: (context, index) {
+              //         return SizedBox(
+              //           width: 5.sp,
+              //         );
+              //       },
+              //       itemCount: Utils.customCardData1.length),
+              // ),
               CustomSizedBox.height(10),
-              SizedBox(
-                // color: Colors.red,
-                height: 65.sp,
-                width: 1.sw / 1.15,
-                child: ListView.separated(
-                    // shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return CustomCard(
-                          name: Utils.customCardData1[index].name.toString(),
-                          amount:
-                              Utils.customCardData1[index].amount.toString());
-                    },
-                    separatorBuilder: (context, index) {
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  // color: Colors.red,
+                  height: (84*3).sp,
+                  width: 1.sw,
+                  child: Wrap(
+                    spacing: 5.sp,
+                    runSpacing: 5.sp,
+                    alignment: WrapAlignment.start,
+                    children: List.generate(Utils.bottomCardData1.length, (index) {
                       return SizedBox(
-                        width: 5.sp,
-                      );
-                    },
-                    itemCount: Utils.customCardData1.length),
-              ),
-              CustomSizedBox.height(10),
-              SizedBox(
-                // color: Colors.red,
-                height: 100.sp,
-                width: 1.sw,
-                child: ListView.separated(
-                    //  shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return  BottomCards(
+                        width: (1.sw - 5.sp) / 2, // Adjust width to fit two items
+                        child: BottomCards(
                           imageAsset: Utils.bottomCardData1[index].icon!,
                           mainStatus: Utils.bottomCardData1[index].title!,
-                          statusValue: Utils.bottomCardData1[index].status!);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        width: 5.sp,
+                          statusValue: Utils.bottomCardData1[index].status!,
+                        ),
                       );
-                    },
-                    itemCount: Utils.bottomCardData1.length),
-              ),
-              CustomSizedBox.height(10),
-              SizedBox(
-                // color: Colors.red,
-                height: 100.sp,
-                width: 1.sw,
-                child: ListView.separated(
-                    // shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return BottomCards(
-                          imageAsset: Utils.bottomCardData2[index].icon!,
-                          mainStatus: Utils.bottomCardData2[index].title!,
-                          statusValue: Utils.bottomCardData2[index].status!);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        width: 5.sp,
-                      );
-                    },
-                    itemCount: Utils.bottomCardData2.length),
-              ),
-              CustomSizedBox.height(10),
-              SizedBox(
-                // color: Colors.red,
-                height: 100.sp,
-                width: 1.sw,
-                child: ListView.separated(
-                    //shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return BottomCards(
-                          imageAsset: Utils.bottomCardData3[index].icon!,
-                          mainStatus: Utils.bottomCardData3[index].title!,
-                          statusValue: Utils.bottomCardData3[index].status!);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        width: 5.sp,
-                      );
-                    },
-                    itemCount: Utils.bottomCardData3.length),
-              ),
-              CustomSizedBox.height(10),
+                    }),
+                  ),
+                ),
+              )
+// ,
+//               CustomSizedBox.height(10),
+//               SizedBox(
+//                 // color: Colors.red,
+//                 height: 100.sp,
+//                 width: 1.sw,
+//                 child: ListView.separated(
+//                     // shrinkWrap: true,
+//                     scrollDirection: Axis.horizontal,
+//                     itemBuilder: (context, index) {
+//                       return BottomCards(
+//                           imageAsset: Utils.bottomCardData2[index].icon!,
+//                           mainStatus: Utils.bottomCardData2[index].title!,
+//                           statusValue: Utils.bottomCardData2[index].status!);
+//                     },
+//                     separatorBuilder: (context, index) {
+//                       return SizedBox(
+//                         width: 5.sp,
+//                       );
+//                     },
+//                     itemCount: Utils.bottomCardData2.length),
+//               ),
+//               CustomSizedBox.height(10),
+//               SizedBox(
+//                 // color: Colors.red,
+//                 height: 100.sp,
+//                 width: 1.sw,
+//                 child: ListView.separated(
+//                     //shrinkWrap: true,
+//                     scrollDirection: Axis.horizontal,
+//                     itemBuilder: (context, index) {
+//                       return BottomCards(
+//                           imageAsset: Utils.bottomCardData3[index].icon!,
+//                           mainStatus: Utils.bottomCardData3[index].title!,
+//                           statusValue: Utils.bottomCardData3[index].status!);
+//                     },
+//                     separatorBuilder: (context, index) {
+//                       return SizedBox(
+//                         width: 5.sp,
+//                       );
+//                     },
+//                     itemCount: Utils.bottomCardData3.length),
+//               ),
+//               CustomSizedBox.height(10),
 
               // SizedBox(
               //   height: 300,

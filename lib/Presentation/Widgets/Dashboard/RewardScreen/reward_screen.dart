@@ -84,7 +84,7 @@ RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1
                             // margin: EdgeInsets.only(right: 0),
 
                             alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(left: 10.sp),
+                            padding: EdgeInsets.only(left: 25.sp),
                             color: AppColors.primaryColor,
                             child: AppText(
                               invoiceTitle[i],

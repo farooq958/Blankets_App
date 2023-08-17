@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,7 +13,7 @@ class Styles {
   static double _textScale(
     BuildContext context,
   ) {
-    //print(MediaQuery.of(context).textScaleFactor);
+     //print(MediaQuery.of(context).textScaleFactor);
     return MediaQuery.of(context).textScaleFactor > 1.0
         ? 0.9
         : MediaQuery.of(context).textScaleFactor;

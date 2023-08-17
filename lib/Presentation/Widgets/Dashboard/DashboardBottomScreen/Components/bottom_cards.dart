@@ -15,8 +15,9 @@ class BottomCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-        width: 160.w,
-        height: 100,
+        width: 180.w,
+        height: 84,
+       constraints: const BoxConstraints(minWidth: 184),
        // padding: const EdgeInsets.symmetric(horizontal: 9.50, vertical: 20),
     decoration: BoxDecoration(
 
@@ -26,8 +27,13 @@ class BottomCards extends StatelessWidget {
 border: Border.all(color: AppColors.lightInvoiceColor),
 
 
-    boxShadow:  [
-    AppShadow.normal()
+    boxShadow:  const [
+      BoxShadow(
+        color: Color(0x0F000000),
+        blurRadius: 12,
+        offset: Offset(0, 6),
+        spreadRadius: 0,
+      )
     ],
     ),
     child: Row(
@@ -61,15 +67,18 @@ SizedBox(width: 10.sp,),
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             AppText(
-               mainStatus,
-                style: Styles.circularStdBold(context,
-                  color: AppColors.primaryColor,
-                  fontSize: 14,
+             Expanded(
+               child: AppText(
+                 mainStatus,
 
-                  fontWeight: FontWeight.w500,
+                  style: Styles.circularStdBold(context,
+                    color: AppColors.primaryColor,
+                    fontSize: 14.sp,
+
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
+             ),
               const SizedBox(height: 3),
               AppText(
                 statusValue,

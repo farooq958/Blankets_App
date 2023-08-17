@@ -12,7 +12,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 120.w,
+      width: 110.w,
       height: 61.h,
       padding: const EdgeInsets.only(
         top: 10,
@@ -39,9 +39,10 @@ class CustomCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 5),
+         const SizedBox(height: 5),
           AppText(
              name,
+             maxLine: 2,
              style: Styles.circularStdBold(
                context,
                color: Colors.white,
@@ -50,7 +51,7 @@ class CustomCard extends StatelessWidget {
                fontWeight: FontWeight.w500,
              ),
            ),
-          const SizedBox(height: 6),
+          const SizedBox(height:5 ),
           AppText(
            "Rs $amount",
 

@@ -21,7 +21,7 @@ class NewArrivalProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 158.w,
-      height:  isGuest==true? 200.h:260.h,
+      height:  isGuest==true? 187.h:245.h,
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(

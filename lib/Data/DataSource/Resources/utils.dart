@@ -177,16 +177,25 @@ class Utils {
     CustomCardModel(amount: "10000", name: "Credit limit"),
     CustomCardModel(amount: "2000", name: "Grace limit(0%)"),
     CustomCardModel(amount: "00", name: "Special deal"),
-  ];
-  static List<CustomCardModel> customCardData1 = [
     CustomCardModel(amount: "10000", name: "Max limit"),
     CustomCardModel(amount: "2000", name: "Over limit"),
     CustomCardModel(amount: "00", name: "Available limit"),
+  ];
+  static List<CustomCardModel> customCardData1 = [
+
   ];
 
   static List<BottomCardModel> bottomCardData1 = [
     BottomCardModel('Running Status', 'Blue', Assets.dashboardRunningStatus),
     BottomCardModel('Next Target', 'Bronze', Assets.dashboardNextTime),
+    BottomCardModel(
+        'Sale Required', 'Rs 2,500,000', Assets.dashboardSaleRequired),
+    BottomCardModel(
+        'Total Winning', 'Rs 0', Assets.dashboardTotalWinning),
+    BottomCardModel(
+        'Sale Required', 'Rs 2,500,000', Assets.dashboardSaleRequired),
+    BottomCardModel(
+        'Total Winning', 'Rs 0', Assets.dashboardTotalWinning),
 
 
   ];

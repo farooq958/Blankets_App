@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
@@ -85,6 +86,8 @@ class SuccessFulDialog {
       final bool? isSvg,
       Color? button1BgColor,
       Color? button2BgColor,
+        bool? button2LeadingImageIcon,
+        String? button2LeadingIcon,
       double? height,
       double? width}) {
     return Container(
@@ -113,7 +116,7 @@ class SuccessFulDialog {
                     imageAsset!,
                     height: 85.sp,
                     width: 85.sp,
-                    color: imageColor!,
+                    color: imageColor??AppColors.primaryColor,
                   ),
           ),
           SizedBox(
@@ -138,29 +141,38 @@ class SuccessFulDialog {
             ),
           ),
 
-          CustomSizedBox.height(10.h),
+          CustomSizedBox.height(20.h),
           Row(
 mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomButton(
-                onTap: button1Tap!,
-                text: buttonText1!,
-                bgColor: button1BgColor ?? AppColors.whiteColor,
-                textColor: AppColors.greyColor,
-                borderColor: Colors.transparent,
-                verticalPadding: 10.h,
-                horizontalPadding: 20.w,width: 120.w,
-                isBorder: false,
+              Expanded(
+                child: CustomButton(
+
+
+                  onTap: button1Tap!,
+                  text: buttonText1!,
+                  bgColor: button1BgColor ?? AppColors.whiteColor,
+                  textColor: AppColors.greyColor,
+                  borderColor: Colors.transparent,
+                  verticalPadding: 10.h,
+                  horizontalPadding: 20.w,width: 120.w,
+                  isBorder: false,
+                ),
               ),
-              CustomButton(
-                onTap: button2Tap!,
-                text: buttonText2!,
-                verticalPadding: 5.h,
-                horizontalPadding: 20.w,
-                borderRadius: 30.r,
-                isBorder: false,
-                width: 120.w,
-                bgColor: button2BgColor ?? AppColors.primaryColor,
+              10.x,
+              Expanded(
+                child: CustomButton(
+                  onTap: button2Tap!,
+                  leadingIcon: button2LeadingIcon,
+                  leadingSvgIcon: button2LeadingImageIcon,
+                  text: buttonText2!,
+                  verticalPadding: 5.h,
+                  horizontalPadding: 20.w,
+                  borderRadius: 30.r,
+                  isBorder: false,
+                  width: 120.w,
+                  bgColor: button2BgColor ?? AppColors.primaryColor,
+                ),
               ),
 
             ],

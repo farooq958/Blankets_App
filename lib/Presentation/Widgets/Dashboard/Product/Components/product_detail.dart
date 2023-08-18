@@ -142,9 +142,19 @@ children: [
 
                     height: 110.h,
                     width: 200,
-                    child: CustomButton(onTap: () {  },
+                    child: CustomButton(onTap: () {
+                      CustomDialog.successConfirmDialog(context,
+                          button1Text: "Explore",
+                          button2Text: "Cart",
+                          width: 1.sw,
+                          button2LeadingImageIcon: true,
+                          button2LeadingIcon: Assets.bagIcon,
+                          title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
+
+                    },
                       textFontWeight: FontWeight.normal,
                       textSize: 16,
+                      borderRadius: 40,
 
                       text: ' Add to cart',verticalPadding: 12,leadingIcon:Assets.bagIcon,leadingSvgIcon: true,horizontalMargin: 10, )),
 

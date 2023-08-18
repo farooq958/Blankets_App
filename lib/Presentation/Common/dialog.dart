@@ -110,6 +110,8 @@ class CustomDialog {
       double? width,
       Color? button1bgColor,
       Color? button2BgColor,
+        bool? button2LeadingImageIcon,
+        String? button2LeadingIcon,
         bool? isSvg,
       bool? barrierDismissible}) async {
     return showDialog<void>(
@@ -137,6 +139,8 @@ class CustomDialog {
               isSvg: isSvg,
               height: height,
               width: width,
+              button2LeadingIcon: button2LeadingIcon,
+              button2LeadingImageIcon: button2LeadingImageIcon,
               button1BgColor: button1bgColor,
               button2BgColor: button2BgColor),
         );

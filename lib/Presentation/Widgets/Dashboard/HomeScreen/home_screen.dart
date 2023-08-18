@@ -153,6 +153,16 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                         )));
                               }
+                              else
+                                {
+                                  CustomDialog.successConfirmDialog(context,
+                                      button1Text: "Explore",
+                                      button2Text: "Cart",
+                                      width: 1.sw,
+                                      button2LeadingImageIcon: true,
+                                      button2LeadingIcon: Assets.bagIcon,
+                                      title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
+                                }
                             },
                           );
                         },
@@ -245,6 +255,16 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                         )));
                               }
+                              else
+                                {
+                                  CustomDialog.successConfirmDialog(context,
+                                      button1Text: "Explore",
+                                      button2Text: "Cart",
+                                      width: 1.sw,
+                                      button2LeadingImageIcon: true,
+                                      button2LeadingIcon: Assets.bagIcon,
+                                      title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
+                                }
                             },
                           );
                         },

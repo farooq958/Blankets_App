@@ -28,7 +28,9 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: title!=null?CustomAppBarWithBackButton(title: title,iconData: Icons.arrow_back_ios,iconSize: 15.sp,padding: EdgeInsets.only(left: 5.sp),iconColor: AppColors.primaryColor,) :null,
+      appBar: title!=null?
+      CustomAppBarWithBackButton(title: title,iconData: Icons.arrow_back_ios,iconSize: 15.sp,padding:
+      EdgeInsets.only(left: 5.sp),iconColor: AppColors.primaryColor,) :null,
 
 
       body: Padding(

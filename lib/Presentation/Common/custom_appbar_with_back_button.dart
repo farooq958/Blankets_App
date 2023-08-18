@@ -9,7 +9,7 @@ import 'package:hbk/Presentation/Common/circle_icon_button.dart';
 ///use padding optional property to set the child alignment plus if you use svg icon then make typeIconSvg true and pass the svgIconPath
 class CustomAppBarWithBackButton extends StatefulWidget
     implements PreferredSizeWidget {
-  const CustomAppBarWithBackButton({Key? key,this.title, this.iconData, this.typeIconSvg, this.svgIconPath, this.iconSize, this.padding, this.iconColor})
+  const CustomAppBarWithBackButton({Key? key,this.title, this.iconData, this.typeIconSvg, this.svgIconPath, this.iconSize, this.padding, this.iconColor, this.isBottom})
       : preferredSize = const Size.fromHeight(65),
         super(key: key);
   final String? title;
@@ -18,6 +18,7 @@ class CustomAppBarWithBackButton extends StatefulWidget
   final String? svgIconPath;
   final double? iconSize;
   final Color? iconColor;
+  final  bool? isBottom;
   final  EdgeInsetsGeometry? padding;
 
 
@@ -46,10 +47,10 @@ class _CustomAppBarWithBackButtonState
       leading: Padding(
         padding: const EdgeInsets.only(bottom: 8.0,top: 8,left: 8),
         child:  widget.typeIconSvg !=null? SvgPicture.asset(widget.svgIconPath.toString(),): CircleIconButton(
-          icon: widget.iconData??Icons.arrow_back_sharp,
-          padding: widget.padding,
-          iconColor: widget.iconColor ,
-          iconSize: widget.iconSize,
+          icon: widget.iconData??Icons.arrow_back_ios,
+          padding: widget.padding??EdgeInsets.only(left: 5.sp),
+          iconColor: widget.iconColor ??AppColors.primaryColor ,
+          iconSize: widget.iconSize??15,
           isSvg: widget.typeIconSvg,
 
           onPressed: () {
@@ -60,6 +61,15 @@ class _CustomAppBarWithBackButtonState
           height: 15.h,
         ),
       ),
+      bottom: widget.isBottom!=null?  TabBar(
+        labelStyle: Styles.circularStdMedium(context,color: Colors.black26),
+    labelColor: AppColors.primaryColor,
+    indicatorColor: AppColors.primaryColor,
+    tabs: const[
+    Tab(text: 'Active'),
+    Tab(text: 'Pending'),
+    Tab(text: 'Completed'),
+    ]):null,
     );
   }
 }

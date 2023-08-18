@@ -10,7 +10,7 @@ class GeneratePDF {
 
   static Future<File?> hbkInvoice(Uint8List data) async {
     File? file;
-    bool check= await AppPermissions.hasWritePermission(onSuccess: () async {
+    bool check= await AppPermissions.hasAccessNotificationPermission(onSuccess: () async {
 
 
       // print()

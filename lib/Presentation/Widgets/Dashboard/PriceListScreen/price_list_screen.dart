@@ -25,20 +25,20 @@ class PriceListScreen extends  StatelessWidget {
 
   final List<PriceListModel> priceListData = [
     PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',country: 'China'),
-    PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',title:"Single bed & Medium blanket" ),
-    PriceListModel("Baby Perla Gold 1 Ply Blanket ( Large )", "160 x 120 CMS", 'Gift box'),
+    PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',title:"Single bed & Medium blanket" ,ctn: "12 pcs",price: "Rs 10,500"),
+    PriceListModel("Baby Perla Gold 1 Ply Blanket ( Large )", "160 x 120 CMS", 'Gift box',ctn: "12 pcs",price: "Rs 10,500"),
 
-    PriceListModel(  "Burjjan 1 ply Double bed embossed blanket","160 x 120 CMS", 'Gift box'),
+    PriceListModel(  "Burjjan 1 ply Double bed embossed blanket","160 x 120 CMS", 'Gift box',ctn: "12 pcs",price: "Rs 10,500"),
     PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',country: 'Spain'),
-    PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',title:"Single bed & Medium blanket" ),
-    PriceListModel( "Baby Perla Gold 1 Ply Blanket ( Large )","160 x 120 CMS", 'Gift box'),
+    PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',title:"Single bed & Medium blanket",ctn: "12 pcs",price: "Rs 10,500" ),
+    PriceListModel( "Baby Perla Gold 1 Ply Blanket ( Large )","160 x 120 CMS", 'Gift box',ctn: "12 pcs",price: "Rs 10,500"),
 
 
 
 
     // Add more data for other months
   ];
-  final List<String> invoiceTitle=["#","Item","Specification","Packing"];
+  final List<String> invoiceTitle=["#","Item","Specification","Packing","Pcs/Ctn","Price"];
 
   final TextEditingController searchControllerPrice=TextEditingController();
   @override
@@ -140,7 +140,7 @@ class PriceListScreen extends  StatelessWidget {
 
             ),
           )
-
+///
           // Row(
           //   children: [
           //     Expanded(
@@ -271,6 +271,18 @@ class PriceListScreen extends  StatelessWidget {
 alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: 30.sp),
           child: AppText(priceListData[i].packing, style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(width: 10.sp,));
+      textWidget.add(Container(
+        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.only(right: 30.sp),
+          child: AppText(priceListData[i].ctn.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(width: 10.sp,));
+      textWidget.add(Container(
+        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.only(right: 30.sp),
+          child: AppText(priceListData[i].price.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
       row.add(Column(
 
         children: [
@@ -286,7 +298,7 @@ alignment: Alignment.centerLeft,
      Container(
        alignment: Alignment.centerLeft,
        padding: EdgeInsets.only(left: 30.sp),
-       width: 1.sw,
+       width: 1.sw*1.57,
        child: (AppText(priceListData[i].country.toString(), style: Styles.circularStdRegular(context,color:
         AppColors.blackColor,fontWeight:
     FontWeight.w500,fontSize: 19.sp))),
@@ -304,7 +316,7 @@ height: 50,
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 30.sp),
-                width: 1.sw,
+                width: 1.sw*1.57,
                 child: (AppText(priceListData[i].title.toString(), style: Styles.circularStdRegular(context,color:
                 AppColors.primaryColor,fontWeight:
                 FontWeight.w500,fontSize: 14.sp))),
@@ -347,8 +359,10 @@ class PriceListModel {
   final String item;
   final String specification;
   final String packing;
+  final String? ctn;
+  final String? price;
   final String? country;
   final String? title;
 
-  PriceListModel( this.item, this.specification, this.packing, {this.country, this.title,this.sNo,});
+  PriceListModel( this.item, this.specification, this.packing, {this.country, this.title,this.sNo,this.ctn,this.price});
 }

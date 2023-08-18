@@ -45,201 +45,217 @@ class CustomerStatementScreen extends  StatelessWidget {
 
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(title: 'Customer Statement',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
 
-          CustomSizedBox.height(10),
-          ///Top Row
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
+            CustomSizedBox.height(10),
+            ///Top Row
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
 
-                AppText(AppStrings.accountBalance, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 16),),
-                RichText(text: TextSpan(children: [
-                  TextSpan(
-                      text: 'Rs ',
-                      style: Styles.circularStdBold(context,fontSize: 16.sp
-                      )),
-                  TextSpan(
-                      text: '50,490 ',
-                      style: Styles.circularStdBold(context,fontWeight: FontWeight.w900,fontSize: 20
-                      )),
-
-
-                ])),
+                  AppText(AppStrings.accountBalance, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 16),),
+                  RichText(text: TextSpan(children: [
+                    TextSpan(
+                        text: 'Rs ',
+                        style: Styles.circularStdBold(context,fontSize: 16.sp
+                        )),
+                    TextSpan(
+                        text: '50,490 ',
+                        style: Styles.circularStdBold(context,fontWeight: FontWeight.w900,fontSize: 20
+                        )),
 
 
-              ],
-
-
-            ),
-          ),
-          Row(
-            children: [
-              const Spacer(),
-
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: CustomButton(
-                    bgColor: AppColors.whiteColor,
-                    borderColor: AppColors.primaryColor,
-                    textColor: AppColors.primaryColor,
-                    textFontWeight: FontWeight.w400,
-                    trailingIcon: Assets.calenderIcon,
-borderThickness: 1.5,
-trailIconWidth: 19.sp,
-                    trailIconHeight: 19,
-                    onTap: (){
-                      showDatePicker(context);
-                    }, text: 'Jan-Feb 2023',verticalMargin: 20,verticalPadding: 10,),
-                ),
-              ),
-            ],
-          ),
-
-      Expanded(
-        child: CrossScroll(
-          horizontalScroll: CrossScrollDesign(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(
-                left: 1.0,
-                right: 9.0,
-              )),
-          verticalScroll: CrossScrollDesign(
-              physics: const BouncingScrollPhysics(),
-              padding:
-              const EdgeInsets.only(top: 10, bottom: 70))
-
-        ,
-          child: Container(
-           // padding: const EdgeInsets.all(2),
-            decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-            children: <Widget>[
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-
-                  for (var i = 0; i < invoiceTitle.length; i++)
-                    Container(
-                      height: 60.sp,
-                     width: 110.sp,
-                     // margin: EdgeInsets.only(right: 0),
-
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(right: 20.sp),
-                      color: AppColors.primaryColor,
-                      child: AppText(
-                        invoiceTitle[i],
-                        textAlign: TextAlign.center,
-                        style: Styles.circularStdBold(context,
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.whiteColor),
-                      ),
-                    ),
-
-
-
-
-
+                  ])),
 
 
                 ],
+
+
               ),
-               showInvoiceData(context),
-              SizedBox(
-                width: 1.sw,
-                child: FractionallySizedBox(
-                  widthFactor: 1,
-                  child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+            ),
+            Row(
+              children: [
+                const Spacer(),
 
- await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
-
-
-                  }, text: "Download",horizontalMargin: 20,),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: CustomButton(
+                      bgColor: AppColors.whiteColor,
+                      borderColor: AppColors.primaryColor,
+                      textColor: AppColors.primaryColor,
+                      textFontWeight: FontWeight.w400,
+                      trailingIcon: Assets.calenderIcon,
+borderThickness: 1.5,
+trailIconWidth: 19.sp,
+                      trailIconHeight: 19,
+                      onTap: (){
+                        showDatePicker(context);
+                      }, text: 'Jan-Feb 2023',verticalMargin: 20,verticalPadding: 10,),
+                  ),
                 ),
-              )
+              ],
+            ),
 
-            ],
-          ),),
-
-        ),
-      )
+ //      Expanded(
+ //        child: CrossScroll(
+ //          horizontalScroll: CrossScrollDesign(
+ //              physics: const BouncingScrollPhysics(),
+ //              padding: const EdgeInsets.only(
+ //                left: 1.0,
+ //                right: 9.0,
+ //              )),
+ //          verticalScroll: CrossScrollDesign(
+ //              physics: const BouncingScrollPhysics(),
+ //              padding:
+ //              const EdgeInsets.only(top: 10, bottom: 70))
+ //
+ //        ,
+ //          child: Container(
+ //           // padding: const EdgeInsets.all(2),
+ //            decoration: BoxDecoration(
+ //                color: AppColors.whiteColor,
+ //                borderRadius: BorderRadius.circular(10)),
+ //            child: Column(
+ //            children: <Widget>[
+ //
+ //              Row(
+ //                mainAxisAlignment: MainAxisAlignment.start,
+ //                children: [
+ //
+ //                  for (var i = 0; i < invoiceTitle.length; i++)
+ //                    Container(
+ //                      height: 60.sp,
+ //                     width: 110.sp,
+ //                     // margin: EdgeInsets.only(right: 0),
+ //
+ //                      alignment: Alignment.center,
+ //                      padding: EdgeInsets.only(right: 20.sp),
+ //                      color: AppColors.primaryColor,
+ //                      child: AppText(
+ //                        invoiceTitle[i],
+ //                        textAlign: TextAlign.center,
+ //                        style: Styles.circularStdBold(context,
+ //                            fontSize: 13.sp,
+ //                            fontWeight: FontWeight.w500,
+ //                            color: AppColors.whiteColor),
+ //                      ),
+ //                    ),
+ //
+ //
+ //
+ //
+ //
+ //
+ //
+ //                ],
+ //              ),
+ //               showInvoiceData(context),
+ //              SizedBox(
+ //                width: 1.sw,
+ //                child: FractionallySizedBox(
+ //                  widthFactor: 1,
+ //                  child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+ //
+ // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
+ //
+ //
+ //                  }, text: "Download",horizontalMargin: 20,),
+ //                ),
+ //              )
+ //
+ //            ],
+ //          ),),
+ //
+ //        ),
+ //      )
 ///data table
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: SingleChildScrollView(
-          //         scrollDirection: Axis.horizontal,
-          //
-          //         child: DataTableTheme(
-          //           data: DataTableThemeData(
-          //             headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
-          //             //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
-          //             headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
-          //            // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
-          //           ),
-          //           child: DataTable(
-          //             horizontalMargin: 10,
-          //             columnSpacing: 1.sw/20,
-          //
-          //             columns:  [
-          //               DataColumn(label: AppText('Date',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-          //               DataColumn(label: AppText('Type',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-          //               DataColumn(label: AppText(
-          //
-          //                 'Narration',
-          //
-          //                 style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-          //               DataColumn(label: AppText('Amount',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-          //             ],
-          //             rows: [
-          //               for(int index=0 ;index<invoiceData.length;index++)
-          //                 DataRow(cells: [
-          //                   DataCell(SizedBox(
-          //                     height: 20,
-          //
-          //
-          //                       child: AppText(invoiceData[index].date, style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),))),
-          //
-          //                   DataCell(AppText(invoiceData[index].type,
-          //
-          //                     style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
-          //                   DataCell(SizedBox(
-          //                     width: 100.sp,
-          //                     child: SingleChildScrollView(
-          //
-          //                       child: AppText(invoiceData[index].narration,
-          //                         maxLine: 5,
-          //                         style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),),
-          //                     ),
-          //                   )),
-          //                   DataCell(AppText(invoiceData[index].amount.toString(), style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),)),
-          //
-          //                 ],
-          //                     color:MaterialStateColor.resolveWith((states) => invoiceData[index].type=="start"? AppColors.lightInvoiceColor:AppColors.whiteColor)
-          //                 ),
-          //
-          //
-          //             ],
-          //             dividerThickness: 0.0,
-          //             dataRowHeight: 32,// Set the thickness of the divider
-          //
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
+            Row(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
 
-        ],
+                    child: DataTableTheme(
+                      data: DataTableThemeData(
+                        headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
+                        //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
+                        headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
+                       // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
+                      ),
+                      child: DataTable(
+                        horizontalMargin: 10,
+                        columnSpacing: 1.sw/20,
+dataRowMaxHeight: 65,
+                        columns:  [
+                          DataColumn(label: AppText('Date',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                          DataColumn(label: AppText('Type',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                          DataColumn(label: AppText(
+
+                            'Narration',
+
+                            style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                          DataColumn(label: AppText('Amount',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                        ],
+                        rows: [
+                          for(int index=0 ;index<invoiceData.length;index++)
+                            DataRow(
+
+
+                                cells: [
+                              DataCell(SizedBox(
+                                height: 20,
+
+
+                                  child: AppText(invoiceData[index].date, style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),))),
+
+                              DataCell(AppText(invoiceData[index].type,
+
+                                style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
+                              DataCell(SizedBox(
+                                width: 100.sp,
+                                child: SingleChildScrollView(
+
+                                  child: AppText(invoiceData[index].narration,
+                                    maxLine: 5,
+                                    style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),),
+                                ),
+                              )),
+                              DataCell(AppText(invoiceData[index].amount.toString(), style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
+
+                            ],
+                                color:MaterialStateColor.resolveWith((states) => invoiceData[index].type==""? AppColors.lightInvoiceColor:AppColors.whiteColor)
+                            ),
+
+
+                        ],
+                        dividerThickness: 0.0,
+                       // dataRowHeight: 32,// Set the thickness of the divider
+
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+                         SizedBox(
+                           width: 1.sw,
+                           child: FractionallySizedBox(
+                             widthFactor: 1,
+                             child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+
+            await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
+
+
+                             }, text: "Download",horizontalMargin: 20,),
+                           ),
+                         )
+          ],
+        ),
       ),
     );
   }

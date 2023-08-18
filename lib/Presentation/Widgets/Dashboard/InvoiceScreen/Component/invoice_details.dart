@@ -1,4 +1,6 @@
 import 'package:cross_scroll/cross_scroll.dart';
+import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
@@ -20,6 +22,7 @@ class InvoiceDetails extends StatelessWidget {
     InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
     InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
     InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: '    ',type: '  ',packing: '   ',ctn: '    ',pcs: '',unitPrice: ' ',totalPrice: ''),
 
 
     // Add more data for other months
@@ -34,24 +37,50 @@ class InvoiceDetails extends StatelessWidget {
       appBar: const CustomAppBarWithBackButton(title: 'Invoice detail',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
       backgroundColor: AppColors.whiteColor,
 
-      body: NestedScrollView(
-        //controller: _innerScrollController,
-        headerSliverBuilder: (BuildContext context,
-            bool innerBoxIsScrolled) {
-          return [
-            SliverAppBar(
-              elevation: 0,
-              automaticallyImplyLeading: false,
-              flexibleSpace:    mainColumn(context),
-              backgroundColor: AppColors.whiteColor,
-              expandedHeight: MediaQuery
-                  .of(context)
-                  .size
-                  .height * 0.56,
+      body: Stack(
+        children: [
+          NestedScrollView(
+            //controller: _innerScrollController,
+            headerSliverBuilder: (BuildContext context,
+                bool innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  elevation: 0,
+                  automaticallyImplyLeading: false,
+                  flexibleSpace:    mainColumn(context),
+                  backgroundColor: AppColors.whiteColor,
+                  expandedHeight: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.56,
+                ),
+              ];
+            },
+            body:     SingleChildScrollView(
+
+                scrollDirection: Axis.horizontal,
+                child: dataTableData(context)),
+          ),
+         // Container(color: Colors.transparent,height: 40.sp,),
+          Positioned(
+            bottom: 0,
+            child: SizedBox(
+              width: 1.sw,
+              child: FractionallySizedBox(
+                widthFactor: 1,
+                child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+
+                  await PdfDownload().generatePdf(invoiceTitle,rewardListData,null,null).then((value) => null);
+
+
+
+
+                }, text: "Download",horizontalMargin: 20,),
+              ),
             ),
-          ];
-        },
-        body:     dataTableData(context),
+          ),
+         // 10.y
+        ],
       ),
 
     );
@@ -105,89 +134,151 @@ class InvoiceDetails extends StatelessWidget {
   Widget dataTableData(BuildContext context) {
     return Column(
       children: [
-        CustomSizedBox.height(15),
+       // CustomSizedBox.height(15),
         Expanded(
-            child: CrossScroll(
-              verticalBar: const CrossScrollBar(thickness: 0),
-horizontalBar: const CrossScrollBar(thickness: 2),
-             // verticalScrollController: _innerScrollController,
-              horizontalScroll: CrossScrollDesign(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(
-                    left: 1.0,
-                    right: 9.0,
-                  )),
-              verticalScroll: CrossScrollDesign(
-                  physics: const BouncingScrollPhysics(),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 70))
-,
+            child:SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: DataTableTheme(
+                data: DataTableThemeData(
+                  headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
+                  //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
+                  headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
+                  // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
+                ),
+                child: DataTable(
+                  horizontalMargin: 10,
+                  columnSpacing: 1.sw/20,
+                  dataRowMaxHeight: 65,
+                  columns:  [
+                    DataColumn(label: AppText('S#',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                    DataColumn(label: AppText('Product Name',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                    DataColumn(label: AppText(
 
-              child: Container(
-                // padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
+                      'Type',
 
+                      style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                    DataColumn(label: AppText('Packing',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                    DataColumn(label: AppText('Ctn',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                    DataColumn(label: AppText('Pcs',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                    DataColumn(label: AppText('Unit Price',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                    DataColumn(label: AppText('Total Price',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
 
-                        for (var i = 0; i < invoiceTitle.length; i++)
-                          Container(
-                            height: 60.sp,
-                            width: i==0? 40.sp:180.sp,
-                             //padding: EdgeInsets.only(right: 30),
-
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.only(left: 10.sp,),
-                            color: AppColors.primaryColor,
-                            child: AppText(
-                              invoiceTitle[i],
-                              // textAlign:  TextAlign.center,
-                              style: Styles.circularStdBold(context,
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.whiteColor),
-                            ),
-                          ),
+                  ],
+                  rows: [
+                    for(int index=0 ;index<rewardListData.length;index++)
+                      DataRow(
 
 
+                          cells: [
+                            DataCell(SizedBox(
+                                height: 20,
 
 
+                                child: AppText(index==rewardListData.length-1?"": index.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),))),
 
+                            DataCell(AppText(rewardListData[index].productName.toString(),
 
+                              style: Styles.circularStdRegular(context,color:AppColors.blackColor),)),
+                            DataCell(SizedBox(
+                              //width: 100.sp,
+                              child: AppText(rewardListData[index].type.toString(),
+                                maxLine: 5,
+                                style: Styles.circularStdRegular(context,color: AppColors.blackColor),),
+                            )),
+                            DataCell(AppText(rewardListData[index].packing.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+                            DataCell(AppText(rewardListData[index].ctn.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+                            DataCell(AppText(rewardListData[index].pcs.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+                            DataCell(AppText(rewardListData[index].unitPrice.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+                            DataCell(AppText(rewardListData[index].totalPrice.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
 
-                      ],
-                    ),
-                    Padding(
-
-                        padding: EdgeInsets.only(right: 0.sp),
-                        child: showInvoiceDetailListData(context)),
+                          ],
+                          color:MaterialStateColor.resolveWith((states) => AppColors.whiteColor)
+                      ),
 
 
                   ],
-                ),),
+                  dividerThickness: 0.0,
+                  // dataRowHeight: 32,// Set the thickness of the divider
 
-            ),
+                ),
+              ),
+            ) ,
           ),
-        SizedBox(
-          width: 1.sw,
-          child: FractionallySizedBox(
-            widthFactor: 1,
-            child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: (){}, text: "Download",horizontalMargin: 20,),
-          ),
-        ),
-        CustomSizedBox.height(10)
+
+
       ],
     );
   }
-
+  ///old cross scroll
+   // CrossScroll(
+   // verticalBar: const CrossScrollBar(thickness: 0),
+   // horizontalBar: const CrossScrollBar(thickness: 2),
+   // // verticalScrollController: _innerScrollController,
+   // horizontalScroll: CrossScrollDesign(
+   // physics: const BouncingScrollPhysics(),
+   // padding: const EdgeInsets.only(
+   // left: 1.0,
+   // right: 9.0,
+   // )),
+   // verticalScroll: CrossScrollDesign(
+   // physics: const BouncingScrollPhysics(),
+   // padding:
+   // const EdgeInsets.only(top: 10, bottom: 70))
+   // ,
+   //
+   // child: Container(
+   // // padding: const EdgeInsets.all(2),
+   // decoration: BoxDecoration(
+   // color: AppColors.whiteColor,
+   // borderRadius: BorderRadius.circular(10)),
+   // child: Column(
+   // mainAxisAlignment: MainAxisAlignment.start,
+   // children: <Widget>[
+   //
+   //
+   // Row(
+   // mainAxisAlignment: MainAxisAlignment.start,
+   // crossAxisAlignment: CrossAxisAlignment.start,
+   // children: [
+   //
+   // for (var i = 0; i < invoiceTitle.length; i++)
+   // Container(
+   // height: 60.sp,
+   // width: i==0? 40.sp:180.sp,
+   // //padding: EdgeInsets.only(right: 30),
+   //
+   // alignment: Alignment.center,
+   // padding: EdgeInsets.only(left: 10.sp,),
+   // color: AppColors.primaryColor,
+   // child: AppText(
+   // invoiceTitle[i],
+   // // textAlign:  TextAlign.center,
+   // style: Styles.circularStdBold(context,
+   // fontSize: 13.sp,
+   // fontWeight: FontWeight.w500,
+   // color: AppColors.whiteColor),
+   // ),
+   // ),
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   // ],
+   // ),
+   // Padding(
+   //
+   // padding: EdgeInsets.only(right: 0.sp),
+   // child: showInvoiceDetailListData(context)),
+   //
+   //
+   // ],
+   // ),),
+   //
+   // )
   Padding invoiceDetailTile(BuildContext context,{String? text1,String? text2,String? text3,String? text4,}) {
     return Padding(
           padding:  EdgeInsets.only(left: 20.0.sp),

@@ -14,11 +14,12 @@ class PdfDownload{
 
   Future<File?> generatePdf(listOfTitle,listOfData ,pdfWidget,pdfTitleWidget) async {
     try{
-      Uint8List pdfData = await PDFLayouts.customerStatement(
-listOfTitle,listOfData,
-pdfWidget,pdfTitleWidget
-
-      );
+//       Uint8List pdfData = await PDFLayouts.customerStatement(
+// listOfTitle,listOfData,
+// pdfWidget,pdfTitleWidget
+//
+//       );
+      Uint8List pdfData=await PDFLayouts().generateDocumentForInvoice(listOfData);
       File? tempFilePath = await GeneratePDF.hbkInvoice(pdfData);
       //print(tempFilePath!.path);
       print(tempFilePath.runtimeType);

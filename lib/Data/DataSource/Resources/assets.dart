@@ -103,8 +103,8 @@ static const String trophy = 'assets/images/Trophy.svg';
 static const String usersThree = 'assets/images/UsersThree.svg';
 static const String ourVision = 'assets/images/Webcam.svg';
 
-//static const String orderConfirm='assets/images/Order confirm.png';
-
+static const String headerPdf='assets/images/headerpdflogo.png';
+static const String footerPdf='assets/images/footerpdf.png';
 
 
 }

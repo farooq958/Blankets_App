@@ -195,7 +195,7 @@ class Utils {
     BottomCardModel(
         'Sale Required', 'Rs 2,500,000', Assets.dashboardSaleOfSession),
     BottomCardModel(
-        'Total Winning', 'Rs 0', Assets.dashboardPendingOrders),
+        'Pending Orders', 'Rs 0', Assets.dashboardPendingOrders),
 
 
   ];

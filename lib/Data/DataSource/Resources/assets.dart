@@ -54,10 +54,10 @@ static const String profileIcon='assets/images/profile.svg';
 
 static const String dashboardRunningStatus = 'assets/images/dashboardRunningStatus.svg';
 static const String dashboardNextTime = 'assets/images/dashboardNextTime.svg';
-static const String dashboardPendingOrders = 'assets/images/dashboardPendingOrders.svg';
+static const String dashboardPendingOrders = 'assets/images/dashboardTotalWinning.svg';
 static const String dashboardSaleOfSession = 'assets/images/dashboardSaleOfSession.svg';
 static const String dashboardSaleRequired = 'assets/images/dashboardSaleRequired.svg';
-static const String dashboardTotalWinning = 'assets/images/dashboardTotalWinning.svg';
+static const String dashboardTotalWinning = 'assets/images/dashboardTrophy.svg';
 static const String dashBoardNextTarget = 'assets/images/dashboardNextTarget.svg';
 
 static const String babyImage='assets/images/babyImage.png';

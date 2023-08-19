@@ -187,15 +187,15 @@ class Utils {
 
   static List<BottomCardModel> bottomCardData1 = [
     BottomCardModel('Running Status', 'Blue', Assets.dashboardRunningStatus),
-    BottomCardModel('Next Target', 'Bronze', Assets.dashboardNextTime),
+    BottomCardModel('Next Target', 'Bronze', Assets.dashBoardNextTarget),
     BottomCardModel(
         'Sale Required', 'Rs 2,500,000', Assets.dashboardSaleRequired),
     BottomCardModel(
         'Total Winning', 'Rs 0', Assets.dashboardTotalWinning),
     BottomCardModel(
-        'Sale Required', 'Rs 2,500,000', Assets.dashboardSaleRequired),
+        'Sale Required', 'Rs 2,500,000', Assets.dashboardSaleOfSession),
     BottomCardModel(
-        'Total Winning', 'Rs 0', Assets.dashboardTotalWinning),
+        'Total Winning', 'Rs 0', Assets.dashboardPendingOrders),
 
 
   ];

@@ -71,7 +71,12 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
                   // CustomDialog.successDialog(
                   //     context, title: AppStrings.passwordChangeSuccessFull,
                   //     message: 'Awesome! you’ve successfully change your password');
-                  Navigate.toReplace(context, const LoginScreen());
+                  CustomDialog.successDialog(context,
+                      title: 'Password changed successfully',
+                      message:
+                          'Awesome! you’ve successfully change your password',
+                      messageFontSize: 16.sp,
+                      titleFontSize: 22.sp);
                 },
                 text: AppStrings.createNewPassword,
               )

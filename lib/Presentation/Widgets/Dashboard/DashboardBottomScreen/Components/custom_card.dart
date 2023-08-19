@@ -52,15 +52,17 @@ class CustomCard extends StatelessWidget {
              ),
            ),
           const SizedBox(height:5 ),
-          AppText(
-           "Rs $amount",
+          Expanded(
+            child: AppText(
+             "Rs $amount",
 
-            style: Styles.circularStdBold(
-              context,
-              color: Colors.white,
-              fontSize: 13.sp,
+              style: Styles.circularStdBold(
+                context,
+                color: Colors.white,
+                fontSize: 13.sp,
 
-              fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ],

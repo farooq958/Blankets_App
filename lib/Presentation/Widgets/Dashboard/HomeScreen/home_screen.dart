@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  CustomSizedBox.height(10),
+                  isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(10),
 
                   ///Top Row
                isGuest==true? const SizedBox(height: 0,width: 0,):   Row(

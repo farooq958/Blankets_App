@@ -16,6 +16,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboa
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/home_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/profile_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/search_screen.dart';
 import 'package:hbk/Presentation/Widgets/no_internet_connection.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
@@ -50,6 +51,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       key: scaffoldKey,
       appBar: CustomAppBar(
 pageController: pageController,
+        onNotificationTap: (){
+
+  Navigate.to(context,  SearchScreen());
+
+        },
         onBackTap: (){
         scaffoldKey.currentState!.openDrawer();
 
@@ -60,9 +66,10 @@ body: SizedBox(
   width: 1.sw,
   child: PageView(
     controller: pageController,
-
+physics: widget.isGuest ==true? const NeverScrollableScrollPhysics(): const ClampingScrollPhysics() ,
 onPageChanged: (x)
     {
+
       BottomNotifier.bottomNavigationNotifier.value=x;
 
 

@@ -47,166 +47,185 @@ class PriceListScreen extends  StatelessWidget {
 
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(title: 'Price list',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 6),iconSize: 15,),
-      body: Column(
+      body: Stack(
         children: [
+          Column(
+            children: [
 
-          CustomSizedBox.height(10),
-          ///Top Row
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: CustomTextFieldWithOnTap(
-                isShadowRequired: true,
+              CustomSizedBox.height(10),
+              ///Top Row
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: CustomTextFieldWithOnTap(
+                    isShadowRequired: true,
 
-                prefixIcon: SvgPicture.asset(Assets.searchIcon,color: AppColors.greyColor,) ,
+                    prefixIcon: SvgPicture.asset(Assets.searchIcon,color: AppColors.greyColor,) ,
 
-                isBorderRequired: false,
-                onChanged: (v){
-                  ///tobe evaluated
-                },
-                borderRadius:30.sp,
-                hintTextColor: AppColors.greyColor,
-                controller: searchControllerPrice, hintText: 'Search products price', textInputType: TextInputType.text),
-          ),
+                    isBorderRequired: false,
+                    onChanged: (v){
+                      ///tobe evaluated
+                    },
+                    borderRadius:30.sp,
+                    hintTextColor: AppColors.greyColor,
+                    controller: searchControllerPrice, hintText: 'Search products price', textInputType: TextInputType.text),
+              ),
 
-          Expanded(
-            child: CrossScroll(
-              horizontalScroll: CrossScrollDesign(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(
-                    left: 1.0,
-                    right: 9.0,
-                  )),
-              verticalScroll: CrossScrollDesign(
-                  physics: const BouncingScrollPhysics(),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 70))
+              Expanded(
+                child: CrossScroll(
+                  horizontalScroll: CrossScrollDesign(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.only(
+                        left: 1.0,
+                        right: 9.0,
+                      )),
+                  verticalScroll: CrossScrollDesign(
+                      physics: const BouncingScrollPhysics(),
+                      padding:
+                      const EdgeInsets.only(top: 10, bottom: 70))
 
-              ,
-              child: Container(
-                // padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  children: <Widget>[
+                  ,
+                  child: Container(
+                    // padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+                      children: <Widget>[
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
 
-                        for (var i = 0; i < invoiceTitle.length; i++)
-                          Container(
-                            height: 60.sp,
-                            width: i==0?50:100.sp,
-                            // margin: EdgeInsets.only(right: 0),
+                            for (var i = 0; i < invoiceTitle.length; i++)
+                              Container(
+                                height: 60.sp,
+                                width: i==0?50:100.sp,
+                                // margin: EdgeInsets.only(right: 0),
 
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(left: i==0?30.sp:10),
-                            color: AppColors.primaryColor,
-                            child: AppText(
-                              invoiceTitle[i],
-                             // textAlign:  TextAlign.center,
-                              style: Styles.circularStdBold(context,
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.whiteColor),
-                            ),
-                          ),
-
-
-
-
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.only(left: i==0?30.sp:10),
+                                color: AppColors.primaryColor,
+                                child: AppText(
+                                  invoiceTitle[i],
+                                 // textAlign:  TextAlign.center,
+                                  style: Styles.circularStdBold(context,
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.whiteColor),
+                                ),
+                              ),
 
 
+
+
+
+
+
+                          ],
+                        ),
+                        showPriceListData(context),
+                        // SizedBox(
+                        //   width: 1.sw,
+                        //   child: FractionallySizedBox(
+                        //     widthFactor: 1,
+                        //     child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+                        //
+                        //       // await PdfDownload().generatePdf(invoiceTitle,priceListData,PDFLayouts().showPdfPriceListData(priceListData),PDFLayouts().pdfTitlePriceList(invoiceTitle)).then((value) => null);
+                        //
+                        //
+                        //     }, text: "Download",horizontalMargin: 20,),
+                        //   ),
+                        // )
 
                       ],
-                    ),
-                    showPriceListData(context),
-                    SizedBox(
-                      width: 1.sw,
-                      child: FractionallySizedBox(
-                        widthFactor: 1,
-                        child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+                    ),),
 
-                          // await PdfDownload().generatePdf(invoiceTitle,priceListData,PDFLayouts().showPdfPriceListData(priceListData),PDFLayouts().pdfTitlePriceList(invoiceTitle)).then((value) => null);
+                ),
+              )
+///
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: SingleChildScrollView(
+              //         scrollDirection: Axis.horizontal,
+              //
+              //         child: DataTableTheme(
+              //           data: DataTableThemeData(
+              //             headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
+              //             //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
+              //             headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
+              //            // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
+              //           ),
+              //           child: DataTable(
+              //             horizontalMargin: 10,
+              //             columnSpacing: 1.sw/20,
+              //
+              //             columns:  [
+              //               DataColumn(label: AppText('Date',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+              //               DataColumn(label: AppText('Type',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+              //               DataColumn(label: AppText(
+              //
+              //                 'Narration',
+              //
+              //                 style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+              //               DataColumn(label: AppText('Amount',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+              //             ],
+              //             rows: [
+              //               for(int index=0 ;index<invoiceData.length;index++)
+              //                 DataRow(cells: [
+              //                   DataCell(SizedBox(
+              //                     height: 20,
+              //
+              //
+              //                       child: AppText(invoiceData[index].date, style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),))),
+              //
+              //                   DataCell(AppText(invoiceData[index].type,
+              //
+              //                     style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
+              //                   DataCell(SizedBox(
+              //                     width: 100.sp,
+              //                     child: SingleChildScrollView(
+              //
+              //                       child: AppText(invoiceData[index].narration,
+              //                         maxLine: 5,
+              //                         style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),),
+              //                     ),
+              //                   )),
+              //                   DataCell(AppText(invoiceData[index].amount.toString(), style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),)),
+              //
+              //                 ],
+              //                     color:MaterialStateColor.resolveWith((states) => invoiceData[index].type=="start"? AppColors.lightInvoiceColor:AppColors.whiteColor)
+              //                 ),
+              //
+              //
+              //             ],
+              //             dividerThickness: 0.0,
+              //             dataRowHeight: 32,// Set the thickness of the divider
+              //
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+
+            ],
+          ),
+          Positioned(
+            bottom: 0,
+            child: SizedBox(
+              width: 1.sw,
+              child: FractionallySizedBox(
+                widthFactor: 1,
+                child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+
+                  // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
 
 
-                        }, text: "Download",horizontalMargin: 20,),
-                      ),
-                    )
-
-                  ],
-                ),),
-
+                }, text: "Download",horizontalMargin: 20,),
+              ),
             ),
           )
-///
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: SingleChildScrollView(
-          //         scrollDirection: Axis.horizontal,
-          //
-          //         child: DataTableTheme(
-          //           data: DataTableThemeData(
-          //             headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
-          //             //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
-          //             headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
-          //            // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
-          //           ),
-          //           child: DataTable(
-          //             horizontalMargin: 10,
-          //             columnSpacing: 1.sw/20,
-          //
-          //             columns:  [
-          //               DataColumn(label: AppText('Date',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-          //               DataColumn(label: AppText('Type',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-          //               DataColumn(label: AppText(
-          //
-          //                 'Narration',
-          //
-          //                 style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-          //               DataColumn(label: AppText('Amount',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-          //             ],
-          //             rows: [
-          //               for(int index=0 ;index<invoiceData.length;index++)
-          //                 DataRow(cells: [
-          //                   DataCell(SizedBox(
-          //                     height: 20,
-          //
-          //
-          //                       child: AppText(invoiceData[index].date, style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),))),
-          //
-          //                   DataCell(AppText(invoiceData[index].type,
-          //
-          //                     style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
-          //                   DataCell(SizedBox(
-          //                     width: 100.sp,
-          //                     child: SingleChildScrollView(
-          //
-          //                       child: AppText(invoiceData[index].narration,
-          //                         maxLine: 5,
-          //                         style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),),
-          //                     ),
-          //                   )),
-          //                   DataCell(AppText(invoiceData[index].amount.toString(), style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),)),
-          //
-          //                 ],
-          //                     color:MaterialStateColor.resolveWith((states) => invoiceData[index].type=="start"? AppColors.lightInvoiceColor:AppColors.whiteColor)
-          //                 ),
-          //
-          //
-          //             ],
-          //             dividerThickness: 0.0,
-          //             dataRowHeight: 32,// Set the thickness of the divider
-          //
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-
         ],
       ),
     );

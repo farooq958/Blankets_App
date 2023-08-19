@@ -16,8 +16,10 @@ class _FeedbackState extends State<Feedback> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBarWithBackButton(
+      appBar:  CustomAppBarWithBackButton(
+        iconSize: 15.sp,
         title: AppStrings.feedback,
+
       ),
       body: Padding(
         padding: EdgeInsets.all(20.r),

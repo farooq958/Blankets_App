@@ -4,6 +4,8 @@ static const String onboarding1="assets/images/onboarding1.png";
 static const String onboarding2="assets/images/onboarding2.png";
 static const String onboarding3="assets/images/onboarding3.png";
 static const String emailIcon = 'assets/images/email.png';
+static const String unLock = 'assets/images/Unlock.svg';
+static const String delete= 'assets/images/Delete.svg';
 static const String passwordIcon = "assets/images/Lock.png";
 
 static const String passwordSuccessFull = 'assets/images/passwordSuccessFull.png';
@@ -39,7 +41,7 @@ static const String notificationPreferences = 'assets/images/notificationprefere
 static const String user = 'assets/images/userPng.png';
 
 static const String deleteAccount = 'assets/images/Delete.png';
-static const String delete = 'assets/images/delete_account.png';
+// static const String delete = 'assets/images/delete_account.png';
 
 ///Dashboard
 static const String notificationIcon='assets/images/notificationIcon.svg';
@@ -52,10 +54,11 @@ static const String profileIcon='assets/images/profile.svg';
 
 static const String dashboardRunningStatus = 'assets/images/dashboardRunningStatus.svg';
 static const String dashboardNextTime = 'assets/images/dashboardNextTime.svg';
-static const String dashboardPendingOrders = 'assets/images/dashboardPendingOrders.png';
+static const String dashboardPendingOrders = 'assets/images/dashboardPendingOrders.svg';
 static const String dashboardSaleOfSession = 'assets/images/dashboardSaleOfSession.svg';
 static const String dashboardSaleRequired = 'assets/images/dashboardSaleRequired.svg';
 static const String dashboardTotalWinning = 'assets/images/dashboardTotalWinning.svg';
+static const String dashBoardNextTarget = 'assets/images/dashboardNextTarget.svg';
 
 static const String babyImage='assets/images/babyImage.png';
 static const String bagIcon='assets/images/bagIcon.svg';

@@ -1065,7 +1065,7 @@ Widget totalAmountInvoice() {
   Widget invoiceListDataTableData(int length, int countlength,List<InvoiceDetailModel> invoiceDataList) {
     final height=1.sh;
     final width=1.sw;
-    var pdfblackcolor= pd.PdfColors.black;
+    var pdfBlackColor= pd.PdfColors.black;
     // return ListView.builder(
     //   // padding: EdgeInsets.only(left: width / 5.95),
     //   // itemCount: docentrydatalit.length,
@@ -1105,7 +1105,7 @@ Widget totalAmountInvoice() {
                     height: height / 25,
                     //height: height / 18,
                     decoration: BoxDecoration(
-                      border: Border.all(color: pdfblackcolor),
+                      border: Border.all(color: pdfBlackColor),
                     ),
                     // decoration: generaldecoration(
                     //     blackcolor.withOpacity(0.25),
@@ -1126,7 +1126,7 @@ Widget totalAmountInvoice() {
                   height: height / 25,
                   decoration: BoxDecoration(
                     //   color: PdfColors.grey300,
-                    border: Border.all(color: pdfblackcolor),
+                    border: Border.all(color: pdfBlackColor),
                   ),
                   // decoration: generaldecoration(
                   //     blackcolor.withOpacity(0.25),
@@ -1148,7 +1148,7 @@ Widget totalAmountInvoice() {
                     height: height / 25,
                     decoration: BoxDecoration(
                       //  color: PdfColors.grey300,
-                      border: Border.all(color: pdfblackcolor),
+                      border: Border.all(color: pdfBlackColor),
                     ),
                     // decoration: generaldecoration(
                     //     blackcolor.withOpacity(0.25),
@@ -1169,7 +1169,7 @@ Widget totalAmountInvoice() {
                     height: height / 25,
                     decoration: BoxDecoration(
                       // color: PdfColors.grey300,
-                      border: Border.all(color: pdfblackcolor),
+                      border: Border.all(color: pdfBlackColor),
                     ),
                     // decoration: generaldecoration(
                     //     blackcolor.withOpacity(0.25),
@@ -1190,7 +1190,7 @@ Widget totalAmountInvoice() {
                     height: height / 25,
                     decoration: BoxDecoration(
                       // color: PdfColors.grey300,
-                      border: Border.all(color: pdfblackcolor),
+                      border: Border.all(color: pdfBlackColor),
                     ),
                     // decoration: generaldecoration(
                     //     blackcolor.withOpacity(0.25),
@@ -1210,7 +1210,7 @@ Widget totalAmountInvoice() {
                     width: width / 10,
                     height: height / 25,
                     decoration: BoxDecoration(
-                      border: Border.all(color: pdfblackcolor),
+                      border: Border.all(color: pdfBlackColor),
                     ),
                     // decoration: generaldecoration(
                     //     blackcolor.withOpacity(0.25),
@@ -1230,7 +1230,7 @@ Widget totalAmountInvoice() {
                     width: width / 7,
                     height: height / 25,
                     decoration: BoxDecoration(
-                      border: Border.all(color: pdfblackcolor),
+                      border: Border.all(color: pdfBlackColor),
                     ),
                     // decoration: generaldecoration(
                     //     blackcolor.withOpacity(0.25),
@@ -1250,7 +1250,7 @@ Widget totalAmountInvoice() {
                     width: width / 5,
                     height: height / 25,
                     decoration: BoxDecoration(
-                      border: Border.all(color: pdfblackcolor),
+                      border: Border.all(color: pdfBlackColor),
                     ),
                     // decoration: generaldecoration(
                     //     blackcolor.withOpacity(0.25),

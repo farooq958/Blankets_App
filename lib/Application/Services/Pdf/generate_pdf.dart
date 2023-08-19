@@ -10,39 +10,73 @@ class GeneratePDF {
 
   static Future<File?> hbkInvoice(Uint8List data) async {
     File? file;
-    bool check= await AppPermissions.hasAccessNotificationPermission(onSuccess: () async {
+    if(Platform.isIOS)
+      {
+        Directory? tempDir = await getApplicationSupportDirectory();
+        print("here");
+        File? tempFile = await File(
+            '${tempDir!.path}/${DateTime
+                .now()
+                .year}_${DateTime
+                .now()
+                .month}${DateTime
+                .now()
+                .millisecond}_${DateTime
+                .now()
+                .month}${DateTime
+                .now()
+                .millisecond}.pdf')
+            .create(recursive: false);
+        //print("filee ${file!.path}");
+
+        file = await tempFile.writeAsBytes(data);
+
+        //await file.writeAsBytes(data);
 
 
-      // print()
-      //file=temp;
-      //print("filee2 ${temp!.path}");
+        return file;
+      }
+    else {
+      bool check = await AppPermissions.hasAccessNotificationPermission(
+          onSuccess: () async {
+            // print()
+            //file=temp;
+            //print("filee2 ${temp!.path}");
 
 
-      // await FileDownloader.download(file.uri.path);
-    });
-    //  print("nooo ${file?.absolute}");
+            // await FileDownloader.download(file.uri.path);
+          });
+      //  print("nooo ${file?.absolute}");
 
-    if(check==true)
-    {
-      Directory? tempDir = await getExternalStorageDirectory();
+      if (check == true) {
+        Directory? tempDir = await getExternalStorageDirectory();
+        print("here");
+        File? tempFile = await File(
+            '${tempDir!.parent.parent.parent.parent.path}/Documents/${DateTime
+                .now()
+                .year}_${DateTime
+                .now()
+                .month}${DateTime
+                .now()
+                .millisecond}_${DateTime
+                .now()
+                .month}${DateTime
+                .now()
+                .millisecond}.pdf')
+            .create(recursive: false);
+        //print("filee ${file!.path}");
 
-      File? tempFile = await File(
-          '${tempDir!.parent.parent.parent.parent.path}/Documents/${DateTime.now().year}_${DateTime.now().month}${DateTime.now().millisecond}_${DateTime.now().month}${DateTime.now().millisecond}.pdf')
-          .create(recursive: false);
-      //print("filee ${file!.path}");
+        file = await tempFile.writeAsBytes(data);
 
-      file = await tempFile.writeAsBytes(data);
-
-      //await file.writeAsBytes(data);
+        //await file.writeAsBytes(data);
 
 
-      return file;
+        return file;
+      }
+      else {
+        return null;
+      }
     }
-    else
-    {
-      return null;
-    }
-
 
   }
 

@@ -2,6 +2,7 @@
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/order_history.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/Components/list_tile_widget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/manage_account.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -45,49 +46,45 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _userList(BuildContext context) {
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding:  EdgeInsets.only(left: 5.w),
-            child: ListTileWidget(
-              tileTitle: AppStrings.manageAccount,
-              icon: Assets.manageAccountIcon,
-              onTap: () {
-                Navigate.to(context, const ManageAccount());
-              },
-            ),
-          ),
-          ListTileWidget(
-            tileTitle: AppStrings.orderHistory,
-            icon: Assets.orderHistory,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+        ListTileWidget(
+          tileTitle: AppStrings.manageAccount,
+          icon: Assets.manageAccountIcon,
+          onTap: () {
+            Navigate.to(context, const ManageAccount());
+          },
+        ),
+        ListTileWidget(
+          tileTitle: AppStrings.orderHistory,
+          icon: Assets.orderHistory,
+          onTap: () {
+            Navigate.to(context, const OrderHistory(orderStatus: OrderStatus.Completed,));
+          },
+        ),
+        ListTileWidget(
+          tileTitle: AppStrings.notificationPreferences,
+          icon: Assets.notificationPreferences,
+          onTap: () {},
+        ),
+        ListTileWidget(
+          tileTitle: AppStrings.privacyPolicy,
+          icon: Assets.privacyPolicy,
+          onTap: () {},
+        ),
+        Padding(
+          padding:  EdgeInsets.only(left: 5.w),
+          child: ListTileWidget(
+            tileTitle: AppStrings.logout,
+            icon: Assets.logout,
             onTap: () {
-              Navigate.to(context, const OrderHistory(orderStatus: OrderStatus.Completed,));
+              Navigate.to(context, const LoginScreen());
             },
           ),
-          ListTileWidget(
-            tileTitle: AppStrings.notificationPreferences,
-            icon: Assets.notificationPreferences,
-            onTap: () {},
-          ),
-          ListTileWidget(
-            tileTitle: AppStrings.privacyPolicy,
-            icon: Assets.privacyPolicy,
-            onTap: () {},
-          ),
-          Padding(
-            padding:  EdgeInsets.only(left: 5.w),
-            child: ListTileWidget(
-              tileTitle: AppStrings.logout,
-              icon: Assets.logout,
-              onTap: () {
-                Navigate.to(context, const LoginScreen());
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -109,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
           tileTitle: 'Login',
           icon: Assets.logout,
           onTap: () {
-            Navigate.to(context, LoginScreen());
+            Navigate.to(context, const LoginScreen());
           },
         ),
       ],
@@ -117,54 +114,3 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class ListTileWidget extends StatelessWidget {
-  final String? tileTitle;
-  final String? icon;
-  final VoidCallback? onTap;
-
-  const ListTileWidget({Key? key, this.tileTitle, this.icon, this.onTap})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return
-    //   GestureDetector(
-    //   onTap: onTap!,
-    //   child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-    //
-    //     children: [
-    //
-    //       Container(
-    //         alignment: Alignment.center,
-    //         height: 20.h,
-    //         child: SvgPicture.asset(
-    //           icon!,
-    //           color: AppColors.primaryColor,
-    //         ),
-    //       ),
-    //     CustomSizedBox.width(10),
-    //     Expanded(
-    //       child: AppText(
-    //           tileTitle!,
-    //           style: Styles.circularStdBold(context, fontSize: 18.sp),
-    //         ),
-    //     ),
-    //
-    //     ],
-    //   ),
-    // );
-
-      ListTile(
-
-      title: AppText(
-        tileTitle!,
-        style: Styles.circularStdBold(context, fontSize: 16.sp),
-      ),
-      leading: SvgPicture.asset(
-        icon!,
-        color: AppColors.primaryColor,
-      ),
-      onTap: onTap!,
-    );
-  }
-}

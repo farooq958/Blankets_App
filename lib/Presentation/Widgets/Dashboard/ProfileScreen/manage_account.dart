@@ -15,6 +15,7 @@ class ManageAccount extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(20.0.r),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomSizedBox.height(20.h),
             Material(
@@ -33,7 +34,8 @@ class ManageAccount extends StatelessWidget {
                 // borderRadius: 15,
                 height: 55.h,
                 iconColor: AppColors.blackColor,
-                gapWidth: 5,
+                gapWidth: 15.w,
+                isButtonAlignLeft:true,
               ),
             ),
             CustomSizedBox.height(20.h),
@@ -51,7 +53,8 @@ class ManageAccount extends StatelessWidget {
                 textColor: AppColors.blackColor,
                 leadingIcon: Assets.delete,
                 leadingSvgIcon: true,
-                gapWidth: 5,
+                isButtonAlignLeft:true,
+                gapWidth: 15.w,
                 // borderRadius: 15,
 
                 iconColor: AppColors.blackColor,

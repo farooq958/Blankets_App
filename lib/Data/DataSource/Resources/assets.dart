@@ -6,6 +6,7 @@ static const String onboarding3="assets/images/onboarding3.png";
 static const String emailIcon = 'assets/images/email.png';
 static const String unLock = 'assets/images/Unlock.svg';
 static const String delete= 'assets/images/Delete.svg';
+static const String deleteAccount = 'assets/images/delete_account.png';
 static const String passwordIcon = "assets/images/Lock.png";
 
 static const String passwordSuccessFull = 'assets/images/passwordSuccessFull.png';
@@ -40,7 +41,7 @@ static const String notificationPreferences = 'assets/images/notificationprefere
 
 static const String user = 'assets/images/userPng.png';
 
-static const String deleteAccount = 'assets/images/Delete.png';
+// static const String deleteAccount = 'assets/images/Delete.png';
 // static const String delete = 'assets/images/delete_account.png';
 
 ///Dashboard

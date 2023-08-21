@@ -72,7 +72,7 @@ onPageChanged: (x)
  HomeScreen(pageController:pageController,isGuest:widget.isGuest),
       const DashboardBottom(),
        ProductScreen(isGuest: widget.isGuest,),
-       CartScreen(pageController: pageController,),
+       CartScreen(pageController: pageController,isGuest:widget.isGuest),
       ProfileScreen(isGuest: widget.isGuest!,)
 
 
@@ -292,8 +292,54 @@ onPageChanged: (x)
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      BottomNotifier.bottomNavigationNotifier.value=3;
-                      pageController.jumpToPage(3);
+                      if(widget.isGuest == true){
+                        CustomDialog.dialog(
+                            context,
+                            SizedBox(
+                                width: 1.sw,
+                                height: 250.h,
+                                child: Center(
+                                  child: Column(
+                                    // crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        Assets.logout,
+                                        width: 50.w,
+                                        height: 50.h,
+                                      ),
+                                      CustomSizedBox.height(10.h),
+                                      AppText('Please login first',
+                                          style: Styles.circularStdBold(
+                                              context,
+                                              fontSize: 22.sp)),
+                                      CustomSizedBox.height(10.h),
+                                      AppText('Please login first',
+                                          style: Styles.circularStdBold(
+                                              context,
+                                              fontSize: 16.sp)),
+                                      CustomSizedBox.height(10.h),
+
+                                      CustomButton(
+                                        onTap: () {
+                                          Navigator.of(context).pop(true);
+                                          Navigate.to(context, const LoginScreen());
+                                        },
+                                        text: 'Login',
+                                        width: 1.sw,
+                                        horizontalMargin: 20.w,
+                                      ),
+
+                                    ],
+
+                                  ),
+                                )));
+                      }
+                      else{
+                        BottomNotifier.bottomNavigationNotifier.value=3;
+                        pageController.jumpToPage(3);
+                      }
                     },
                     child: Column(
                       children: [

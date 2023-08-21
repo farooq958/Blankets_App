@@ -9,14 +9,24 @@ import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/empty_c
 
 class CartScreen extends StatefulWidget {
   final PageController? pageController;
+  final bool? isGuest;
 
-  const CartScreen({super.key, this.pageController});
+  const CartScreen({super.key, this.pageController,this.isGuest});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    if(widget.isGuest==true) {
+      CustomDialog.dialog(context, const Column());
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(

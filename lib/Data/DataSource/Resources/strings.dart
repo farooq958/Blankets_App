@@ -20,7 +20,7 @@ class AppStrings{
 
   /// profile
   static const String manageAccount = 'Manage account';
-  static const String notificationPreferences = 'Notification preferences';
+  static const String notificationPreferences = 'Notifications';
   static const String privacyPolicy = 'Privacy policy';
   static const String orderHistory = 'Order history';
   static const String editProfile = 'Edit profile';

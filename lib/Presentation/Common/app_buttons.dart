@@ -42,6 +42,7 @@ final double? gapWidth;
 final double? width;
 final double? height;
 final double? borderRadius;
+final bool? isButtonAlignLeft;
   const CustomButton({
     Key? key,
     required this.onTap,
@@ -62,6 +63,7 @@ final double? borderRadius;
     this.width,
     this.height,
     this.borderRadius,
+    this.isButtonAlignLeft,
     this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize,
     // this.borderColor = AppColors.primaryColor, this.textFontWeight, this.textSize, this.trailIconWidth,
     this.borderThickness, this.trailIconHeight, this.gapWidth, this.trailIconWidth,
@@ -98,8 +100,8 @@ final double? borderRadius;
         ),
         child: Center(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize:isButtonAlignLeft==true? MainAxisSize.max : MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               leadingIcon != null

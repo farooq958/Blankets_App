@@ -18,13 +18,13 @@ class DeleteAccount extends StatelessWidget {
               children: [
                 AppText(
                   AppStrings.deleteAccountNote,
-                  style: Styles.circularStdMedium(context, fontSize: 18.sp),
+                  style: Styles.circularStdMedium(context, fontSize: 16.sp),
                   overflow: TextOverflow.ellipsis,
                   maxLine: 7,
                 ),
                 AppText(
                   'Before proceeding, we want to make sure you are fully informed about the consequences of account deletion:',
-                  style: Styles.circularStdMedium(context, fontSize: 18.sp),
+                  style: Styles.circularStdMedium(context, fontSize: 16.sp),
                   maxLine: 3,
                 ),
                 Row(
@@ -32,12 +32,12 @@ class DeleteAccount extends StatelessWidget {
                   children: [
                     AppText('1. ',
                         style:
-                            Styles.circularStdMedium(context, fontSize: 18.sp)),
+                            Styles.circularStdMedium(context, fontSize: 16.sp)),
                     Expanded(
                       child: AppText(
                         'Loss of Access: Deleting your account means you will no longer have access to your profile information, order history and Wishlist.',
                         style:
-                            Styles.circularStdMedium(context, fontSize: 18.sp),
+                            Styles.circularStdMedium(context, fontSize: 16.sp),
                         maxLine: 5,
                       ),
                     ),
@@ -48,12 +48,12 @@ class DeleteAccount extends StatelessWidget {
                   children: [
                     AppText('2. ',
                         style:
-                            Styles.circularStdMedium(context, fontSize: 18.sp)),
+                            Styles.circularStdMedium(context, fontSize: 16.sp)),
                     Expanded(
                       child: AppText(
                         'No Recovery: Once the account is deleted, we cannot retrieve any of your account data or restore access to your account.',
                         style:
-                            Styles.circularStdMedium(context, fontSize: 18.sp),
+                            Styles.circularStdMedium(context, fontSize: 16.sp),
                         maxLine: 5,
                       ),
                     ),
@@ -75,7 +75,7 @@ class DeleteAccount extends StatelessWidget {
                     title: 'Confirm delete account',
                     message:
                         'We\'re sorry to see you go, but we understand that circumstances may change. If you wish to delete your account, please be aware that this action is irreversible.',
-                    assetImage: Assets.delete,
+                    assetImage: Assets.deleteAccount,
                     button1Text: 'Cancel',
                     button2Text: 'Delete',
                     button1Tap: () {
@@ -87,7 +87,8 @@ class DeleteAccount extends StatelessWidget {
                           title: 'Account deleted successfully',
                           message:
                               'You’ve successfully delete your account and will longer be able to access it.',
-                          image: Assets.delete,
+                          image: Assets.deleteAccount,
+
                           imageColor: AppColors.primaryColor);
                     },
                     imageColor: AppColors.redColor,

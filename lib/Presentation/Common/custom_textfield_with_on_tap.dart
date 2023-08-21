@@ -65,7 +65,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+print(Data().textScale);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8).r,
       child: Column(
@@ -145,7 +145,7 @@ class CustomTextFieldWithOnTap extends StatelessWidget {
                 hintStyle: Styles.circularStdRegular(
                   context,
                   color: FocusScope.of(context).hasFocus ? hintTextColor :AppColors.greyColor,
-                  fontSize: Data().textScale > 1.1  ? 12.sp :16.sp,
+                  fontSize: Data().textScale > 1.0 ? 12.sp :16.sp,
                   fontWeight: FontWeight.w400
                 ),
 

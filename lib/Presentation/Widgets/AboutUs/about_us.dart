@@ -155,16 +155,9 @@ class _AboutUsState extends State<AboutUs> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BlocConsumer<InOutCubit, Map<int,bool>>(
-                listener: (context, state) {
-                  // TODO: implement listener
 
 
-                },
-                builder: (context, state) {
-                  print('ui state');
-                  print(state);
-                  return ListView.builder(
+                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: tileDataList.length,
@@ -177,10 +170,10 @@ class _AboutUsState extends State<AboutUs> {
                             isImageRequired: tileData.isImageRequired,
                             imageUrl: tileData.imageUrl,
                             text: tileData.text,
-                            index: index,
-                            toUpdate: state,
-                            isExpanded: state[index],
-                            expansionTileController: expansionTileController,
+                           // index: index,
+                            //toUpdate: state,
+                            //isExpanded: state[index],
+                            //expansionTileController: expansionTileController,
                             expendedContent: Padding(
                               padding: EdgeInsets.only(
                                   left: 15.w, right: 15.w, bottom: 5.h),
@@ -191,9 +184,8 @@ class _AboutUsState extends State<AboutUs> {
                         ],
                       );
                     },
-                  );
-                },
-              ),
+                  )
+
             ],
           ),
         ),

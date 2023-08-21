@@ -55,7 +55,7 @@ class _ExpandableTileWidgetState extends State<ExpandableTileWidget> {
                 color: AppColors.primaryColor,
               )
             : Padding(
-                padding: const EdgeInsets.only(right: 10.0),
+                padding:  EdgeInsets.only(right: 10.0.sp),
                 child: AssetImageWidget(
                   url: widget.imageUrl!,
                   color: AppColors.primaryColor,

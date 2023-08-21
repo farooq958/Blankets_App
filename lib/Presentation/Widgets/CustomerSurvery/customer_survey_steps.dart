@@ -28,7 +28,7 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBarWithBackButton(title: 'Customer survey',),
+      appBar: const CustomAppBarWithBackButton(title: 'Customer survey',),
       body: Column(
         children: [
           Padding(
@@ -39,10 +39,9 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
                 ValueListenableBuilder<int>(
                   valueListenable: currentPageNotifier,
                   builder: (context, currentPage, child) {
-                    return Text(
+                    return AppText(
                       '${currentPage + 1}/5',
-                      style: TextStyle(
-                          fontSize: 16.sp, fontWeight: FontWeight.bold),
+                      style:Styles.circularStdBold(context,fontSize: 16.sp)
                     );
                   },
                 ),

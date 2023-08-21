@@ -1,4 +1,5 @@
 
+import 'package:app_settings/app_settings.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/order_history.dart';
@@ -67,7 +68,9 @@ class ProfileScreen extends StatelessWidget {
         ListTileWidget(
           tileTitle: AppStrings.notificationPreferences,
           icon: Assets.notificationPreferences,
-          onTap: () {},
+          onTap: ()async {
+            await AppSettings.openAppSettings(type: AppSettingsType.notification);
+          },
         ),
         ListTileWidget(
           tileTitle: AppStrings.privacyPolicy,

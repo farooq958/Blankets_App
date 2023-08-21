@@ -1,6 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
-import 'package:hbk/Presentation/Widgets/ContactUs/Controller/in_out_cubit.dart';
 
 class AboutUs extends StatefulWidget {
   const AboutUs({Key? key}) : super(key: key);
@@ -10,25 +8,32 @@ class AboutUs extends StatefulWidget {
 }
 
 class _AboutUsState extends State<AboutUs> {
+  int _currentIndex = -1;
+  late final ExpansionTileController? expansionTileController;
 
+  void toggleExpand(int index) {
+    if (_currentIndex == index) {
+      setState(() {
+        _currentIndex = -1; // Close the currently expanded tile
+
+        expansionTileController!.collapse();
+
+      });
+    } else {
+      setState(() {
+        _currentIndex = index; // Expand the new tile
+
+      });
+    }
+  }
 
   @override
   void initState() {
-    Map<int, bool> map = {};
-    for (int i = 0; i < 6; i++) {
-      map.addAll({i: false});
-    }
-
-    ///  {0:false,1:false ...}
-    print(map);
-    // TODO: implement initState
-    context.read<InOutCubit>().inOut(map);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<ExpansionTileController> expansionTileController=List.generate(6, (index) => ExpansionTileController());
     final List<ExpandableTileWidget> tileDataList = [
       ExpandableTileWidget(
         leadingSvgIcon: true,
@@ -69,8 +74,7 @@ class _AboutUsState extends State<AboutUs> {
         imageUrl: Assets.ourVision,
         text: AppStrings.ourVision,
         expendedContent: Padding(
-          padding:
-          EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+          padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
           child: Column(
             children: [
               AppText(
@@ -89,8 +93,7 @@ class _AboutUsState extends State<AboutUs> {
         imageUrl: Assets.flag,
         text: AppStrings.ourMission,
         expendedContent: Padding(
-          padding:
-          EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+          padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
           child: Column(
             children: [
               AppText(
@@ -109,8 +112,7 @@ class _AboutUsState extends State<AboutUs> {
         imageUrl: Assets.handShake,
         text: AppStrings.ourValue,
         expendedContent: Padding(
-          padding:
-          EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+          padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
           child: Column(
             children: [
               AppText(
@@ -129,8 +131,7 @@ class _AboutUsState extends State<AboutUs> {
         imageUrl: Assets.usersThree,
         text: AppStrings.whatMakeUs,
         expendedContent: Padding(
-          padding:
-          EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
+          padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 5.h),
           child: Column(
             children: [
               AppText(
@@ -155,37 +156,40 @@ class _AboutUsState extends State<AboutUs> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: tileDataList.length,
+                itemBuilder: (context, index) {
+                  final tileData = tileDataList[index];
+                  return Column(
+                    children: [
+                      ExpandableTileWidget(
+                        leadingSvgIcon: tileData.leadingSvgIcon,
+                        isImageRequired: tileData.isImageRequired,
+                        imageUrl: tileData.imageUrl,
+                        text: tileData.text,
+                        // index: index,
+                        //toUpdate: state,
+                        //isExpanded: state[index],
+                        //expansionTileController: expansionTileController,
+                        // onExpansionChanged: (isExpanded) {
+                        //   toggleExpand(index);
+                        //
+                        // },
+                        // isExpanded: _currentIndex == index,
 
-
-                   ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: tileDataList.length,
-                    itemBuilder: (context, index) {
-                      final tileData = tileDataList[index];
-                      return Column(
-                        children: [
-                          ExpandableTileWidget(
-                            leadingSvgIcon: tileData.leadingSvgIcon,
-                            isImageRequired: tileData.isImageRequired,
-                            imageUrl: tileData.imageUrl,
-                            text: tileData.text,
-                           // index: index,
-                            //toUpdate: state,
-                            //isExpanded: state[index],
-                            //expansionTileController: expansionTileController,
-                            expendedContent: Padding(
-                              padding: EdgeInsets.only(
-                                  left: 15.w, right: 15.w, bottom: 5.h),
-                              child: tileData.expendedContent,
-                            ),
-                          ),
-                          CustomSizedBox.height(10.h),
-                        ],
-                      );
-                    },
-                  )
-
+                        expendedContent: Padding(
+                          padding: EdgeInsets.only(
+                              left: 15.w, right: 15.w, bottom: 5.h),
+                          child: tileData.expendedContent,
+                        ),
+                      ),
+                      CustomSizedBox.height(10.h),
+                    ],
+                  );
+                },
+              )
             ],
           ),
         ),

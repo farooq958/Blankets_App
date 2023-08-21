@@ -27,7 +27,6 @@ static const String borjanLogo = 'assets/images/borjanLogo.png';
 
 static const String orderSuccessFull = 'assets/images/ordersuccessfull.svg';
 
-static const String invoice = 'assets/images/invoice.png';
 static const String downloadIcon='assets/images/downlaodIcon.svg';
 
 /// profile icons
@@ -109,6 +108,10 @@ static const String ourVision = 'assets/images/Webcam.svg';
 
 static const String headerPdf='assets/images/headerpdflogo.png';
 static const String footerPdf='assets/images/footerpdf.png';
+
+
+
+static const String iconPdf = 'assets/images/iconPdf.svg';
 
 
 }

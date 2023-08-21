@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
+import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Domain/Models/orderModel.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
@@ -40,7 +41,10 @@ class OrderTab extends StatelessWidget {
                   borderRadius: 30.r,
                   onTap: () {},
                   text: 'Invoice',
-                  leadingIcon: Assets.invoice,
+                  leadingIcon: Assets.iconPdf,
+                  leadingSvgIcon: true,
+                  iconColor: AppColors.whiteColor,
+                  gapWidth: 10.w,
                 ),
               )
             : const SizedBox()

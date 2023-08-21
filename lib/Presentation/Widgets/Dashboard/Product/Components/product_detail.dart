@@ -201,7 +201,13 @@ children: [
                         width: 1.sw,
                         button2LeadingImageIcon: true,
                         button2LeadingIcon: Assets.bagIcon,
-                        title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
+                        title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){
+
+
+                      Navigate.pop(context);
+                        }, button2Tap: (){
+                          Navigate.pop(context);
+                        });
 
                   },
                     textFontWeight: FontWeight.normal,

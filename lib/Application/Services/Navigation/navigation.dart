@@ -22,4 +22,12 @@ class Navigate {
           (route) => false,
     );
   }
+
+
+  static pop(BuildContext context
+      )
+  {
+Navigator.pop(context);
+
+  }
 }

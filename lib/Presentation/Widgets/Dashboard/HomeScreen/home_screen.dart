@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(10),
+                  isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(5),
 
                   ///Top Row
                isGuest==true? const SizedBox(height: 0,width: 0,):   Row(
@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                       ]))
                     ],
                   ),
-                  CustomSizedBox.height(20),
+                  isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(10),
 
                   ///Home Coruosel sliding Images
                   const HomeCarousel(),
@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                   ///to be continued ...
                   SizedBox(
                       width: 1.sw,
-                      height:  isGuest==true? 195.h:260.h,
+                      height:  isGuest==true? 195.h:250.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
@@ -161,7 +161,18 @@ class HomeScreen extends StatelessWidget {
                                       width: 1.sw,
                                       button2LeadingImageIcon: true,
                                       button2LeadingIcon: Assets.bagIcon,
-                                      title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
+                                      title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm,
+                                      button1Tap: (){
+
+
+                                        Navigate.pop(context);
+
+                                      }, button2Tap: (){
+                                        Navigate.pop(context);
+
+                                        pageController?.jumpToPage(3);
+
+                                      });
                                 }
                             },
                           );
@@ -263,7 +274,17 @@ class HomeScreen extends StatelessWidget {
                                       width: 1.sw,
                                       button2LeadingImageIcon: true,
                                       button2LeadingIcon: Assets.bagIcon,
-                                      title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
+                                      title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm,   button1Tap: (){
+
+
+                                        Navigate.pop(context);
+
+                                      }, button2Tap: (){
+                                        Navigate.pop(context);
+
+                                        pageController?.jumpToPage(3);
+
+                                      });
                                 }
                             },
                           );

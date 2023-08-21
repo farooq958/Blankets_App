@@ -1,5 +1,7 @@
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:hbk/Data/AppData/app_providers.dart';
 import 'package:hbk/Presentation/Widgets/Auth/splash_screen.dart';
 
 import 'Application/Services/NotificationServices/notification_services.dart';
@@ -39,15 +41,18 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         useInheritedMediaQuery: true,
         builder: (context, child) {
-          return MaterialApp(
+          return
+          MultiBlocProvider(providers: appProviders, child:  MaterialApp(
             title: 'HBK BLANKET',
             theme: ThemeData(
-              primaryColor: AppColors.primaryColor
+                primaryColor: AppColors.primaryColor
             ),
             //home: const LoginScreen(),
             home: const SplashScreen(),
             debugShowCheckedModeBanner: false,
-          );
+          ));
+
+
         });
   }
 }

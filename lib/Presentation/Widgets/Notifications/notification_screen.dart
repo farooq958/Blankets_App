@@ -1,6 +1,8 @@
 
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
+import 'Components/notification_tile.dart';
+
 
 
 class NotificationScreen extends StatelessWidget {

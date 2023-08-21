@@ -35,7 +35,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   void initState() {
     // TODO: implement initState
-   // init();
+   init();
     BottomNotifier.bottomNavigationNotifier.value=0;
     super.initState();
   }

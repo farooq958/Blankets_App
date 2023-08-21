@@ -46,7 +46,7 @@ class _ExpandableTileWidgetState extends State<ExpandableTileWidget> {
       ),
       child: ExpansionTile(
 
-        expandedAlignment: Alignment.center,
+        expandedAlignment: Alignment.centerLeft,
 // maintainState: true,
         title: AppText(
           widget.text ?? 'Head Office',

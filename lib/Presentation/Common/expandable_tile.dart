@@ -79,7 +79,7 @@ class _ExpandableTileWidgetState extends State<ExpandableTileWidget> {
         side: const BorderSide(color: Colors.white)
         ),
         collapsedShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.r),
+        borderRadius: BorderRadius.circular(11.r),
         side: const BorderSide(color: Colors.white)
         ),
         children: [

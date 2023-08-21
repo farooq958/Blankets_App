@@ -1,16 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hbk/Data/DataSource/Resources/assets.dart';
-import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
-import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
-import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
-import 'package:hbk/Presentation/Common/app_buttons.dart';
-import 'package:hbk/Presentation/Common/app_text.dart';
-import 'package:hbk/Presentation/Common/circle_icon_button.dart';
-import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
-import 'package:hbk/Presentation/Common/image_widgets.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Product/Controller/quantity_notifier.dart';
 
 class ProductDetails extends  StatelessWidget {
   final ProductModel? pd;
@@ -49,31 +39,42 @@ children: [
  isGuest==true? const Expanded(child: SizedBox(height: 0,width: 0,)): Expanded(
             child: Padding(
               padding: EdgeInsets.only(right: 10.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CircleIconButton(
-                    icon: Icons.remove,
-                    onPressed: (){},
-                    width: 25.w,
-                    height: 25.h,
-                    iconSize: 15,
-                  ),
-                  CustomSizedBox.width(10.w),
+              child: ValueListenableBuilder(
+                builder: (context,state,child) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleIconButton(
+                        icon: Icons.remove,
+                        onPressed: (){
+                          if(state != 0) {
+                            QuantityNotifier.quantityNotifier.value--;
+                          }
+                        },
+                        width: 25.w,
+                        height: 25.h,
+                        iconSize: 15,
+                      ),
+                      CustomSizedBox.width(10.w),
 
-                  AppText('5',
-                      style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)),
-                  CustomSizedBox.width(10.w),
-                  CircleIconButton(
-                    icon: Icons.add,
-                    onPressed: () {},
-                    width: 25.w,
-                    height: 25.h,
-                    iconSize: 15.sp,
-                    color: AppColors.primaryColor,
-                    iconColor: AppColors.whiteColor,
-                  )
-                ],
+                      AppText(state.toString(),
+                          style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)),
+                      CustomSizedBox.width(10.w),
+                      CircleIconButton(
+                        icon: Icons.add,
+                        onPressed: () {
+
+                          QuantityNotifier.quantityNotifier.value++;
+                        },
+                        width: 25.w,
+                        height: 25.h,
+                        iconSize: 15.sp,
+                        color: AppColors.primaryColor,
+                        iconColor: AppColors.whiteColor,
+                      )
+                    ],
+                  );
+                }, valueListenable: QuantityNotifier.quantityNotifier,
               ),
             ),
           )

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return
           MultiBlocProvider(providers: appProviders, child:  MaterialApp(
-            title: 'HBK BLANKET',
+            title: 'HBK Blanket',
             theme: ThemeData(
                 primaryColor: AppColors.primaryColor
             ),

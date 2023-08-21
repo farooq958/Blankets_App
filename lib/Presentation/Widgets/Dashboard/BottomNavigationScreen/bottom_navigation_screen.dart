@@ -78,8 +78,6 @@ onPageChanged: (x)
  HomeScreen(pageController:pageController,isGuest:widget.isGuest),
       const DashboardBottom(),
        ProductScreen(isGuest: widget.isGuest,pageController:pageController),
-       CartScreen(pageController: pageController,),
-       ProductScreen(isGuest: widget.isGuest,),
        CartScreen(pageController: pageController,isGuest:widget.isGuest),
       ProfileScreen(isGuest: widget.isGuest!,)
 

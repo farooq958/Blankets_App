@@ -12,7 +12,15 @@ class CartItemTile extends StatefulWidget {
   State<CartItemTile> createState() => _CartItemTileState();
 }
 
+
 class _CartItemTileState extends State<CartItemTile> {
+   ValueNotifier<int> quantityNotifier=ValueNotifier(0);
+   @override
+  void initState() {
+    // TODO: implement initState
+     quantityNotifier.value= widget.cartItem!.quantity!.toInt();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,28 +125,39 @@ class _CartItemTileState extends State<CartItemTile> {
                 ])),
                 Padding(
                   padding: EdgeInsets.only(right: 10.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleIconButton(
-                        icon: Icons.remove,
-                        onPressed: (){},
-                        width: 25.w,
-                        height: 25.h,
-                      ),
-                      CustomSizedBox.width(10.w),
-                      AppText(widget.cartItem!.quantity.toString(),
-                          style: Styles.circularStdMedium(context)),
-                      CustomSizedBox.width(10.w),
-                      CircleIconButton(
-                        icon: Icons.add,
-                        onPressed: () {},
-                        width: 25.w,
-                        height: 25.h,
-                        color: AppColors.primaryColor,
-                        iconColor: AppColors.whiteColor,
-                      )
-                    ],
+                  child: ValueListenableBuilder(
+                    builder: (context,state,child) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleIconButton(
+                            icon: Icons.remove,
+                            onPressed: (){
+if(state!=0) {
+  quantityNotifier.value--;
+}
+
+                            },
+                            width: 25.w,
+                            height: 25.h,
+                          ),
+                          CustomSizedBox.width(10.w),
+                          AppText(state.toString(),
+                              style: Styles.circularStdMedium(context)),
+                          CustomSizedBox.width(10.w),
+                          CircleIconButton(
+                            icon: Icons.add,
+                            onPressed: () {
+                              quantityNotifier.value++;
+                            },
+                            width: 25.w,
+                            height: 25.h,
+                            color: AppColors.primaryColor,
+                            iconColor: AppColors.whiteColor,
+                          )
+                        ],
+                      );
+                    }, valueListenable: quantityNotifier,
                   ),
                 )
               ],

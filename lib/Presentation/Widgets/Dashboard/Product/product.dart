@@ -22,7 +22,8 @@ import 'Components/sort_filter.dart';
 class ProductScreen extends StatelessWidget {
   final String? title;
   final bool? isGuest;
-   ProductScreen({super.key, this.title,this.isGuest});
+  final PageController? pageController;
+   ProductScreen({super.key, this.title,this.isGuest,  this.pageController});
 
  final TextEditingController searchController=TextEditingController();
   @override
@@ -170,7 +171,19 @@ CustomSizedBox.height(10),
                             width: 1.sw,
                             button2LeadingImageIcon: true,
                             button2LeadingIcon: Assets.bagIcon,
-                            title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
+                            title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm,
+                            button1Tap: (){
+
+
+                          Navigate.pop(context);
+
+                            }, button2Tap: (){
+                              Navigate.pop(context);
+
+                          pageController?.jumpToPage(3);
+
+                            }
+                            );
                       }
                     },onDetailTap: (){
 

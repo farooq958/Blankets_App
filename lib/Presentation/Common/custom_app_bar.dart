@@ -23,6 +23,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool? isSplashScreen;
   final int? splashPageNumber;
   final VoidCallback? onSkipTap;
+  final VoidCallback? onNotificationTap;
 
   CustomAppBar(
       {key,
@@ -30,7 +31,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
       this.isHome = false,
       this.isShowNotificationButton,
       this.onBackTap,
-      this.pageController,  this.isNotificationScreen, this.isSplashScreen, this.splashPageNumber, this.onSkipTap})
+      this.pageController,  this.isNotificationScreen, this.isSplashScreen, this.splashPageNumber, this.onSkipTap, this.onNotificationTap})
       : preferredSize = const Size.fromHeight(65),
         super(key: key);
   @override
@@ -108,11 +109,7 @@ class CustomAppBarState extends State<CustomAppBar> {
                     widget.isShowNotificationButton!=null || state>0? const SizedBox(height: 0,width: 0,): GestureDetector(
 
 
-                        onTap:(){
-
-
-                      //    Navigate.to(context, const NotificationScreen());
-                        },
+                        onTap:widget.onNotificationTap ?? (){},
                         child: SvgPicture.asset(Assets.searchIcon,height: 20.h,width: 20.w,)),
                     SizedBox(width: 20.sp,),
                     widget.isShowNotificationButton!=null || state >0? const SizedBox(height: 0,width: 0,):    GestureDetector(

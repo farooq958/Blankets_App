@@ -124,42 +124,43 @@ children: [
               const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Product packaging',trailingName: 'Play bag',),
               const ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Specification',trailingName: '200 x 240 CMS',),
               const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Embossed',trailingName: 'Yes',),
-              isGuest==true?  const SizedBox(height: 0,width: 0,):ListTile(
-                tileColor: AppColors.whiteColor,
-
-                contentPadding: const EdgeInsets.only(left: 10),
-                leading:
-                Column(
-                  children: [
-                    Expanded(child: AppText('Total', style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 14.sp))),
-                  Expanded(child: AppText('Rs 890,230', style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp))),
-
-                  ],
-                )
-                ,
-
-                trailing:  SizedBox(
-
-                    height: 110.h,
-                    width: 200,
-                    child: CustomButton(onTap: () {
-                      CustomDialog.successConfirmDialog(context,
-                          button1Text: "Explore",
-                          button2Text: "Cart",
-                          width: 1.sw,
-                          button2LeadingImageIcon: true,
-                          button2LeadingIcon: Assets.bagIcon,
-                          title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
-
-                    },
-                      textFontWeight: FontWeight.normal,
-                      textSize: 16,
-                      borderRadius: 40,
-
-                      text: ' Add to cart',verticalPadding: 12,leadingIcon:Assets.bagIcon,leadingSvgIcon: true,horizontalMargin: 10, )),
-
-              ),
-              CustomSizedBox.height(15)
+              // isGuest==true?  const SizedBox(height: 0,width: 0,):
+              // ListTile(
+              //   tileColor: AppColors.whiteColor,
+              //
+              //   contentPadding: const EdgeInsets.only(left: 10),
+              //   leading:
+              //   Column(
+              //     children: [
+              //       Expanded(child: AppText('Total', style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 14.sp))),
+              //     Expanded(child: AppText('Rs 890,230', style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp))),
+              //
+              //     ],
+              //   )
+              //   ,
+              //
+              //   trailing:  SizedBox(
+              //
+              //       height: 110.h,
+              //       width: 200,
+              //       child: CustomButton(onTap: () {
+              //         CustomDialog.successConfirmDialog(context,
+              //             button1Text: "Explore",
+              //             button2Text: "Cart",
+              //             width: 1.sw,
+              //             button2LeadingImageIcon: true,
+              //             button2LeadingIcon: Assets.bagIcon,
+              //             title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){}, button2Tap: (){});
+              //
+              //       },
+              //         textFontWeight: FontWeight.normal,
+              //         textSize: 16,
+              //         borderRadius: 40,
+              //
+              //         text: ' Add to cart',verticalPadding: 12,leadingIcon:Assets.bagIcon,leadingSvgIcon: true,horizontalMargin: 10, )),
+              //
+              // ),
+              CustomSizedBox.height(30)
 
             ],
           ),
@@ -172,7 +173,51 @@ children: [
 
             Navigate.toReplaceAll(context, const LoginScreen());
 
-          }, text: 'Login first to order',):const SizedBox(height: 0,width: 0,)
+          }, text: 'Login first to order',):   Container(
+            color: AppColors.whiteColor,
+            child: ListTile(
+              tileColor: AppColors.whiteColor,
+
+
+              contentPadding: const EdgeInsets.only(left: 10),
+              leading:
+              Column(
+                children: [
+                  Expanded(child: AppText('Total', style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 14.sp))),
+                  Expanded(child: AppText('Rs 890,230', style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp))),
+
+                ],
+              )
+              ,
+
+              trailing:  SizedBox(
+
+                  height: 110.h,
+                  width: 200,
+                  child: CustomButton(onTap: () {
+                    CustomDialog.successConfirmDialog(context,
+                        button1Text: "Explore",
+                        button2Text: "Cart",
+                        width: 1.sw,
+                        button2LeadingImageIcon: true,
+                        button2LeadingIcon: Assets.bagIcon,
+                        title: "1 product added to cart", message: "1 product in your cart 890,230", assetImage: Assets.orderConfirm, button1Tap: (){
+
+
+                      Navigate.pop(context);
+                        }, button2Tap: (){
+                          Navigate.pop(context);
+                        });
+
+                  },
+                    textFontWeight: FontWeight.normal,
+                    textSize: 16,
+                    borderRadius: 40,
+
+                    text: ' Add to cart',verticalPadding: 12,leadingIcon:Assets.bagIcon,leadingSvgIcon: true,horizontalMargin: 10, )),
+
+            ),
+          ),
         )
       ],
     ),

@@ -32,7 +32,7 @@ class _ExpandableState extends State<ExpandableSection> {
       },
       child: Material(
         borderRadius: BorderRadius.circular(10.r),
-        elevation: 4,
+        elevation: 4.sp,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           padding: EdgeInsets.symmetric(horizontal: 10.w),

@@ -78,9 +78,9 @@ class NewArrivalProduct extends StatelessWidget {
             isGuest==true? const SizedBox(height: 0,width: 0,):  GestureDetector(
               onTap: onAddToCardTap,
               child: Container(
-                width: 145.sp,
+                width: 125.sp,
                 height: 32,
-                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 0),
+             //   padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 0),
                 clipBehavior: Clip.antiAlias,
                 decoration: ShapeDecoration(
                   color: AppColors.primaryColor,
@@ -93,32 +93,25 @@ class NewArrivalProduct extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 20.w,
-                          height: 20.h,
-                          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 1.33),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 15,
-                                height: 13.33,
-                                child: SvgPicture.asset('assets/images/bagIcon.svg'),
-                              ),
-                            ],
+                    Container(
+                    //  width: 20.w,
+                      height: 20.h,
+                      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 1.33),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 15,
+                            height: 13.33,
+                            child: SvgPicture.asset('assets/images/bagIcon.svg'),
                           ),
-                        ),
-                        const SizedBox(width: 2),
-                        AppText("Add to cart", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppColors.whiteColor))
-                      ],
+                        ],
+                      ),
                     ),
+                    const SizedBox(width: 2),
+                    AppText("Add to cart", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppColors.whiteColor))
                   ],
                 ),
               ),

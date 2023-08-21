@@ -51,7 +51,7 @@ border: Border.all(color: AppColors.lightInvoiceColor),
               borderRadius: BorderRadius.circular(30),
             ),
           ),
-          child: Center(child: SvgPicture.asset(imageAsset),),
+          child: Center(child: SvgPicture.asset(imageAsset,),),
 
           ),
         ),

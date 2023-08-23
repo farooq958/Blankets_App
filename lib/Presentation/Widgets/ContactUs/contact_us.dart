@@ -1,4 +1,5 @@
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);
@@ -37,18 +38,38 @@ class _ContactUsState extends State<ContactUs> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CustomButton(
-                                  onTap: () {},
+                                  onTap: () async {
+
+                                    Uri phoneNo = Uri.parse('tel:+923008542950');
+                                    if (await launchUrl(phoneNo)) {
+                                    //dialer opened
+                                    }else{
+                                    //dailer is not opened
+                                    }
+
+                                  },
                                   text: '+92 300 85 42 950',
                                   horizontalMargin: 20.w,
                                   leadingIcon: Assets.calling,
                                   leadingSvgIcon: true,
+                                  gapWidth: 10.sp,
                                   iconColor: AppColors.primaryColor,
                                   bgColor: AppColors.whiteColor,
                                   textColor: AppColors.blackColor,
                                 ),
                                 CustomSizedBox.height(20.h),
                                 CustomButton(
-                                  onTap: () {},
+                                  onTap: () async {
+
+                                    Uri phoneNo = Uri.parse('tel:+9291111222550');
+                                    if (await launchUrl(phoneNo)) {
+                                    //dialer opened
+                                    }else{
+                                    //dailer is not opened
+                                    }
+
+                                  },
+                                  gapWidth: 10.sp,
                                   text: '+92 91 111 222 550',
                                   horizontalMargin: 20.w,
                                   leadingIcon: Assets.calling,
@@ -62,7 +83,7 @@ class _ContactUsState extends State<ContactUs> {
                   },
                   button1Text: 'Call',
                   button2Text: 'info@hbkblankets.com',
-                  button2Tap: () {},
+
                 ),
               ),
               CustomSizedBox.height(10.h),
@@ -82,19 +103,39 @@ class _ContactUsState extends State<ContactUs> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CustomButton(
-                                  onTap: () {},
-                                  text: '(+92) 42 373 805 50',
+                                  onTap: () async {
+
+                                    Uri phoneNo = Uri.parse('tel:+923008542950');
+                                    if (await launchUrl(phoneNo)) {
+                                      //dialer opened
+                                    }else{
+                                      //dailer is not opened
+                                    }
+
+                                  },
+                                  text: '+92 300 85 42 950',
                                   horizontalMargin: 20.w,
                                   leadingIcon: Assets.calling,
                                   leadingSvgIcon: true,
+                                  gapWidth: 10.sp,
                                   iconColor: AppColors.primaryColor,
                                   bgColor: AppColors.whiteColor,
                                   textColor: AppColors.blackColor,
                                 ),
                                 CustomSizedBox.height(20.h),
                                 CustomButton(
-                                  onTap: () {},
-                                  text: '(+92) 300 85 62 950',
+                                  onTap: () async {
+
+                                    Uri phoneNo = Uri.parse('tel:+9291111222550');
+                                    if (await launchUrl(phoneNo)) {
+                                      //dialer opened
+                                    }else{
+                                      //dailer is not opened
+                                    }
+
+                                  },
+                                  gapWidth: 10.sp,
+                                  text: '+92 91 111 222 550',
                                   horizontalMargin: 20.w,
                                   leadingIcon: Assets.calling,
                                   leadingSvgIcon: true,
@@ -107,7 +148,7 @@ class _ContactUsState extends State<ContactUs> {
                   },
                   button1Text: 'Call',
                   button2Text: 'Lahore@hbkblankets.com',
-                  button2Tap: () {},
+
                   location:
                       'Hall # 1, 3rd Floor New Azam Cloth Market(plaza) inside Sheran wala Gate Lahore, Pakistan.',
                 ),
@@ -128,19 +169,39 @@ class _ContactUsState extends State<ContactUs> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CustomButton(
-                                  onTap: () {},
-                                  text: '+92) 2132360150',
+                                  onTap: () async {
+
+                                    Uri phoneNo = Uri.parse('tel:+923008542950');
+                                    if (await launchUrl(phoneNo)) {
+                                      //dialer opened
+                                    }else{
+                                      //dailer is not opened
+                                    }
+
+                                  },
+                                  text: '+92 300 85 42 950',
                                   horizontalMargin: 20.w,
                                   leadingIcon: Assets.calling,
                                   leadingSvgIcon: true,
+                                  gapWidth: 10.sp,
                                   iconColor: AppColors.primaryColor,
                                   bgColor: AppColors.whiteColor,
                                   textColor: AppColors.blackColor,
                                 ),
                                 CustomSizedBox.height(20.h),
                                 CustomButton(
-                                  onTap: () {},
-                                  text: '+92)300 85 93 150',
+                                  onTap: () async {
+
+                                    Uri phoneNo = Uri.parse('tel:+9291111222550');
+                                    if (await launchUrl(phoneNo)) {
+                                      //dialer opened
+                                    }else{
+                                      //dailer is not opened
+                                    }
+
+                                  },
+                                  gapWidth: 10.sp,
+                                  text: '+92 91 111 222 550',
                                   horizontalMargin: 20.w,
                                   leadingIcon: Assets.calling,
                                   leadingSvgIcon: true,
@@ -153,7 +214,7 @@ class _ContactUsState extends State<ContactUs> {
                   },
                   button1Text: 'Call',
                   button2Text: 'Karachi@hbkblankets.com',
-                  button2Tap: () {},
+
                   location:
                       'PLOT # S-95 Behind Good Luck Flour mill,Hawksbay Road,S.I.T.E Karachi Pakistan.',
                 ),
@@ -174,19 +235,39 @@ class _ContactUsState extends State<ContactUs> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CustomButton(
-                                  onTap: () {},
-                                  text: '+92) 91 111 222 550',
+                                  onTap: () async {
+
+                                    Uri phoneNo = Uri.parse('tel:+923008542950');
+                                    if (await launchUrl(phoneNo)) {
+                                      //dialer opened
+                                    }else{
+                                      //dailer is not opened
+                                    }
+
+                                  },
+                                  text: '+92 300 85 42 950',
                                   horizontalMargin: 20.w,
                                   leadingIcon: Assets.calling,
                                   leadingSvgIcon: true,
+                                  gapWidth: 10.sp,
                                   iconColor: AppColors.primaryColor,
                                   bgColor: AppColors.whiteColor,
                                   textColor: AppColors.blackColor,
                                 ),
                                 CustomSizedBox.height(20.h),
                                 CustomButton(
-                                  onTap: () {},
-                                  text: '(+92) 300 8581550',
+                                  onTap: () async {
+
+                                    Uri phoneNo = Uri.parse('tel:+9291111222550');
+                                    if (await launchUrl(phoneNo)) {
+                                      //dialer opened
+                                    }else{
+                                      //dailer is not opened
+                                    }
+
+                                  },
+                                  gapWidth: 10.sp,
+                                  text: '+92 91 111 222 550',
                                   horizontalMargin: 20.w,
                                   leadingIcon: Assets.calling,
                                   leadingSvgIcon: true,
@@ -199,7 +280,7 @@ class _ContactUsState extends State<ContactUs> {
                   },
                   button1Text: 'Call',
                   button2Text: 'factory@hbkblankets.com',
-                  button2Tap: () {},
+
                   location:
                       'Address: Plot # 300, Phase II, M-3 Industrial City, Sahinwala, Faisalabad,Pakistan.',
                 ),

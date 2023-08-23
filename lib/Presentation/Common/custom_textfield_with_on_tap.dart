@@ -280,7 +280,7 @@ class CustomTextFieldWithOnTap2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(Data().textScale);
+   // print(Data().textScale);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8).r,
       child: Column(

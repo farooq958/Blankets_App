@@ -116,5 +116,5 @@ static const String footerPdf='assets/images/footerpdf.png';
 
 static const String iconPdf = 'assets/images/iconPdf.svg';
 
-
+static const String messageIcon='assets/images/message.svg';
 }

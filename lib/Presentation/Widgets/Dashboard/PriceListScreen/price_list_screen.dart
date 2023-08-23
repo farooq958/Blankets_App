@@ -137,7 +137,7 @@ class _PriceListScreenState extends State<PriceListScreen> {
           child: Stack(
             children: [
               NestedScrollView(
-                floatHeaderSlivers: true,
+               // floatHeaderSlivers: false,
                 physics: const NeverScrollableScrollPhysics(),
                 //  handle:NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 //controller: _innerScrollController,
@@ -150,11 +150,13 @@ class _PriceListScreenState extends State<PriceListScreen> {
                       // appBar: const CustomAppBarWithBackButton(title: 'Invoice detail',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
 
                       elevation: 0,
+                     // floating: false,
+                    //  collapsedHeight: 100,
                       //leading: ,
                       automaticallyImplyLeading: false,
                       flexibleSpace:    Column(
                         children: [
-                          
+
                           Expanded(
                             flex:1,
                             child:   Container(
@@ -257,7 +259,7 @@ class _PriceListScreenState extends State<PriceListScreen> {
                           .size
                           .height * 0.27,
                       bottom: null,
-                      pinned: true,
+                     // pinned: false,
                     ),
                   ];
                 }, body:   Column(

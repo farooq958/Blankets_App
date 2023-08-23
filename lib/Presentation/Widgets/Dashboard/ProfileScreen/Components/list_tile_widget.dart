@@ -17,7 +17,7 @@ class ListTileWidget extends StatelessWidget {
 
         title: AppText(
           tileTitle!,
-          style: Styles.circularStdBold(context, fontSize: 16.sp),
+          style: Styles.circularStdMedium(context, fontSize: 18.sp),
         ),
         leading: SvgPicture.asset(
           icon!,

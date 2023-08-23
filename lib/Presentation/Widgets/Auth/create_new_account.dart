@@ -68,15 +68,18 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
               CustomButton(
                 borderRadius: 30.r,
                 onTap: () {
-                  // CustomDialog.successDialog(
-                  //     context, title: AppStrings.passwordChangeSuccessFull,
-                  //     message: 'Awesome! you’ve successfully change your password');
                   CustomDialog.successDialog(context,
                       title: 'Password changed successfully',
                       message:
                           'Awesome! you’ve successfully change your password',
                       messageFontSize: 16.sp,
                       titleFontSize: 22.sp);
+
+                  Future.delayed(const Duration(seconds: 2),(){
+                    Navigator.of(context).pop(true);
+                    Navigate.toReplace(context, const LoginScreen());
+                  });
+
                 },
                 text: AppStrings.createNewPassword,
               )

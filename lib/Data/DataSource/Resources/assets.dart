@@ -40,6 +40,9 @@ static const String notificationPreferences = 'assets/images/notificationprefere
 
 static const String user = 'assets/images/userPng.png';
 
+static const String minusIconSvg = 'assets/images/minusIcon.svg';
+static const String plusIcon = 'assets/images/plusIcon.svg';
+
 // static const String deleteAccount = 'assets/images/Delete.png';
 // static const String delete = 'assets/images/delete_account.png';
 

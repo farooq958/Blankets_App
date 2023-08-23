@@ -12,8 +12,12 @@ class CircleIconButton extends StatelessWidget {
   final Color? color;
   final Color? iconColor;
   final double? iconSize;
+  final String? svgIcon;
   final bool? isSvg;
   final EdgeInsetsGeometry? padding;
+  final bool? isBorderRequired;
+  final double? svgIconHeight;
+  final double? svgIconWidth;
 
   const CircleIconButton(
       {super.key,
@@ -25,6 +29,10 @@ class CircleIconButton extends StatelessWidget {
       this.iconColor,
       this.iconSize,
       this.padding,
+        this.svgIcon,
+        this.isBorderRequired,
+        this.svgIconHeight,
+        this.svgIconWidth,
       this.isSvg});
 
   @override
@@ -39,6 +47,7 @@ class CircleIconButton extends StatelessWidget {
         // margin: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
+          border: isBorderRequired!=null? Border.all(color: AppColors.greyColor):null,
           color: color ?? Colors.white,
           boxShadow: const [
             BoxShadow(
@@ -51,11 +60,12 @@ class CircleIconButton extends StatelessWidget {
         ),
         child: isSvg != null
             ? SvgPicture.asset(
-                Assets.backIcon,
-                width: 20.w,
-                height: 20.h,
+                svgIcon!,
+                width: svgIconWidth?? 20.w,
+                height: svgIconHeight?? 20.h,
           alignment: Alignment.center,
-          fit: BoxFit.contain,
+          fit: BoxFit.fill,
+
               )
             : Icon(
                 icon,

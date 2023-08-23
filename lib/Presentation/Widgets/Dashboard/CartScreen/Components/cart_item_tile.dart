@@ -131,7 +131,13 @@ class _CartItemTileState extends State<CartItemTile> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CircleIconButton(
-                            icon: Icons.remove,
+                            isSvg:true,
+                            svgIcon: Assets.minusIconSvg,
+                            isBorderRequired:true,
+                            svgIconHeight: 3.h,
+                            svgIconWidth: 11.w,
+
+                            // icon: Icons.remove,
                             onPressed: (){
 if(state!=0) {
   quantityNotifier.value--;
@@ -146,12 +152,17 @@ if(state!=0) {
                               style: Styles.circularStdMedium(context)),
                           CustomSizedBox.width(10.w),
                           CircleIconButton(
-                            icon: Icons.add,
+                            // icon: Icons.add,
+                            isSvg:true,
+                            svgIcon: Assets.plusIcon,
+
                             onPressed: () {
                               quantityNotifier.value++;
                             },
                             width: 25.w,
                             height: 25.h,
+                            svgIconHeight: 9.h,
+                            svgIconWidth: 15.w,
                             color: AppColors.primaryColor,
                             iconColor: AppColors.whiteColor,
                           )

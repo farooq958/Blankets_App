@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                 isGuest
                     ? const SizedBox()
                     : AppText('example@gmail.com',
-                    style: Styles.circularStdMedium(context, fontSize: 20.sp)),
+                    style: Styles.circularStdMedium(context, fontSize: 16.sp)),
               ],
             ),
           ),

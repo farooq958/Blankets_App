@@ -56,12 +56,12 @@ class ProductScreen extends StatelessWidget {
             isGuest==true? const SizedBox(height: 10,width: 10,):const SizedBox(height: 0,width: 0,),
              SortAndFilter(
                onFilterTap:(){
-               SortSheet.showBottomSheet(context,const FilterBottomSheetWidget(),'Filters');
+               SortSheet.showBottomSheet(context,FilterBottomSheetWidget(isGuest:isGuest),'Filters');
 
             } ,onSortTap: (){
 
                SortSheet.showBottomSheet(context,SizedBox(
-                 height: 260.h,
+                 height: isGuest==true?180.h:260.h,
                  child: Padding(
                    padding: EdgeInsets.symmetric(horizontal: 18.0.sp),
                    child: Column(
@@ -73,7 +73,7 @@ class ProductScreen extends StatelessWidget {
                          FontWeight.w600,fontSize: 19.sp),),
                        ),
                        CustomSizedBox.height(10.sp),
-                       CustomRadioButtons(getCurrentValue: (s){},buttonList: const ['Most Relevant','Low to high','High to low',
+                       CustomRadioButtons(getCurrentValue: (s){},buttonList: isGuest==true? ["Most Relevant",'New arrivals']:  const ['Most Relevant','Low to high','High to low',
 'New arrivals'
 ],),
                      ],

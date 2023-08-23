@@ -82,6 +82,8 @@ class _RewardScreenState extends State<RewardScreen> {
             child: SfDataGridTheme(
               data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
               child: SfDataGrid(
+                horizontalScrollPhysics: const BouncingScrollPhysics(),
+                verticalScrollPhysics: const BouncingScrollPhysics(),
                 gridLinesVisibility: GridLinesVisibility.none,
                 columnWidthMode: ColumnWidthMode.auto,
                 //  defaultColumnWidth: 100,

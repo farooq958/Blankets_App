@@ -106,6 +106,8 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
             child:  SfDataGridTheme(
               data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
               child: SfDataGrid(
+                horizontalScrollPhysics: const BouncingScrollPhysics(),
+                verticalScrollPhysics: const BouncingScrollPhysics(),
                 gridLinesVisibility: GridLinesVisibility.none,
                 columnWidthMode: ColumnWidthMode.auto,
               //  defaultColumnWidth: 100,

@@ -60,6 +60,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
         Stack(
           children: [
             NestedScrollView(
+              physics: const BouncingScrollPhysics(),
              // floatHeaderSlivers: false,
              // handle:NestedScrollView.sliverOverlapAbsorberHandleFor(context),
               //controller: _innerScrollController,
@@ -340,6 +341,8 @@ elevation: 0,
              child: SfDataGrid(
                gridLinesVisibility: GridLinesVisibility.none,
 columnWidthMode: ColumnWidthMode.auto,
+              horizontalScrollPhysics: const BouncingScrollPhysics(),
+              verticalScrollPhysics: const BouncingScrollPhysics(),
               // source: DataGridSource().buildRow(row),
                columns: getColumns(context),
 

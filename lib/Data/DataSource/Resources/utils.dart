@@ -152,10 +152,10 @@ class Utils {
         screenName: 'About us',
         iconPath: Assets.aboutUsIcon,
         widgetToNavigate: const AboutUs()),
-    DrawerModel(
-        screenName: 'Feedback',
-        iconPath: Assets.feedbackIcon,
-        widgetToNavigate: const Feedback()),
+    // DrawerModel(
+    //     screenName: 'Feedback',
+    //     iconPath: Assets.feedbackIcon,
+    //     widgetToNavigate: const Feedback()),
 
     DrawerModel(
         screenName: 'FAQ\'s',

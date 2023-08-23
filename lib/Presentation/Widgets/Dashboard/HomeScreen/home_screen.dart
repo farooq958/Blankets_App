@@ -185,7 +185,7 @@ class HomeScreen extends StatelessWidget {
                   CustomSizedBox.height(10),
 
                   ///Most Sold Product replace the product dummy list with actual list of most sold product
-                  Align(
+                  isGuest==true? SizedBox(height: 0.sp,width: 0.sp,): Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
@@ -208,7 +208,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ],
                       )),
-                  SizedBox(
+                  isGuest==true? SizedBox(height: 0.sp,width: 0.sp,):   SizedBox(
                       width: 1.sw,
                       height:  isGuest==true? 195.h:250.h,
                       child: ListView.separated(

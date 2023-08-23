@@ -19,6 +19,10 @@ class DownloadCallBack{
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await NotificationServices().initNotification();
   await FlutterDownloader.initialize(
       debug: true,

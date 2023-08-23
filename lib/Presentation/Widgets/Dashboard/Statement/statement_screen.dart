@@ -139,6 +139,8 @@ trailIconWidth: 19.sp,
 Expanded(child: SfDataGridTheme(
   data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
   child: SfDataGrid(
+    horizontalScrollPhysics: const BouncingScrollPhysics(),
+    verticalScrollPhysics: const BouncingScrollPhysics(),
     gridLinesVisibility: GridLinesVisibility.none,
     columnSizer: ColumnSizer(),
     defaultColumnWidth: 130,

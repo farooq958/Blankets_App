@@ -22,17 +22,17 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
 
     InvoiceDetailModel(productName: 'Belpla Teenagers 1 Ply Single Bed Blanket',type: '160 x 220 CMS',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
     InvoiceDetailModel(productName: 'Belpla Teenagers 1 Ply Single Bed Blanket23',type: 'l160 x 220 CMSver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/2023',type: 'l160 x 220 CMS',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Belpla Teenagers 1 dummy',type: 'l160 x 220 CMS',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy Teenagers 1 ',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy blanket dummy blanket dummy',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy blanket dummy blanket',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy blanket dummy blanket',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy blanket dummy blanket',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy blanket dummy blanket3',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
 
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
-    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy blanket dummy blanket',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy blanket dummy blanket',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: 'Dummy blanket dummy blanket5',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
 
     InvoiceDetailModel(productName: '    ',type: '  ',packing: '   ',ctn: '    ',pcs: '',unitPrice: ' ',totalPrice: ''),
 
@@ -60,8 +60,8 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
         Stack(
           children: [
             NestedScrollView(
-              floatHeaderSlivers: true,
-            //  handle:NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+             // floatHeaderSlivers: false,
+             // handle:NestedScrollView.sliverOverlapAbsorberHandleFor(context),
               //controller: _innerScrollController,
               headerSliverBuilder: (BuildContext context,
 
@@ -71,7 +71,10 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                   SliverAppBar(
                    // appBar: const CustomAppBarWithBackButton(title: 'Invoice detail',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
 
-                    elevation: 0,
+                  //primary: true,
+                  //  pinned: true,
+elevation: 0,
+                   // forceElevated: innerBoxIsScrolled,
                     //leading: ,
                     automaticallyImplyLeading: false,
                     flexibleSpace:    mainColumn(context),
@@ -79,16 +82,15 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                     expandedHeight: MediaQuery
                         .of(context)
                         .size
-                        .height * 0.79,
+                        .height * 0.75,
                   ),
                 ];
               },
-              body:     Scaffold(
-              //  appBar: const CustomAppBarWithBackButton(),
-                body: dataTableSfData(context),
-              ),
+              body:     Container(
+                  color: AppColors.whiteColor,
+                  child: dataTableSfData(context)),
+
             ),
-           // Container(color: Colors.transparent,height: 40.sp,),
             Positioned(
               bottom: 0,
               child: Material(
@@ -108,7 +110,6 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                 ),
               ),
             ),
-           // 10.y
           ],
         ),
 
@@ -117,84 +118,85 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
   }
 
   Widget mainColumn(BuildContext context) {
-    return Column(
-      children: <Widget>[
-Expanded(
-  child:   Container(
-    height: 60,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-      SizedBox(width: 20.sp,)
-  ,      CircleIconButton(
-        icon: Icons.arrow_back_ios,
-        padding: EdgeInsets.only(left: 5.sp),
-        iconColor: AppColors.primaryColor ,
-        iconSize: 15,
+    return Container(
+      padding: const EdgeInsets.all(5),
+
+      child: SingleChildScrollView(
+        child: Column(
+          
+          children: <Widget>[
+Container(
+        height: 60,
+        child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+        SizedBox(width: 20.sp,)
+,      CircleIconButton(
+          icon: Icons.arrow_back_ios,
+          padding: EdgeInsets.only(left: 5.sp),
+          iconColor: AppColors.primaryColor ,
+          iconSize: 15,
 
 
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        width: 15.w,
-        // iconSize: 15,
-        height: 15.h,
-      ),
-      Expanded(
-        child: Align(
-          alignment: Alignment.center,
-          child: AppText(
-            'Invoice detail',
-            style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          width: 15.w,
+          // iconSize: 15,
+          height: 15.h,
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.center,
+            child: AppText(
+              'Invoice detail',
+              style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+            ),
           ),
+        )
+        ],
         ),
-      )
-      ],
-    ),
 
-  ),
 ),
-        Expanded(
-          child: Container(width: 1.sw,height: 60.h,
+            Container(width: 1.sw,height: 60.h,
 
 
-            padding: EdgeInsets.only(left: 20.sp),
-            color: AppColors.lightInvoiceColor,child: Align(
-
-              alignment: Alignment.centerLeft,
-              child: AppText('Customer details',style: Styles.circularStdBold(context,fontSize: 16,fontWeight: FontWeight.w600),)),),
-        ),
-        //CustomSizedBox.height(10),
-
-      Expanded(child: invoiceDetailTile(context,text1: 'Customer name',text2: 'Shama Cloth House',text3: 'Contact person',text4: 'Ahmad Ali / Rizwan')),
-
-        //CustomSizedBox.height(20),
-        Expanded(child: invoiceDetailTile(context,text1: 'Phone number',text2: '0300-57106687',text3: 'Address',text4: 'Shama Cloth House Shaheen Market Bank Road Mardan, Pakistan')),
-
-        //CustomSizedBox.height(20),
-        Expanded(
-          child: Container(width: 1.sw,height: 60.h,
-
-            padding: EdgeInsets.only(left: 20.sp),
-            color: AppColors.lightInvoiceColor,child: Align(
+              padding: EdgeInsets.only(left: 20.sp),
+              color: AppColors.lightInvoiceColor,child: Align(
 
                 alignment: Alignment.centerLeft,
-                child: AppText('Invoice',style: Styles.circularStdBold(context,fontSize: 16,fontWeight: FontWeight.w600),)),),
+                child: AppText('Customer details',style: Styles.circularStdBold(context,fontSize: 16,fontWeight: FontWeight.w600),)),),
+            //CustomSizedBox.height(10),
+
+          invoiceDetailTile(context,text1: 'Customer name',text2: 'Shama Cloth House',text3: 'Contact person',text4: 'Ahmad Ali / Rizwan'),
+
+            //CustomSizedBox.height(20),
+            invoiceDetailTile(context,text1: 'Phone number',text2: '0300-57106687',text3: 'Address',text4: 'Shama Cloth House Shaheen Market Bank Road Mardan, Pakistan'),
+
+            //CustomSizedBox.height(20),
+            Container(width: 1.sw,height: 60.h,
+
+              padding: EdgeInsets.only(left: 20.sp),
+              color: AppColors.lightInvoiceColor,child: Align(
+
+                  alignment: Alignment.centerLeft,
+                  child: AppText('Invoice',style: Styles.circularStdBold(context,fontSize: 16,fontWeight: FontWeight.w600),)),),
+            //CustomSizedBox.height(12),
+            invoiceDetailTile(context,text1: 'Invoice No',text2: '6874',text3: 'Created by',text4: 'Ahmad Ali / Rizwan'),
+            //CustomSizedBox.height(12),
+            invoiceDetailTile(context,text1: 'Status',text2: 'Gold',text3: 'Date',text4: '12 Jan,2023'),
+            //CustomSizedBox.height(20),
+            invoiceDetailTile(context,text1: 'Sale Person',text2: 'Ahmed Ali'),
+           // CustomSizedBox.height(20),
+           ///this should not be in sliver app bar
+
+
+
+
+
+          ],
         ),
-        //CustomSizedBox.height(12),
-        Expanded(child: invoiceDetailTile(context,text1: 'Invoice No',text2: '6874',text3: 'Created by',text4: 'Ahmad Ali / Rizwan')),
-        //CustomSizedBox.height(12),
-        Expanded(child: invoiceDetailTile(context,text1: 'Status',text2: 'Gold',text3: 'Date',text4: '12 Jan,2023')),
-        //CustomSizedBox.height(20),
-        Expanded(child: invoiceDetailTile(context,text1: 'Sale Person',text2: 'Ahmed Ali')),
-       // CustomSizedBox.height(20),
-       ///this should not be in sliver app bar
-
-
-
-
-
-      ],
+      ),
     );
   }
 ///data table builtinin
@@ -328,7 +330,7 @@ Expanded(
              data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
              child: SfDataGrid(
                gridLinesVisibility: GridLinesVisibility.none,
-columnWidthMode: ColumnWidthMode.fitByCellValue,
+columnWidthMode: ColumnWidthMode.auto,
               // source: DataGridSource().buildRow(row),
                columns: getColumns(context),
 
@@ -562,55 +564,58 @@ columnWidthMode: ColumnWidthMode.fitByCellValue,
    // ),),
    //
    // )
-  Padding invoiceDetailTile(BuildContext context,{String? text1,String? text2,String? text3,String? text4,}) {
-    return Padding(
-          padding:  EdgeInsets.only(left: 20.0.sp),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+  Widget invoiceDetailTile(BuildContext context,{String? text1,String? text2,String? text3,String? text4,}) {
+    return SizedBox(
+      height: 65.h,
+      child: Padding(
+            padding:  EdgeInsets.only(left: 20.0.sp),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
 
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: AppText(text1??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp))),
-                    CustomSizedBox.height(2),
-                    Expanded(
-                      child: AppText(text2??'',
-                          maxLine: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp)),
-                    ),
-                    //SizedBox(width: 20,)
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: AppText(text1??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp))),
+                      CustomSizedBox.height(2),
+                      Expanded(
+                        child: AppText(text2??'',
+                            maxLine: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp)),
+                      ),
+                      //SizedBox(width: 20,)
 
 
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              CustomSizedBox.width(10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: AppText(text3??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp))),
-                    CustomSizedBox.height(2),
-                    Expanded(
-                      child: AppText(text4??'',
-                          maxLine: 4,
-                          overflow: TextOverflow.ellipsis,
-                          style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp)),
-                    ),
-                    //SizedBox(width: 20,)
+                CustomSizedBox.width(10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: AppText(text3??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp))),
+                      CustomSizedBox.height(2),
+                      Expanded(
+                        child: AppText(text4??'',
+                            maxLine: 4,
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp)),
+                      ),
+                      //SizedBox(width: 20,)
 
 
-                  ],
-                ),
-              )
+                    ],
+                  ),
+                )
 
-            ],
+              ],
+            ),
           ),
-        );
+    );
   }
 
    Widget showInvoiceDetailListData(context) {

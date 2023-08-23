@@ -159,32 +159,38 @@ class _PriceListScreenState extends State<PriceListScreen> {
 
                           Expanded(
                             flex:1,
-                            child:   Container(
+                            child:   SizedBox(
                               height: 40,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(width: 20.sp,)
-                                  ,      CircleIconButton(
-                                    icon: Icons.arrow_back_ios,
-                                    padding: EdgeInsets.only(left: 5.sp),
-                                    iconColor: AppColors.primaryColor ,
-                                    iconSize: 15,
+                                  SizedBox(width: 10.sp,)
+                                  ,      Align(
+                                    child: CircleIconButton(
+
+                                      icon: Icons.arrow_back_ios,
+                                      padding: EdgeInsets.only(left: 5.sp),
+                                      iconColor: AppColors.primaryColor ,
+                                      iconSize: 15,
 
 
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    width: 15.w,
-                                    // iconSize: 15,
-                                    height: 15.h,
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      width: 37.w,
+                                      // iconSize: 15,
+                                      height: 37.h,
+                                    ),
                                   ),
                                   Expanded(
                                     child: Align(
                                       alignment: Alignment.center,
-                                      child: AppText(
-                                        'Price List',
-                                        style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+                                      child: Padding(
+                                        padding:  EdgeInsets.only(right: 47.0.sp),
+                                        child: AppText(
+                                          'Price List',
+                                          style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+                                        ),
                                       ),
                                     ),
                                   )

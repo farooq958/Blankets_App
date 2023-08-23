@@ -122,42 +122,49 @@ elevation: 0,
       padding: const EdgeInsets.all(5),
 
       child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           
           children: <Widget>[
-SizedBox(
-        height: 60,
-        child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-        SizedBox(width: 20.sp,)
-,      CircleIconButton(
-          icon: Icons.arrow_back_ios,
-          padding: EdgeInsets.only(left: 5.sp),
-          iconColor: AppColors.primaryColor ,
-          iconSize: 15,
+            SizedBox(
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(width: 10.sp,)
+                  ,      Align(
+                    child: CircleIconButton(
+
+                      icon: Icons.arrow_back_ios,
+                      padding: EdgeInsets.only(left: 5.sp),
+                      iconColor: AppColors.primaryColor ,
+                      iconSize: 15,
 
 
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          width: 15.w,
-          // iconSize: 15,
-          height: 15.h,
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.center,
-            child: AppText(
-              'Invoice detail',
-              style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      width: 37.w,
+                      // iconSize: 15,
+                      height: 37.h,
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding:  EdgeInsets.only(right: 47.0.sp),
+                        child: AppText(
+                          'Invoice detail',
+                          style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+
             ),
-          ),
-        )
-        ],
-        ),
-
-),
             Container(width: 1.sw,height: 60.h,
 
 

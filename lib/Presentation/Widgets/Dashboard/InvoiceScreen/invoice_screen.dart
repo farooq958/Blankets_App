@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 import 'package:cross_scroll/cross_scroll.dart';
@@ -20,12 +20,18 @@ import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Component/invoice_details.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/customer_statement_date_picker.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 
 
-class InvoiceScreen extends  StatelessWidget {
-  InvoiceScreen({super.key});
+class InvoiceScreen extends  StatefulWidget {
+  const InvoiceScreen({super.key});
 
+  @override
+  State<InvoiceScreen> createState() => _InvoiceScreenState();
+}
+
+class _InvoiceScreenState extends State<InvoiceScreen> {
   final List<InvoiceModel> invoiceListData = [
 InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,980,650'),
     InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8908',noOfCtns: '90',total: 'Rs 2,980,650'),
@@ -47,8 +53,16 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
 
     // Add more data for other months
   ];
-  final List<String> invoiceTitle=['Date','Invoice No','No of Ctns','Total'];
 
+  final List<String> invoiceTitle=['Date','Invoice No','No of Ctns','Total'];
+  late InvoiceListDataSource invoiceDataSource;
+
+  @override
+  void initState() {
+    super.initState();
+    //employees= getEmployees();
+    invoiceDataSource = InvoiceListDataSource(employees: invoiceListData, context: context);
+  }
   // final TextEditingController searchControllerPrice=TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -58,7 +72,7 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
       appBar: const CustomAppBarWithBackButton(title: 'Invoice list',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
       body: Column(
         children: [
-// TODO: Use Extension for sizeBox, the below size box code should be 10.y 
+// TODO: Use Extension for sizeBox, the below size box code should be 10.y
           CustomSizedBox.height(10),
           ///Top Row
           Row(
@@ -89,69 +103,29 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
           ),
 
           Expanded(
-            child: CrossScroll(
-              horizontalScroll: CrossScrollDesign(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(
-                    left: 1.0,
-                    right: 9.0,
-                  )),
-              verticalScroll: CrossScrollDesign(
-                  physics: const BouncingScrollPhysics(),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 70))
+            child:  SfDataGridTheme(
+              data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
+              child: SfDataGrid(
+                gridLinesVisibility: GridLinesVisibility.none,
+                columnWidthMode: ColumnWidthMode.auto,
+              //  defaultColumnWidth: 100,
+                // source: DataGridSource().buildRow(row),
+                columns: getColumns(context),
+onCellTap: (details){
+  int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
+  var row =
+  invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
+Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowIndex]));
+  print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
 
-              ,
-              child: Container(
-                // padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
+},
+                headerRowHeight: 65,
 
+                // headerGridLineStrokeWidth: 0.0,
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-
-                        for (var i = 0; i < invoiceTitle.length; i++)
-                          Container(
-                            height: 60.sp,
-                            width: i==1?80.sp:i==2?80:100.sp,
-                            // margin: EdgeInsets.only(right: 0),
-
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(left: 10.sp),
-                            color: AppColors.primaryColor,
-                            child: AppText(
-                              invoiceTitle[i],
-                              // textAlign:  TextAlign.center,
-                              style: Styles.circularStdBold(context,
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.whiteColor),
-                            ),
-                          ),
-
-
-
-
-
-
-
-                      ],
-                    ),
-                    Padding(
-
-                        padding: EdgeInsets.only(right: 0.sp),
-                        child: showRewardListData(context)),
-
-
-                  ],
-                ),),
-
+                frozenRowsCount: 0,
+                frozenColumnsCount: 0, source: invoiceDataSource, // Number of frozen columns (sticky columns)
+              ),
             ),
           ),
           // SizedBox(
@@ -234,8 +208,148 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
     );
   }
 
+  List<GridColumn> getColumns(BuildContext context) {
+    return [
+      GridColumn(
+        columnName: 'Date',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Date',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Invoice No',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Invoice No',
+              maxLine: 2,
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'No Of Ctns',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'No Of Ctns',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Total',
+        label: Container(
+          //width: 200,
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Total',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
 
+      // Add similar columns for other fields
+    ];
+  }
 
+///old cross scroll
+//   CrossScroll(
+//   horizontalScroll: CrossScrollDesign(
+//   physics: const BouncingScrollPhysics(),
+//   padding: const EdgeInsets.only(
+//   left: 1.0,
+//   right: 9.0,
+//   )),
+//   verticalScroll: CrossScrollDesign(
+//   physics: const BouncingScrollPhysics(),
+//   padding:
+//   const EdgeInsets.only(top: 10, bottom: 70))
+//
+//   ,
+//   child: Container(
+//   // padding: const EdgeInsets.all(2),
+//   decoration: BoxDecoration(
+//   color: AppColors.whiteColor,
+//   borderRadius: BorderRadius.circular(10)),
+//   child: Column(
+//   mainAxisAlignment: MainAxisAlignment.start,
+//   children: <Widget>[
+//
+//
+//   Row(
+//   mainAxisAlignment: MainAxisAlignment.start,
+//   children: [
+//
+//   for (var i = 0; i < invoiceTitle.length; i++)
+//   Container(
+//   height: 60.sp,
+//   width: i==1?80.sp:i==2?80:100.sp,
+//   // margin: EdgeInsets.only(right: 0),
+//
+//   alignment: Alignment.centerLeft,
+//   padding: EdgeInsets.only(left: 10.sp),
+//   color: AppColors.primaryColor,
+//   child: AppText(
+//   invoiceTitle[i],
+//   // textAlign:  TextAlign.center,
+//   style: Styles.circularStdBold(context,
+//   fontSize: 13.sp,
+//   fontWeight: FontWeight.w500,
+//   color: AppColors.whiteColor),
+//   ),
+//   ),
+//
+//
+//
+//
+//
+//
+//
+//   ],
+//   ),
+//   Padding(
+//
+//   padding: EdgeInsets.only(right: 0.sp),
+//   child: showRewardListData(context)),
+//
+//
+//   ],
+//   ),),
+//
+//   )
 
   Widget showRewardListData(context) {
     List<List<InvoiceModel>> invoiceFinalData = [
@@ -337,6 +451,7 @@ Navigate.to(context, InvoiceDetails(invoiceData:invoiceListData[i]));
 
 
   }
+
   void showDatePicker(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -363,4 +478,50 @@ class InvoiceModel {
 
 
   InvoiceModel(   {this.date,this.invoiceNo, this.noOfCtns, this.total});
+}
+class InvoiceListDataSource extends DataGridSource {
+  final  BuildContext context;
+  InvoiceListDataSource({required List<InvoiceModel> employees,required this.context}) {
+    _employees = List.generate(employees.length, (index) => DataGridRow(cells: [
+
+      DataGridCell<String>(columnName: 'Date', value: employees[index].date),
+      DataGridCell<String>(columnName: 'Invoice No', value: employees[index].invoiceNo),
+      DataGridCell<String>(columnName: 'No Of Ctns', value: employees[index].noOfCtns),
+      DataGridCell<String>(columnName: 'Total', value: employees[index].total),
+
+
+    ]));
+  }
+
+  List<DataGridRow>  _employees = [];
+
+  @override
+  List<DataGridRow> get rows =>  _employees;
+
+  @override
+  DataGridRowAdapter? buildRow(DataGridRow rowsss) {
+    Color getBackgroundColor() {
+      int index = _employees.indexOf(rowsss) + 1;
+      if (index % 2 == 0) {
+        return AppColors.lightInvoiceColor;
+      } else {
+        return Colors.white;
+      }
+    }
+
+    return DataGridRowAdapter(
+    //  color: AppColors.primaryColor,
+
+        cells: rowsss.getCells().map<Widget>((dataGridCell) {
+          return Container(
+           // color: AppColors.primaryColor,
+            color: getBackgroundColor(),
+            alignment: (dataGridCell.columnName == 'Date')
+                ? Alignment.centerRight
+                : Alignment.center,
+            padding: const EdgeInsets.all(10.0),
+            child: AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context),),
+          );
+        }).toList());
+  }
 }

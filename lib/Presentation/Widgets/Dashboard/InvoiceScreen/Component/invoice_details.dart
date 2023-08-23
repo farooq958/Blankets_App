@@ -1,16 +1,23 @@
 import 'package:cross_scroll/cross_scroll.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/invoice_screen.dart';
-
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'invoice_tile.dart';
 
-class InvoiceDetails extends StatelessWidget {
+class InvoiceDetails extends StatefulWidget {
    InvoiceDetails({super.key, required InvoiceModel invoiceData});
 
+  @override
+  State<InvoiceDetails> createState() => _InvoiceDetailsState();
+}
+
+class _InvoiceDetailsState extends State<InvoiceDetails> {
   final List<InvoiceDetailModel> rewardListData = [
 
     InvoiceDetailModel(productName: 'Belpla Teenagers 1 Ply Single Bed Blanket',type: '160 x 220 CMS',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
@@ -22,6 +29,11 @@ class InvoiceDetails extends StatelessWidget {
     InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
     InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
     InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+
+    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+    InvoiceDetailModel(productName: '01/05/ - 06/06/2023',type: 'loyal silver',packing: 'Rs 1,754,000',ctn: 'Rs 1,754,000',pcs: 'Rs 1,754,000',unitPrice: 'Rs 1,754,000',totalPrice: 'Rs 1,754,00'),
+
     InvoiceDetailModel(productName: '    ',type: '  ',packing: '   ',ctn: '    ',pcs: '',unitPrice: ' ',totalPrice: ''),
 
 
@@ -31,186 +43,457 @@ class InvoiceDetails extends StatelessWidget {
    //final ScrollController _innerScrollController = ScrollController();
   final List<String> invoiceTitle=["S#","Product Name","Type","Packing","Ctn",'Pcs','Unit Price','Total Price'];
 
+  late InvoiceDataSource invoiceDataSource;
+
+  @override
+  void initState() {
+    super.initState();
+    //employees= getEmployees();
+    invoiceDataSource = InvoiceDataSource(employees: rewardListData, context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return    Scaffold(
-      appBar: const CustomAppBarWithBackButton(title: 'Invoice detail',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
-      backgroundColor: AppColors.whiteColor,
+    return    SafeArea(
+      child:
 
-      body: Stack(
-        children: [
-          NestedScrollView(
-            //controller: _innerScrollController,
-            headerSliverBuilder: (BuildContext context,
-                bool innerBoxIsScrolled) {
-              return [
-                SliverAppBar(
-                  elevation: 0,
-                  automaticallyImplyLeading: false,
-                  flexibleSpace:    mainColumn(context),
-                  backgroundColor: AppColors.whiteColor,
-                  expandedHeight: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.56,
-                ),
-              ];
-            },
-            body:     SingleChildScrollView(
+        Stack(
+          children: [
+            NestedScrollView(
+              floatHeaderSlivers: true,
+            //  handle:NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+              //controller: _innerScrollController,
+              headerSliverBuilder: (BuildContext context,
 
-                scrollDirection: Axis.horizontal,
-                child: dataTableData(context)),
-          ),
-         // Container(color: Colors.transparent,height: 40.sp,),
-          Positioned(
-            bottom: 0,
-            child: SizedBox(
-              width: 1.sw,
-              child: FractionallySizedBox(
-                widthFactor: 1,
-                child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+                  bool innerBoxIsScrolled) {
+                print(innerBoxIsScrolled);
+                return [
+                  SliverAppBar(
+                   // appBar: const CustomAppBarWithBackButton(title: 'Invoice detail',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
 
-                  await PdfDownload().generatePdf(invoiceTitle,rewardListData,null,null).then((value) => null);
-
-
-
-
-                }, text: "Download",horizontalMargin: 20,),
+                    elevation: 0,
+                    //leading: ,
+                    automaticallyImplyLeading: false,
+                    flexibleSpace:    mainColumn(context),
+                    backgroundColor: AppColors.whiteColor,
+                    expandedHeight: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.79,
+                  ),
+                ];
+              },
+              body:     Scaffold(
+              //  appBar: const CustomAppBarWithBackButton(),
+                body: dataTableSfData(context),
               ),
             ),
-          ),
-         // 10.y
-        ],
-      ),
+           // Container(color: Colors.transparent,height: 40.sp,),
+            Positioned(
+              bottom: 0,
+              child: Material(
+                child: SizedBox(
+                  width: 1.sw,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+
+                      await PdfDownload().generatePdf(invoiceTitle,rewardListData,null,null).then((value) => null);
+
+
+
+
+                    }, text: "Download",horizontalMargin: 20,),
+                  ),
+                ),
+              ),
+            ),
+           // 10.y
+          ],
+        ),
+
 
     );
   }
 
   Widget mainColumn(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
+    return Column(
+      children: <Widget>[
+Expanded(
+  child:   Container(
+    height: 60,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+      SizedBox(width: 20.sp,)
+  ,      CircleIconButton(
+        icon: Icons.arrow_back_ios,
+        padding: EdgeInsets.only(left: 5.sp),
+        iconColor: AppColors.primaryColor ,
+        iconSize: 15,
 
-          Container(width: 1.sw,height: 60.h,
+
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        width: 15.w,
+        // iconSize: 15,
+        height: 15.h,
+      ),
+      Expanded(
+        child: Align(
+          alignment: Alignment.center,
+          child: AppText(
+            'Invoice detail',
+            style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+          ),
+        ),
+      )
+      ],
+    ),
+
+  ),
+),
+        Expanded(
+          child: Container(width: 1.sw,height: 60.h,
+
 
             padding: EdgeInsets.only(left: 20.sp),
             color: AppColors.lightInvoiceColor,child: Align(
 
               alignment: Alignment.centerLeft,
               child: AppText('Customer details',style: Styles.circularStdBold(context,fontSize: 16,fontWeight: FontWeight.w600),)),),
-          CustomSizedBox.height(10),
+        ),
+        //CustomSizedBox.height(10),
 
-        invoiceDetailTile(context,text1: 'Customer name',text2: 'Shama Cloth House',text3: 'Contact person',text4: 'Ahmad Ali / Rizwan'),
+      Expanded(child: invoiceDetailTile(context,text1: 'Customer name',text2: 'Shama Cloth House',text3: 'Contact person',text4: 'Ahmad Ali / Rizwan')),
 
-          CustomSizedBox.height(20),
-          invoiceDetailTile(context,text1: 'Phone number',text2: '0300-57106687',text3: 'Address',text4: 'Shama Cloth House Shaheen Market Bank Road Mardan, Pakistan'),
+        //CustomSizedBox.height(20),
+        Expanded(child: invoiceDetailTile(context,text1: 'Phone number',text2: '0300-57106687',text3: 'Address',text4: 'Shama Cloth House Shaheen Market Bank Road Mardan, Pakistan')),
 
-          CustomSizedBox.height(20),
-          Container(width: 1.sw,height: 60.h,
+        //CustomSizedBox.height(20),
+        Expanded(
+          child: Container(width: 1.sw,height: 60.h,
 
             padding: EdgeInsets.only(left: 20.sp),
             color: AppColors.lightInvoiceColor,child: Align(
 
                 alignment: Alignment.centerLeft,
                 child: AppText('Invoice',style: Styles.circularStdBold(context,fontSize: 16,fontWeight: FontWeight.w600),)),),
-          CustomSizedBox.height(12),
-          invoiceDetailTile(context,text1: 'Invoice No',text2: '6874',text3: 'Created by',text4: 'Ahmad Ali / Rizwan'),
-          CustomSizedBox.height(12),
-          invoiceDetailTile(context,text1: 'Status',text2: 'Gold',text3: 'Date',text4: '12 Jan,2023'),
-          CustomSizedBox.height(20),
-          invoiceDetailTile(context,text1: 'Sale Person',text2: 'Ahmed Ali'),
-          CustomSizedBox.height(20),
-         ///this should not be in sliver app bar
+        ),
+        //CustomSizedBox.height(12),
+        Expanded(child: invoiceDetailTile(context,text1: 'Invoice No',text2: '6874',text3: 'Created by',text4: 'Ahmad Ali / Rizwan')),
+        //CustomSizedBox.height(12),
+        Expanded(child: invoiceDetailTile(context,text1: 'Status',text2: 'Gold',text3: 'Date',text4: '12 Jan,2023')),
+        //CustomSizedBox.height(20),
+        Expanded(child: invoiceDetailTile(context,text1: 'Sale Person',text2: 'Ahmed Ali')),
+       // CustomSizedBox.height(20),
+       ///this should not be in sliver app bar
 
 
 
-
-
-        ],
-      ),
-    );
-  }
-
-  Widget dataTableData(BuildContext context) {
-    return Column(
-      children: [
-       // CustomSizedBox.height(15),
-        Expanded(
-            child:SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: DataTableTheme(
-                data: DataTableThemeData(
-                  headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
-                  //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
-                  headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
-                  // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
-                ),
-                child: DataTable(
-                  horizontalMargin: 10,
-                  columnSpacing: 1.sw/20,
-                  dataRowMaxHeight: 65,
-                  columns:  [
-                    DataColumn(label: AppText('S#',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                    DataColumn(label: AppText('Product Name',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                    DataColumn(label: AppText(
-
-                      'Type',
-
-                      style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                    DataColumn(label: AppText('Packing',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-
-                    DataColumn(label: AppText('Ctn',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                    DataColumn(label: AppText('Pcs',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                    DataColumn(label: AppText('Unit Price',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                    DataColumn(label: AppText('Total Price',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-
-                  ],
-                  rows: [
-                    for(int index=0 ;index<rewardListData.length;index++)
-                      DataRow(
-
-
-                          cells: [
-                            DataCell(SizedBox(
-                                height: 20,
-
-
-                                child: AppText(index==rewardListData.length-1?"": index.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),))),
-
-                            DataCell(AppText(rewardListData[index].productName.toString(),
-
-                              style: Styles.circularStdRegular(context,color:AppColors.blackColor),)),
-                            DataCell(SizedBox(
-                              //width: 100.sp,
-                              child: AppText(rewardListData[index].type.toString(),
-                                maxLine: 5,
-                                style: Styles.circularStdRegular(context,color: AppColors.blackColor),),
-                            )),
-                            DataCell(AppText(rewardListData[index].packing.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
-                            DataCell(AppText(rewardListData[index].ctn.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
-                            DataCell(AppText(rewardListData[index].pcs.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
-                            DataCell(AppText(rewardListData[index].unitPrice.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
-                            DataCell(AppText(rewardListData[index].totalPrice.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
-
-                          ],
-                          color:MaterialStateColor.resolveWith((states) => AppColors.whiteColor)
-                      ),
-
-
-                  ],
-                  dividerThickness: 0.0,
-                  // dataRowHeight: 32,// Set the thickness of the divider
-
-                ),
-              ),
-            ) ,
-          ),
 
 
       ],
     );
   }
-  ///old cross scroll
+///data table builtinin
+//    List<DataColumn> generateDataColumns(BuildContext context) {
+//      return List.generate(8, (index) {
+//        String label = '';
+//        switch (index) {
+//          case 0:
+//            label = 'S#';
+//            break;
+//          case 1:
+//            label = 'Product Name';
+//            break;
+//          case 2:
+//            label = 'Type';
+//            break;
+//          case 3:
+//            label = 'Packing';
+//            break;
+//          case 4:
+//            label = 'Ctn';
+//            break;
+//          case 5:
+//            label = 'Pcs';
+//            break;
+//          case 6:
+//            label = 'Unit Price';
+//            break;
+//          case 7:
+//            label = 'Total Price';
+//            break;
+//        }
+//
+//        return DataColumn(
+//          label: AppText(
+//            label,
+//            style: Styles.circularStdRegular(
+//              context,
+//              fontSize: 15.sp,
+//              color: AppColors.whiteColor,
+//              fontWeight: FontWeight.w500,
+//            ),
+//          ),
+//        );
+//      });
+//    }
+//
+//   Widget dataTableData(BuildContext context) {
+//
+//     List<DataColumn> dataColumns = generateDataColumns(context);
+//     return Column(
+//       children: [
+//        // CustomSizedBox.height(15),
+//
+//         Expanded(
+//             child:SingleChildScrollView(
+//               child: DataTableTheme(
+//                 data: DataTableThemeData(
+//                //   headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
+//                   //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
+//                   headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
+//                   // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
+//                 ),
+//                 child: DataTable(
+//                   //fixedTopRows: 1,
+//                   horizontalMargin: 10,
+//
+// //               minWidth: 800,
+//                 // smRatio: 0.7,
+//
+//                  //lmRatio: 10,
+//                   columnSpacing: 1.sw/20,
+//
+//                   dataRowMaxHeight: 65,
+//                   headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
+//                   columns: dataColumns,
+//                   rows:  [
+//                     for(int index=0 ;index<rewardListData.length;index++)
+//                       DataRow(
+//
+//
+//                           cells: [
+//                             DataCell(SizedBox(
+//                                 height: 20,
+//
+//
+//                                 child: AppText(index==rewardListData.length-1?"": index.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),))),
+//
+//                             DataCell(AppText(rewardListData[index].productName.toString(),
+//
+//                               style: Styles.circularStdRegular(context,color:AppColors.blackColor),)),
+//                             DataCell(SizedBox(
+//                               //width: 100.sp,
+//                               child: AppText(rewardListData[index].type.toString(),
+//                                 maxLine: 5,
+//                                 style: Styles.circularStdRegular(context,color: AppColors.blackColor),),
+//                             )),
+//                             DataCell(AppText(rewardListData[index].packing.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+//                             DataCell(AppText(rewardListData[index].ctn.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+//                             DataCell(AppText(rewardListData[index].pcs.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+//                             DataCell(AppText(rewardListData[index].unitPrice.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+//                             DataCell(AppText(rewardListData[index].totalPrice.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor),)),
+//
+//                           ],
+//                           color:MaterialStateColor.resolveWith((states) => AppColors.whiteColor)
+//                       ),
+//
+//
+//                   ],
+//                   dividerThickness: 0.0,
+//                   // dataRowHeight: 32,// Set the thickness of the divider
+//
+//                 ),
+//               ),
+//             ) ,
+//           ),
+//
+//
+//       ],
+//     );
+//   }
+
+
+
+  ///sf data grid
+   Widget dataTableSfData(BuildContext context) {
+     return Column(
+       children: [
+         Expanded(
+           child: SfDataGridTheme(
+             data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
+             child: SfDataGrid(
+               gridLinesVisibility: GridLinesVisibility.none,
+columnWidthMode: ColumnWidthMode.fitByCellValue,
+              // source: DataGridSource().buildRow(row),
+               columns: getColumns(context),
+
+               headerRowHeight: 65,
+
+              // headerGridLineStrokeWidth: 0.0,
+
+               frozenRowsCount: 0,
+               frozenColumnsCount: 0, source: invoiceDataSource, // Number of frozen columns (sticky columns)
+             ),
+           ),
+         ),
+       ],
+     );
+   }
+
+   List<GridColumn> getColumns(BuildContext context) {
+     return [
+       GridColumn(
+         columnName: 'S#',
+         label: Container(
+           padding: const EdgeInsets.all(8.0),
+           child: Center(
+             child: AppText(
+               'S#',
+               style: Styles.circularStdRegular(
+                 context,
+                 fontSize: 15.sp,
+                 color: AppColors.whiteColor,
+                 fontWeight: FontWeight.w500,
+               ),
+             ),
+           ),
+         ),
+       ),
+       GridColumn(
+         columnName: 'Product Name',
+         label: Container(
+           padding: const EdgeInsets.all(8.0),
+           child: Center(
+             child: AppText(
+               'Product Name',
+               maxLine: 2,
+               style: Styles.circularStdRegular(
+                 context,
+                 fontSize: 15.sp,
+                 color: AppColors.whiteColor,
+                 fontWeight: FontWeight.w500,
+               ),
+             ),
+           ),
+         ),
+       ),
+       GridColumn(
+         columnName: 'Type',
+         label: Container(
+           padding: const EdgeInsets.all(8.0),
+           child: Center(
+             child: AppText(
+               'Type',
+               style: Styles.circularStdRegular(
+                 context,
+                 fontSize: 15.sp,
+                 color: AppColors.whiteColor,
+                 fontWeight: FontWeight.w500,
+               ),
+             ),
+           ),
+         ),
+       ),
+       GridColumn(
+         columnName: 'Packing',
+         label: Container(
+           //width: 200,
+           padding: const EdgeInsets.all(8.0),
+           child: Center(
+             child: AppText(
+               'Packing',
+               style: Styles.circularStdRegular(
+                 context,
+                 fontSize: 15.sp,
+                 color: AppColors.whiteColor,
+                 fontWeight: FontWeight.w500,
+               ),
+             ),
+           ),
+         ),
+       ),
+       GridColumn(
+         columnName: 'Ctn',
+         label: Container(
+           padding: const EdgeInsets.all(8.0),
+           child: Center(
+             child: AppText(
+               'Ctn',
+               style: Styles.circularStdRegular(
+                 context,
+                 fontSize: 15.sp,
+                 color: AppColors.whiteColor,
+                 fontWeight: FontWeight.w500,
+               ),
+             ),
+           ),
+         ),
+       ),
+       GridColumn(
+         columnName: 'Pcs',
+         label: Container(
+           padding: const EdgeInsets.all(8.0),
+           child: Center(
+             child: AppText(
+               'Pcs',
+               style: Styles.circularStdRegular(
+                 context,
+                 fontSize: 15.sp,
+                 color: AppColors.whiteColor,
+                 fontWeight: FontWeight.w500,
+               ),
+             ),
+           ),
+         ),
+       ),
+       GridColumn(
+         columnName: 'Unit Price',
+         label: Container(
+           padding: const EdgeInsets.all(8.0),
+           child: Center(
+             child: AppText(
+               'Unit Price',
+               style: Styles.circularStdRegular(
+                 context,
+                 fontSize: 15.sp,
+                 color: AppColors.whiteColor,
+                 fontWeight: FontWeight.w500,
+               ),
+             ),
+           ),
+         ),
+       ),
+       GridColumn(
+         columnName: 'Total Price',
+         label: Container(
+           padding: const EdgeInsets.all(8.0),
+           child: Center(
+             child: AppText(
+               'Total Price',
+               style: Styles.circularStdRegular(
+                 context,
+                 fontSize: 15.sp,
+                 color: AppColors.whiteColor,
+                 fontWeight: FontWeight.w500,
+               ),
+             ),
+           ),
+         ),
+       ),
+       // Add similar columns for other fields
+     ];
+   }
+
+
+
+
+
+   ///old cross scroll
    // CrossScroll(
    // verticalBar: const CrossScrollBar(thickness: 0),
    // horizontalBar: const CrossScrollBar(thickness: 2),
@@ -291,12 +574,14 @@ class InvoiceDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(text1??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp)),
-                    CustomSizedBox.height(10),
-                    AppText(text2??'',
-                        maxLine: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp)),
+                    Expanded(child: AppText(text1??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp))),
+                    CustomSizedBox.height(2),
+                    Expanded(
+                      child: AppText(text2??'',
+                          maxLine: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp)),
+                    ),
                     //SizedBox(width: 20,)
 
 
@@ -308,12 +593,14 @@ class InvoiceDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(text3??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp)),
-                    CustomSizedBox.height(10),
-                    AppText(text4??'',
-                        maxLine: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp)),
+                    Expanded(child: AppText(text3??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp))),
+                    CustomSizedBox.height(2),
+                    Expanded(
+                      child: AppText(text4??'',
+                          maxLine: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: Styles.circularStdBold(context,fontWeight: FontWeight.w600,fontSize: 15.sp)),
+                    ),
                     //SizedBox(width: 20,)
 
 
@@ -471,4 +758,40 @@ class InvoiceDetailModel {
   final String? totalPrice;
 
   InvoiceDetailModel(   {this.productName,this.type, this.packing, this.ctn, this.pcs, this.unitPrice,this.totalPrice});
+}
+class InvoiceDataSource extends DataGridSource {
+ final  BuildContext context;
+  InvoiceDataSource({required List<InvoiceDetailModel> employees,required this.context}) {
+    _employees = List.generate(employees.length, (index) => DataGridRow(cells: [
+
+      DataGridCell<String>(columnName: 'S#', value: index.toString()),
+      DataGridCell<String>(columnName: 'Product Name', value: employees[index].productName),
+      DataGridCell<String>(columnName: 'Type', value: employees[index].type),
+      DataGridCell<String>(columnName: 'Packing', value: employees[index].packing),
+      DataGridCell<String>(columnName: 'Ctn', value: employees[index].ctn),
+      DataGridCell<String>(columnName: 'Pcs', value: employees[index].pcs),
+      DataGridCell<String>(columnName: 'Unit Price', value: employees[index].unitPrice),
+      DataGridCell<String>(columnName: 'Total Price', value: employees[index].totalPrice),
+
+    ]));
+  }
+
+  List<DataGridRow>  _employees = [];
+
+  @override
+  List<DataGridRow> get rows =>  _employees;
+
+  @override
+  DataGridRowAdapter? buildRow(DataGridRow row) {
+    return DataGridRowAdapter(
+        cells: row.getCells().map<Widget>((dataGridCell) {
+          return Container(
+            alignment: (dataGridCell.columnName == 'S#')
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
+            padding: const EdgeInsets.all(16.0),
+            child: AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context),),
+          );
+        }).toList());
+  }
 }

@@ -8,7 +8,7 @@ export 'package:hbk/Presentation/Common/image_widgets.dart';
 export 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 export 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 export 'package:hbk/Data/DataSource/Resources/strings.dart';
-
+export 'package:syncfusion_flutter_core/theme.dart';
 export 'package:hbk/Data/DataSource/Resources/assets.dart';
 
 export 'package:hbk/Presentation/Common/custom_button_2.dart';

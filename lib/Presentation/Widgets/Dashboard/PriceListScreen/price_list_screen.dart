@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/strings.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
@@ -17,222 +18,631 @@ import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
+import 'package:linked_scroll_controller/linked_scroll_controller.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-
-
-class PriceListScreen extends  StatelessWidget {
+class PriceListScreen extends StatefulWidget {
   PriceListScreen({super.key});
 
+  @override
+  State<PriceListScreen> createState() => _PriceListScreenState();
+}
+
+class _PriceListScreenState extends State<PriceListScreen> {
   final List<PriceListModel> priceListData = [
-    PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',country: 'China'),
-    PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',title:"Single bed & Medium blanket" ,ctn: "12 pcs",price: "Rs 10,500"),
-    PriceListModel("Baby Perla Gold 1 Ply Blanket ( Large )", "160 x 120 CMS", 'Gift box',ctn: "12 pcs",price: "Rs 10,500"),
+    PriceListModel(
+      "",
+      "",
+      '',
+      country: 'China',
+      sNo: "",
+      price: "",
+      ctn: "",
+    ),
+    PriceListModel(null, "", '',
+        title: "Single bed & Medium blanket", ctn: "", price: "", sNo: ""),
+    PriceListModel(
+        "Baby Perla Gold 1 Ply Blanket ( Large )", "160 x 120 CMS", 'Gift box',
+        sNo: "1", ctn: "12 pcs", price: "Rs 10,500"),
 
-    PriceListModel(  "Burjjan 1 ply Double bed embossed blanket","160 x 120 CMS", 'Gift box',ctn: "12 pcs",price: "Rs 10,500"),
-    PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',country: 'Spain'),
-    PriceListModel( "", "Rs 0 Cr", 'Rs 10,500 Cr',title:"Single bed & Medium blanket",ctn: "12 pcs",price: "Rs 10,500" ),
-    PriceListModel( "Baby Perla Gold 1 Ply Blanket ( Large )","160 x 120 CMS", 'Gift box',ctn: "12 pcs",price: "Rs 10,500"),
+    PriceListModel("Burjjan 1 ply Double bed embossed blanket", "160 x 120 CMS",
+        'Gift box',
+        sNo: "2", ctn: "12 pcs", price: "Rs 10,500"),
+    PriceListModel(
+      "",
+      "",
+      '',
+      country: 'Spain',
+      sNo: "",
+      price: "",
+      ctn: "",
+    ),
+    PriceListModel(null, "", '',
+        title: "Single bed & Medium blanket", ctn: "", price: "", sNo: ''),
+    PriceListModel(
+        "Baby Perla Gold 1 Ply Blanket ( Large )", "160 x 120 CMS", 'Gift box',
+        sNo: "3", ctn: "12 pcs", price: "Rs 10,500"),
 
-
-
+    PriceListModel(
+      "",
+      "",
+      '',
+      country: 'India',
+      sNo: "",
+      price: "",
+      ctn: "",
+    ),
+    PriceListModel(null, "", '',
+        title: "Single bed & Medium blanket", ctn: "", price: "", sNo: ""),
+    PriceListModel(
+        "Baby Perla Gold 1 Ply Blanket ( Large )", "160 x 120 CMS", 'Gift box',
+        sNo: "1", ctn: "12 pcs", price: "Rs 10,500"),
+    PriceListModel(
+      "",
+      "",
+      '',
+      country: 'Pakistan',
+      sNo: "",
+      price: "",
+      ctn: "",
+    ),
+    PriceListModel(null, "", '',
+        title: "Single bed & Medium blanket", ctn: "", price: "", sNo: ""),
+    PriceListModel(
+        "Baby Perla Gold 1 Ply Blanket ( Large )", "160 x 120 CMS", 'Gift box',
+        sNo: "1", ctn: "12 pcs", price: "Rs 10,500"),
 
     // Add more data for other months
   ];
-  final List<String> invoiceTitle=["#","Item","Specification","Packing","Pcs/Ctn","Price"];
 
-  final TextEditingController searchControllerPrice=TextEditingController();
+  final List<String> invoiceTitle = [
+    "#",
+    "Item",
+    "Specification",
+    "Packing",
+    "Pcs/Ctn",
+    "Price"
+  ];
+
+  final TextEditingController searchControllerPrice = TextEditingController();
+  late PriceListDataSource priceListDataSource;
+  final LinkedScrollControllerGroup _controllers=LinkedScrollControllerGroup();
+  ScrollController horizontalScrollController=ScrollController();
+  ScrollController horizontalScrollControllerTitle=ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    //employees= getEmployees();
+    horizontalScrollController = _controllers.addAndGet();
+    horizontalScrollControllerTitle = _controllers.addAndGet();
+    priceListDataSource =
+        PriceListDataSource(employees: priceListData, context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      appBar: const CustomAppBarWithBackButton(title: 'Price list',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 6),iconSize: 15,),
-      body: Stack(
-        children: [
-          Column(
+      // appBar: const CustomAppBarWithBackButton(
+      //   title: 'Price list',
+      //   iconColor: AppColors.primaryColor,
+      //   iconData: Icons.arrow_back_ios,
+      //   padding: EdgeInsets.only(left: 6),
+      //   iconSize: 15,
+      // ),
+      body: SafeArea(
+        child: SizedBox(
+          width: 1.sw,
+          height: 1.sh,
+          child: Stack(
             children: [
+              NestedScrollView(
+                floatHeaderSlivers: true,
+                physics: const NeverScrollableScrollPhysics(),
+                //  handle:NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                //controller: _innerScrollController,
+                headerSliverBuilder: (BuildContext context,
 
-              CustomSizedBox.height(10),
-              ///Top Row
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: CustomTextFieldWithOnTap(
-                    isShadowRequired: true,
+                    bool innerBoxIsScrolled) {
+                  print(innerBoxIsScrolled);
+                  return [
+                    SliverAppBar(
+                      // appBar: const CustomAppBarWithBackButton(title: 'Invoice detail',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
 
-                    prefixIcon: SvgPicture.asset(Assets.searchIcon,color: AppColors.greyColor,) ,
+                      elevation: 0,
+                      //leading: ,
+                      automaticallyImplyLeading: false,
+                      flexibleSpace:    Column(
+                        children: [
+                          
+                          Expanded(
+                            flex:1,
+                            child:   Container(
+                              height: 40,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(width: 20.sp,)
+                                  ,      CircleIconButton(
+                                    icon: Icons.arrow_back_ios,
+                                    padding: EdgeInsets.only(left: 5.sp),
+                                    iconColor: AppColors.primaryColor ,
+                                    iconSize: 15,
 
-                    isBorderRequired: false,
-                    onChanged: (v){
-                      ///tobe evaluated
-                    },
-                    borderRadius:30.sp,
-                    hintTextColor: AppColors.greyColor,
-                    controller: searchControllerPrice, hintText: 'Search products price', textInputType: TextInputType.text),
-              ),
 
-              Expanded(
-                child: CrossScroll(
-                  horizontalScroll: CrossScrollDesign(
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.only(
-                        left: 1.0,
-                        right: 9.0,
-                      )),
-                  verticalScroll: CrossScrollDesign(
-                      physics: const BouncingScrollPhysics(),
-                      padding:
-                      const EdgeInsets.only(top: 10, bottom: 70))
-
-                  ,
-                  child: Container(
-                    // padding: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                        color: AppColors.whiteColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: <Widget>[
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-
-                            for (var i = 0; i < invoiceTitle.length; i++)
-                              Container(
-                                height: 60.sp,
-                                width: i==0?50:100.sp,
-                                // margin: EdgeInsets.only(right: 0),
-
-                                alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.only(left: i==0?30.sp:10),
-                                color: AppColors.primaryColor,
-                                child: AppText(
-                                  invoiceTitle[i],
-                                 // textAlign:  TextAlign.center,
-                                  style: Styles.circularStdBold(context,
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.whiteColor),
-                                ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    width: 15.w,
+                                    // iconSize: 15,
+                                    height: 15.h,
+                                  ),
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: AppText(
+                                        'Price List',
+                                        style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
 
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                child: CustomTextFieldWithOnTap2(
+                                    isShadowRequired: true,
+                                    prefixIcon: SvgPicture.asset(
+                                      Assets.searchIcon,
+                                      color: AppColors.greyColor,
+                                    ),
+                                    isBorderRequired: false,
+                                    onChanged: (v) {
+                                      ///tobe evaluated
+                                    },
+                                    borderRadius: 30.sp,
+                                    hintTextColor: AppColors.greyColor,
+                                    controller: searchControllerPrice,
+                                    hintText: 'Search products price',
+                                    textInputType: TextInputType.text),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex:2,
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                controller: horizontalScrollControllerTitle,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    for (var i = 0; i < invoiceTitle.length; i++)
+                                      Container(
+                                        height: 60.sp,
+                                        width: i == 0 ? 50 : 100.sp,
+                                        // margin: EdgeInsets.only(right: 0),
+
+                                        alignment: Alignment.centerLeft,
+                                        padding: EdgeInsets.only(
+                                            left: i == 0 ? 30.sp : 10),
+                                        color: AppColors.primaryColor,
+                                        child: AppText(
+                                          invoiceTitle[i],
+                                          // textAlign:  TextAlign.center,
+                                          style: Styles.circularStdBold(context,
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.whiteColor),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      backgroundColor: AppColors.whiteColor,
+                      expandedHeight: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.27,
+                      bottom: null,
+                      pinned: true,
+                    ),
+                  ];
+                }, body:   Column(
+                children: [
+              //    CustomSizedBox.height(10),
+
+                  ///Top Row
 
 
+                  Expanded(
+                    child: CrossScroll(
+                      horizontalBar: const CrossScrollBar(thickness: 0),
+                      verticalBar: const CrossScrollBar(thickness: 0),
+                      horizontalScrollController: horizontalScrollController,
+                      horizontalScroll: CrossScrollDesign(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(
+                            left: 1.0,
+                            right: 9.0,
+                          )),
+                      verticalScroll: CrossScrollDesign(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(top: 10, bottom: 70)),
+                      child: Container(
+                        // padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                            color: AppColors.whiteColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: <Widget>[
+                            Visibility(
+                              visible: false,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  for (var i = 0; i < invoiceTitle.length; i++)
+                                    Container(
+                                      height: 60.sp,
+                                      width: i == 0 ? 50 : 100.sp,
+                                      // margin: EdgeInsets.only(right: 0),
 
-
-
-
+                                      alignment: Alignment.centerLeft,
+                                      padding: EdgeInsets.only(
+                                          left: i == 0 ? 30.sp : 10),
+                                      color: AppColors.primaryColor,
+                                      child: AppText(
+                                        invoiceTitle[i],
+                                        // textAlign:  TextAlign.center,
+                                        style: Styles.circularStdBold(context,
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.whiteColor),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            showPriceListData(context),
+                            // SizedBox(
+                            //   width: 1.sw,
+                            //   child: FractionallySizedBox(
+                            //     widthFactor: 1,
+                            //     child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+                            //
+                            //       // await PdfDownload().generatePdf(invoiceTitle,priceListData,PDFLayouts().showPdfPriceListData(priceListData),PDFLayouts().pdfTitlePriceList(invoiceTitle)).then((value) => null);
+                            //
+                            //
+                            //     }, text: "Download",horizontalMargin: 20,),
+                            //   ),
+                            // )
                           ],
                         ),
-                        showPriceListData(context),
-                        // SizedBox(
-                        //   width: 1.sw,
-                        //   child: FractionallySizedBox(
-                        //     widthFactor: 1,
-                        //     child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
-                        //
-                        //       // await PdfDownload().generatePdf(invoiceTitle,priceListData,PDFLayouts().showPdfPriceListData(priceListData),PDFLayouts().pdfTitlePriceList(invoiceTitle)).then((value) => null);
-                        //
-                        //
-                        //     }, text: "Download",horizontalMargin: 20,),
-                        //   ),
-                        // )
+                      ),
+                    ),
+                  )
 
-                      ],
-                    ),),
+                  ///
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: SingleChildScrollView(
+                  //         scrollDirection: Axis.horizontal,
+                  //
+                  //         child: DataTableTheme(
+                  //           data: DataTableThemeData(
+                  //             headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
+                  //             //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
+                  //             headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
+                  //            // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
+                  //           ),
+                  //           child: DataTable(
+                  //             horizontalMargin: 10,
+                  //             columnSpacing: 1.sw/20,
+                  //
+                  //             columns:  [
+                  //               DataColumn(label: AppText('Date',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                  //               DataColumn(label: AppText('Type',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                  //               DataColumn(label: AppText(
+                  //
+                  //                 'Narration',
+                  //
+                  //                 style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                  //               DataColumn(label: AppText('Amount',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+                  //             ],
+                  //             rows: [
+                  //               for(int index=0 ;index<invoiceData.length;index++)
+                  //                 DataRow(cells: [
+                  //                   DataCell(SizedBox(
+                  //                     height: 20,
+                  //
+                  //
+                  //                       child: AppText(invoiceData[index].date, style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),))),
+                  //
+                  //                   DataCell(AppText(invoiceData[index].type,
+                  //
+                  //                     style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
+                  //                   DataCell(SizedBox(
+                  //                     width: 100.sp,
+                  //                     child: SingleChildScrollView(
+                  //
+                  //                       child: AppText(invoiceData[index].narration,
+                  //                         maxLine: 5,
+                  //                         style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),),
+                  //                     ),
+                  //                   )),
+                  //                   DataCell(AppText(invoiceData[index].amount.toString(), style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),)),
+                  //
+                  //                 ],
+                  //                     color:MaterialStateColor.resolveWith((states) => invoiceData[index].type=="start"? AppColors.lightInvoiceColor:AppColors.whiteColor)
+                  //                 ),
+                  //
+                  //
+                  //             ],
+                  //             dividerThickness: 0.0,
+                  //             dataRowHeight: 32,// Set the thickness of the divider
+                  //
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                ],
+              ),
+          ),
 
+              Positioned(
+                bottom: 0,
+                child: SizedBox(
+                  width: 1.sw,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    child: CustomButton(
+                      gapWidth: 10,
+                      textFontWeight: FontWeight.w400,
+                      imageWidth: 20.sp,
+                      imageHeight: 20,
+                      leadingSvgIcon: true,
+                      leadingIcon: (Assets.downloadIcon),
+                      onTap: () async {
+                        // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
+                      },
+                      text: "Download",
+                      horizontalMargin: 20,
+                    ),
+                  ),
                 ),
               )
-///
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: SingleChildScrollView(
-              //         scrollDirection: Axis.horizontal,
-              //
-              //         child: DataTableTheme(
-              //           data: DataTableThemeData(
-              //             headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
-              //             //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
-              //             headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
-              //            // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
-              //           ),
-              //           child: DataTable(
-              //             horizontalMargin: 10,
-              //             columnSpacing: 1.sw/20,
-              //
-              //             columns:  [
-              //               DataColumn(label: AppText('Date',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-              //               DataColumn(label: AppText('Type',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-              //               DataColumn(label: AppText(
-              //
-              //                 'Narration',
-              //
-              //                 style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-              //               DataColumn(label: AppText('Amount',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-              //             ],
-              //             rows: [
-              //               for(int index=0 ;index<invoiceData.length;index++)
-              //                 DataRow(cells: [
-              //                   DataCell(SizedBox(
-              //                     height: 20,
-              //
-              //
-              //                       child: AppText(invoiceData[index].date, style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),))),
-              //
-              //                   DataCell(AppText(invoiceData[index].type,
-              //
-              //                     style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
-              //                   DataCell(SizedBox(
-              //                     width: 100.sp,
-              //                     child: SingleChildScrollView(
-              //
-              //                       child: AppText(invoiceData[index].narration,
-              //                         maxLine: 5,
-              //                         style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),),
-              //                     ),
-              //                   )),
-              //                   DataCell(AppText(invoiceData[index].amount.toString(), style: Styles.circularStdRegular(context,color: invoiceData[index].type=="start"? AppColors.primaryColor:AppColors.blackColor),)),
-              //
-              //                 ],
-              //                     color:MaterialStateColor.resolveWith((states) => invoiceData[index].type=="start"? AppColors.lightInvoiceColor:AppColors.whiteColor)
-              //                 ),
-              //
-              //
-              //             ],
-              //             dividerThickness: 0.0,
-              //             dataRowHeight: 32,// Set the thickness of the divider
-              //
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-
             ],
           ),
-          Positioned(
-            bottom: 0,
-            child: SizedBox(
-              width: 1.sw,
-              child: FractionallySizedBox(
-                widthFactor: 1,
-                child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
-
-                  // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
-
-
-                }, text: "Download",horizontalMargin: 20,),
-              ),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
 
+  ///sfdatagrid
+  // SfDataGridTheme(
+  // data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
+  // child: SfDataGrid(
+  // gridLinesVisibility: GridLinesVisibility.none,
+  // columnWidthMode: ColumnWidthMode.fitByCellValue,
+  //
+  // //  defaultColumnWidth: 100,
+  // // columnResizeMode: ColumnResizeMode.onResize,
+  // // source: DataGridSource().buildRow(row),
+  // columns: getColumns(context),
+  // onCellTap: (details){
+  // // int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
+  // // var row =
+  // // invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
+  // // Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowIndex]));
+  // // print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+  //
+  // },
+  // headerRowHeight: 65,
+  //
+  // // headerGridLineStrokeWidth: 0.0,
+  //
+  // frozenRowsCount: 0,
+  // frozenColumnsCount: 0, source: priceListDataSource, // Number of frozen columns (sticky columns)
+  // ),
+  // ),
+  /// old cross scroll
+//   CrossScroll(
+//   horizontalScroll: CrossScrollDesign(
+//   physics: const BouncingScrollPhysics(),
+//   padding: const EdgeInsets.only(
+//   left: 1.0,
+//   right: 9.0,
+//   )),
+//   verticalScroll: CrossScrollDesign(
+//   physics: const BouncingScrollPhysics(),
+//   padding:
+//   const EdgeInsets.only(top: 10, bottom: 70))
+//
+//   ,
+//   child: Container(
+//   // padding: const EdgeInsets.all(2),
+//   decoration: BoxDecoration(
+//   color: AppColors.whiteColor,
+//   borderRadius: BorderRadius.circular(10)),
+//   child: Column(
+//   children: <Widget>[
+//
+//   Row(
+//   mainAxisAlignment: MainAxisAlignment.start,
+//   children: [
+//
+//   for (var i = 0; i < invoiceTitle.length; i++)
+//   Container(
+//   height: 60.sp,
+//   width: i==0?50:100.sp,
+//   // margin: EdgeInsets.only(right: 0),
+//
+//   alignment: Alignment.centerLeft,
+//   padding: EdgeInsets.only(left: i==0?30.sp:10),
+//   color: AppColors.primaryColor,
+//   child: AppText(
+//   invoiceTitle[i],
+//   // textAlign:  TextAlign.center,
+//   style: Styles.circularStdBold(context,
+//   fontSize: 13.sp,
+//   fontWeight: FontWeight.w500,
+//   color: AppColors.whiteColor),
+//   ),
+//   ),
+//
+//
+//
+//
+//
+//
+//
+//   ],
+//   ),
+//   showPriceListData(context),
+//   // SizedBox(
+//   //   width: 1.sw,
+//   //   child: FractionallySizedBox(
+//   //     widthFactor: 1,
+//   //     child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+//   //
+//   //       // await PdfDownload().generatePdf(invoiceTitle,priceListData,PDFLayouts().showPdfPriceListData(priceListData),PDFLayouts().pdfTitlePriceList(invoiceTitle)).then((value) => null);
+//   //
+//   //
+//   //     }, text: "Download",horizontalMargin: 20,),
+//   //   ),
+//   // )
+//
+//   ],
+//   ),),
+//
+//   ),
+  List<GridColumn> getColumns(BuildContext context) {
+    return [
+      GridColumn(
+        columnName: '#',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              '#',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Item',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Item',
+              maxLine: 2,
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Specification',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Specification',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Packing',
+        label: Container(
+          //width: 200,
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Packing',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Pcs/Ctn',
+        label: Container(
+          //width: 200,
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Pcs/Ctn',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Price',
+        label: Container(
+          //width: 200,
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Price',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
 
-
+      // Add similar columns for other fields
+    ];
+  }
 
   Widget showPriceListData(context) {
     List<List<PriceListModel>> invoiceFinalData = [
@@ -240,142 +650,172 @@ class PriceListScreen extends  StatelessWidget {
       [],
       [],
       [],
-
     ];
     List<List<PriceListModel>> inData = [priceListData];
 
-
     List<Widget> row = [];
 
-    for(int i=0;i<priceListData.length;i++){
+    for (int i = 0; i < priceListData.length; i++) {
       List<Widget> textWidget = [];
 
       textWidget.add(Container(
           padding: EdgeInsets.only(left: 20.sp),
-          child: AppText(i.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 20.sp,));
+          child: AppText(i.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 20.sp,
+      ));
       textWidget.add(Container(
           width: 100.sp,
-       //   color: Colors.black,
+          //   color: Colors.black,
 
-          child: AppText(priceListData[i].item,
+          child: AppText(priceListData[i].item.toString(),
               maxLine: 4,
-              style: Styles.circularStdRegular(context,color:  AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 10.sp,));
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 10.sp,
+      ));
       textWidget.add(Container(
-       // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
         // height: 50.sp,
         width: 100,
-     alignment: Alignment.centerLeft,
-       padding: EdgeInsets.only(right: 10.sp),
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.only(right: 10.sp),
 
-       // margin: const EdgeInsets.only(left: 20),
-        child: priceListData[i].item==""?Center(
-          child: SingleChildScrollView(
-            child: FittedBox(
-              child: AppText(priceListData[i].specification,
-                  maxLine:4,style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal)),
-            ),
-          ),
-        ) : Center(
-          child: SingleChildScrollView(
-            child: AppText(priceListData[i].specification,
-                maxLine:4,style: Styles.circularStdRegular(context,color: priceListData[i].item==""?AppColors.primaryColor:AppColors.blackColor,fontWeight:  priceListData[i].item==""?FontWeight.w500:FontWeight.normal)),
-          ),
-        ),
+        // margin: const EdgeInsets.only(left: 20),
+        child: priceListData[i].item == ""
+            ? Center(
+                child: SingleChildScrollView(
+                  child: FittedBox(
+                    child: AppText(priceListData[i].specification,
+                        maxLine: 4,
+                        style: Styles.circularStdRegular(context,
+                            color: AppColors.blackColor,
+                            fontWeight: FontWeight.normal)),
+                  ),
+                ),
+              )
+            : Center(
+                child: SingleChildScrollView(
+                  child: AppText(priceListData[i].specification,
+                      maxLine: 4,
+                      style: Styles.circularStdRegular(context,
+                          color: priceListData[i].item == ""
+                              ? AppColors.primaryColor
+                              : AppColors.blackColor,
+                          fontWeight: priceListData[i].item == ""
+                              ? FontWeight.w500
+                              : FontWeight.normal)),
+                ),
+              ),
       ));
-      textWidget.add(SizedBox(width: 10.sp,));
+      textWidget.add(SizedBox(
+        width: 10.sp,
+      ));
       textWidget.add(Container(
-         // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
-alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(right: 30.sp),
-          child: AppText(priceListData[i].packing, style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 10.sp,));
-      textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: 30.sp),
-          child: AppText(priceListData[i].ctn.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 10.sp,));
+          child: AppText(priceListData[i].packing,
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 10.sp,
+      ));
       textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(right: 30.sp),
-          child: AppText(priceListData[i].price.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
+          child: AppText(priceListData[i].ctn.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 10.sp,
+      ));
+      textWidget.add(Container(
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.only(right: 30.sp),
+          child: AppText(priceListData[i].price.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
       row.add(Column(
-
         children: [
           CustomSizedBox.height(10.sp),
-          priceListData[i].country!=null?Container(
-            alignment: Alignment.centerLeft,
+          priceListData[i].country != null
+              ? Container(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(left: 30.sp),
+                        width: 1.sw * 1.57,
+                        child: (AppText(priceListData[i].country.toString(),
+                            style: Styles.circularStdRegular(context,
+                                color: AppColors.blackColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 19.sp))),
+                      )
+                    ],
+                  ),
+                )
+              : priceListData[i].title != null
+                  ? Container(
+                      height: 50,
+                      color: AppColors.lightInvoiceColor,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(left: 30.sp),
+                            width: 1.sw * 1.57,
+                            child: (AppText(priceListData[i].title.toString(),
+                                style: Styles.circularStdRegular(context,
+                                    color: AppColors.primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.sp))),
+                          )
+                        ],
+                      ),
+                    )
+                  : Container(
+                      // width:priceListData[i].title!=null? 1.sw *1.15:null,
 
-            child: Row(
-            mainAxisSize: MainAxisSize.min,
-
-            children: <Widget>[
-
-     Container(
-       alignment: Alignment.centerLeft,
-       padding: EdgeInsets.only(left: 30.sp),
-       width: 1.sw*1.57,
-       child: (AppText(priceListData[i].country.toString(), style: Styles.circularStdRegular(context,color:
-        AppColors.blackColor,fontWeight:
-    FontWeight.w500,fontSize: 19.sp))),
-     )
-
-
-    ],
-          ),) :  priceListData[i].title!=null?Container(
-height: 50,
-            color: AppColors.lightInvoiceColor,
-            child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-
-              Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 30.sp),
-                width: 1.sw*1.57,
-                child: (AppText(priceListData[i].title.toString(), style: Styles.circularStdRegular(context,color:
-                AppColors.primaryColor,fontWeight:
-                FontWeight.w500,fontSize: 14.sp))),
-              )
-
-
-            ],
-          ),):
-          Container(
-           // width:priceListData[i].title!=null? 1.sw *1.15:null,
-
-          //  color: priceListData[i].title!=null?AppColors.lightInvoiceColor:AppColors.whiteColor,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-
-                ...textWidget,
-
-
-              ],
-            ),
-          ),
-          SizedBox(height: 20.sp,)
+                      //  color: priceListData[i].title!=null?AppColors.lightInvoiceColor:AppColors.whiteColor,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ...textWidget,
+                        ],
+                      ),
+                    ),
+          SizedBox(
+            height: 20.sp,
+          )
         ],
       ));
-
-
     }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: row,
     );
-
-
   }
 }
+
 class PriceListModel {
   final String? sNo;
-  final String item;
+  final String? item;
   final String specification;
   final String packing;
   final String? ctn;
@@ -383,5 +823,95 @@ class PriceListModel {
   final String? country;
   final String? title;
 
-  PriceListModel( this.item, this.specification, this.packing, {this.country, this.title,this.sNo,this.ctn,this.price});
+  PriceListModel(this.item, this.specification, this.packing,
+      {this.country, this.title, this.sNo, this.ctn, this.price});
+}
+
+class PriceListDataSource extends DataGridSource {
+  final BuildContext context;
+  final List<PriceListModel> employees;
+  PriceListDataSource({required this.employees, required this.context}) {
+    _employees = List.generate(
+        employees.length,
+        (index) => DataGridRow(cells:
+                // employees[index].title!= null?[
+                //   DataGridCell<String>(columnName: 'Title', value: employees[index].title),
+                //
+                // ] : employees[index].country!= null?[
+                //
+                //   DataGridCell<String>(columnName: 'Country', value: employees[index].country),
+                // ]:
+                [
+              DataGridCell<String>(
+                  columnName: '#', value: employees[index].sNo.toString()),
+              DataGridCell<String>(
+                  columnName: 'Item', value: employees[index].item),
+              DataGridCell<String>(
+                  columnName: 'Specification',
+                  value: employees[index].specification),
+              DataGridCell<String>(
+                  columnName: 'Packing', value: employees[index].packing),
+              DataGridCell<String>(
+                  columnName: 'Pcs/Ctn', value: employees[index].ctn),
+              DataGridCell<String>(
+                  columnName: 'Price', value: employees[index].price),
+            ]));
+  }
+
+  List<DataGridRow> _employees = [];
+
+  @override
+  List<DataGridRow> get rows => _employees;
+  int index = -1;
+
+  Color getBackgroundColor(int index) {
+    // int index = _employees.indexOf(rowsss) + 1;
+    if (index > employees.length) {
+      return AppColors.whiteColor;
+    } else {
+      if (employees[index].title != null) {
+        return AppColors.lightInvoiceColor;
+      } else {
+        return AppColors.whiteColor;
+      }
+    }
+  }
+
+  @override
+  DataGridRowAdapter? buildRow(DataGridRow rowsss) {
+    if (index <= employees.length) {
+      index++;
+    }
+
+    print(index);
+    return DataGridRowAdapter(
+        //  color: AppColors.primaryColor,
+
+        cells: rowsss.getCells().map<Widget>((dataGridCell) {
+      print(dataGridCell.columnName == "Item" && dataGridCell.value == null);
+      return Container(
+        // color: AppColors.primaryColor,
+        //  width: 50,
+        color: getBackgroundColor(index),
+        alignment:
+            employees[index].country != null || employees[index].title != null
+                ? Alignment.centerLeft
+                : (dataGridCell.columnName == '#')
+                    ? Alignment.centerRight
+                    : Alignment.center,
+        padding: const EdgeInsets.all(10.0),
+        child: dataGridCell.columnName == 'Item' && dataGridCell.value == ""
+            ? AppText(employees[index].country.toString(),
+                style: Styles.circularStdBold(context, fontSize: 19.sp))
+            : dataGridCell.columnName == "Item" && dataGridCell.value == null
+                ? AppText(employees[index].title.toString(),
+                    style: Styles.circularStdBold(context,
+                        color: AppColors.primaryColor, fontSize: 16.sp))
+                : AppText(
+                    dataGridCell.value.toString(),
+                    style: Styles.circularStdRegular(context, fontSize: 15.sp),
+                  ),
+      );
+    }).toList());
+  }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/strings.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
@@ -16,28 +17,60 @@ import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'Component/customer_statement_date_picker.dart';
 
-class CustomerStatementScreen extends  StatelessWidget {
+class CustomerStatementScreen extends  StatefulWidget {
    CustomerStatementScreen({super.key});
 
-  final List<InvoiceData> invoiceData = [
-    InvoiceData("Jan, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
+  @override
+  State<CustomerStatementScreen> createState() => _CustomerStatementScreenState();
+}
 
-    InvoiceData("04 Jan, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
+  final List<StatementData> invoiceData = [
+    StatementData("Jan, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
 
-    InvoiceData("04 Jan, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
+    StatementData("04 Jan, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
 
-    InvoiceData("Feb, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
+    StatementData("04 Jan, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
 
-    InvoiceData("04 Feb, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
+    StatementData("Feb, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
 
-    InvoiceData("04 Feb, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+    StatementData("04 Feb, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
 
-    InvoiceData("04 Feb, 2023", "Invoice", "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
+    StatementData("04 Feb, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+
+    StatementData("04 Feb, 2023", "Invoice", "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
+    StatementData("March, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
+
+    StatementData("04 march, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
+
+    StatementData("04 march, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+
+    StatementData("04 march, 2023", "Invoice", "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
+
+    StatementData("Apr, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
+
+    StatementData("04 Apr, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
+
+    StatementData("04 Apr, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+
+    StatementData("04 Apr, 2023", "Invoice", "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
+    // Add more data for other months
+
+    // Add more data for other months
     // Add more data for other months
   ];
+  late StatementListDataSource statementDataSource;
+
+  @override
+  void initState() {
+    super.initState();
+    //employees= getEmployees();
+    statementDataSource = StatementListDataSource(employees: invoiceData, context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,62 +80,91 @@ class CustomerStatementScreen extends  StatelessWidget {
       appBar: const CustomAppBarWithBackButton(title: 'Customer Statement',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
+          Column(
+            children: [
 
-                CustomSizedBox.height(10),
-                ///Top Row
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+              CustomSizedBox.height(10),
+              ///Top Row
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
 
-                      AppText(AppStrings.accountBalance, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 16),),
-                      RichText(text: TextSpan(children: [
-                        TextSpan(
-                            text: 'Rs ',
-                            style: Styles.circularStdBold(context,fontSize: 16.sp
-                            )),
-                        TextSpan(
-                            text: '50,490 ',
-                            style: Styles.circularStdBold(context,fontWeight: FontWeight.w900,fontSize: 20
-                            )),
-
-
-                      ])),
+                    AppText(AppStrings.accountBalance, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 16),),
+                    RichText(text: TextSpan(children: [
+                      TextSpan(
+                          text: 'Rs ',
+                          style: Styles.circularStdBold(context,fontSize: 16.sp
+                          )),
+                      TextSpan(
+                          text: '50,490 ',
+                          style: Styles.circularStdBold(context,fontWeight: FontWeight.w900,fontSize: 20
+                          )),
 
 
-                    ],
+                    ])),
 
 
-                  ),
+                  ],
+
+
                 ),
-                Row(
-                  children: [
-                    const Spacer(),
+              ),
+              Row(
+                children: [
+                  const Spacer(),
 
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: CustomButton(
-                          bgColor: AppColors.whiteColor,
-                          borderColor: AppColors.primaryColor,
-                          textColor: AppColors.primaryColor,
-                          textFontWeight: FontWeight.w400,
-                          trailingIcon: Assets.calenderIcon,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: CustomButton(
+                        bgColor: AppColors.whiteColor,
+                        borderColor: AppColors.primaryColor,
+                        textColor: AppColors.primaryColor,
+                        textFontWeight: FontWeight.w400,
+                        trailingIcon: Assets.calenderIcon,
 borderThickness: 1.5,
 trailIconWidth: 19.sp,
-                          trailIconHeight: 19,
-                          onTap: (){
-                            showDatePicker(context);
-                          }, text: 'Jan-Feb 2023',verticalMargin: 20,verticalPadding: 10,),
-                      ),
+                        trailIconHeight: 19,
+                        onTap: (){
+                          showDatePicker(context);
+                        }, text: 'Jan-Feb 2023',verticalMargin: 20,verticalPadding: 10,),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
+///sf data grid
+Expanded(child: SfDataGridTheme(
+  data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
+  child: SfDataGrid(
+    gridLinesVisibility: GridLinesVisibility.none,
+    columnSizer: ColumnSizer(),
+    defaultColumnWidth: 130,
+    //columnWidthMode: ColumnWidthMode.none,
+    rowHeight: 60,
+    //  defaultColumnWidth: 100,
+    // source: DataGridSource().buildRow(row),
+    columns: getColumns(context),
+    onCellTap: (details){
+      // int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
+      // var row =
+      // invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
+      // Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowIndex]));
+      // print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+
+    },
+    headerRowHeight: 65,
+
+
+    // headerGridLineStrokeWidth: 0.0,
+
+    frozenRowsCount: 0,
+    frozenColumnsCount: 0, source: statementDataSource, // Number of frozen columns (sticky columns)
+  ),
+) ,),
+///cross scroll
  //      Expanded(
  //        child: CrossScroll(
  //          horizontalScroll: CrossScrollDesign(
@@ -176,75 +238,70 @@ trailIconWidth: 19.sp,
  //        ),
  //      )
 ///data table
-                Row(
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
+//               Expanded(
+//                 child: SingleChildScrollView(
+//                   scrollDirection: Axis.horizontal,
+//
+//                   child: DataTableTheme(
+//                     data: DataTableThemeData(
+//                       headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
+//                       //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
+//                       headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
+//                      // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
+//                     ),
+//                     child: DataTable(
+//                       horizontalMargin: 10,
+//                       columnSpacing: 1.sw/20,
+// dataRowMaxHeight: 78,
+//                       columns:  [
+//                         DataColumn(label: AppText('Date',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+//                         DataColumn(label: AppText('Type',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+//                         DataColumn(label: AppText(
+//
+//                           'Narration',
+//
+//                           style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+//                         DataColumn(label: AppText('Amount',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
+//                       ],
+//                       rows: [
+//                         for(int index=0 ;index<invoiceData.length;index++)
+//                           DataRow(
+//
+//
+//                               cells: [
+//                             DataCell(SizedBox(
+//                               height: 20,
+//
+//
+//                                 child: AppText(invoiceData[index].date, style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),))),
+//
+//                             DataCell(AppText(invoiceData[index].type,
+//
+//                               style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
+//                             DataCell(SizedBox(
+//                               width: 120.sp,
+//                               child: AppText(invoiceData[index].narration,
+//                                 maxLine: 5,
+//                                 style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),),
+//                             )),
+//                             DataCell(AppText(invoiceData[index].amount.toString(), style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
+//
+//                           ],
+//                               color:MaterialStateColor.resolveWith((states) => invoiceData[index].type==""? AppColors.lightInvoiceColor:AppColors.whiteColor)
+//                           ),
+//
+//
+//                       ],
+//                       dividerThickness: 0.0,
+//                      // dataRowHeight: 32,// Set the thickness of the divider
+//
+//                     ),
+//                   ),
+//                 ),
+//               ),
+              CustomSizedBox.height(50),
 
-                        child: DataTableTheme(
-                          data: DataTableThemeData(
-                            headingRowColor: MaterialStateColor.resolveWith((states) => AppColors.primaryColor),
-                            //  dataRowColor: MaterialStateColor.resolveWith((states) => Colors.grey.shade100),
-                            headingTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.whiteColor),
-                           // dataTextStyle: Styles.circularStdBold(context,fontSize: 15.sp,color: AppColors.primaryColor),
-                          ),
-                          child: DataTable(
-                            horizontalMargin: 10,
-                            columnSpacing: 1.sw/20,
-dataRowMaxHeight: 78,
-                            columns:  [
-                              DataColumn(label: AppText('Date',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                              DataColumn(label: AppText('Type',style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                              DataColumn(label: AppText(
-
-                                'Narration',
-
-                                style: Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                              DataColumn(label: AppText('Amount',style:Styles.circularStdRegular(context,fontSize: 15.sp,color: AppColors.whiteColor,fontWeight: FontWeight.w500),)),
-                            ],
-                            rows: [
-                              for(int index=0 ;index<invoiceData.length;index++)
-                                DataRow(
-
-
-                                    cells: [
-                                  DataCell(SizedBox(
-                                    height: 20,
-
-
-                                      child: AppText(invoiceData[index].date, style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),))),
-
-                                  DataCell(AppText(invoiceData[index].type,
-
-                                    style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
-                                  DataCell(SizedBox(
-                                    width: 120.sp,
-                                    child: AppText(invoiceData[index].narration,
-                                      maxLine: 5,
-                                      style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),),
-                                  )),
-                                  DataCell(AppText(invoiceData[index].amount.toString(), style: Styles.circularStdRegular(context,color: invoiceData[index].type==""? AppColors.primaryColor:AppColors.blackColor),)),
-
-                                ],
-                                    color:MaterialStateColor.resolveWith((states) => invoiceData[index].type==""? AppColors.lightInvoiceColor:AppColors.whiteColor)
-                                ),
-
-
-                            ],
-                            dividerThickness: 0.0,
-                           // dataRowHeight: 32,// Set the thickness of the divider
-
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                CustomSizedBox.height(50),
-
-              ],
-            ),
+            ],
           ),
           Positioned(
             bottom: 0,
@@ -265,6 +322,85 @@ dataRowMaxHeight: 78,
       ),
     );
   }
+  List<GridColumn> getColumns(BuildContext context) {
+    return [
+      GridColumn(
+        columnName: 'Date',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Date',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Type',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Type',
+              maxLine: 2,
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+      GridColumn(
+        columnName: 'Narration',
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Narration',
+              maxLine: 2,
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+
+      GridColumn(
+        columnName: 'Amount',
+        label: Container(
+          //width: 200,
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: AppText(
+              'Amount',
+              style: Styles.circularStdRegular(
+                context,
+                fontSize: 15.sp,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+
+      // Add similar columns for other fields
+    ];
+  }
+
   void showDatePicker(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -283,17 +419,15 @@ dataRowMaxHeight: 78,
     );
   }
 
-
-
   Widget showInvoiceData(context) {
-    List<List<InvoiceData>> invoiceFinalData = [
+    List<List<StatementData>> invoiceFinalData = [
       [],
       [],
       [],
       [],
 
     ];
-    List<List<InvoiceData>> inData = [invoiceData];
+    List<List<StatementData>> inData = [invoiceData];
 
 
     List<Widget> row = [];
@@ -367,11 +501,77 @@ alignment: Alignment.centerLeft,
 
   }
 }
-class InvoiceData {
+class StatementData {
   final String date;
   final String type;
   final String narration;
   final String amount;
 
-  InvoiceData(this.date, this.type, this.narration, this.amount);
+  StatementData(this.date, this.type, this.narration, this.amount);
+}
+class StatementListDataSource extends DataGridSource {
+  final  BuildContext context;
+  final List<StatementData> employees;
+  StatementListDataSource({required this.employees,required this.context}) {
+    _employees = List.generate(employees.length, (index) => DataGridRow(cells: [
+
+      DataGridCell<String>(columnName: 'Date', value: employees[index].date),
+      DataGridCell<String>(columnName: 'Type', value: employees[index].type),
+      DataGridCell<String>(columnName: 'Narration', value: employees[index].narration),
+      DataGridCell<String>(columnName: 'Amount', value: employees[index].amount),
+
+
+    ]));
+  }
+
+  List<DataGridRow>  _employees = [];
+
+  @override
+  List<DataGridRow> get rows =>  _employees;
+
+  @override
+  DataGridRowAdapter? buildRow(DataGridRow rowsss) {
+    Color getBackgroundColor() {
+      int index = _employees.indexOf(rowsss) + 1;
+print(index);
+
+      if (employees[index-1].type=="") {
+
+        return AppColors.lightInvoiceColor;
+      }
+      else {
+      return Colors.white;
+    }
+    }
+    Color getTextColor() {
+      int index = _employees.indexOf(rowsss) + 1;
+      print(index);
+
+      if (employees[index-1].type=="") {
+
+        return AppColors.primaryColor;
+      }
+      else {
+        return Colors.black;
+      }
+    }
+    return DataGridRowAdapter(
+      //  color: AppColors.primaryColor,
+        color: getBackgroundColor(),
+        cells: rowsss.getCells().map<Widget>((dataGridCell) {
+          return Container(
+            height: 50,
+            width: 180,
+            // color: AppColors.primaryColor,
+            alignment: (dataGridCell.columnName == 'Date')
+                ? Alignment.centerRight
+                : Alignment.center,
+            padding: const EdgeInsets.all(10.0),
+
+            child: AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context,color: getTextColor()),maxLine: 3,
+
+            ),
+          );
+        }).toList());
+  }
 }

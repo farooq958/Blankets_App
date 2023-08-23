@@ -46,7 +46,7 @@ class _AboutUsState extends State<AboutUs> {
             AppText(
               AppStrings.companyAchievement,
               style: Styles.circularStdMedium(context),
-              maxLine: 15,
+              maxLine: 20,
               textAlign: TextAlign.left,
             ),
           ],
@@ -62,7 +62,7 @@ class _AboutUsState extends State<AboutUs> {
             AppText(
               AppStrings.companyAchievement,
               style: Styles.circularStdMedium(context),
-              maxLine: 15,
+              maxLine: 20,
               textAlign: TextAlign.left,
             ),
           ],
@@ -80,7 +80,7 @@ class _AboutUsState extends State<AboutUs> {
               AppText(
                 AppStrings.companyAchievement,
                 style: Styles.circularStdMedium(context),
-                maxLine: 15,
+                maxLine: 20,
                 textAlign: TextAlign.left,
               )
             ],
@@ -99,7 +99,7 @@ class _AboutUsState extends State<AboutUs> {
               AppText(
                 AppStrings.companyAchievement,
                 style: Styles.circularStdMedium(context),
-                maxLine: 15,
+                maxLine: 20,
                 textAlign: TextAlign.left,
               )
             ],
@@ -118,7 +118,7 @@ class _AboutUsState extends State<AboutUs> {
               AppText(
                 AppStrings.companyAchievement,
                 style: Styles.circularStdMedium(context),
-                maxLine: 15,
+                maxLine: 20,
                 textAlign: TextAlign.left,
               )
             ],
@@ -137,7 +137,7 @@ class _AboutUsState extends State<AboutUs> {
               AppText(
                 AppStrings.companyAchievement,
                 style: Styles.circularStdMedium(context),
-                maxLine: 15,
+                maxLine: 20,
                 textAlign: TextAlign.left,
               )
             ],
@@ -169,16 +169,6 @@ class _AboutUsState extends State<AboutUs> {
                         isImageRequired: tileData.isImageRequired,
                         imageUrl: tileData.imageUrl,
                         text: tileData.text,
-                        // index: index,
-                        //toUpdate: state,
-                        //isExpanded: state[index],
-                        //expansionTileController: expansionTileController,
-                        // onExpansionChanged: (isExpanded) {
-                        //   toggleExpand(index);
-                        //
-                        // },
-                        // isExpanded: _currentIndex == index,
-
                         expendedContent: Padding(
                           padding: EdgeInsets.only(
                               left: 15.w, right: 15.w, bottom: 5.h),

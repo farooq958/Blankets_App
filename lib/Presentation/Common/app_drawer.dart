@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
@@ -28,7 +29,7 @@ class AppDrawer extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 20.sp),
               children: [
-                CustomSizedBox.height(35.sp),
+              isGuest==true?  30.y :CustomSizedBox.height(35.sp),
                 isGuest == false
                     ? SizedBox(
                         height: 100.sp,
@@ -76,11 +77,12 @@ class AppDrawer extends StatelessWidget {
                     : UnconstrainedBox(alignment: Alignment.topLeft,
                       child: AssetImageWidget(
                           url: Assets.appLogo,
-                          height: 110.h,
-                          width: 140.w,
+                          height: 150.h,
+                          width: 147.w,
                         ),
                     ),
-                CustomSizedBox.height(1.sp),
+
+              CustomSizedBox.height(   1.sp),
                 isGuest == true
                     ? ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),

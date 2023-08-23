@@ -20,6 +20,7 @@ class CategoryProduct extends StatelessWidget {
       height: 115,
       width: 1.sw,
       child: ListView.separated(
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context,index){

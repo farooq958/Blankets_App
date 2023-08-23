@@ -81,7 +81,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 isBorderRequired: false,
                 isShadowRequired: true,
                 borderRadius: 10.r,
-                // maxline: 2,
+                maxline: 2,
 
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 18.h, horizontal: 10.w),

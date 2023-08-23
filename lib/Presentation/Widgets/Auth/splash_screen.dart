@@ -1,6 +1,7 @@
 
 
 
+import 'package:hbk/Data/AppData/data.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Widgets/Auth/on_boarding_screen.dart';
 
@@ -31,6 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     AppMedia.mediaQuery= MediaQuery.of(context);
+
+print("Text Scale  ${    Data().textScale}") ;
 
     return  Scaffold(
       backgroundColor: AppColors.primaryColor,

@@ -1,32 +1,31 @@
-
-
-
+import 'package:flutter/foundation.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
-import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Checkout/check_out_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/cart_item_tile.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/empty_cart_screen.dart';
+import 'Checkout/check_out_screen.dart';
 
 class CartScreen extends StatefulWidget {
   final PageController? pageController;
   final bool? isGuest;
 
-  const CartScreen({super.key, this.pageController,this.isGuest});
+  const CartScreen({super.key, this.pageController, this.isGuest});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
-    if(widget.isGuest==true) {
+
+    if (widget.isGuest == true) {
       CustomDialog.dialog(context, const Column());
     }
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -74,6 +73,7 @@ class _CartScreenState extends State<CartScreen> {
                                 Utils.cartItems.removeAt(index);
                                 setState(() {});
                               },
+
                             );
                           },
                           separatorBuilder: (context, index) {
@@ -106,10 +106,17 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     CustomSizedBox.height(10.h),
                     CustomButton(
-                      borderRadius: 30.r,
+                        borderRadius: 30.r,
                         onTap: () {
-                      Navigate.to(context,  CheckOutScreen(totalCtn: '07',totalPayment: Utils.cartItems[0].price!,pageController: widget.pageController,));
-                    }, text: AppStrings.checkOut),
+                          Navigate.to(
+                              context,
+                              CheckOutScreen(
+                                totalCtn: '07',
+                                totalPayment: Utils.cartItems[0].price!,
+                                pageController: widget.pageController,
+                              ));
+                        },
+                        text: AppStrings.checkOut),
                   ],
                 )
               : EmptyCartScreen(

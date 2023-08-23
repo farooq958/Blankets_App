@@ -36,7 +36,7 @@ class AppStrings{
 /// about us
 static const String aboutUs = 'About Us';
 static const String achievement = 'Achievement';
-static const String getStarted = 'Started with HBK blankets';
+static const String getStarted = 'HBK blankets';
 static const String ourVision  ='Our Vision';
 static const String ourMission = 'Our Mission';
 static const String ourValue = 'Our Value';

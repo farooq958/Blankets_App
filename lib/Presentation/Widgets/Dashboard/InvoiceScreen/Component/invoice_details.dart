@@ -82,7 +82,7 @@ elevation: 0,
                     expandedHeight: MediaQuery
                         .of(context)
                         .size
-                        .height * 0.75,
+                        .height * 0.77,
                   ),
                 ];
               },
@@ -125,7 +125,7 @@ elevation: 0,
         child: Column(
           
           children: <Widget>[
-Container(
+SizedBox(
         height: 60,
         child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -171,7 +171,9 @@ Container(
           invoiceDetailTile(context,text1: 'Customer name',text2: 'Shama Cloth House',text3: 'Contact person',text4: 'Ahmad Ali / Rizwan'),
 
             //CustomSizedBox.height(20),
-            invoiceDetailTile(context,text1: 'Phone number',text2: '0300-57106687',text3: 'Address',text4: 'Shama Cloth House Shaheen Market Bank Road Mardan, Pakistan'),
+            invoiceDetailTile(
+
+                context,sizeHeight: 105.h ,text1: 'Phone number',text2: '0300-57106687',text3: 'Address',text4: 'Shama Cloth House Shaheen Market Bank Road Mardan, Pakistan'),
 
             //CustomSizedBox.height(20),
             Container(width: 1.sw,height: 60.h,
@@ -564,9 +566,9 @@ columnWidthMode: ColumnWidthMode.auto,
    // ),),
    //
    // )
-  Widget invoiceDetailTile(BuildContext context,{String? text1,String? text2,String? text3,String? text4,}) {
+  Widget invoiceDetailTile(BuildContext context,{String? text1,String? text2,String? text3,String? text4,double? sizeHeight }) {
     return SizedBox(
-      height: 65.h,
+      height:sizeHeight?? 65.h,
       child: Padding(
             padding:  EdgeInsets.only(left: 20.0.sp),
             child: Row(
@@ -581,6 +583,7 @@ columnWidthMode: ColumnWidthMode.auto,
                       Expanded(child: AppText(text1??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp))),
                       CustomSizedBox.height(2),
                       Expanded(
+                        flex: 2,
                         child: AppText(text2??'',
                             maxLine: 3,
                             overflow: TextOverflow.ellipsis,
@@ -600,6 +603,7 @@ columnWidthMode: ColumnWidthMode.auto,
                       Expanded(child: AppText(text3??'', style: Styles.circularStdRegular(context,fontWeight: FontWeight.w600,fontSize: 14.sp))),
                       CustomSizedBox.height(2),
                       Expanded(
+                        flex: 2,
                         child: AppText(text4??'',
                             maxLine: 4,
                             overflow: TextOverflow.ellipsis,

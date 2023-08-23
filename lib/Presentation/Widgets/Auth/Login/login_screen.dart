@@ -65,21 +65,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 isBorderRequired: false,
 
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomButton(
-                    onTap: () {
-                      Navigate.to(context, const ResetPasswordScreen());
-                    },
-                    text: 'Forgot password?',
-                    isBorder: false,
-                    borderColor: Colors.transparent,
-                    bgColor: Colors.transparent,
-                    textColor: AppColors.primaryColor,
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     CustomButton(
+              //       onTap: () {
+              //         Navigate.to(context, const ResetPasswordScreen());
+              //       },
+              //       text: 'Forgot password?',
+              //       isBorder: false,
+              //       borderColor: Colors.transparent,
+              //       bgColor: Colors.transparent,
+              //       textColor: AppColors.primaryColor,
+              //     ),
+              //   ],
+              // ),
 
               80.y,
               Column(

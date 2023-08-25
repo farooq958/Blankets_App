@@ -123,9 +123,9 @@ class ExpandableContents extends StatelessWidget {
                   AppText(summerTiming ?? '09:00 AM - 06:00 PM',
                       style: Styles.circularStdMedium(context, fontSize: 16.sp)),
                   CustomSizedBox.height(10.w),
-                  AppText(winterTiming ?? 'Winter timing',
+                  AppText( 'Winter timing',
                       style: Styles.circularStdMedium(context, fontSize: 16.sp)),
-                  AppText('09:00 AM - 06:00 PM',
+                  AppText( winterTiming ??'09:00 AM - 06:00 PM',
                       style: Styles.circularStdMedium(context, fontSize: 16.sp)),
                 ],
               )

@@ -53,7 +53,7 @@ class _ExpandableState extends State<ExpandableSection> {
           padding:  EdgeInsets.only(top: 5.h),
           child: Column(
 
-
+crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
@@ -74,6 +74,7 @@ class _ExpandableState extends State<ExpandableSection> {
                               ) : const SizedBox(),
                            Expanded(
                              child: Align(
+                               alignment: Alignment.centerLeft,
                               child: AppText(widget.title,
 
                                 style: isExpanded ? Styles.circularStdBold(context,fontSize: 15.sp) : Styles.circularStdRegular(context,fontSize: 16.sp),maxLine: 3,),

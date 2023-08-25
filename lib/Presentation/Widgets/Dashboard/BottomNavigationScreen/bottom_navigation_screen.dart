@@ -55,7 +55,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 pageController: pageController,
         onSearchTap: (){
 
-  Navigate.to(context,  SearchScreen());
+  Navigate.to(context,  SearchScreen(isGuest: widget.isGuest,));
 
         },
         onNotificationTap: (){

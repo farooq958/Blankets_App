@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hbk/Data/AppData/data.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
+import 'package:hbk/Domain/Models/ContactUs/contact_us_model.dart';
 import 'package:hbk/Domain/Models/DashboardBottomModel/bottom_card_model.dart';
 import 'package:hbk/Domain/Models/DashboardBottomModel/custom_card_model.dart';
 import 'package:hbk/Domain/Models/Cart/cart_item.dart';
@@ -140,7 +141,7 @@ class Utils {
     DrawerModel(
         screenName: 'Contact us',
         iconPath: Assets.contactUsIcon,
-        widgetToNavigate: const ContactUs()),
+        widgetToNavigate:  const ContactUsScreen()),
     DrawerModel(
         screenName: 'Customer survey',
         iconPath: Assets.customerSurveyIcon,
@@ -172,7 +173,7 @@ class Utils {
     DrawerModel(
         screenName: 'Contact us',
         iconPath: Assets.contactUsIcon,
-        widgetToNavigate: const ContactUs()),
+        widgetToNavigate: const ContactUsScreen()),
 
 
     DrawerModel(

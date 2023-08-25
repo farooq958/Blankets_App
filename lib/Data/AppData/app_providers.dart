@@ -11,7 +11,7 @@ List<BlocProvider> appProviders = [
   BlocProvider<InOutCubit>(create: (context) => InOutCubit()),
 
   BlocProvider<AboutUsCubit>(create: (context)=>AboutUsCubit()),
-  BlocProvider<CategoryCubit>(create: (context)=>CategoryCubit())
+  BlocProvider<CategoryCubit>(create: (context)=>CategoryCubit()),
   BlocProvider<ContactUsCubit>(create: (context)=> ContactUsCubit()),
   BlocProvider<FaqsCubit>(create: (context)=> FaqsCubit()),
 ];

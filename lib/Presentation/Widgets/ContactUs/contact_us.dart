@@ -1,14 +1,29 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
+import 'package:hbk/Presentation/Widgets/ContactUs/Controller/contact_us_cubit.dart';
+import 'package:hbk/Presentation/Widgets/ContactUs/State/contact_us_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ContactUs extends StatefulWidget {
-  const ContactUs({Key? key}) : super(key: key);
+
+
+
+class ContactUsScreen extends StatefulWidget {
+  const ContactUsScreen({Key? key}) : super(key: key);
 
   @override
-  State<ContactUs> createState() => _ContactUsState();
+  State<ContactUsScreen> createState() => _ContactUsScreenState();
 }
 
-class _ContactUsState extends State<ContactUs> {
+class _ContactUsScreenState extends State<ContactUsScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<ContactUsCubit>().getContactUsData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,276 +32,125 @@ class _ContactUsState extends State<ContactUs> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              /// expandable widget
+        child: BlocConsumer<ContactUsCubit, ContactUsState>(
+          listener: (context, state) {
+            print("State $state");
+            // TODO: implement listener
+            if(state is ContactUsLoading){
+              LoadingDialog.showLoadingDialog(context);
+            }if(state is ContactUsSuccess){
+              Navigator.of(context).pop(true);
+            }
+          },
+          builder: (context, state) {
+           if(state is ContactUsSuccess){
+             // print("Branche ${state.contactUsData[0].branches![0].phone}");
+             print("Data is ${state.contactUsData}");
+             return Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               mainAxisAlignment: MainAxisAlignment.start,
+               children: [
 
-              ExpandableTileWidget(
-                isImageRequired: true,
-                imageUrl: Assets.appLogo,
-                expendedContent: ExpandableContents(
-                  button1onTap: () {
-                    CustomDialog.dialog(
-                        context,
-                        SizedBox(
-                            width: 1.sw,
-                            height: 1.sh / 3,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomButton(
-                                  onTap: () async {
+                 /// expandable widget
 
-                                    Uri phoneNo = Uri.parse('tel:+923008542950');
-                                    if (await launchUrl(phoneNo)) {
-                                    //dialer opened
-                                    }else{
-                                    //dailer is not opened
-                                    }
+                 Expanded(
+                   child: ListView.separated(itemBuilder: (context,index){
 
-                                  },
-                                  text: '+92 300 85 42 950',
-                                  horizontalMargin: 20.w,
-                                  leadingIcon: Assets.calling,
-                                  leadingSvgIcon: true,
-                                  gapWidth: 10.sp,
-                                  iconColor: AppColors.primaryColor,
-                                  bgColor: AppColors.whiteColor,
-                                  textColor: AppColors.blackColor,
-                                ),
-                                CustomSizedBox.height(20.h),
-                                CustomButton(
-                                  onTap: () async {
 
-                                    Uri phoneNo = Uri.parse('tel:+9291111222550');
-                                    if (await launchUrl(phoneNo)) {
-                                    //dialer opened
-                                    }else{
-                                    //dailer is not opened
-                                    }
+                     final timings = state.contactUsData.branches![index].timing.toString();
 
-                                  },
-                                  gapWidth: 10.sp,
-                                  text: '+92 91 111 222 550',
-                                  horizontalMargin: 20.w,
-                                  leadingIcon: Assets.calling,
-                                  leadingSvgIcon: true,
-                                  iconColor: AppColors.primaryColor,
-                                  bgColor: AppColors.whiteColor,
-                                  textColor: AppColors.blackColor,
-                                ),
-                              ],
-                            )));
-                  },
-                  button1Text: 'Call',
-                  button2Text: 'info@hbkblankets.com',
+                     final timingss = timings.getOfficeTimings(timings);
 
-                ),
-              ),
-              CustomSizedBox.height(10.h),
-              ExpandableTileWidget(
-                isImageRequired: true,
-                imageUrl: Assets.appLogo,
-                text: 'Lahore Office',
+                     final summerTimings = timingss[0];
+                     final winterTimings = timingss[1];
 
-                expendedContent: ExpandableContents(
-                  button1onTap: () {
-                    CustomDialog.dialog(
-                        context,
-                        SizedBox(
-                            width: 1.sw,
-                            height: 1.sh / 3,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomButton(
-                                  onTap: () async {
+                     // print('Summer Timings: $summerTimings');
+                     // print('Winter Timings: $winterTimings');
+                    return ExpandableTileWidget(
+                      text: state.contactUsData.branches![index].name,
+                       isImageRequired: true,
+                       imageUrl: Assets.appLogo,
+                       expendedContent: ExpandableContents(
 
-                                    Uri phoneNo = Uri.parse('tel:+923008542950');
-                                    if (await launchUrl(phoneNo)) {
-                                      //dialer opened
-                                    }else{
-                                      //dailer is not opened
-                                    }
+                         button1onTap: () {
+                           CustomDialog.dialog(
+                               context,
+                               SizedBox(
+                                   width: 1.sw,
+                                   height: 1.sh / 3,
+                                   child: Column(
+                                     mainAxisAlignment: MainAxisAlignment.center,
+                                     children: [
+                                       CustomButton(
+                                         onTap: () async {
+                                           Uri phoneNo = Uri.parse(
+                                                'tel:${ state.contactUsData.branches![index].phone.toString().trim()}',
 
-                                  },
-                                  text: '+92 300 85 42 950',
-                                  horizontalMargin: 20.w,
-                                  leadingIcon: Assets.calling,
-                                  leadingSvgIcon: true,
-                                  gapWidth: 10.sp,
-                                  iconColor: AppColors.primaryColor,
-                                  bgColor: AppColors.whiteColor,
-                                  textColor: AppColors.blackColor,
-                                ),
-                                CustomSizedBox.height(20.h),
-                                CustomButton(
-                                  onTap: () async {
+                                           );
+                                           if (await launchUrl(phoneNo)) {
+                                             //dialer opened
+                                           } else {
+                                             //dailer is not opened
+                                           }
+                                         },
+                                         text: state.contactUsData.branches![index].phone.toString().trim(),
+                                         // text: '+92 300 85 42 950',
 
-                                    Uri phoneNo = Uri.parse('tel:+9291111222550');
-                                    if (await launchUrl(phoneNo)) {
-                                      //dialer opened
-                                    }else{
-                                      //dailer is not opened
-                                    }
+                                         horizontalMargin: 20.w,
+                                         leadingIcon: Assets.calling,
+                                         leadingSvgIcon: true,
+                                         gapWidth: 10.sp,
+                                         iconColor: AppColors.primaryColor,
+                                         bgColor: AppColors.whiteColor,
+                                         textColor: AppColors.blackColor,
+                                       ),
+                                       CustomSizedBox.height(20.h),
+                                       CustomButton(
+                                         onTap: () async {
+                                           Uri phoneNo = Uri.parse(
+                                               // 'tel:+9291111222550'
+                                             "tel:${state.contactUsData.branches![index].mobile.toString()}"
+                                           );
+                                           if (await launchUrl(phoneNo)) {
+                                             //dialer opened
+                                           } else {
+                                             //dailer is not opened
+                                           }
+                                         },
+                                         gapWidth: 10.sp,
+                                         text: state.contactUsData.branches![index].mobile.toString().trim(),
+                                         horizontalMargin: 20.w,
+                                         leadingIcon: Assets.calling,
+                                         leadingSvgIcon: true,
+                                         iconColor: AppColors.primaryColor,
+                                         bgColor: AppColors.whiteColor,
+                                         textColor: AppColors.blackColor,
+                                       ),
+                                     ],
+                                   )));
+                         },
+                         button1Text: 'Call',
+                         location: state.contactUsData.branches![index].address.toString().trim(),
 
-                                  },
-                                  gapWidth: 10.sp,
-                                  text: '+92 91 111 222 550',
-                                  horizontalMargin: 20.w,
-                                  leadingIcon: Assets.calling,
-                                  leadingSvgIcon: true,
-                                  iconColor: AppColors.primaryColor,
-                                  bgColor: AppColors.whiteColor,
-                                  textColor: AppColors.blackColor,
-                                ),
-                              ],
-                            )));
-                  },
-                  button1Text: 'Call',
-                  button2Text: 'Lahore@hbkblankets.com',
+                         button2Text: state.contactUsData.branches![index].email.toString().trim(),
 
-                  location:
-                      'Hall # 1, 3rd Floor New Azam Cloth Market(plaza) inside Sheran wala Gate Lahore, Pakistan.',
-                ),
-              ),
-              CustomSizedBox.height(10.h),
-              ExpandableTileWidget(
-                isImageRequired: true,
-                imageUrl: Assets.appLogo,
-                text: 'Karachi Office',
-                expendedContent: ExpandableContents(
-                  button1onTap: () {
-                    CustomDialog.dialog(
-                        context,
-                        SizedBox(
-                            width: 1.sw,
-                            height: 1.sh / 3,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomButton(
-                                  onTap: () async {
+                         // summerTiming: state.contactUsData.branches![index].timing.toString().trim(),
+                         summerTiming: summerTimings,
+                         winterTiming: winterTimings,
 
-                                    Uri phoneNo = Uri.parse('tel:+923008542950');
-                                    if (await launchUrl(phoneNo)) {
-                                      //dialer opened
-                                    }else{
-                                      //dailer is not opened
-                                    }
+                       ),
+                     );
+                   }, separatorBuilder: (context,index){
+                     return CustomSizedBox.height(10.h);
+                   }, itemCount: state.contactUsData.branches!.length),
+                 )
 
-                                  },
-                                  text: '+92 300 85 42 950',
-                                  horizontalMargin: 20.w,
-                                  leadingIcon: Assets.calling,
-                                  leadingSvgIcon: true,
-                                  gapWidth: 10.sp,
-                                  iconColor: AppColors.primaryColor,
-                                  bgColor: AppColors.whiteColor,
-                                  textColor: AppColors.blackColor,
-                                ),
-                                CustomSizedBox.height(20.h),
-                                CustomButton(
-                                  onTap: () async {
-
-                                    Uri phoneNo = Uri.parse('tel:+9291111222550');
-                                    if (await launchUrl(phoneNo)) {
-                                      //dialer opened
-                                    }else{
-                                      //dailer is not opened
-                                    }
-
-                                  },
-                                  gapWidth: 10.sp,
-                                  text: '+92 91 111 222 550',
-                                  horizontalMargin: 20.w,
-                                  leadingIcon: Assets.calling,
-                                  leadingSvgIcon: true,
-                                  iconColor: AppColors.primaryColor,
-                                  bgColor: AppColors.whiteColor,
-                                  textColor: AppColors.blackColor,
-                                ),
-                              ],
-                            )));
-                  },
-                  button1Text: 'Call',
-                  button2Text: 'Karachi@hbkblankets.com',
-
-                  location:
-                      'PLOT # S-95 Behind Good Luck Flour mill,Hawksbay Road,S.I.T.E Karachi Pakistan.',
-                ),
-              ),
-              CustomSizedBox.height(10.h),
-              ExpandableTileWidget(
-                isImageRequired: true,
-                imageUrl: Assets.appLogo,
-                text: 'Faisalabad Office',
-                expendedContent: ExpandableContents(
-                  button1onTap: () {
-                    CustomDialog.dialog(
-                        context,
-                        SizedBox(
-                            width: 1.sw,
-                            height: 1.sh / 3,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomButton(
-                                  onTap: () async {
-
-                                    Uri phoneNo = Uri.parse('tel:+923008542950');
-                                    if (await launchUrl(phoneNo)) {
-                                      //dialer opened
-                                    }else{
-                                      //dailer is not opened
-                                    }
-
-                                  },
-                                  text: '+92 300 85 42 950',
-                                  horizontalMargin: 20.w,
-                                  leadingIcon: Assets.calling,
-                                  leadingSvgIcon: true,
-                                  gapWidth: 10.sp,
-                                  iconColor: AppColors.primaryColor,
-                                  bgColor: AppColors.whiteColor,
-                                  textColor: AppColors.blackColor,
-                                ),
-                                CustomSizedBox.height(20.h),
-                                CustomButton(
-                                  onTap: () async {
-
-                                    Uri phoneNo = Uri.parse('tel:+9291111222550');
-                                    if (await launchUrl(phoneNo)) {
-                                      //dialer opened
-                                    }else{
-                                      //dailer is not opened
-                                    }
-
-                                  },
-                                  gapWidth: 10.sp,
-                                  text: '+92 91 111 222 550',
-                                  horizontalMargin: 20.w,
-                                  leadingIcon: Assets.calling,
-                                  leadingSvgIcon: true,
-                                  iconColor: AppColors.primaryColor,
-                                  bgColor: AppColors.whiteColor,
-                                  textColor: AppColors.blackColor,
-                                ),
-                              ],
-                            )));
-                  },
-                  button1Text: 'Call',
-                  button2Text: 'factory@hbkblankets.com',
-
-                  location:
-                      'Address: Plot # 300, Phase II, M-3 Industrial City, Sahinwala, Faisalabad,Pakistan.',
-                ),
-              ),
-            ],
-          ),
+               ],
+             );
+           }else{
+             return const SizedBox();
+           }
+          },
         ),
       ),
     );

@@ -69,6 +69,8 @@ class OrderDetailsScreen extends StatelessWidget {
                         CustomSizedBox.height(10.h
                         ),
                         Chip(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+side: const BorderSide(color: Colors.white),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.r)),
                           backgroundColor: MaterialStateColor.resolveWith((states) =>
@@ -78,8 +80,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                 .toString()
                                 .split('.')
                                 .last,
-                            style: Styles.circularStdMedium(context,
-                                color: AppColors.whiteColor),
+                            style: Styles.circularStdRegular(context,
+                                color: AppColors.whiteColor,fontSize: 10.sp),
                           ),
                         ),
                       ],
@@ -114,6 +116,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: 350.h,
                       child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           itemCount: Utils.orderItems.length,
                           itemBuilder: (context, index) {

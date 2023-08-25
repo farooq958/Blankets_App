@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hbk/Data/AppData/app_providers.dart';
@@ -10,9 +11,15 @@ class DownloadCallBack{
 
   static void downloadCallBackTest (id, status, progress) {
 
-    print(id);
-    print(status);
-    print(progress);
+    if (kDebugMode) {
+      print(id);
+    }
+    if (kDebugMode) {
+      print(status);
+    }
+    if (kDebugMode) {
+      print(progress);
+    }
 
   }
 
@@ -31,7 +38,9 @@ void main() async {
       true // option: set to false to disable working with http links (default: false)
   );
   await FlutterDownloader.registerCallback(DownloadCallBack.downloadCallBackTest);
-  runApp(const MyApp());
+  runApp( MultiBlocProvider(providers: appProviders,
+
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -46,7 +55,7 @@ class MyApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         builder: (context, child) {
           return
-          MultiBlocProvider(providers: appProviders, child:  MaterialApp(
+          MaterialApp(
             title: 'HBK Blanket',
             theme: ThemeData(
                 primaryColor: AppColors.primaryColor
@@ -54,7 +63,7 @@ class MyApp extends StatelessWidget {
             //home: const LoginScreen(),
             home: const SplashScreen(),
             debugShowCheckedModeBanner: false,
-          ));
+          );
 
 
         });

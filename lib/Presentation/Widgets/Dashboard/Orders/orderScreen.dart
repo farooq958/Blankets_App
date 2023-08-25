@@ -38,9 +38,11 @@ class _OrderScreenState extends State<OrderScreen> {
               ),
             ),
             bottom:   TabBar(
+              indicatorSize: TabBarIndicatorSize.tab,
               labelStyle: Styles.circularStdMedium(context,color: Colors.black26),
               labelColor: AppColors.primaryColor,
               indicatorColor: AppColors.primaryColor,
+
                 tabs: const[
               Tab(text: 'Active'),
               Tab(text: 'Pending'),

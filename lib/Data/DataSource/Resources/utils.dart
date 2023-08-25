@@ -236,6 +236,22 @@ class Utils {
       orderId: "123456",
       image: Assets.bagIcon,
       orderNo: "123",
+      orderStatus: OrderStatus.Pending,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
+      orderStatus: OrderStatus.Pending,
+      noOfItems: 05,
+      totalRS: 1500.0,
+    ),
+    OrderModel(
+      orderId: "123456",
+      image: Assets.bagIcon,
+      orderNo: "123",
       orderStatus: OrderStatus.Active,
       noOfItems: 05,
       totalRS: 1500.0,
@@ -299,6 +315,36 @@ class Utils {
   ];
 
   static final List<OrderItem> orderItems = [
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',
+        itemCount: 03,
+        amount: 2000),
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',
+        itemCount: 03,
+        amount: 2000),
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',
+        itemCount: 03,
+        amount: 2000),
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',
+        itemCount: 03,
+        amount: 2000),
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',
+        itemCount: 03,
+        amount: 2000),
+    OrderItem(
+        image: Assets.bagIcon,
+        itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',
+        itemCount: 03,
+        amount: 2000),
     OrderItem(
         image: Assets.bagIcon,
         itemTitle: 'Baby Perla Gold 1 Ply Blanket ( Large )',

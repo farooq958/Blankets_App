@@ -7,6 +7,7 @@ import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/app_drawer.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_app_bar.dart';
@@ -17,6 +18,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/home_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/profile_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/search_screen.dart';
+import 'package:hbk/Presentation/Widgets/Notifications/notification_screen.dart';
 import 'package:hbk/Presentation/Widgets/no_internet_connection.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
@@ -51,10 +53,17 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       key: scaffoldKey,
       appBar: CustomAppBar(
 pageController: pageController,
-        onNotificationTap: (){
+        onSearchTap: (){
 
   Navigate.to(context,  SearchScreen());
 
+        },
+        onNotificationTap: (){
+  if(widget.isGuest==true){
+    showLoginDialog(context);
+  }else{
+    Navigate.to(context, const NotificationScreen());
+  }
         },
         onBackTap: (){
         scaffoldKey.currentState!.openDrawer();
@@ -157,48 +166,7 @@ onPageChanged: (x)
                   child: InkWell(
                     onTap: () {
                       if(widget.isGuest == true){
-                        CustomDialog.dialog(
-                            context,
-                            SizedBox(
-                                width: 1.sw,
-                                height: 250.h,
-                                child: Center(
-                                  child: Column(
-                                    // crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        Assets.logout,
-                                        width: 50.w,
-                                        height: 50.h,
-                                      ),
-                                      CustomSizedBox.height(10.h),
-                                      AppText('Please login first',
-                                          style: Styles.circularStdBold(
-                                              context,
-                                              fontSize: 22.sp)),
-                                      CustomSizedBox.height(10.h),
-                                      AppText('Please login first',
-                                          style: Styles.circularStdBold(
-                                              context,
-                                              fontSize: 16.sp)),
-                                      CustomSizedBox.height(10.h),
-
-                                      CustomButton(
-                                        onTap: () {
-                                          Navigator.of(context).pop(true);
-                                          Navigate.to(context, const LoginScreen());
-                                        },
-                                        text: 'Login',
-                                        width: 1.sw,
-                                        horizontalMargin: 20.w,
-                                      ),
-
-                                    ],
-
-                                  ),
-                                )));
+                        showLoginDialog(context);
                       }
                       else{
                         BottomNotifier.bottomNavigationNotifier.value=1;
@@ -299,48 +267,7 @@ onPageChanged: (x)
                   child: InkWell(
                     onTap: () {
                       if(widget.isGuest == true){
-                        CustomDialog.dialog(
-                            context,
-                            SizedBox(
-                                width: 1.sw,
-                                height: 250.h,
-                                child: Center(
-                                  child: Column(
-                                    // crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        Assets.logout,
-                                        width: 50.w,
-                                        height: 50.h,
-                                      ),
-                                      CustomSizedBox.height(10.h),
-                                      AppText('Please login first',
-                                          style: Styles.circularStdBold(
-                                              context,
-                                              fontSize: 22.sp)),
-                                      CustomSizedBox.height(10.h),
-                                      AppText('Please login first',
-                                          style: Styles.circularStdBold(
-                                              context,
-                                              fontSize: 16.sp)),
-                                      CustomSizedBox.height(10.h),
-
-                                      CustomButton(
-                                        onTap: () {
-                                          Navigator.of(context).pop(true);
-                                          Navigate.to(context, const LoginScreen());
-                                        },
-                                        text: 'Login',
-                                        width: 1.sw,
-                                        horizontalMargin: 20.w,
-                                      ),
-
-                                    ],
-
-                                  ),
-                                )));
+                        showLoginDialog(context);
                       }
                       else{
                         BottomNotifier.bottomNavigationNotifier.value=3;

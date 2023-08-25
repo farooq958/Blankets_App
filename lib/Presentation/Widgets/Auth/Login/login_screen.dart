@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     borderRadius: 30.r,
                       onTap: () {
-                      LoadingDialog.showLoadingDialog(context);
+                    //  LoadingDialog.showLoadingDialog(context);
                    Navigate.to(context, const BottomNavigationScreen(isGuest: false,));
                   // BottomNotifier.bottomNavigationNotifier.value=0;
 

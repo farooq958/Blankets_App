@@ -73,8 +73,8 @@ class OrderCard extends StatelessWidget {
 
                                   TextSpan(
                                       text: '50,490 ',
-                                      style: Styles.circularStdBold(context,
-                                          fontWeight: FontWeight.w900, fontSize: 20,color: Colors.blue)),
+                                      style: Styles.circularStdMedium(context,
+                                          fontSize: 20,color: Colors.blue)),
                                 ])),
                             // AppText('Total: RS ${orderModel!.totalRS} ',
                             //     style: Styles.circularStdMedium(context,color: Colors.blue)),
@@ -84,14 +84,15 @@ class OrderCard extends StatelessWidget {
                     ),
                     CustomSizedBox.height(10.w),
                     Chip(
+                      side: const BorderSide(color: Colors.white),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.r)),
                       backgroundColor: MaterialStateColor.resolveWith((states) =>
                           _getStatusColor(orderModel!.orderStatus)),
                       label: AppText(
                         orderModel!.orderStatus.toString().split('.').last,
-                        style: Styles.circularStdMedium(context,
-                            color: AppColors.whiteColor),
+                        style: Styles.circularStdRegular(context,
+                            color: AppColors.whiteColor,fontSize: 10.sp),
                       ),
                     ),
                   ],

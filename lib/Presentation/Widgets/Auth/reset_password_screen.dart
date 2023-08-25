@@ -23,7 +23,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircleIconButton(
-                  isSvg: true,
+                  // isSvg: true,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

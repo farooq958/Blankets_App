@@ -24,6 +24,7 @@ class OrderTab extends StatelessWidget {
     return Stack(
       children: [
         ListView.builder(
+          physics: const BouncingScrollPhysics(),
           itemCount: filteredOrders.length,
           itemBuilder: (context, index) {
             OrderModel order = filteredOrders[index];

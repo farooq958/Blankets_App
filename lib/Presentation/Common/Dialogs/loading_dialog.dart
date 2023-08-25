@@ -17,7 +17,7 @@ class LoadingDialog {
     return Dialog(
       insetPadding: const EdgeInsets.all(15).r,
       elevation: 0.0,
-      backgroundColor: Colors.transparent,
+       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10).r,
       ),

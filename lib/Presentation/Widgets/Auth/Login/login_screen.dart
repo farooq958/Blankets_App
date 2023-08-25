@@ -1,6 +1,7 @@
 
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Auth/reset_password_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
 
@@ -87,6 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     borderRadius: 30.r,
                       onTap: () {
+                      LoadingDialog.showLoadingDialog(context);
                    Navigate.to(context, const BottomNavigationScreen(isGuest: false,));
                   // BottomNotifier.bottomNavigationNotifier.value=0;
 

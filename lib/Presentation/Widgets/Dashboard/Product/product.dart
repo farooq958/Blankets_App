@@ -37,6 +37,7 @@ class ProductScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.sp),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(children: [
             ///Search products
           isGuest==true? const SizedBox(height: 0,width: 0,):  CustomTextFieldWithOnTap(
@@ -53,36 +54,36 @@ class ProductScreen extends StatelessWidget {
                 hintTextColor: AppColors.greyColor,
                 controller: searchController, hintText: 'Search products', textInputType: TextInputType.text),
             ///sort and filters
-            isGuest==true? const SizedBox(height: 10,width: 10,):const SizedBox(height: 0,width: 0,),
-             SortAndFilter(
-               onFilterTap:(){
-               SortSheet.showBottomSheet(context,FilterBottomSheetWidget(isGuest:isGuest),'Filters');
-
-            } ,onSortTap: (){
-
-               SortSheet.showBottomSheet(context,SizedBox(
-                 height: isGuest==true?180.h:260.h,
-                 child: Padding(
-                   padding: EdgeInsets.symmetric(horizontal: 18.0.sp),
-                   child: Column(
-                     children: [
-                       CustomSizedBox.height(30.sp),
-                       Align(
-                         alignment: Alignment.centerLeft,
-                         child: AppText('Sort By', style: Styles.circularStdBold(context,letterSpacing: 1.1,fontWeight:
-                         FontWeight.w600,fontSize: 19.sp),),
-                       ),
-                       CustomSizedBox.height(10.sp),
-                       CustomRadioButtons(getCurrentValue: (s){},buttonList: isGuest==true? ["Most Relevant",'New arrivals']:  const ['Most Relevant','Low to high','High to low',
-'New arrivals'
-],),
-                     ],
-                   ),
-                 ),
-               ),'Sort By');
-
-             },),
-CustomSizedBox.height(10),
+            isGuest==true? const SizedBox(height: 0,width: 0,):const SizedBox(height: 0,width: 0,),
+//              SortAndFilter(
+//                onFilterTap:(){
+//                SortSheet.showBottomSheet(context,FilterBottomSheetWidget(isGuest:isGuest),'Filters');
+//
+//             } ,onSortTap: (){
+//
+//                SortSheet.showBottomSheet(context,SizedBox(
+//                  height: isGuest==true?180.h:260.h,
+//                  child: Padding(
+//                    padding: EdgeInsets.symmetric(horizontal: 18.0.sp),
+//                    child: Column(
+//                      children: [
+//                        CustomSizedBox.height(30.sp),
+//                        Align(
+//                          alignment: Alignment.centerLeft,
+//                          child: AppText('Sort By', style: Styles.circularStdBold(context,letterSpacing: 1.1,fontWeight:
+//                          FontWeight.w600,fontSize: 19.sp),),
+//                        ),
+//                        CustomSizedBox.height(10.sp),
+//                        CustomRadioButtons(getCurrentValue: (s){},buttonList: isGuest==true? ["Most Relevant",'New arrivals']:  const ['Most Relevant','Low to high','High to low',
+// 'New arrivals'
+// ],),
+//                      ],
+//                    ),
+//                  ),
+//                ),'Sort By');
+//
+//              },),
+CustomSizedBox.height(5),
             ///Grid View Products
             ///
             Align(
@@ -104,7 +105,7 @@ CustomSizedBox.height(10),
             //
             //   ),
             // ),
-
+            CustomSizedBox.height(5),
 
             Wrap(
               direction: Axis.horizontal,

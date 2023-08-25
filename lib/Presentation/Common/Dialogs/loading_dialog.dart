@@ -24,8 +24,8 @@ class LoadingDialog {
       child: child ??
           Lottie.asset(
             'assets/images/hbk_blanket_loader.json',
-            height: 200,
-            width: 200,
+            height: 300,
+            width: 300,
             //  color: Colors.transparent,
             //frameRate: 30, // default is 15 FPS
           ),

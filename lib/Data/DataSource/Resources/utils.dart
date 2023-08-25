@@ -66,7 +66,15 @@ class Utils {
     CategoryProduct(
         productId: "5",
         productImage: "assets/images/dummy.png",
-        productName: "General Product")
+        productName: "General Product"),
+    CategoryProduct(
+        productId: "5",
+        productImage: "assets/images/dummy.png",
+        productName: "General Product"),
+    CategoryProduct(
+        productId: "5",
+        productImage: "assets/images/dummy.png",
+        productName: "General Product"),
   ];
   static List<ProductModel> dummyProduct = [
     ProductModel(

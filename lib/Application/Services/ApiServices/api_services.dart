@@ -39,7 +39,22 @@ class Api {
       rethrow;
     }
   }
+static getCat(String url)
+async {
+  var request = http.Request('GET', Uri.parse(url));
 
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+   // print();
+    return await response.stream.bytesToString();
+}
+else {
+print(response.reasonPhrase);
+}
+
+}
   static Future<Map<String, dynamic>> post(
       String url, Map<String, dynamic> body,
       {Map<String, String>? header}) async {

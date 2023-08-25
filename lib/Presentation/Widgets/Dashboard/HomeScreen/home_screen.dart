@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
@@ -16,8 +17,9 @@ import 'package:hbk/Presentation/Widgets/Dashboard/Product/Components/product_de
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
 
 import 'Components/home_carousel.dart';
+import 'Controller/category_cubit.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final bool? isGuest;
   final PageController? pageController;
 
@@ -25,16 +27,27 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, this.pageController, required this.isGuest});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return  Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.sp),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(5),
+                  widget.isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(5),
 
                   ///Top Row
-               isGuest==true? const SizedBox(height: 0,width: 0,):   Row(
+               widget.isGuest==true? const SizedBox(height: 0,width: 0,):   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       AppText(
@@ -55,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                       ]))
                     ],
                   ),
-                  isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(10),
+                  widget.isGuest==true? const SizedBox(height: 0,width: 0,): CustomSizedBox.height(10),
 
                   ///Home Coruosel sliding Images
                   const HomeCarousel(),
@@ -70,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                             fontWeight: FontWeight.w500, fontSize: 20.sp),
                       )),
                   CustomSizedBox.height(20),
-                  CategoryProduct(pageController: pageController,  isGuest: isGuest,),
+                  CategoryProduct(pageController: widget.pageController,  isGuest: widget.isGuest,),
 
                   ///New Arrival
 
@@ -84,10 +97,10 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500, fontSize: 20.sp),
                           ),
                           const Spacer(),
-                          isGuest==true?const SizedBox(height: 0,width: 0,) :GestureDetector(
+                          widget.isGuest==true?const SizedBox(height: 0,width: 0,) :GestureDetector(
 
                             onTap: (){
-                              pageController?.jumpToPage(2);
+                              widget.pageController?.jumpToPage(2);
                             },
                             child: AppText(
                              'See all',
@@ -102,19 +115,19 @@ class HomeScreen extends StatelessWidget {
                   ///to be continued ...
                   SizedBox(
                       width: 1.sw,
-                      height:  isGuest==true? 195.h:250.h,
+                      height:  widget.isGuest==true? 195.h:250.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return NewArrivalProduct(
                             onDetailTap: (){
 
-                              Navigate.to(context, ProductDetails(isGuest: isGuest,));
+                              Navigate.to(context, ProductDetails(isGuest: widget.isGuest,));
                             },
-                            isGuest: isGuest,
+                            isGuest: widget.isGuest,
                             dummyProduct: Utils.dummyProduct[index],
                             onAddToCardTap: () {
-                              if (isGuest == true) {
+                              if (widget.isGuest == true) {
                                 CustomDialog.dialog(
                                     context,
                                     SizedBox(
@@ -170,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                                       }, button2Tap: (){
                                         Navigate.pop(context);
 
-                                        pageController?.jumpToPage(3);
+                                        widget.pageController?.jumpToPage(3);
 
                                       });
                                 }
@@ -185,7 +198,7 @@ class HomeScreen extends StatelessWidget {
                   CustomSizedBox.height(10),
 
                   ///Most Sold Product replace the product dummy list with actual list of most sold product
-                  isGuest==true? SizedBox(height: 0.sp,width: 0.sp,): Align(
+                  widget.isGuest==true? SizedBox(height: 0.sp,width: 0.sp,): Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
@@ -195,10 +208,10 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500, fontSize: 20.sp),
                           ),
                           const Spacer(),
-                          isGuest==true?const SizedBox(height: 0,width: 0,) :  GestureDetector(
+                          widget.isGuest==true?const SizedBox(height: 0,width: 0,) :  GestureDetector(
                             onTap: (){
 
-                              pageController?.jumpToPage(2);
+                              widget.pageController?.jumpToPage(2);
                             },
                             child: AppText(
                               'See all',
@@ -208,21 +221,21 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ],
                       )),
-                  isGuest==true? SizedBox(height: 0.sp,width: 0.sp,):   SizedBox(
+                  widget.isGuest==true? SizedBox(height: 0.sp,width: 0.sp,):   SizedBox(
                       width: 1.sw,
-                      height:  isGuest==true? 195.h:250.h,
+                      height:  widget.isGuest==true? 195.h:250.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return NewArrivalProduct(
-                            isGuest: isGuest,
+                            isGuest: widget.isGuest,
                             onDetailTap: (){
 
-                              Navigate.to(context, ProductScreen(title: "",isGuest: isGuest,));
+                              Navigate.to(context, ProductScreen(title: "",isGuest: widget.isGuest,));
                             },
                             dummyProduct: Utils.dummyProduct[index],
                             onAddToCardTap: () {
-                              if (isGuest == true) {
+                              if (widget.isGuest == true) {
                                 CustomDialog.dialog(
                                     context,
                                     SizedBox(
@@ -282,7 +295,7 @@ class HomeScreen extends StatelessWidget {
                                       }, button2Tap: (){
                                         Navigate.pop(context);
 
-                                        pageController?.jumpToPage(3);
+                                        widget.pageController?.jumpToPage(3);
 
                                       });
                                 }

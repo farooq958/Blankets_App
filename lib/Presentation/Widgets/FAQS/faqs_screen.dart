@@ -72,7 +72,7 @@ class _FAQSState extends State<FAQS> {
                           style:
                           Styles.circularStdMedium(context, fontSize: 16.sp),
                           maxLine: 5,
-                          textAlign: TextAlign.justify,
+                          // textAlign: TextAlign,
                         ),
                       )
                     ],

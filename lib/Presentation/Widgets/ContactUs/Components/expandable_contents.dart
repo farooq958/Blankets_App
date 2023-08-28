@@ -35,6 +35,7 @@ class ExpandableContents extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomButton(
             onTap: button1onTap!,
@@ -140,6 +141,7 @@ class ExpandableContents extends StatelessWidget {
                 color: AppColors.blackColor,
                 size: 20.r,
               ),
+              CustomSizedBox.width(5.w),
               SizedBox(
                 width: 270.w,
                 child: AppText(

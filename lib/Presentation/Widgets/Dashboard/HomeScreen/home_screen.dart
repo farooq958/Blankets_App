@@ -16,6 +16,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/categor
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/new_arrival_product_widget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/Components/product_detail.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'Components/home_carousel.dart';
 import 'Controller/category_cubit.dart';
@@ -221,7 +222,25 @@ context.read<NewArrivalProductCubit>().getNewArrivalProducts();
     }
     else if(state is NewArrivalProductLoading)
       {
-        return Center(child:AppText("Loading..", style: Styles.circularStdBold(context)),);
+        return ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (BuildContext context, int index) {
+
+            return      SizedBox(
+             // height: 100,
+              width: 150.w,
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: NewArrivalProduct(onAddToCardTap: () {  },), // Create a ShimmerListTile widget
+              ),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return CustomSizedBox.width(15);
+          }, itemCount: 15,
+
+        );
       }
     else if(state is NewArrivalProductError){
       return  SizedBox(

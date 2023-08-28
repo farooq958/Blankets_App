@@ -28,7 +28,8 @@ class ProductScreen extends StatefulWidget {
   final String? title;
   final bool? isGuest;
   final PageController? pageController;
-   ProductScreen({super.key, this.title,this.isGuest,  this.pageController});
+  final String? catId;
+   const ProductScreen({super.key, this.title,this.isGuest,  this.pageController, this.catId});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -41,8 +42,13 @@ class _ProductScreenState extends State<ProductScreen> {
 @override
   void initState() {
     // TODO: implement initState
-
-  context.read<AllProductsCubit>().getAllProducts();
+if(widget.catId!=null) {
+  context.read<AllProductsCubit>().getAllProducts(catId:widget.catId);
+}
+else
+  {
+    context.read<AllProductsCubit>().getAllProducts();
+  }
 
   super.initState();
   }
@@ -132,7 +138,7 @@ CustomSizedBox.height(5),
           ///
       Align(
         alignment: Alignment.centerLeft,
-        child: AppText("${tempSearchData.length} products found", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))),
+        child: AppText("${tempSearchData.length} Products Found", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))),
       10.y,
       state is AllProductsLoaded?
       Expanded(
@@ -233,7 +239,7 @@ CustomSizedBox.height(5),
           ],),
         ),
       ):
-      Center(child: LoadingDialog.loadingWidget()),
+      Expanded(child: Center(child: LoadingDialog.loadingWidget())),
           //CustomSizedBox.height(100)
           ],);
   },

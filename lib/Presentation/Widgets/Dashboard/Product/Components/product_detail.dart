@@ -1,4 +1,5 @@
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Data/DataSource/Resources/properties_data.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/Controller/quantity_notifier.dart';
 
@@ -38,7 +39,7 @@ children: [
                   flex: 2,
                   child:
                   isApi==true?                   AppText(productDto!.itemName.toString(),
-                      maxLine: 2, style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 18.sp))
+                      maxLine: 3, style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 18.sp))
                       :
                   AppText("Belpla Teenagers 1 Ply Single Bed Blanket",maxLine: 2, style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 18.sp))
               ),
@@ -126,12 +127,14 @@ children: [
                   AppText("Product specification", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 18.sp))),
 
             CustomSizedBox.height(10),
-              const ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Product origin',trailingName: 'China',),
-              const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Category',trailingName: '1 PLY Double bet blanket',),
-              const ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Product brand',trailingName: 'Burjjan',),
+               ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Product origin',trailingName:  isApi==true?getOriginString(productDto!):'China',),
+               ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Category',trailingName: isApi==true?productDto!.cat.toString():'1 PLY Double bet blanket',),
+               ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Product brand',trailingName:  isApi==true?productDto!.itemName.toString().split(" ").first:'Burjjan',),
                ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Product packaging',trailingName: isApi==true?productDto!.uPacking:'Play bag',),
                ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Specification',trailingName: isApi==true?productDto!.uGoodstype:'200 x 240 CMS',),
-              const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Embossed',trailingName: 'Yes',),
+               ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Embossed',trailingName:   isApi==true?getEmbossedString(productDto!) :'Yes',),
+              ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Pcs Per Carton',trailingName:   isApi==true?productDto!.defaultSalesUom.toString() :'20 Pcs',),
+
               // isGuest==true?  const SizedBox(height: 0,width: 0,):
               // ListTile(
               //   tileColor: AppColors.whiteColor,

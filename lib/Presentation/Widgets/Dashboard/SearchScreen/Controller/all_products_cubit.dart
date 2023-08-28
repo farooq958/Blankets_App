@@ -9,14 +9,14 @@ part '../State/all_products_state.dart';
 class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit() : super(AllProductsInitial());
 
-  getAllProducts() async {
+  getAllProducts({String? catId}) async {
 
 
     await Future.delayed(const Duration(milliseconds: 16));
     emit(AllProductsLoading());
     try {
 
-      await ProductRepo().getProduct(allProductsUrl).then((value) {
+      await ProductRepo().getProduct(catId!=null? categoryProductUrl+catId:allProductsUrl).then((value) {
 
 
         var newArrivalData = List<ProductApiModel>.from(value.map((x) => ProductApiModel.fromMap(x)));

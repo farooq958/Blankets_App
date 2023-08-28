@@ -40,7 +40,7 @@ bool? tempSearchChange;
 // TODO: implement listener
           },
   builder: (context, state) {
-   String productLength=state is AllProductsLoaded?state.allProductsData.length.toString():'0';
+ //  String productLength=state is AllProductsLoaded?state.allProductsData.length.toString():'0';
    tempSearchData = state is AllProductsLoaded && tempSearchChange==null? state.allProductsData:tempSearchChange==true? tempSearchData: [];
    print(tempSearchData.length.toString()+"templength");
     return Column(children: [
@@ -77,7 +77,7 @@ bool? tempSearchChange;
               controller: searchController, hintText: 'Search By Name & Category', textInputType: TextInputType.text),
           Align(
               alignment: Alignment.centerLeft,
-              child: AppText("${tempSearchData.length} products found", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))),
+              child: AppText("${tempSearchData.length} Products Found", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))),
           10.y,
       state is AllProductsLoaded?
           Expanded(
@@ -178,7 +178,7 @@ bool? tempSearchChange;
                 ],),
             ),
           ):
-      Center(child: LoadingDialog.loadingWidget()),
+      Expanded(child: Center(child: LoadingDialog.loadingWidget())),
 
 
         ],);

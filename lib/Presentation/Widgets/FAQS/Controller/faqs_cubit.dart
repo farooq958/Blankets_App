@@ -20,11 +20,11 @@ class FaqsCubit extends Cubit<FaqsState>{
         emit(FaqsSuccess( faqsModel: faqsData));
       }).catchError((e){
         print(e);
-        throw e;
+        // throw e;
         emit(FaqsError(e));});
     }catch(e){
       print(e);
-      rethrow;
+      // rethrow;
       emit(FaqsError(e.toString()));
     }
   }

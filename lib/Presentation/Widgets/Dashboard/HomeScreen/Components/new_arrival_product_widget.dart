@@ -13,9 +13,11 @@ import 'package:hbk/Presentation/Common/image_widgets.dart';
 class NewArrivalProduct extends StatelessWidget {
  final ProductModel? dummyProduct;
  final VoidCallback onAddToCardTap;
+ final ProductApiModel? productData;
  final VoidCallback? onDetailTap;
  final  bool? isGuest;
-  const NewArrivalProduct({super.key, this.dummyProduct, required this.onAddToCardTap, this.onDetailTap, this.isGuest});
+ final bool? isFromApi;
+  const NewArrivalProduct({super.key, this.dummyProduct, required this.onAddToCardTap, this.onDetailTap, this.isGuest, this.productData, this.isFromApi});
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +47,22 @@ class NewArrivalProduct extends StatelessWidget {
             GestureDetector(
                 onTap: onDetailTap ,
 
-                child: AssetImageWidget(url:dummyProduct!.productImage.toString(),radius: 40.sp,width: 110.w,height: 100.h,)),
+                child: isFromApi ==true?
+                    
+                    CachedImage(url:"http://imtxt.sbsolutions.com.pk:44891/Picture/${productData!.uImage.toString()}",isCircle: false,width: 110,height: 100.h,)
+                    :
+                
+                AssetImageWidget(url:dummyProduct!.productImage.toString(),radius: 40.sp,width: 110.w,height: 100.h,)),
             CustomSizedBox.height(10),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child: AppText(dummyProduct!.productDescription.toString(),
+              child:isFromApi ==true?
+              AppText(productData!.itemName.toString(),
+                  maxLine: 3,
+                  style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
+
+              )
+                  : AppText(dummyProduct!.productDescription.toString(),
                   maxLine: 3,
                   style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
 
@@ -66,7 +79,11 @@ class NewArrivalProduct extends StatelessWidget {
 
                   ),
                   CustomSizedBox.width(2),
-                  AppText( "${dummyProduct!.productPrice}",
+                  isFromApi ==true?AppText( "${productData!.price}",
+                      maxLine: 1,
+                      style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,color: AppColors.primaryColor)
+
+                  ) : AppText( "${dummyProduct!.productPrice}",
                       maxLine: 1,
                       style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,color: AppColors.primaryColor)
 

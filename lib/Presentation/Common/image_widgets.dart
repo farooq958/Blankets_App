@@ -101,22 +101,23 @@ class CachedImage extends StatelessWidget {
               ),
             ),
       errorWidget: (context, url, error) {
-       if(error.statusCode == 500)
-         {
+
            return
              isCircle!
                  ?
              CircleAvatar(
              radius: radius,
-             backgroundImage: const NetworkImage("https://www.si.com/.image/t_share/MTY4MTk3MTQ1NjcyMzYxODU3/tennis-inlinejpg.jpg")
+             backgroundImage: const NetworkImage("https://firebasestorage.googleapis.com/v0/b/hbk-blankets.appspot.com/o/logo.png?alt=media&token=409f2508-9b66-44ac-9c82-ec19a1046cd6")
 
 
            ):
-                Image.network("https://www.si.com/.image/t_share/MTY4MTk3MTQ1NjcyMzYxODU3/tennis-inlinejpg.jpg");
-         }
-       else
-         {
-        return const Icon(Icons.error);}},
+                Image.network("https://firebasestorage.googleapis.com/v0/b/hbk-blankets.appspot.com/o/logo.png?alt=media&token=409f2508-9b66-44ac-9c82-ec19a1046cd6"
+                ,width: width??110,
+                  height: height??110,
+
+                );
+
+     },
 
       imageBuilder: (context, imageProvider) => isCircle!
           ? CircleAvatar(

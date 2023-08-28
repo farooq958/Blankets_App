@@ -59,7 +59,7 @@ class _CategoryProductState extends State<CategoryProduct> {
 Utils.productTitle.value=Utils.categoryDummyProduct[index].productName.toString();
 print(state.categoryData[index].catId);
 ///used
-            Navigate.to(context, ProductScreen(title: Utils.categoryDummyProduct[index].productName.toString(),isGuest: widget.isGuest,));
+            Navigate.to(context, ProductScreen(title:  state.categoryData[index].cat.toString(),isGuest: widget.isGuest,));
 
 //pageController?.jumpToPage(2);
 

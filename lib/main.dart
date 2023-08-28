@@ -30,6 +30,8 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  //SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+
   await NotificationServices().initNotification();
   await FlutterDownloader.initialize(
       debug: true,

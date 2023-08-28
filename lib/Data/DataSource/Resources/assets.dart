@@ -113,7 +113,13 @@ static const String headerPdf='assets/images/headerpdflogo.png';
 static const String footerPdf='assets/images/footerpdf.png';
 
 
-
+  static const String babyBlanketCat='assets/images/babyBlanket.png';
+  static const String bedCoverSetCat='assets/images/bedCoverSet.png';
+  static const String doubleBedCat='assets/images/doubleBedBlanket.png';
+  static const String singleBedCat='assets/images/singleBedBlanket.png';
+  static const String flannelBlanketCat='assets/images/flannelBlanket.png';
+  static const String flannelSetsCat='assets/images/flannelSets.png';
+  static const String generalProductCat='assets/images/generalProduct.png';
 static const String iconPdf = 'assets/images/iconPdf.svg';
 
 static const String messageIcon='assets/images/message.svg';

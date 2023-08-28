@@ -8,6 +8,7 @@ import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/strings.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
 
@@ -18,6 +19,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/Product/product.dart';
 
 import 'Components/home_carousel.dart';
 import 'Controller/category_cubit.dart';
+import 'Controller/new_arrival_product_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool? isGuest;
@@ -33,7 +35,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-
+context.read<NewArrivalProductCubit>().getNewArrivalProducts();
     // TODO: implement initState
     super.initState();
   }
@@ -112,20 +114,41 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       )),
 
-                  ///to be continued ...
+                  
                   SizedBox(
                       width: 1.sw,
                       height:  widget.isGuest==true? 195.h:250.h,
-                      child: ListView.separated(
+                      child: BlocConsumer<NewArrivalProductCubit, NewArrivalProductState>(
+  listener: (context, state) {
+    // TODO: implement listener
+    // if (state is NewArrivalProductLoading) {
+    //   //print("in loading");
+    //   LoadingDialog.showLoadingDialog(context);
+    // }
+    // if (state is NewArrivalProductLoaded) {
+    //   Navigator.of(context).pop(true);
+    // }
+    // if(state is NewArrivalProductError)
+    //   {
+    //     Navigator.of(context).pop(true);
+    //     CustomDialog.dialog(context, AppText(state.error.toString(), style: Styles.circularStdBold(context)));
+    //   }
+  },
+  builder: (context, state) {
+
+    if(state is NewArrivalProductLoaded ) {
+      return ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return NewArrivalProduct(
+                            isFromApi:true,
+                            productData: state.newArrivalData[index],
                             onDetailTap: (){
 
-                              Navigate.to(context, ProductDetails(isGuest: widget.isGuest,));
+                              Navigate.to(context, ProductDetails(isGuest: widget.isGuest,productDto:state.newArrivalData[index],isApi:true));
                             },
                             isGuest: widget.isGuest,
-                            dummyProduct: Utils.dummyProduct[index],
+                           // dummyProduct: Utils.dummyProduct[index],
                             onAddToCardTap: () {
                               if (widget.isGuest == true) {
                                 CustomDialog.dialog(
@@ -193,8 +216,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         separatorBuilder: (context, index) {
                           return CustomSizedBox.width(15);
                         },
-                        itemCount: Utils.dummyProduct.length,
-                      )),
+                        itemCount:  state.newArrivalData.length,
+                      );
+    }
+    else if(state is NewArrivalProductLoading)
+      {
+        return Center(child:AppText("Loading..", style: Styles.circularStdBold(context)),);
+      }
+    else if(state is NewArrivalProductError){
+      return  SizedBox(
+        height: 50.sp,
+        child: Center(
+
+          child: AppText("Something Went Wrong", style: Styles.circularStdBold(context)),
+
+        ),
+      );
+
+    }
+    else{
+
+      return const SizedBox();
+    }
+  },
+)),
                   CustomSizedBox.height(10),
 
                   ///Most Sold Product replace the product dummy list with actual list of most sold product

@@ -5,7 +5,9 @@ import 'package:hbk/Presentation/Widgets/Dashboard/Product/Controller/quantity_n
 class ProductDetails extends  StatelessWidget {
   final ProductModel? pd;
   final  bool? isGuest;
-  const ProductDetails( {super.key,this.pd, this.isGuest,});
+  final bool? isApi;
+  final ProductApiModel? productDto;
+  const ProductDetails( {super.key,this.pd, this.isGuest, this.isApi, this.productDto,});
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +28,18 @@ body: Padding(
           child: Column(
             children: <Widget>[
 ///top widget upto price pkr 500xx
-              Center(child: AssetImageWidget(url: Assets.appLogo,color: AppColors.primaryColor,width: 270.w,height: 220.sp,)),
+              Center(child:
+              isApi==true?CachedImage(url:  "http://imtxt.sbsolutions.com.pk:44891/Picture/${productDto!.uImage}",width: 270.w,height: 220.sp,isCircle:false) :
+              AssetImageWidget(url: Assets.appLogo,color: AppColors.primaryColor,width: 270.w,height: 220.sp,)),
 Row(
 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 children: [
               Expanded(
                   flex: 2,
                   child:
+                  isApi==true?                   AppText(productDto!.itemName.toString(),
+                      maxLine: 2, style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 18.sp))
+                      :
                   AppText("Belpla Teenagers 1 Ply Single Bed Blanket",maxLine: 2, style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 18.sp))
               ),
 
@@ -99,7 +106,7 @@ children: [
                         ),
                       ),
                       TextSpan(
-                        text: '5490',
+                        text: isApi==true?productDto!.price:'5490',
                         style: Styles.circularStdBold(
                           context,
                           color:AppColors.primaryColor,
@@ -122,8 +129,8 @@ children: [
               const ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Product origin',trailingName: 'China',),
               const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Category',trailingName: '1 PLY Double bet blanket',),
               const ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Product brand',trailingName: 'Burjjan',),
-              const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Product packaging',trailingName: 'Play bag',),
-              const ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Specification',trailingName: '200 x 240 CMS',),
+               ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Product packaging',trailingName: isApi==true?productDto!.uPacking:'Play bag',),
+               ProductTile(tileColor: AppColors.productTileColor,leadingName: 'Specification',trailingName: isApi==true?productDto!.uGoodstype:'200 x 240 CMS',),
               const ProductTile(tileColor: AppColors.whiteColor,leadingName: 'Embossed',trailingName: 'Yes',),
               // isGuest==true?  const SizedBox(height: 0,width: 0,):
               // ListTile(

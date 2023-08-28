@@ -1,12 +1,31 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/new_arrival_product_widget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/Components/product_detail.dart';
 
-class SearchScreen extends  StatelessWidget {
+import 'Controller/all_products_cubit.dart';
+
+class SearchScreen extends  StatefulWidget {
  final  bool? isGuest;
    SearchScreen({super.key,this.isGuest});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
 final TextEditingController searchController=SearchController();
+@override
+  void initState() {
+  context.read<AllProductsCubit>().getAllProducts();
+    // TODO: implement initState
+    super.initState();
+  }
+List<ProductApiModel> tempSearchData=[];
+bool? tempSearchChange;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,28 +35,55 @@ final TextEditingController searchController=SearchController();
         isNotificationScreen: true,isShowNotificationButton: true,),
       body:Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.sp),
-        child: Column(children: [
+        child: BlocConsumer<AllProductsCubit, AllProductsState>(
+          listener: (context, state) {
+// TODO: implement listener
+          },
+  builder: (context, state) {
+   String productLength=state is AllProductsLoaded?state.allProductsData.length.toString():'0';
+   tempSearchData = state is AllProductsLoaded && tempSearchChange==null? state.allProductsData:tempSearchChange==true? tempSearchData: [];
+   print(tempSearchData.length.toString()+"templength");
+    return Column(children: [
           CustomTextFieldWithOnTap(
               isShadowRequired: true,
 
               prefixIcon: SvgPicture.asset(Assets.searchIcon,color: AppColors.greyColor,) ,
 
               isBorderRequired: false,
-              onChanged: (v){
+              onChanged: (query){
+                if(state is AllProductsLoaded) {
+
+                  setState(() {
+
+                    tempSearchData=state.allProductsData.where((model) {
+
+
+                    final nameLower = model.itemName?.toLowerCase();
+                    final category = model.cat?.toString(); // Convert age to string for comparison
+                    final queryLower = query.toLowerCase();
+
+                    return nameLower!.contains(queryLower) || category!.contains(queryLower);
+
+                  }).toList();
+                    tempSearchChange=true;
+
+                });
+                }
                 ///tobe evaluated
               },
 
               borderRadius:20.sp,
               hintTextColor: AppColors.greyColor,
-              controller: searchController, hintText: 'Search products', textInputType: TextInputType.text),
+              controller: searchController, hintText: 'Search By Name & Category', textInputType: TextInputType.text),
           Align(
               alignment: Alignment.centerLeft,
-              child: AppText("15 products found", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))),
+              child: AppText("${tempSearchData.length} products found", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500))),
           10.y,
+      state is AllProductsLoaded?
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              child: Wrap(
+              child:  Wrap(
                 direction: Axis.horizontal,
                 spacing: 12,
 
@@ -47,10 +93,10 @@ final TextEditingController searchController=SearchController();
 
                 children: [
 
-                  for(var i in Utils.dummyProduct)
+                  for(var i in tempSearchData)
 
-                    NewArrivalProduct(dummyProduct: i, onAddToCardTap: () { print("tap $i");
-                    if(isGuest == true){
+                    NewArrivalProduct(onAddToCardTap: () { print("tap $i");
+                    if(widget.isGuest == true){
                       CustomDialog.dialog(
                           context,
                           SizedBox(
@@ -111,17 +157,19 @@ final TextEditingController searchController=SearchController();
                           }, button2Tap: (){
                             Navigate.pop(context);
 
-                           // pageController?.jumpToPage(3);
+                            // pageController?.jumpToPage(3);
 
                           }
                       );
                     }
                     },onDetailTap: (){
 
-                      Navigate.to(context,  ProductDetails(pd: i,isGuest:isGuest));
+                      Navigate.to(context,  ProductDetails(productDto: i,isGuest:widget.isGuest,isApi:true));
 
                     },
-                        isGuest:isGuest
+                        isGuest:widget.isGuest,
+                        productData: i,
+                        isFromApi:true
                     )
 
 
@@ -129,11 +177,17 @@ final TextEditingController searchController=SearchController();
 
                 ],),
             ),
-          ),
+          ):
+      Center(child: LoadingDialog.loadingWidget()),
 
 
-        ],),
+        ],);
+
+
+    },
+),
       )
     );
   }
 }
+

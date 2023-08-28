@@ -50,31 +50,31 @@ class Utils {
   static List<CategoryProduct> categoryDummyProduct = [
     CategoryProduct(
         productId: "1",
-        productImage: "assets/images/dummy.png",
+        productImage: Assets.babyBlanketCat,
         productName: "General Product"),
     CategoryProduct(
         productId: "2",
-        productImage: "assets/images/dummy2.png",
+        productImage: Assets.bedCoverSetCat,
         productName: "Baby Blanket"),
     CategoryProduct(
         productId: "3",
-        productImage: "assets/images/dummy3.png",
+        productImage: Assets.doubleBedCat,
         productName: "Flannel Blanket"),
     CategoryProduct(
         productId: "4",
-        productImage: "assets/images/dummy2.png",
+        productImage: Assets.flannelBlanketCat,
         productName: "Baby Blanket"),
     CategoryProduct(
         productId: "5",
-        productImage: "assets/images/dummy.png",
+        productImage: Assets.flannelSetsCat,
         productName: "General Product"),
     CategoryProduct(
         productId: "5",
-        productImage: "assets/images/dummy.png",
+        productImage: Assets.generalProductCat,
         productName: "General Product"),
     CategoryProduct(
         productId: "5",
-        productImage: "assets/images/dummy.png",
+        productImage: Assets.singleBedCat,
         productName: "General Product"),
   ];
   static List<ProductModel> dummyProduct = [

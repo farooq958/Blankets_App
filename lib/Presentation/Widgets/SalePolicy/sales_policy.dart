@@ -16,63 +16,60 @@ class SalesPolicy extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomSizedBox.height(20.h),
-              ExpandableTileWidget(
+              const ExpandableTileWidget(
                 text: 'Rebate policy',
                 imageUrl: Assets.rebatePolicy,
                 leadingSvgIcon: true,
                 isImageRequired: true,
                 expendedContent: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-
-                      AssetImageWidget(
-                        url: Assets.policy,
-                        width: 1.sw,
-                        height: 300.h,
-                      ),
+                      CachedImage(
+                          url:
+                              'http://imtxt.sbsolutions.com.pk:44890/Picture/CustomerApplogin/rebate_policy.jpg',
+                          isCircle: false),
                     ],
                   ),
                 ),
               ),
               CustomSizedBox.height(20.h),
-               ExpandableTileWidget(
-                  isImageRequired: true,
-                  imageUrl: Assets.loyalPolicy,
-                  leadingSvgIcon: true,
-                  text: 'Loyal policy',
-                  expendedContent: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
+              const ExpandableTileWidget(
+                isImageRequired: true,
+                imageUrl: Assets.loyalPolicy,
+                leadingSvgIcon: true,
+                text: 'Loyal policy',
+                expendedContent: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      CachedImage(
+                          url:
 
-                        AssetImageWidget(
-                          url: Assets.policy,
-                          width: 1.sw,
-                          height: 300.h,
-                        ),
-                      ],
-                    ),
-                  ),),
+                          'http://imtxt.sbsolutions.com.pk:44890/Picture/CustomerApplogin/loyal_policy.jpg',
+                          isCircle: false),
+                    ],
+                  ),
+                ),
+              ),
               CustomSizedBox.height(20.h),
-               ExpandableTileWidget(
-                  isImageRequired: true,
-                  imageUrl: Assets.transportPolicy,
-                  leadingSvgIcon: true,
-                  text: 'Transport policy',
-                  expendedContent: Padding(
-                    padding:  const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-
-                        AssetImageWidget(
-                          url: Assets.policy,
-                          width: 1.sw,
-                          height: 300.h,
-                        ),
-                      ],
-                    ),
-                  ),),
+              const ExpandableTileWidget(
+                isImageRequired: true,
+                imageUrl: Assets.transportPolicy,
+                leadingSvgIcon: true,
+                text: 'Transport policy',
+                expendedContent: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      CachedImage(
+                          url:
+                          'http://imtxt.sbsolutions.com.pk:44890/Picture/CustomerApplogin/transport_policy.jpg',
+                          isCircle: false),
+                    ],
+                  ),
+                ),
+              ),
               CustomSizedBox.height(20.h),
             ],
           ),

@@ -1562,7 +1562,7 @@ Widget pdfTitlePriceList(invoiceTitle)
                 ],
               ),
             )
-                : priceListData[i].title != null
+                : priceListData[i].category != null
                 ? Container(
               height: 30,
               //color: pd.PdfColors.grey,
@@ -1574,7 +1574,7 @@ Widget pdfTitlePriceList(invoiceTitle)
                     padding: EdgeInsets.only(left: 30),
                    // width: MediaQuery.of(context).size.width,
                     child: Text(
-                      priceListData[i].title.toString(),
+                      priceListData[i].category.toString(),
                       style: TextStyle(
                         color: pd.PdfColors.blue,
                         fontWeight: FontWeight.normal,

@@ -74,31 +74,31 @@ String getCatStringchecking(List<dynamic> productlist, int index) {
   return cat;
 }
 
-String getCatStringforpricelist(dynamic productlist) {
+String getCatStringForPriceList(ProductApiModel productData) {
   // For Brands
   String cat = "";
-  if (productlist['Property6'] == "Y") {
+  if (productData.qryGroup6 == "Y") {
     cat = CatProps.prop6;
   }
-  if (productlist['Property7'] == "Y") {
+  if (productData.qryGroup7 == "Y") {
     cat = CatProps.prop7;
   }
-  if (productlist['Property8'] == "Y") {
+  if (productData.qryGroup8 == "Y") {
     cat = CatProps.prop8;
   }
-  if (productlist['Property9'] == "Y") {
+  if (productData.qryGroup9 == "Y") {
     cat = CatProps.prop9;
   }
-  if (productlist['Property10'] == "Y") {
+  if (productData.qryGroup10 == "Y") {
     cat = CatProps.prop10;
   }
-  if (productlist['Property11'] == "Y") {
+  if (productData.qryGroup11 == "Y") {
     cat = CatProps.prop11;
   }
-  if (productlist['Property12'] == "Y") {
+  if (productData.qryGroup12 == "Y") {
     cat = CatProps.prop12;
   }
-  if (productlist['Property22'] == "Y") {
+  if (productData.qryGroup22 == "Y") {
     cat = CatProps.prop22;
   }
   // print("cat is $cat");

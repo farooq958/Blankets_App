@@ -117,7 +117,7 @@ class Utils {
     DrawerModel(
         screenName: 'Price list',
         iconPath: Assets.priceIcon,
-        widgetToNavigate:  PriceListScreen()),
+        widgetToNavigate:  const PriceListScreen()),
     DrawerModel(
         screenName: 'Reward',
         iconPath: Assets.rewardIcon,

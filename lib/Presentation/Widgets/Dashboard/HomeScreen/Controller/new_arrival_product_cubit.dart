@@ -16,7 +16,7 @@ class NewArrivalProductCubit extends Cubit<NewArrivalProductState> {
     emit(NewArrivalProductLoading());
     try {
 
-      await ProductRepo().getProduct(newArrivalProductUrl).then((value) {
+      await ProductRepo().getProduct(newArrivalGuest).then((value) {
 
 
         var newArrivalData = List<ProductApiModel>.from(value.map((x) => ProductApiModel.fromMap(x)));

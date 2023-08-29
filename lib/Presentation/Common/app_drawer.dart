@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
@@ -8,6 +9,8 @@ import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Component/drawer_row.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 
 import 'app_text.dart';
 import 'image_widgets.dart';
@@ -109,9 +112,17 @@ class AppDrawer extends StatelessWidget {
                           return DrawerRow(
                             screenName: Utils.drawerData[index].screenName,
                             iconPath: Utils.drawerData[index].iconPath,
-                            onTap: () {
+                            onTap: () async {
+if(Utils.drawerData[index].screenName=='Price list'){
+  context.read<AllProductsCubit>().getAllProducts();
+ await Future.delayed(const Duration(milliseconds: 30));
+  Navigate.to(context,
+      Utils.drawerData[index].widgetToNavigate!);
+}
+else
+  {
                               Navigate.to(context,
-                                  Utils.drawerData[index].widgetToNavigate!);
+                                  Utils.drawerData[index].widgetToNavigate!);}
                             },
                           );
                         },

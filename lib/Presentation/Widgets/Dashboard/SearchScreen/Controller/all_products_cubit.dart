@@ -9,17 +9,19 @@ part '../State/all_products_state.dart';
 class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit() : super(AllProductsInitial());
 
-  getAllProducts({String? catId}) async {
-
-
+  getAllProducts({String? catId,bool? dispose}) async {
+if(dispose != null) {
+  close();
+}
     await Future.delayed(const Duration(milliseconds: 16));
     emit(AllProductsLoading());
     try {
 
-      await ProductRepo().getProduct(catId!=null? categoryProductUrl+catId:allProductsUrl).then((value) {
+      await ProductRepo().getProduct(catId!=null? categoryProductUrl+catId:allProductGuestUrl).then((value) {
 
 
         var newArrivalData = List<ProductApiModel>.from(value.map((x) => ProductApiModel.fromMap(x)));
+        print(newArrivalData.length.toString()+"apiproductlenthacas");
 
         emit(AllProductsLoaded(allProductsData:newArrivalData));
 
@@ -32,5 +34,7 @@ class AllProductsCubit extends Cubit<AllProductsState> {
       emit(AllProductsError(error:e.toString()));
     }
   }
+
+
 
 }

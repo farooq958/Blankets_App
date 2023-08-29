@@ -7,9 +7,9 @@ import 'package:hbk/Presentation/Widgets/CustomerSurvery/customer_survey_steps.d
 
 class CustomRadioSelectionTile extends StatelessWidget {
   final String title;
-  final CustomerSurveySelection value;
-  final CustomerSurveySelection groupValue;
-  final Function(CustomerSurveySelection?) onChanged;
+  final dynamic value;
+  final dynamic groupValue;
+  final Function(dynamic?) onChanged;
 
   const CustomRadioSelectionTile({
     super.key,
@@ -40,7 +40,7 @@ class CustomRadioSelectionTile extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Radio<CustomerSurveySelection>(
+                Radio<dynamic>(
                   activeColor: AppColors.primaryColor,
                   value: value,
                   groupValue: groupValue,

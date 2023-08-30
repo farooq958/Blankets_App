@@ -5,12 +5,14 @@ abstract class AllProductsState {}
 
 class AllProductsInitial extends AllProductsState {}
 class AllProductsLoading extends AllProductsState {}
+class LogOutProductState extends AllProductsState {}
 class AllProductsLoaded extends AllProductsState {
 
   final List<ProductApiModel> allProductsData;
   AllProductsLoaded({required this.allProductsData});
 
 }
+
 class AllProductsError extends AllProductsState {
 
   final String? error;

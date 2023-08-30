@@ -18,11 +18,17 @@ class CategoryCubit extends Cubit<CategoryState> {
 
       await CategoryRepo().getCategoryData().then((value) {
 
+if(value.runtimeType != int) {
+  var categoryData = List<CategoryModel>.from(
+      value.map((x) => CategoryModel.fromMap(x)));
 
-        var categoryData = List<CategoryModel>.from(value.map((x) => CategoryModel.fromMap(x)));
 
-        emit(CategoryLoaded(categoryData:categoryData));
-
+  emit(CategoryLoaded(categoryData: categoryData));
+}
+else
+  {
+    emit(LogOutState());
+  }
       }).catchError((e) {
         //throw e;
         emit(CategoryError(error: e));

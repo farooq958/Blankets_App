@@ -5,6 +5,7 @@ abstract class CategoryState {}
 
 class CategoryInitial extends CategoryState {}
 class CategoryLoading extends CategoryState {}
+class LogOutState extends CategoryState {}
 class CategoryLoaded extends CategoryState {
   final List<CategoryModel> categoryData;
   CategoryLoaded({required this.categoryData});

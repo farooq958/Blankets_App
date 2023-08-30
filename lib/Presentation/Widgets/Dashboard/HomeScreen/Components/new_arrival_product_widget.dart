@@ -79,7 +79,7 @@ class NewArrivalProduct extends StatelessWidget {
 
                   ),
                   CustomSizedBox.width(2),
-                  isFromApi ==true?AppText( "${productData!.price}",
+                  isFromApi ==true?AppText( "${productData!.price?.replaceAll(RegExp(r'\.0+$'), '')}",
                       maxLine: 1,
                       style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,color: AppColors.primaryColor)
 

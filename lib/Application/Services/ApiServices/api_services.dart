@@ -1,19 +1,21 @@
 import 'dart:convert';
 //import 'dart:ffi';
+import 'package:hbk/Data/AppData/app_preferences.dart';
+import 'package:hbk/Domain/Models/Auth/user_data.dart';
 import 'package:http/http.dart' as http;
 
 
 class Api {
   static Map<String, String> _authMiddleWare() {
-   // UserData? us = SharedPrefs.getUserLoginData();
-    // print(us?.token);
+   String? us = SharedPrefs.getUserToken();
+    print(us);
 
-    // return us != null? {
-    //   "Authorization": "Bearer ${us.token}",
-    //   'Content-Type': 'application/json',
-    //   //'Content-Type': 'application/json'
-    // }:
-    return {
+    return us != null? {
+      "Authorization": "Bearer $us",
+      //'Content-Type': 'application/json',
+      //'Content-Type': 'application/json'
+    }:
+     {
 
       'Content-Type': 'application/json',
     };
@@ -39,10 +41,10 @@ class Api {
       rethrow;
     }
   }
-static getCat(String url)
+static getCat(String url, {Map<String, String>? header})
 async {
   var request = http.Request('GET', Uri.parse(url));
-
+request.headers.addAll(header??_authMiddleWare());
 
   http.StreamedResponse response = await request.send();
 
@@ -50,8 +52,10 @@ async {
    // print();
     return await response.stream.bytesToString();
 }
-else {
+else if(response.statusCode==401) {
 print(response.reasonPhrase);
+return 401;
+
 }
 
 }
@@ -64,7 +68,7 @@ print(response.reasonPhrase);
       http.Response res = await http.post(
         Uri.parse(url),
         headers: header ?? _authMiddleWare(),
-        body: jsonEncode(body),
+        body: (body),
       );
 
       if (res.statusCode == 200 || res.statusCode == 201) {

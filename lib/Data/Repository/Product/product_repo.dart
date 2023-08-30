@@ -9,11 +9,18 @@ class ProductRepo{
 
   Future<dynamic> getProduct(url)async{
     try{
+
       return await Api.getCat(url).then((value){
         if (kDebugMode) {
           print("P Response $value");
         }
-        return jsonDecode(value);
+        if(value.runtimeType != int) {
+          return jsonDecode(value);
+        }
+        else
+          {
+            return value;
+          }
       }).catchError((e){
         throw e;
       });

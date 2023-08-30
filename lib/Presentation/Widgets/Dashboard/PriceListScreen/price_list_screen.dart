@@ -103,7 +103,7 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
 
   final TextEditingController searchControllerPrice = TextEditingController();
   late PriceListDataSource priceListDataSource;
-  late  LinkedScrollControllerGroup _controllers=LinkedScrollControllerGroup();
+   final  LinkedScrollControllerGroup _controllers=LinkedScrollControllerGroup();
   ScrollController horizontalScrollController=ScrollController();
   ScrollController horizontalScrollControllerTitle=ScrollController();
 @override
@@ -1064,7 +1064,19 @@ row.add(Column(children: [
 print(dto);
 return dto;
   }
+  List<PriceListModel> filterDataForDownload(List<ProductApiModel> allProductsData) {
+    List<PriceListModel> productsListDta =[];
+    print(allProductsData.length.toString()+"productslength");
+    for(var i in allProductsData)
+    {
+      productsListDta.add(PriceListModel(i.itemName, i.uGoodstype.toString(), i.uPacking.toString(),category: i.cat,country: getOriginString(i),ctn: i.defaultSalesUom,price: i.price));
 
+    }
+
+
+   // print(dto);
+    return productsListDta;
+  }
   Future<void> readData() async {
     print('calleddto');
     await Future.delayed(const Duration(seconds: 2));

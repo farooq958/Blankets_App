@@ -45,6 +45,7 @@ class _CategoryProductState extends State<CategoryProduct> {
       },
   builder: (context, state) {
         if(state is CategoryLoaded) {
+          print(state.categoryData.length.toString()+"data cat");
           return SizedBox(
       height: 115,
       width: 1.sw,

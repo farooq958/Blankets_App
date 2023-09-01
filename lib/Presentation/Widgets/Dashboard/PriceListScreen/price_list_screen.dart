@@ -14,6 +14,7 @@ import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
+import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class PriceListScreen extends StatefulWidget {
@@ -480,7 +481,10 @@ if(mounted)
                     width: 1.sw,
                     child: FractionallySizedBox(
                       widthFactor: 1,
-                      child: CustomButton(
+                      child: BlocBuilder<AllProductsCubit, AllProductsState>(
+  builder: (context, state) {
+    if(state is AllProductsLoaded) {
+      return CustomButton(
                         gapWidth: 10,
                         textFontWeight: FontWeight.w400,
                         imageWidth: 20.sp,
@@ -488,11 +492,27 @@ if(mounted)
                         leadingSvgIcon: true,
                         leadingIcon: (Assets.downloadIcon),
                         onTap: () async {
+
+                          await PdfDownload().generatePdfForPrice(filterDataForDownload(state.allProductsData)).then((value)async{
+
+                            if(value!=null){
+                              await OpenFile.open(value.path);
+
+                            }
+                            print("valueeeeeeeeeeee $value");
+                          });
                           // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
                         },
                         text: "Download",
                         horizontalMargin: 20,
-                      ),
+                      );
+    }
+    else
+      {
+        return const SizedBox();
+      }
+  },
+),
                     ),
                   ),
                 )

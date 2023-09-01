@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
@@ -1454,7 +1455,7 @@ final height=1.sh;
                           crossAxisAlignment: pw.CrossAxisAlignment.center,
                           children: [
                             pw.Container(
-                              child: pw.Text('Haris Akhtar',
+                              child: pw.Text(SharedPrefs.userData!.cntctPrsn.toString(),
                                   //'${months[filterredDummy[index]]}',
                                   //'${oldlogindatalist['UserDetails']['CardName']}',
 

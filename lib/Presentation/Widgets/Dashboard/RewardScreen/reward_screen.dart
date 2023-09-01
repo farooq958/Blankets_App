@@ -150,8 +150,11 @@ class _RewardScreenState extends State<RewardScreen> {
             width: 1.sw,
             child: FractionallySizedBox(
               widthFactor: 1,
-              child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: ()async{
-                await PdfDownload().generatePdfForReward(rewardListData).then((value)async{
+              child: BlocBuilder<RewardControllerCubit, RewardControllerState>(
+  builder: (context, state) {
+    if(state is RewardLoaded) {
+      return CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: ()async{
+                await PdfDownload().generatePdfForReward(state.actualRewardData).then((value)async{
 
                 if(value!=null){
                  await OpenFile.open(value.path);
@@ -159,7 +162,14 @@ class _RewardScreenState extends State<RewardScreen> {
                 }
                   print("valueeeeeeeeeeee $value");
                 });
-              }, text: "Download",horizontalMargin: 20,),
+              }, text: "Download",horizontalMargin: 20,);
+    }
+    else
+      {
+        return const SizedBox();
+      }
+  },
+),
             ),
           ),
           CustomSizedBox.height(10)

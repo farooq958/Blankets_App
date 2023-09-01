@@ -45,6 +45,19 @@ class AppPermissions {
     return false;
   }
 
+  static Future<bool> hasStoragePermission({Function()? onSuccess})async {
+    await Permission.manageExternalStorage.request();
+
+    var status = await Permission.manageExternalStorage.status;
+
+    if(status.isGranted){
+      onSuccess!();
+      return true;
+
+    }
+    return false;
+  }
+
   ///Camera
   static Future<bool> hasAccessCameraPermission({Function()? onSuccess}) async {
     //ask for permission

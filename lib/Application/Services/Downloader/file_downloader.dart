@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:hbk/Data/AppData/app_permision.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FileDownloader {
@@ -83,25 +84,28 @@ if(Platform.isIOS)
   }
 else
   {
-    List<Directory>? directory =
-    await getExternalStorageDirectories(type: StorageDirectory.downloads);
-    final myFilePath = '${directory![0].path}/HbkApp';
+    await AppPermissions.hasStoragePermission(onSuccess: ()async{
+      List<Directory>? directory =
+          await getExternalStorageDirectories(type: StorageDirectory.downloads);
+      final myFilePath = '${directory![0].path}/HbkApp';
 
 
-    final myImgDir = await Directory(myFilePath).create();
-    // print(myImgDir);
-    final taskId = await FlutterDownloader.enqueue(
-      url: url,
-      headers: {},
-      // optional: header send with url (auth token etc)
-      savedDir: myImgDir.path,
-      //  showNotification: true,
-      // show download progress in status bar (for Android)
-      openFileFromNotification: true,
-      // click on notification to open downloaded file (for Android)
-      saveInPublicStorage: true,
-    );
-    print(taskId);
+      final myImgDir = await Directory(myFilePath).create();
+      // print(myImgDir);
+      final taskId = await FlutterDownloader.enqueue(
+        url: url,
+        headers: {},
+        // optional: header send with url (auth token etc)
+        savedDir: myImgDir.path,
+        //  showNotification: true,
+        // show download progress in status bar (for Android)
+        openFileFromNotification: true,
+        // click on notification to open downloaded file (for Android)
+        saveInPublicStorage: true,
+      );
+      print(taskId);
+    });
+
   }
 
   }

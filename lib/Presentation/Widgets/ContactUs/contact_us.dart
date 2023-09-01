@@ -87,7 +87,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                             CustomButton(
                                               onTap: () async {
                                                 Uri phoneNo = Uri.parse(
-                                                  'tel:${index == 0 ? "(+92) 91 2602150" : state.contactUsData.branches![index].phone.toString().trim()}',
+                                                  'tel:${
+                                                      //index == 0 ? "(+92) 91 2602150" :
+                                                  state.contactUsData.branches![index].phone.toString().trim()}',
                                                 );
                                                 if (await launchUrl(phoneNo)) {
                                                   //dialer opened
@@ -95,7 +97,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                                   //dailer is not opened
                                                 }
                                               },
-                                              text: index==0? "(+92) 91 2602150" : state.contactUsData
+                                              text:
+                                             // index==0? "(+92) 91 2602150" :
+                                              state.contactUsData
                                                   .branches![index].phone
                                                   .toString()
                                                   .trim(),
@@ -142,7 +146,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                   .toString()
                                   .trim(),
 
-                              button2Text: newEmail ??
+                              button2Text:
+                              //newEmail ??
                                   state.contactUsData.branches![index].email
                                       .toString()
                                       .trim(),

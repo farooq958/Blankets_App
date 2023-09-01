@@ -10,6 +10,7 @@ import 'package:hbk/Presentation/Widgets/ContactUs/Controller/contact_us_cubit.d
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Controller/new_arrival_product_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/Controller/reward_controller_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/statement_data_cubit.dart';
 import 'package:hbk/Presentation/Widgets/FAQS/Controller/faqs_cubit.dart';
 
 List<BlocProvider> appProviders = [
@@ -23,5 +24,6 @@ List<BlocProvider> appProviders = [
   BlocProvider<LoginCubit>(create: (context)=>LoginCubit()),
   BlocProvider<AllProductsCubit>(create: (context)=>AllProductsCubit()..getAllProducts()),
   BlocProvider<DashboardBottomCubit>(create: (context)=>DashboardBottomCubit()),
-  BlocProvider<RewardControllerCubit>(create: (context)=>RewardControllerCubit())
+  BlocProvider<RewardControllerCubit>(create: (context)=>RewardControllerCubit()),
+  BlocProvider<StatementDataCubit>(create: (context)=>StatementDataCubit())
 ];

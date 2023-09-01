@@ -1,15 +1,19 @@
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 import 'package:cross_scroll/cross_scroll.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
 import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'Component/customer_statement_date_picker.dart';
+import 'Controller/statement_data_cubit.dart';
 
 class CustomerStatementScreen extends  StatefulWidget {
    CustomerStatementScreen({super.key});
@@ -59,7 +63,8 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
   void initState() {
     super.initState();
     //employees= getEmployees();
-    statementDataSource = StatementListDataSource(employees: invoiceData, context: context);
+    context.read<StatementDataCubit>().getStatementDto(DateTime.now().subtract(const Duration(days: 365)).toString(), DateTime.now().toString());
+    //
   }
 
   @override
@@ -68,7 +73,22 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
 
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(title: 'Customer Statement',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
-      body: Stack(
+      body: BlocConsumer<StatementDataCubit, StatementDataState>(
+  listener: (context, state) {
+    // TODO: implement listener
+    if(state is StatementLoading)
+      {
+        LoadingDialog.showLoadingDialog(context);
+      }
+    if(state is StatementLoaded)
+      {
+        Navigate.pop(context);
+      }
+  },
+  builder: (context, state) {
+    if(state is StatementLoaded) {
+      statementDataSource = StatementListDataSource(employees: state.statementData, context: context);
+      return  Stack(
         children: [
           Column(
             children: [
@@ -88,7 +108,7 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
                           style: Styles.circularStdBold(context,fontSize: 16.sp
                           )),
                       TextSpan(
-                          text: '50,490 ',
+                          text: SharedPrefs.userData!.balance.toString(),
                           style: Styles.circularStdBold(context,fontWeight: FontWeight.w900,fontSize: 20
                           )),
 
@@ -126,7 +146,7 @@ trailIconWidth: 19.sp,
               ),
 
 ///sf data grid
-Expanded(child: SfDataGridTheme(
+              state.statementData.isEmpty?Expanded(child: Center(child: AppText('No Data Found',style: Styles.circularStdMedium(context,color: AppColors.primaryColor,fontSize: 16.sp),),)): Expanded(child: SfDataGridTheme(
   data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
   child: SfDataGrid(
     horizontalScrollPhysics: const BouncingScrollPhysics(),
@@ -307,7 +327,7 @@ Expanded(child: SfDataGridTheme(
 
                   // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
 
-                  await PdfDownload().generatePdfForStatement(invoiceData).then((value) async{
+                  await PdfDownload().generatePdfForStatement(state.statementData).then((value) async{
                     if(value!=null){
                       await OpenFile.open(value.path);
                     }
@@ -319,7 +339,14 @@ Expanded(child: SfDataGridTheme(
             ),
           )
         ],
-      ),
+      );
+    }
+    else
+      {
+        return const SizedBox();
+      }
+  },
+),
     );
   }
   List<GridColumn> getColumns(BuildContext context) {

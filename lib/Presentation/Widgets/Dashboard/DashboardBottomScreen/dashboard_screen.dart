@@ -1,7 +1,12 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Components/bottom_cards.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Components/chart_dashboard.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Components/custom_card.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Controller/dashboard_bottom_cubit.dart';
 
 import 'Components/info_card.dart';
 
@@ -19,9 +24,11 @@ class _DashboardBottomState extends State<DashboardBottom> {
   void initState() {
     // TODO: implement initState
 
-    if(widget.isGuest==true){
-      CustomDialog.dialog(context, Column());
-    }
+    // if(widget.isGuest==true){
+    //   CustomDialog.dialog(context, Column());
+    // }
+    //
+    context.read<DashboardBottomCubit>().getDashboardData();
 
     super.initState();
   }
@@ -52,7 +59,7 @@ class _DashboardBottomState extends State<DashboardBottom> {
                         style:
                             Styles.circularStdBold(context, fontSize: 16.sp)),
                     TextSpan(
-                        text: '50,490 ',
+                        text: SharedPrefs.userData!.balance.toString(),
                         style: Styles.circularStdBold(context,
                             fontWeight: FontWeight.w900, fontSize: 20)),
                   ]))
@@ -157,8 +164,34 @@ class _DashboardBottomState extends State<DashboardBottom> {
               //       itemCount: Utils.customCardData1.length),
               // ),
               CustomSizedBox.height(10),
-              SingleChildScrollView(
+              BlocConsumer<DashboardBottomCubit, DashboardBottomState>(
+  listener: (context, state) {
+    if(state is DashboardLoading)
+      {
+        LoadingDialog.showLoadingDialog(context);
+      }
+    if(state is DashboardLoaded)
+      {
+        Navigate.pop(context);
+      }
+    if(state is DashboardLogOutState)
+      {
+        Navigate.pop(context);
+        showLoginDialog(context,fromSession: true);
+      }
+    if(state is DashboardError)
+      {
+        Navigate.pop(context);
+        WidgetFunctions.instance.snackBar(context,text: state.error);
+
+      }
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    if(state is DashboardLoaded) {
+      return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
                 child: SizedBox(
                   // color: Colors.red,
                   height: (84*3).sp,
@@ -179,7 +212,14 @@ class _DashboardBottomState extends State<DashboardBottom> {
                     }),
                   ),
                 ),
-              )
+              );
+    }
+    else {
+
+      return const SizedBox();
+    }
+  },
+)
 // ,
 //               CustomSizedBox.height(10),
 //               SizedBox(

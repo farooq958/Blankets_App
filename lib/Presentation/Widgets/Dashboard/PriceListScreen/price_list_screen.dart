@@ -8,6 +8,7 @@ import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/properties_data.dart';
 import 'package:hbk/Data/DataSource/Resources/strings.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
+import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
@@ -216,7 +217,16 @@ if(mounted)
 
                           ),
                           SizedBox(height: 10.sp,),
-                          BlocBuilder<AllProductsCubit, AllProductsState>(
+                          BlocListener<AllProductsCubit, AllProductsState>(
+  listener: (context, state) {
+    // TODO: implement listener
+    if(state is LogOutProductState)
+    {
+      showLoginDialog(context,fromSession: true);
+
+    }
+  },
+  child: BlocBuilder<AllProductsCubit, AllProductsState>(
                             builder: (context, state) {
                               return SizedBox(
                                 height: 80,
@@ -265,6 +275,7 @@ if(mounted)
                               );
                             },
                           ),
+),
                           SizedBox(
                             height: 60,
                             child: Align(

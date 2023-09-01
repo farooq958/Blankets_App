@@ -1,10 +1,13 @@
 
 
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
-void showLoginDialog(BuildContext context){
+void showLoginDialog(BuildContext context,{bool? fromSession}){
   CustomDialog.dialog(
       context,
+     willPop:fromSession!=null?false:true,
+     // barrierDismissible:fromSession!=null?true:false,
       SizedBox(
           width: 1.sw,
           height: 250.h,
@@ -20,12 +23,12 @@ void showLoginDialog(BuildContext context){
                   height: 50.h,
                 ),
                 CustomSizedBox.height(10.h),
-                AppText('Please login first',
+                AppText( fromSession!= null ? 'Please Login First':'Please login first',
                     style: Styles.circularStdBold(
                         context,
                         fontSize: 22.sp)),
                 CustomSizedBox.height(10.h),
-                AppText('Please login first',
+                AppText(  fromSession!= null ?'Session Expired':'Please login first',
                     style: Styles.circularStdBold(
                         context,
                         fontSize: 16.sp)),
@@ -34,7 +37,11 @@ void showLoginDialog(BuildContext context){
                 CustomButton(
                   onTap: () {
                     Navigator.of(context).pop(true);
-                    Navigate.to(context, const LoginScreen());
+                    Navigate.toReplaceAll(context, const LoginScreen());
+                    if(fromSession!= null )
+                      {
+                        SharedPrefs.clearPref();
+                      }
                   },
                   text: 'Login',
                   width: 1.sw,
@@ -45,4 +52,5 @@ void showLoginDialog(BuildContext context){
 
             ),
           )));
+
 }

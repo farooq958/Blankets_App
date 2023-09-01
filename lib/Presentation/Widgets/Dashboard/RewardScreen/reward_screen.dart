@@ -3,6 +3,7 @@ import 'package:bottom_picker/resources/arrays.dart';
 import 'package:cross_scroll/cross_scroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,10 +13,12 @@ import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/strings.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/Controller/reward_controller_cubit.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 
@@ -62,7 +65,8 @@ class _RewardScreenState extends State<RewardScreen> {
   void initState() {
     super.initState();
     //employees= getEmployees();
-    rewardDataSource = RewardListDataSource(employees: rewardListData, context: context);
+    context.read<RewardControllerCubit>().getRewardDto();
+    // rewardDataSource = RewardListDataSource(employees: rewardListData, context: context);
   }
  // final TextEditingController searchControllerPrice=TextEditingController();
   @override
@@ -79,7 +83,23 @@ class _RewardScreenState extends State<RewardScreen> {
 
 
           Expanded(
-            child: SfDataGridTheme(
+            child: BlocConsumer<RewardControllerCubit, RewardControllerState>(
+  listener: (context, state) {
+    // TODO: implement listener
+    if(state is RewardLoading)
+      {
+        LoadingDialog.showLoadingDialog(context);
+      }
+    if(state is RewardLoaded)
+      {
+        Navigate.pop(context);
+      }
+
+  },
+  builder: (context, state) {
+    if(state is RewardLoaded) {
+      rewardDataSource = RewardListDataSource(employees: state.actualRewardData, context: context);
+      return SfDataGridTheme(
               data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
               child: SfDataGrid(
                 horizontalScrollPhysics: const BouncingScrollPhysics(),
@@ -104,7 +124,24 @@ class _RewardScreenState extends State<RewardScreen> {
                 frozenRowsCount: 0,
                 frozenColumnsCount: 0, source: rewardDataSource, // Number of frozen columns (sticky columns)
               ),
-            ) ,
+            );
+    }
+    // else if(State is RewardLoading)
+    //   {
+    //     return LoadingDialog.loadingWidget();
+    //
+    //   }
+    else if(state is RewardError)
+      {
+        return Center(child: AppText(state.error, style: Styles.circularStdBold(context)));
+      }
+    else
+      {
+
+        return const SizedBox();
+      }
+  },
+) ,
           ),
           SizedBox(
             width: 1.sw,

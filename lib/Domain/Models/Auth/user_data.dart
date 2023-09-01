@@ -30,9 +30,9 @@ class UserDetails {
   final String? phone1;
   final String? address;
   final String? cntctPrsn;
-  final int? balance;
+  final double? balance;
   final String? priceList;
-  final int? openOrder;
+  final double? openOrder;
   final String? creditLimit;
   final String? tolerance;
   final String? status;

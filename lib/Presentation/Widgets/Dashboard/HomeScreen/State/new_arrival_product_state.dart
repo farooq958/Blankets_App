@@ -5,6 +5,7 @@ abstract class NewArrivalProductState {}
 
 class NewArrivalProductInitial extends NewArrivalProductState {}
 class NewArrivalProductLoading extends NewArrivalProductState {}
+class LogOutStateNewArrival extends NewArrivalProductState {}
 class NewArrivalProductLoaded extends NewArrivalProductState {
 
   final List<ProductApiModel> newArrivalData;

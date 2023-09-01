@@ -3,6 +3,7 @@ import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
+import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/custom_radio_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/new_arrival_product_widget.dart';
@@ -36,13 +37,10 @@ class _ProductScreenState extends State<ProductScreen> {
     // TODO: implement initState
   isFromFilter=false;
   isFromSort=false;
-if(widget.catId!=null) {
-  context.read<AllProductsCubit>().getAllProducts(catId:widget.catId);
-}
-else
-  {
-    context.read<AllProductsCubit>().getAllProducts();
-  }
+  // if(widget.catId == null){
+  //
+  // }
+  context.read<AllProductsCubit>().getAllProducts(catId: widget.catId ?? 'all',isGuest:widget.isGuest);
 
   super.initState();
   }
@@ -59,6 +57,12 @@ else
         child: BlocConsumer<AllProductsCubit, AllProductsState>(
           listener: (context, state) {
 // TODO: implement listener
+            if(state is LogOutProductState)
+            {
+              showLoginDialog(context,fromSession: true);
+
+            }
+
           },
           builder: (context, state) {
             String productLength=state is AllProductsLoaded?state.allProductsData.length.toString():'0';

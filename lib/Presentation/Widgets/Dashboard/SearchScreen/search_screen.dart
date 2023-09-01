@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
+import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/new_arrival_product_widget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/Components/product_detail.dart';
@@ -20,7 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
 final TextEditingController searchController=SearchController();
 @override
   void initState() {
-  context.read<AllProductsCubit>().getAllProducts();
+  context.read<AllProductsCubit>().getAllProducts(isGuest: widget.isGuest,catId: 'all');
     // TODO: implement initState
     super.initState();
   }
@@ -38,6 +39,11 @@ bool? tempSearchChange;
         child: BlocConsumer<AllProductsCubit, AllProductsState>(
           listener: (context, state) {
 // TODO: implement listener
+            if(state is LogOutProductState)
+            {
+              showLoginDialog(context,fromSession: true);
+
+            }
           },
   builder: (context, state) {
  //  String productLength=state is AllProductsLoaded?state.allProductsData.length.toString():'0';

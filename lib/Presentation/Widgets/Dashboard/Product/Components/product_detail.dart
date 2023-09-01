@@ -171,7 +171,7 @@ children: [
               //         text: ' Add to cart',verticalPadding: 12,leadingIcon:Assets.bagIcon,leadingSvgIcon: true,horizontalMargin: 10, )),
               //
               // ),
-              CustomSizedBox.height(30)
+              CustomSizedBox.height(50)
 
             ],
           ),

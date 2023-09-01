@@ -9,7 +9,7 @@ part '../State/all_products_state.dart';
 class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit() : super(AllProductsInitial());
 
-  getAllProducts({String? catId,bool? dispose}) async {
+  getAllProducts({String? catId,bool? dispose,bool? isGuest}) async {
 if(dispose != null) {
   close();
 }
@@ -17,7 +17,7 @@ if(dispose != null) {
     emit(AllProductsLoading());
     try {
 
-      await ProductRepo().getProduct(catId!=null? categoryProductUrl+catId:allProductGuestUrl).then((value) {
+      await ProductRepo().getProduct(catId!=null && isGuest ==true ? categoryProductUrl+catId:catId!=null && isGuest ==false ?productAuthUrl+catId:allProductGuestUrl).then((value) {
 
 if(value !=int ) {
   var newArrivalData = List<ProductApiModel>.from(

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Component/drawer_row.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
@@ -17,8 +19,8 @@ import 'image_widgets.dart';
 
 class AppDrawer extends StatelessWidget {
   final bool? isGuest;
-
-  const AppDrawer({super.key, required this.isGuest});
+final  GlobalKey<ScaffoldState>? drawerKey;
+  const AppDrawer({super.key, required this.isGuest,  this.drawerKey});
 
   @override
   Widget build(BuildContext context) {
@@ -35,45 +37,46 @@ class AppDrawer extends StatelessWidget {
               isGuest==true?  30.y :CustomSizedBox.height(35.sp),
                 isGuest == false
                     ? SizedBox(
-                        height: 100.sp,
+                        height: 124.sp,
                         width: 1.sw / 1.35,
-                        child: Row(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            AssetImageWidget(
-                                isCircle: true,
-                                height: 30,
-                                width: 20,
-                                radius: 40.sp,
-                                url: 'assets/images/person.png'),
-                            CustomSizedBox.width(15),
+                            // AssetImageWidget(
+                            //     isCircle: true,
+                            //     height: 30,
+                            //     width: 20,
+                            //     radius: 40.sp,
+                            //     url: 'assets/images/person.png'),
+                            // CustomSizedBox.width(15),
+
                             Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                      child: Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: AppText("Aqib Javed",
-                                              style: Styles.circularStdBold(
-                                                  context,
-                                                  color: AppColors.whiteColor,
-                                                  fontSize: 20.sp,
-                                                  fontWeight:
-                                                      FontWeight.w600)))),
-                                  SizedBox(
-                                    height: 5.sp,
-                                  ),
-                                  Expanded(
-                                      child: AppText("example@gmail.com",
-                                          style: Styles.circularStdRegular(
-                                              context,
-                                              color: AppColors.whiteColor,
-                                              fontSize: 12.sp))),
-                                ],
-                              ),
+                              flex:2,
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: AppText(SharedPrefs.userData!.cardName.toString(),
+                                      maxLine: 2,
+                                      style: Styles.circularStdBold(
+                                          context,
+
+                                          color: AppColors.whiteColor,
+                                          fontSize: 20.sp,
+                                          fontWeight:
+                                              FontWeight.w600))),
                             ),
+                            Expanded(
+                                child: AppText(SharedPrefs.userData!.phone1.toString(),
+                                    style: Styles.circularStdRegular(
+                                        context,
+                                        color: AppColors.whiteColor,
+                                        fontSize: 12.sp))),
+                            Expanded(
+                                child: AppText(SharedPrefs.userData!.address.toString(),
+                                    maxLine: 3,
+                                    style: Styles.circularStdRegular(
+                                        context,
+                                        color: AppColors.whiteColor,
+                                        fontSize: 12.sp))),
                           ],
                         ),
                       )
@@ -114,11 +117,22 @@ class AppDrawer extends StatelessWidget {
                             iconPath: Utils.drawerData[index].iconPath,
                             onTap: () async {
 if(Utils.drawerData[index].screenName=='Price list'){
-  context.read<AllProductsCubit>().getAllProducts();
+  context.read<AllProductsCubit>().getAllProducts(catId: 'all',isGuest: isGuest);
  await Future.delayed(const Duration(milliseconds: 30));
   Navigate.to(context,
       Utils.drawerData[index].widgetToNavigate!);
 }
+else if( Utils.drawerData[index].screenName=='Logout')
+  {
+    drawerKey?.currentState?.closeDrawer();
+    LoadingDialog.showLoadingDialog(context);
+
+    await Future.delayed(const Duration(seconds: 3));
+    SharedPrefs.clearPref();
+
+    Navigate.toReplaceAll(drawerKey!.currentState!.context,
+        Utils.drawerData[index].widgetToNavigate!);
+  }
 else
   {
                               Navigate.to(context,

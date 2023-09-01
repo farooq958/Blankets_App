@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Application/Services/Connectivity/connectivity_service.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
@@ -38,6 +39,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   void initState() {
     // TODO: implement initState
    init();
+  var dto= SharedPrefs.getUserLoginData();
+  print("user details---");
+  print(dto?.cardCode);
     BottomNotifier.bottomNavigationNotifier.value=0;
     super.initState();
   }
@@ -69,7 +73,7 @@ pageController: pageController,
         scaffoldKey.currentState!.openDrawer();
 
       },),
-      drawer:   AppDrawer(isGuest:widget.isGuest!),
+      drawer:   AppDrawer(isGuest:widget.isGuest!,drawerKey:scaffoldKey),
 body: SizedBox(
   height: 1.sh,
   width: 1.sw,

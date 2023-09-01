@@ -7,19 +7,25 @@ import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'Dialogs/successfull_dialog.dart';
 
 class CustomDialog {
-  static Future<void> dialog(BuildContext context, Widget child) async {
+  static Future<void> dialog(BuildContext context, Widget child,{bool? barrierDismissible,bool? willPop}) async {
     return showDialog<void>(
       context: context,
+      barrierDismissible: barrierDismissible??false,
       barrierColor: Colors.black12,
       builder: (BuildContext context) {
-        return Dialog(
-          insetPadding: const EdgeInsets.all(15).r,
-          elevation: 0.0,
-          backgroundColor: AppColors.whiteColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10).r,
+        return WillPopScope(
+          onWillPop: () async{
+            return willPop??true;
+          },
+          child: Dialog(
+            insetPadding: const EdgeInsets.all(15).r,
+            elevation: 0.0,
+            backgroundColor: AppColors.whiteColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10).r,
+            ),
+            child: child,
           ),
-          child: child,
         );
       },
     );

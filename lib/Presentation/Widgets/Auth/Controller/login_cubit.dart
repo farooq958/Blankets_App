@@ -15,16 +15,16 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     try {
 
-      await AuthRepo().loginIt(username, password).then((value) {
+      await AuthRepo().loginIt(username, password).then((value) async {
         print("object");
         // print(username + password);
-         print(value);
+         print(value['UserDetails']);
 if(value['UserDetails']!= null && value['Message']== null)
   {
 
-    SharedPrefs.setUserLoginData(userRawData: value['UserDetails']);
+   await SharedPrefs.setUserLoginData(userRawData: value['UserDetails']);
     var data = SharedPrefs.getUserLoginData();
-    print("${data!.userDetails?.cardCode}card code username");
+    print("${data!.cardName}card code username");
     emit(LoginSuccess());
   }
 if(value['error']!= null)

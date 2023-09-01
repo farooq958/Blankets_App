@@ -2,22 +2,23 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:hbk/Application/Services/ApiServices/api_services.dart';
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/api_constants.dart';
 
-class CategoryRepo{
-  CategoryRepo();
+class DashboardRepo{
 
-  Future<dynamic> getCategoryData()async{
+
+  Future<dynamic> getDashboardData()async{
     try{
-      return await Api.getCat(categoryUrl).then((value){
+      return await Api.getCat(dashUrl+SharedPrefs.userData!.cardCode.toString()).then((value){
         if (kDebugMode) {
-          print("category Response $value");
+          print("Dash Response $value");
         }
         if(value.runtimeType != int) {
           return jsonDecode(value);
         }
         else {
-         // print("here");
+          // print("here");
           return value;
         }
       }).catchError((e){
@@ -27,4 +28,6 @@ class CategoryRepo{
       rethrow;
     }
   }
+
+
 }

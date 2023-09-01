@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefs {
   /// reference of Shared Preferences
   static SharedPreferences? _preferences;
-  static UserData? userData;
+  static UserDetails? userData;
 
   /// Initialization of Shared Preferences
   static Future init() async =>
@@ -31,13 +31,13 @@ class SharedPrefs {
       await _preferences?.setString(
           "user", jsonEncode(userRawData) ?? 'no_data');
 
-  static UserData? getUserLoginData() {
+  static UserDetails? getUserLoginData() {
 
     String? userJson = _preferences!.getString("user") ?? "no_data";
     if (userJson == "no_data") {
       return userData;
     } else {
-      userData = UserData.fromJson(userJson);
+      userData = UserDetails.fromJson(userJson);
 
       return userData;
     }
@@ -63,6 +63,6 @@ class SharedPrefs {
 
   static clearPref()
   {
-    return _preferences?.clear();
+    return  _preferences?.clear();
   }
 }

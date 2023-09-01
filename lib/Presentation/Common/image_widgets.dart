@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 
 class AssetImageWidget extends StatelessWidget {
@@ -34,6 +35,24 @@ class AssetImageWidget extends StatelessWidget {
       url,
       fit: BoxFit.fill,
       color: color,
+      errorBuilder: (context, url, error) {
+
+        return
+          isCircle!
+              ?
+          CircleAvatar(
+              radius: radius,
+              backgroundImage: const AssetImage(Assets.appLogo)
+
+
+          ):
+          Image.network("https://firebasestorage.googleapis.com/v0/b/hbk-blankets.appspot.com/o/logo.png?alt=media&token=409f2508-9b66-44ac-9c82-ec19a1046cd6"
+            ,width: width??110,
+            height: height??110,
+
+          );
+
+      },
       width: width! * scale!,
       height: height! * scale!,
     );

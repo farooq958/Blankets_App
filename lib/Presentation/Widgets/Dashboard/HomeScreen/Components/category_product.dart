@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
+import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
@@ -35,6 +37,7 @@ class _CategoryProductState extends State<CategoryProduct> {
       listener: (context, state) {
 
 
+
         // if (state is CategoryLoading) {
         //   //print("in loading");
         //   LoadingDialog.showLoadingDialog(context);
@@ -58,7 +61,7 @@ class _CategoryProductState extends State<CategoryProduct> {
         return GestureDetector(
           onTap:(){
             ///not used
-Utils.productTitle.value=Utils.categoryDummyProduct[index].productName.toString();
+// Utils.productTitle.value=Utils.categoryDummyProduct[index].productName.toString();
 print(state.categoryData[index].catId);
 ///used
             Navigate.to(context, ProductScreen(title:  state.categoryData[index].cat.toString(),isGuest: widget.isGuest,catId:state.categoryData[index].catId.toString()));
@@ -75,7 +78,7 @@ print(state.categoryData[index].catId);
 
               children: [
 
-                AssetImageWidget(url: Utils.categoryDummyProduct[index].productImage.toString(),isCircle: true,radius: 35.sp,),
+                AssetImageWidget(url: index>=Utils.categoryDummyProduct.length?"notFound": Utils.categoryDummyProduct[index].productImage.toString(),isCircle: true,radius: 35.sp,),
               CustomSizedBox.height(5),
                 Expanded(
                   child: AppText( state.categoryData[index].cat.toString(),maxLine: 2, style: Styles.circularStdRegular(context,

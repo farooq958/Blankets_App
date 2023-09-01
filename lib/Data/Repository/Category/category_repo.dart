@@ -13,7 +13,12 @@ class CategoryRepo{
         if (kDebugMode) {
           print("category Response $value");
         }
-        return jsonDecode(value);
+        if(value.runtimeType != int) {
+          return jsonDecode(value);
+        }
+        else {
+          return value;
+        }
       }).catchError((e){
         throw e;
       });

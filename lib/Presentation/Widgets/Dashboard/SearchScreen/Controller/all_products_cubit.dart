@@ -19,12 +19,19 @@ if(dispose != null) {
 
       await ProductRepo().getProduct(catId!=null? categoryProductUrl+catId:allProductGuestUrl).then((value) {
 
+if(value !=int ) {
+  var newArrivalData = List<ProductApiModel>.from(
+      value.map((x) => ProductApiModel.fromMap(x)));
 
-        var newArrivalData = List<ProductApiModel>.from(value.map((x) => ProductApiModel.fromMap(x)));
-        print(newArrivalData.length.toString()+"apiproductlenthacas");
+  print(newArrivalData.length.toString() + "apiproductlenthacas");
 
-        emit(AllProductsLoaded(allProductsData:newArrivalData));
+  emit(AllProductsLoaded(allProductsData: newArrivalData));
+}
+else
+  {
+    emit(LogOutProductState());
 
+  }
       }).catchError((e) {
         //throw e;
         emit(AllProductsError(error: e));

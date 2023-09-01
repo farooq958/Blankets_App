@@ -3,13 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
+import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_dropdown.dart';
 
 class FilterBottomSheetWidget extends StatefulWidget {
    final bool? isGuest;
-  const FilterBottomSheetWidget({super.key, this.isGuest});
+   final List<ProductApiModel> dto;
+   final VoidCallback onClearTap;
+   final void Function(List<ProductApiModel> val) getData;
+  const FilterBottomSheetWidget({super.key, this.isGuest, required this.dto, required this.getData, required this.onClearTap});
 
   @override
   State<FilterBottomSheetWidget> createState() => _FilterBottomSheetWidgetState();
@@ -19,8 +23,11 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
   double slideValue=0.0;
   List<String> categoryList = ['category1', 'category2', "category3"];
   String? selectedCategory;
+  double maxValue=0;
+
   @override
   Widget build(BuildContext context) {
+    maxValue=getMaxValue();
     return  Padding(
 
       padding: EdgeInsets.symmetric(horizontal: 10.sp,vertical: 20),
@@ -34,12 +41,12 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
               FontWeight.w600,fontSize: 19.sp),),
             ),
             CustomSizedBox.height(40.sp),
-           widget.isGuest==true?SizedBox(height: 0.sp,width: 0.sp,): Align(
+          Align(
               alignment: Alignment.centerLeft,
               child: AppText('Price Range', style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
               FontWeight.w600,fontSize: 16.sp),),
             ),
-            widget.isGuest==true?SizedBox(height: 0.sp,width: 0.sp,): Material(
+           Material(
               color: Colors.transparent,
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -58,7 +65,7 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
                         ),
                         child: Slider(
                           min: 0,
-                          max: 250000,
+                          max: maxValue,
                           //secondaryTrackValue: 0.1,
                           value: slideValue,
                             label: 'Value: $slideValue',
@@ -70,7 +77,7 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
                         ),
                       ),
                     ),
-                    AppText('250,000', style: Styles.circularStdBold(context,color: AppColors.greyLightColor),),
+                    AppText(maxValue.toString(), style: Styles.circularStdBold(context,color: AppColors.greyLightColor),),
                   ],
                 ),
               ),
@@ -79,48 +86,59 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
               padding:  EdgeInsets.only(right: 30.0.sp),
               child: AppText('${slideValue.toInt()}', style: Styles.circularStdRegular(context,color: AppColors.greyLightColor),),
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: AppText('Categories', style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
-              FontWeight.w600,fontSize: 16.sp),),
-            ),
-            CustomSizedBox.height(10),
-            Material(
-              color: Colors.transparent,
-              child: CustomDropDownWidget(
-                isBorderRequired: true,
-
-
-
-
-                prefixIcon: null, hintText: 'Categories', value: selectedCategory, validationText: 'Please Select Category', onChanged: (value) {  }, itemsMap: [
-
-                for (int i = 0; i < categoryList.length; i++)
-                  DropdownMenuItem(
-                    value: categoryList[i],
-                    child: AppText(
-                      categoryList[i],
-                      style: Styles.circularStdBold(context, fontSize: 12.sp),
-                    ),
-                  ),
-
-              ],),
-
-
-
-            ),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: AppText('Categories', style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
+            //   FontWeight.w600,fontSize: 16.sp),),
+            // ),
+            // CustomSizedBox.height(10),
+            // Material(
+            //   color: Colors.transparent,
+            //   child: CustomDropDownWidget(
+            //     isBorderRequired: true,
+            //
+            //
+            //
+            //
+            //     prefixIcon: null, hintText: 'Categories', value: selectedCategory, validationText: 'Please Select Category', onChanged: (value) {  }, itemsMap: [
+            //
+            //     for (int i = 0; i < categoryList.length; i++)
+            //       DropdownMenuItem(
+            //         value: categoryList[i],
+            //         child: AppText(
+            //           categoryList[i],
+            //           style: Styles.circularStdBold(context, fontSize: 12.sp),
+            //         ),
+            //       ),
+            //
+            //   ],),
+            //
+            //
+            //
+            // ),
             CustomSizedBox.height(30),
              Row(
               children: <Widget>[
 
-                Expanded(child: CustomButton(onTap: (){},
+                Expanded(child: CustomButton(onTap:widget.onClearTap,
                   borderRadius: 30,
                   text: 'Clear All',bgColor: Colors.transparent,textColor: AppColors.greyColor,
 borderColor: AppColors.greyColor,
                   verticalPadding: 10.sp,
 
                 )),
-                Expanded(child: CustomButton(onTap: (){}, text: 'Apply'
+                Expanded(child: CustomButton(onTap: (){
+
+                  List<ProductApiModel> filteredProducts = widget.dto.where((product) {
+                    double productPrice = double.parse(product.price.toString());
+                    return productPrice >= 0.0 && productPrice <= slideValue;
+                  }).toList();
+                  setState(() {
+                    widget.getData(filteredProducts);
+                  });
+
+
+                }, text: 'Apply'
 
                 , verticalPadding: 10.sp,
                   borderRadius: 30.sp,
@@ -136,4 +154,18 @@ borderColor: AppColors.greyColor,
 
     );
   }
+
+getMaxValue()
+{
+  double maxPrice = double.parse(widget.dto.first.price.toString()); // Initialize with the first price
+
+  // Find the maximum price
+  for (var product in widget.dto) {
+    double productPrice = double.parse(product.price.toString());
+    if (productPrice > maxPrice) {
+      maxPrice = productPrice;
+    }
+  }
+return maxPrice;
+}
 }

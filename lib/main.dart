@@ -6,6 +6,7 @@ import 'package:hbk/Data/AppData/app_providers.dart';
 import 'package:hbk/Presentation/Widgets/Auth/splash_screen.dart';
 
 import 'Application/Services/NotificationServices/notification_services.dart';
+import 'Data/AppData/app_preferences.dart';
 import 'Data/DataSource/Resources/imports.dart';
 class DownloadCallBack{
 
@@ -31,7 +32,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   //SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
-
+  await SharedPrefs.init();
   await NotificationServices().initNotification();
   await FlutterDownloader.initialize(
       debug: true,

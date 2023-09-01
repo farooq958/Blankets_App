@@ -3,7 +3,6 @@ import 'package:bottom_picker/resources/arrays.dart';
 import 'package:cross_scroll/cross_scroll.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
-import 'package:hbk/Application/Services/Pdf/generate_pdf.dart';
 import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/properties_data.dart';
@@ -14,7 +13,6 @@ import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
-import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class PriceListScreen extends StatefulWidget {
@@ -105,7 +103,7 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
 
   final TextEditingController searchControllerPrice = TextEditingController();
   late PriceListDataSource priceListDataSource;
-  late  LinkedScrollControllerGroup _controllers=LinkedScrollControllerGroup();
+   final  LinkedScrollControllerGroup _controllers=LinkedScrollControllerGroup();
   ScrollController horizontalScrollController=ScrollController();
   ScrollController horizontalScrollControllerTitle=ScrollController();
 @override
@@ -471,42 +469,19 @@ if(mounted)
                     width: 1.sw,
                     child: FractionallySizedBox(
                       widthFactor: 1,
-                      child: BlocBuilder<AllProductsCubit, AllProductsState>(
-  builder: (context, state) {
-
-    if(state is AllProductsLoaded){
-      List<PriceListModel> priceList = filterDataForDownload(state.allProductsData);
-      return CustomButton(
-        gapWidth: 10,
-        textFontWeight: FontWeight.w400,
-        imageWidth: 20.sp,
-        imageHeight: 20,
-        leadingSvgIcon: true,
-        leadingIcon: (Assets.downloadIcon),
-        onTap: () async {
-          // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
-
-
-          // await GeneratePDF.generateDocumentForPriceList(priceList);
-          await PdfDownload().generatePdfForPrice(priceList).then((value) async{
-            if(value!=null){
-              await OpenFile.open(value.path);
-            }
-          });
-        },
-        text: "Download",
-        horizontalMargin: 20,
-      );
-    }
-    else{
-      return const SizedBox();
-    }
-
-
-
-
-  },
-),
+                      child: CustomButton(
+                        gapWidth: 10,
+                        textFontWeight: FontWeight.w400,
+                        imageWidth: 20.sp,
+                        imageHeight: 20,
+                        leadingSvgIcon: true,
+                        leadingIcon: (Assets.downloadIcon),
+                        onTap: () async {
+                          // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
+                        },
+                        text: "Download",
+                        horizontalMargin: 20,
+                      ),
                     ),
                   ),
                 )
@@ -1089,7 +1064,6 @@ row.add(Column(children: [
 print(dto);
 return dto;
   }
-
   List<PriceListModel> filterDataForDownload(List<ProductApiModel> allProductsData) {
     List<PriceListModel> productsListDta =[];
     print(allProductsData.length.toString()+"productslength");
@@ -1100,9 +1074,9 @@ return dto;
     }
 
 
+   // print(dto);
     return productsListDta;
   }
-
   Future<void> readData() async {
     print('calleddto');
     await Future.delayed(const Duration(seconds: 2));

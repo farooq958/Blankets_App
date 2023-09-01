@@ -232,7 +232,7 @@ context.read<NewArrivalProductCubit>().getNewArrivalProducts();
               child: Shimmer.fromColors(
                 baseColor: Colors.grey[300]!,
                 highlightColor: Colors.grey[100]!,
-                child: NewArrivalProduct(onAddToCardTap: () {  },), // Create a ShimmerListTile widget
+                child: NewArrivalProduct(onAddToCardTap: () {  },dummyProduct: Utils.dummyProduct[index],isGuest:true), // Create a ShimmerListTile widget
               ),
             );
           },

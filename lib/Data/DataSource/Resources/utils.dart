@@ -76,6 +76,10 @@ class Utils {
         productId: "5",
         productImage: Assets.singleBedCat,
         productName: "General Product"),
+    CategoryProduct(
+        productId: "5",
+        productImage: Assets.singleBedCat,
+        productName: "General Product"),
   ];
   static List<ProductModel> dummyProduct = [
     ProductModel(

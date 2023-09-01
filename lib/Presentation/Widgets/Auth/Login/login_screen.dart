@@ -1,7 +1,9 @@
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
+import 'package:hbk/Presentation/Widgets/Auth/Controller/login_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Auth/reset_password_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
 
@@ -17,11 +19,36 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
+  final TextEditingController cardCodeController=TextEditingController();
+  final TextEditingController passwordController=TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     print('Text Scale ${MediaQuery.of(context).textScaleFactor}');
     return Scaffold(
-      body: SingleChildScrollView(
+      body: BlocConsumer<LoginCubit, LoginState>(
+  listener: (context, state) {
+    if(state is LoginLoading)
+      {
+        LoadingDialog.showLoadingDialog(context);
+      }
+    if(state is LoginSuccess)
+      {
+        Navigate.pop(context);
+        Navigate.to(context, const BottomNavigationScreen(isGuest: false,));
+
+
+      }
+    if(state is LoginError)
+      {
+        Navigate.pop(context);
+        CustomDialog.dialog(context, Center(child: AppText(state.error,style: Styles.circularStdRegular(context,color: AppColors.blackColor),),));
+      }
+
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
@@ -44,9 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: Styles.circularStdBold(context, fontSize: 16.sp)),
               CustomSizedBox.height(20.h),
               CustomTextFieldWithOnTap(
-                controller: TextEditingController(),
+                controller: cardCodeController,
                 hintText: 'Card Code',
-                textInputType: TextInputType.number,
+                isValid:true,
+                validateText: 'required card code',
+                textInputType: TextInputType.text,
                 titleTextColor: Colors.black,
                 prefixIcon: const Icon(Icons.email),
                 isShadowRequired: true,
@@ -54,7 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderRadius: 30.r,
               ),
               CustomTextFieldWithOnTap(
-                controller: TextEditingController(),
+                isValid:true,
+                controller: passwordController,
+                validateText: 'required password',
                 hintText: 'Password',
                 textInputType: TextInputType.visiblePassword,
                 titleTextColor: Colors.black,
@@ -88,8 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     borderRadius: 30.r,
                       onTap: () {
+                      if(cardCodeController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                        context.read<LoginCubit>().loginTheUser(cardCodeController.text,passwordController.text );
+                      }
                     //  LoadingDialog.showLoadingDialog(context);
-                   Navigate.to(context, const BottomNavigationScreen(isGuest: false,));
+                  // Navigate.to(context, const BottomNavigationScreen(isGuest: false,));
                   // BottomNotifier.bottomNavigationNotifier.value=0;
 
                   }, text: 'Login'),
@@ -109,7 +143,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ),
-      ),
+      );
+  },
+),
     );
   }
 }

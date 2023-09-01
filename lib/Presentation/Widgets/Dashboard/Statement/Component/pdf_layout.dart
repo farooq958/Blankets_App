@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -9,10 +10,18 @@ import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Component/invoice_details.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/reward_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Statement/statement_screen.dart';
+import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:pdf/pdf.dart' as pd;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class PDFLayouts {
   static Future<Uint8List> customerStatement(invoiceTitle,invoiceDataList,Widget? pdfWidget,Widget? pdfTitle) async {
@@ -257,6 +266,293 @@ static Widget invoiceDetailLayout(imageData,imageData2){
     ]);
 
 }
+
+
+
+
+
+  Future<Uint8List> generateDocumentForStatement(List<StatementData> statementData) async {
+    //var allStudents = new List.from(absentStudents)..addAll(presentStudents);
+    final pw.Document doc = pw.Document();
+
+    final imageJpg =
+    (await rootBundle.load(Assets.headerPdf)).buffer.asUint8List();
+    final imageJpgfooter =
+    (await rootBundle.load(Assets.footerPdf)).buffer.asUint8List();
+
+    doc.addPage(pw.MultiPage(
+        maxPages: 500,
+        pageFormat:
+        PdfPageFormat.letter.copyWith(marginBottom: 1.5 * PdfPageFormat.mm),
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        header: (pw.Context context) {
+          return pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start,
+              // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.ClipRRect(
+                  child: pw.Image(
+                    pw.MemoryImage(imageJpg),
+                    height: 1.sh / 10,
+                    fit: pw.BoxFit.contain,
+                  ),
+                ),
+                pw.Container(
+                    height: 1.sh / 30,
+                    width: 1.sw * 1.15,
+                    //color: PdfColors.red,
+                    child: pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: pw.CrossAxisAlignment.center,
+                        children: [
+                          pw.Container(
+                            child: pw.Text(
+                              //'${months[filterredDummy[index]]}',
+                              //   'Customers Name : ${oldlogindatalist['UserDetails']['CardName']}',
+                              'Customer Name',
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw
+                                        / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                          pw.Container(
+                            child: pw.Text(
+                              //'${months[filterredDummy[index]]}',
+                                'Date & Time :',
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                        ])),
+              ]);
+        },
+        footer: (pw.Context context) {
+          return pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start,
+              // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.ClipRRect(
+                  child: pw.Image(
+                    pw.MemoryImage(imageJpgfooter),
+                    height: 1.sh
+                        / 10,
+                    fit: pw.BoxFit.contain,
+                  ),
+                ),
+              ]);
+        },
+        build: (pw.Context context) => <pw.Widget>[
+          // pw.Container(height: height / 100),
+          pw.Container(
+              width: 1.sw * 1.15, //color: bluecolor,
+              child: pw.ListView.builder(
+                itemCount: statementData.length,
+                itemBuilder: (context, int index) {
+                  if (statementData[index].type == "0") {
+                    return pw.Container(
+                      height: 1.sh / 20,
+                      decoration: pw.BoxDecoration(
+                        color: PdfColors.grey300,
+                        border: pw.Border.all(color: pd.PdfColors.black),
+                      ),
+                      // color: greencolor,
+
+                      child: pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: pw.CrossAxisAlignment.center,
+                        children: [
+                          pw.Padding(
+                            padding: pw.EdgeInsets.only(left: 1.sw / 100),
+                            child: pw.Text(
+                              //'${months[filterredDummy[index]]}',
+                              //   '${months[filterredDummy[index]['date'].month - 1]}, ${filterredDummy[index]['date'].year}',
+                              statementData[index].date,
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                          pw.Text(
+                              // "${format.format(double.parse(filterredDummy[index]['cr'].toString()))} Cr",
+                            statementData[index].narration,
+                              textAlign: pw.TextAlign.center,
+                              style: pw.TextStyle(
+                                  decoration: pw.TextDecoration.none,
+                                  // color: whitecolor,
+                                  fontSize: 1.sw / 35,
+                                  fontWeight: pw.FontWeight.bold)),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.only(right: 1.sw / 100),
+                            child: pw.Text(
+                                // "${format.format(double.parse(filterredDummy[index]['dr'].toString()))} Dr",
+                              statementData[index].amount,
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    // color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return pw.Padding(
+                      padding: pw.EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      child: pw.Container(
+                        // height: height / 15,
+                          decoration: pw.BoxDecoration(
+                            border: pw.Border.all(color: pd.PdfColors.black),
+                          ),
+                          //  color: redcolor,
+                          child: pw.Column(
+                              mainAxisAlignment: pw.MainAxisAlignment.start,
+                              crossAxisAlignment:
+                              pw.CrossAxisAlignment.center,
+                              children: [
+                                pw.Container(
+                                  //height: height / 15,
+                                  child: pw.Row(
+                                    mainAxisAlignment:
+                                    pw.MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                    pw.CrossAxisAlignment.center,
+                                    children: [
+                                      pw.Container(
+                                        width: 1.sw / 5,
+                                        child: pw.Center(
+                                          child: pw.Text(
+                                              statementData[index].date,
+                                              textAlign: pw.TextAlign.center,
+                                              style: pw.TextStyle(
+                                                  decoration:
+                                                  pw.TextDecoration.none,
+                                                  color: pd.PdfColors.black,
+                                                  fontSize: 1.sw / 35,
+                                                  fontWeight:
+                                                  pw.FontWeight.normal)),
+                                        ),
+                                      ),
+                                      pw.Container(
+                                        width: 1.sw / 5,
+                                        child: pw.Center(
+                                          child: pw.Text(
+                                              // "${filterredDummy[index]['pType']}",
+                                            statementData[index].type,
+                                              textAlign: pw.TextAlign.center,
+                                              style: pw.TextStyle(
+                                                  decoration:
+                                                  pw.TextDecoration.none,
+                                                  color: pd.PdfColors.black,
+                                                  fontSize: 1.sw / 35,
+                                                  fontWeight:
+                                                  pw.FontWeight.normal)),
+                                        ),
+                                      ),
+                                      // pw.Container(
+                                      //   width: 1.sw / 5,
+                                      //   // color: yellowcolor,
+                                      //   child: pw.Center(
+                                      //     child: pw.Text(
+                                      //         "${filterredDummy[index]['linememo']}",
+                                      //         textAlign: pw.TextAlign.center,
+                                      //         style: pw.TextStyle(
+                                      //             decoration:
+                                      //             pw.TextDecoration.none,
+                                      //             color: pd.PdfColors.black,
+                                      //             fontSize: 1.sw
+                                      //                 / 35,
+                                      //             fontWeight:
+                                      //             pw.FontWeight.normal)),
+                                      //   ),
+                                      // ),
+                                      // pw.Container(
+                                      //   width: 1.sw / 5,
+                                      //   child: pw.Center(
+                                      //     child: pw.Text(
+                                      //       // filterredDummy[index]
+                                      //       //                 ['pType'] ==
+                                      //       //             "Payment" ||
+                                      //       //         filterredDummy[index]
+                                      //       //                 ['pType'] ==
+                                      //       //             "JE"
+                                      //       //     ?
+                                      //         "${format.format(double.parse(filterredDummy[index]['amount'].toString()))} ${filterredDummy[index]['amounttype'].toString()}",
+                                      //         //: "${format.format(double.parse(filterredDummy[index]['amount'].toString()))} Dr",
+                                      //         textAlign: pw.TextAlign.center,
+                                      //         style: pw.TextStyle(
+                                      //             decoration:
+                                      //             pw.TextDecoration.none,
+                                      //             color: pd.PdfColors.black,
+                                      //             fontSize: 1.sw / 35,
+                                      //             fontWeight:
+                                      //             pw.FontWeight.normal)),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                                pw.Container(
+                                  height: 1,
+                                  // color: lightblackcolor
+                                  //    .withOpacity(0.25)
+                                )
+                              ])),
+                    );
+                  }
+                },
+              ))
+          // pw.Table.fromTextArray(
+          //     context: context,
+          //     headerAlignment: pw.Alignment.center,
+          //     cellAlignment: pw.Alignment.center,
+          //     data: <List<String>>[
+          //       <String>['Date', 'Type', 'Narration', 'Amount'],
+          //       for (int i = 0; i < filterredDummy.length; i++)
+          //         filterredDummy[i]['type'] == "0"
+          //             ? <String>[
+          //                 '${months[filterredDummy[i]['date'].month - 1]}, ${filterredDummy[i]['date'].year}',
+          //                 "Rs.${filterredDummy[i]['cr']} Cr",
+          //                 'N/A',
+          //                 "Rs.${filterredDummy[i]['dr']} Dr",
+          //               ]
+          //             : <String>[
+          //                 '${filterredDummy[i]['date'].toString().split(" ").first}',
+          //                 filterredDummy[i]['pType'] == "Invoice"
+          //                     ? 'Invoice'
+          //                     : "Payment",
+          //                 '${filterredDummy[i]['linememo']}',
+          //                 filterredDummy[i]['pType'] == "Payment"
+          //                     ? "Rs.${filterredDummy[i]['amount']} Cr"
+          //                     : "Rs.${filterredDummy[i]['amount']} Dr",
+          //               ],
+          //     ]),
+        ]));
+    // return doc.save();
+    // final appDocDir = await getApplicationDocumentsDirectory();
+    // final appDocPath = appDocDir.path;
+    // final file = File(appDocPath + '/' + 'statement.pdf');
+    // print('Save as file ${file.path} ...');
+    // // await file.writeAsBytes(bytes);
+    // print('saving file');
+    // await file.writeAsBytes(await doc.save());
+    // print('opening file');
+    // await OpenFile.open(file.path);
+
+    Uint8List a = await doc.save();
+
+    return a;
+  }
+
 
 
   Future<Uint8List> generateDocumentForInvoice(invoiceDataList) async {
@@ -973,6 +1269,395 @@ final height=1.sh;
     // await file.writeAsBytes(await doc.save());
     // print('opening file');
     // await OpenFile.open(file.path);
+  }
+
+
+  Future<Uint8List> generateDocumentForReward(
+      List<RewardModel> rewardData) async {
+    final imageJpg =
+    (await rootBundle.load(Assets.headerPdf)).buffer.asUint8List();
+    final imageJpgfooter =
+    (await rootBundle.load(Assets.footerPdf)).buffer.asUint8List();
+
+    // print() {
+
+    final doc = pw.Document();
+    doc.addPage(pw.MultiPage(
+        pageFormat:
+        PdfPageFormat.letter.copyWith(marginBottom: 1.5 * PdfPageFormat.cm),
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        header: (pw.Context context) {
+          return pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start,
+              // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.ClipRRect(
+                  child: pw.Image(
+                    pw.MemoryImage(imageJpg),
+                    height: 1.sh / 10,
+                    fit: pw.BoxFit.contain,
+                  ),
+                ),
+                pw.Container(
+                    height: 1.sh / 30,
+                    width: 1.sw * 1.15,
+                    //color: PdfColors.red,
+                    child: pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: pw.CrossAxisAlignment.center,
+                        children: [
+                          pw.Container(
+                            child: pw.Text(
+
+                              //   'Customers Name : ${oldlogindatalist['UserDetails']['CardName']}',
+                              "", /// add name here
+
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                          pw.Container(
+                            child: pw.Text(
+
+                              //   'Date & Time : ${DateTime.now().toDMYHM()}',
+                              "Date & Time",
+                               /// add date here
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                        ])),
+              ]);
+        },
+        footer: (pw.Context context) {
+          return pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start,
+              // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.ClipRRect(
+                  child: pw.Image(
+                    pw.MemoryImage(imageJpgfooter),
+                    height: 1.sh / 10,
+                    fit: pw.BoxFit.contain,
+                  ),
+                ),
+              ]);
+        },
+        build: (pw.Context context) => <pw.Widget>[
+          pw.Container(height: 1.sh / 100),
+          pw.Table.fromTextArray(
+              cellStyle: pw.TextStyle(fontSize: 8),
+              context: context,
+              headerAlignment: pw.Alignment.center,
+              cellAlignment: pw.Alignment.centerLeft,
+              data: <List<String>>[
+                <String>[
+                  'Session',
+                  'Status',
+                  'Net Sales',
+                  'Bonus Reward',
+                  'Loyal Reward',
+                  'Total Reward'
+                ],
+                for (int index = 0; index < rewardData.length; index++)
+                  <String>[
+                   // '${rewardData[index].s} \n ${rewarddatalist[index]['EndDate'].toString().split(" ").first}',
+                   //  '${rewardData[index].loyalReward.toString().split(" ").first} \n ${rewardData[index].session.toString().split(" ").first}',
+                    (rewardData[index].session.toString()),
+                    (rewardData[index].status.toString()),
+                    (rewardData[index].netSale.toString()),
+                    "${rewardData[index].bonusReward}",
+                    "${rewardData[index].loyalReward}",
+                    (rewardData[index].totalReward.toString()),
+                  ],
+              ]),
+        ]));
+
+
+
+      //  index: 4
+
+
+    Uint8List a = await doc.save();
+
+    return a;
+    // final appDocDir = await getApplicationDocumentsDirectory();
+    // final appDocPath = appDocDir.path;
+    // final file = File(appDocPath + '/' + 'Pricelist.pdf');
+    // print('Save as file ${file.path} ...');
+    // // await file.writeAsBytes(bytes);
+    // print('saving file');
+    // await file.writeAsBytes(await doc.save());
+    // print('opening file');
+    // await OpenFile.open(file.path);
+
+  }
+
+
+
+  Future<Uint8List> generateDocumentForPriceList(
+      List<PriceListModel> priceList) async {
+    final imageJpg =
+    (await rootBundle.load(Assets.headerPdf)).buffer.asUint8List();
+    final imageJpgfooter =
+    (await rootBundle.load(Assets.footerPdf)).buffer.asUint8List();
+
+    // print() {
+
+    final doc = pw.Document();
+    doc.addPage(
+      pw.MultiPage(
+          crossAxisAlignment: pw.CrossAxisAlignment.center,
+
+          header: (pw.Context context) {
+            return pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.ClipRRect(
+                      child: pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Container(
+                                width: 1.sw / 4,
+                                child: pw.Center(
+                                  child: pw.Image(
+                                    pw.MemoryImage(imageJpg),
+                                    width: 1.sw / 4,
+                                    height: 1.sh / 8,
+                                    fit: pw.BoxFit.contain,
+                                  ),
+                                )),
+                            pw.Container(
+                              height: 1.sh / 30,
+                              child: pw.Text(
+                                //'${months[filterredDummy[index]]}',
+                                  'Price List',
+                                  //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                  textAlign: pw.TextAlign.center,
+                                  style: pw.TextStyle(
+                                      decoration: pw.TextDecoration.none,
+                                      //color: whitecolor,
+                                      fontSize: 1.sw / 15,
+                                      fontWeight: pw.FontWeight.bold)),
+                            ),
+                          ])),
+                  pw.Container(
+                      height: 1.sh / 30,
+                      width: 1.sw * 1.15,
+                      //color: PdfColors.red,
+                      child: pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: pw.CrossAxisAlignment.center,
+                          children: [
+                            pw.Container(
+                              child: pw.Text('Haris Akhtar',
+                                  //'${months[filterredDummy[index]]}',
+                                  //'${oldlogindatalist['UserDetails']['CardName']}',
+
+                                  //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                  textAlign: pw.TextAlign.center,
+                                  style: pw.TextStyle(
+                                      decoration: pw.TextDecoration.none,
+                                      //color: whitecolor,
+                                      fontSize: 1.sw / 35,
+                                      fontWeight: pw.FontWeight.bold)),
+                            ),
+                            pw.Container(
+                              child: pw.Text(
+                                //'${months[filterredDummy[index]]}',
+
+                                // 'Date & Time : ${DateTime.now().toDMYHM()}',
+                                  'Date & Time: ${DateFormat.yMMMMEEEEd().format(DateTime.now())}',
+                                  //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                  textAlign: pw.TextAlign.center,
+                                  style: pw.TextStyle(
+                                      decoration: pw.TextDecoration.none,
+                                      //color: whitecolor,
+                                      fontSize: 1.sw / 35,
+                                      fontWeight: pw.FontWeight.bold)),
+                            ),
+                          ])),
+                  // pw.Container(
+                  //     height: height / 30,
+                  //     width: width * 1.15,
+                  //     //color: PdfColors.red,
+                  //     child: pw.Row(
+                  //         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  //         crossAxisAlignment: pw.CrossAxisAlignment.center,
+                  //         children: [
+                  //           pw.Container(
+                  //             child: pw.Text(
+                  //                 //'${months[filterredDummy[index]]}',
+                  //                 'Date & Time : ${DateTime.now().toDMYHM()}',
+                  //                 //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                  //                 textAlign: pw.TextAlign.center,
+                  //                 style: pw.TextStyle(
+                  //                     decoration: pw.TextDecoration.none,
+                  //                     //color: whitecolor,
+                  //                     fontSize: width / 35,
+                  //                     fontWeight: pw.FontWeight.bold)),
+                  //           ),
+                  //         ])),
+                ]);
+          },
+          build: (pw.Context context) => <pw.Widget>[
+            pw.Container(height: 1.sh / 100),
+            // pw.Container(
+            //   // height: height / 1.35,
+            //   // color: redcolor.withOpacity(0.5),
+            //   // decoration: generaldecorationwithshadows(
+            //   //     appthemecolor,
+            //   //     appthemecolor.withOpacity(0),
+            //   //     width / 25,
+            //   //     1,
+            //   //     appthemecolor.withOpacity(0),
+            //   //     2),
+            //   child: pw.Column(
+            //     mainAxisAlignment: pw.MainAxisAlignment.start,
+            //     crossAxisAlignment: pw.CrossAxisAlignment.center,
+            //     children: [
+            //       pw.ClipRRect(
+            //         // borderRadius: pw.BorderRadius.only(
+            //         //     topLeft: pw.Radius.circular(width / 26),
+            //         //     topRight: pw.Radius.circular(width / 26)),
+            //         child: pw.Container(
+            //           height: height / 30,
+            //           decoration: pw.BoxDecoration(
+            //             color: PdfColors.grey300,
+            //             border: pw.Border.all(color: pdfblackcolor),
+            //           ),
+            //           //  color: appthemecolor,
+            //           child: pw.Row(
+            //             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            //             crossAxisAlignment: pw.CrossAxisAlignment.center,
+            //             children: [
+            //               pw.Container(
+            //                 width: width / 15,
+
+            //                 // color: redcolor,
+            //                 child: pw.Center(
+            //                     child: pw.Text("#",
+            //                         style: pw.TextStyle(
+            //                             fontSize: width / 30,
+            //                             // color: whitecolor,
+            //                             fontWeight: pw.FontWeight.bold))),
+            //               ),
+            //               pw.Container(
+            //                 width: width / 4,
+            //                 // color: redcolor,
+            //                 child: pw.Center(
+            //                     child: pw.Text("Item",
+            //                         style: pw.TextStyle(
+            //                             fontSize: width / 30,
+            //                             //color: whitecolor,
+            //                             fontWeight: pw.FontWeight.bold))),
+            //               ),
+            //               pw.Container(
+            //                 // width: width / 6,
+            //                 // color: greencolor,
+            //                 child: pw.Center(
+            //                     child: pw.Text("Space",
+            //                         style: pw.TextStyle(
+            //                             fontSize: width / 30,
+            //                             // color: whitecolor,
+            //                             fontWeight: pw.FontWeight.bold))),
+            //               ),
+            //               pw.Container(
+            //                 width: width / 6,
+            //                 // color: greencolor,
+            //                 child: pw.Center(
+            //                     child: pw.Text("Packing",
+            //                         style: pw.TextStyle(
+            //                             fontSize: width / 30,
+            //                             // color: whitecolor,
+            //                             fontWeight: pw.FontWeight.bold))),
+            //               ),
+            //               pw.Container(
+            //                 width: width / 6,
+            //                 // color: bluecolor,
+            //                 child: pw.Center(
+            //                     child: pw.Text("Pcs/ctn",
+            //                         style: pw.TextStyle(
+            //                             fontSize: width / 30,
+            //                             //color: whitecolor,
+            //                             fontWeight: pw.FontWeight.bold))),
+            //               ),
+            //               pw.Container(
+            //                 // width: width / 5.2,
+            //                 //   color: redcolor,
+            //                 child: pw.Center(
+            //                     child: pw.Text("Price",
+            //                         style: pw.TextStyle(
+            //                             fontSize: width / 30,
+            //                             // color: whitecolor,
+            //                             fontWeight: pw.FontWeight.bold))),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     // ... pricelistdata(),
+            //      // pricelistdata(1),
+
+            //     ],
+            //   ),
+            // ),
+
+            pw.Table.fromTextArray(
+
+              context: context,
+
+              cellStyle: const pw.TextStyle(fontSize: 8),
+              headerAlignment: pw.Alignment.center,
+              cellAlignment: pw.Alignment.centerLeft,
+              data: <List<String>>[
+                <String>[
+                  'Origin       ',
+                  'Category',
+                  'Item',
+                  'Specification',
+                  'Packing',
+                  'Pcs/ctn',
+                  'Price   '
+                ],
+                for (int i = 0; i < priceList.length; i++)
+                  <String>[
+                    '${priceList[i].country}',
+                    // '${productsapilist[i]['ItemName']}'
+                    '${priceList[i].category}',
+                    //"brands"
+                    '${priceList[i].item}',
+                    '${priceList[i].specification}',
+                    '${priceList[i].packing}',
+                    '${priceList[i].ctn}',
+                    '${double.parse(priceList[i].price.toString())}',
+                  ],
+              ],
+            ),
+          ]),
+
+
+
+      //  index: 4
+    );
+
+    Uint8List a = await doc.save();
+
+    return a;
+    // final appDocDir = await getApplicationDocumentsDirectory();
+    // final appDocPath = appDocDir.path;
+    // final file = File(appDocPath + '/' + 'Pricelist.pdf');
+    // print('Save as file ${file.path} ...');
+    // // await file.writeAsBytes(bytes);
+    // print('saving file');
+    // await file.writeAsBytes(await doc.save());
+    // print('opening file');
+    // await OpenFile.open(file.path);
+
   }
 Widget totalAmountInvoice() {
   final height=1.sh;

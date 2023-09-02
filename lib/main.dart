@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -8,10 +7,9 @@ import 'package:hbk/Presentation/Widgets/Auth/splash_screen.dart';
 import 'Application/Services/NotificationServices/notification_services.dart';
 import 'Data/AppData/app_preferences.dart';
 import 'Data/DataSource/Resources/imports.dart';
-class DownloadCallBack{
 
-  static void downloadCallBackTest (id, status, progress) {
-
+class DownloadCallBack {
+  static void downloadCallBackTest(id, status, progress) {
     if (kDebugMode) {
       print(id);
     }
@@ -21,10 +19,9 @@ class DownloadCallBack{
     if (kDebugMode) {
       print(progress);
     }
-
   }
-
 }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -38,12 +35,11 @@ void main() async {
       debug: true,
       // optional: set to false to disable printing logs to console (default: true)
       ignoreSsl:
-      true // option: set to false to disable working with http links (default: false)
-  );
-  await FlutterDownloader.registerCallback(DownloadCallBack.downloadCallBackTest);
-  runApp( MultiBlocProvider(providers: appProviders,
-
-      child: const MyApp()));
+          true // option: set to false to disable working with http links (default: false)
+      );
+  await FlutterDownloader.registerCallback(
+      DownloadCallBack.downloadCallBackTest);
+  runApp(MultiBlocProvider(providers: appProviders, child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -57,18 +53,13 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         useInheritedMediaQuery: true,
         builder: (context, child) {
-          return
-          MaterialApp(
+          return MaterialApp(
             title: 'HBK Blanket',
-            theme: ThemeData(
-                primaryColor: AppColors.primaryColor
-            ),
+            theme: ThemeData(primaryColor: AppColors.primaryColor),
             //home: const LoginScreen(),
             home: const SplashScreen(),
             debugShowCheckedModeBanner: false,
           );
-
-
         });
   }
 }

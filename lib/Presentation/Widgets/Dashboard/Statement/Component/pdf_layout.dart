@@ -271,8 +271,18 @@ class PDFLayouts {
 
     // Define the table data
     final table = pw.Table(
-      border: pw.TableBorder.all(color: PdfColors.black, width: 0),
+
+columnWidths: {
+  0: const pw.FixedColumnWidth(120),
+  1: const pw.FixedColumnWidth(120),
+  2: const pw.FixedColumnWidth(120),
+  3: const pw.FixedColumnWidth(120),
+},
+
+      // border: pw.TableBorder.all(width: 0),
+
       children: [
+
         // Header row
         pw.TableRow(
           children: ['Date', 'Type', 'Narration', 'Amount']
@@ -280,13 +290,14 @@ class PDFLayouts {
             alignment: pw.Alignment.center,
             padding: const pw.EdgeInsets.all(5),
             decoration: const pw.BoxDecoration(
-              color: PdfColors.grey300,
+              color: PdfColor.fromInt(0xff0C4A9F),
             ),
             child: pw.Text(
               text,
-              style: pw.TextStyle(
+              style: const pw.TextStyle(
                 fontSize: 12,
-                fontWeight: pw.FontWeight.bold,
+                //fontWeight: pw.FontWeight.regular,
+                color: pd.PdfColors.white
               ),
             ),
           ))
@@ -295,7 +306,8 @@ class PDFLayouts {
         // Data rows
         for (final data in statementDataList)
           pw.TableRow(
-            decoration: data.type == '' ? const pw.BoxDecoration(color: PdfColors.grey) : null,
+            decoration: data.type == '' ? const pw.BoxDecoration(color: PdfColors.grey300) : null,
+
             children: [
               pw.Container(
                 alignment: pw.Alignment.centerLeft,
@@ -321,12 +333,110 @@ class PDFLayouts {
           ),
       ],
     );
+    final pageTheme = pw.PageTheme(
+      pageFormat: PdfPageFormat.a4,
+      buildBackground: (context) {
+        return pw.FullPage(
+          ignoreMargins: true,
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Expanded(child: pw.Container()), // Content
+              pw.ClipRRect(
+                child: pw.Image(
+                  pw.MemoryImage(imageJpgfooter),
+                  height: 1.sh / 10,
+                  fit: pw.BoxFit.contain,
+                ),
+              ),
 
+            ],
+          ),
+        );
+      },
+    );
+
+ 
     doc.addPage(pw.Page(
-        pageFormat: PdfPageFormat.a4,
+      pageTheme: pageTheme,
 
 
-        build: (context) => table));
+
+        build: (context) =>  pw.Column(children: [
+            pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.ClipRRect(
+                  child: pw.Image(
+                    pw.MemoryImage(imageJpg),
+                    height: 1.sh / 10,
+                    fit: pw.BoxFit.contain,
+                  ),
+                ),
+                pw.Container(
+                    height: 1.sh / 30,
+                    width: 1.sw * 1.15,
+                    //color: PdfColors.red,
+                    child: pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: pw.CrossAxisAlignment.center,
+                        children: [
+                          pw.Container(
+                            child: pw.Text(
+                                //'${months[filterredDummy[index]]}',
+                                //   'Customers Name : ${oldlogindatalist['UserDetails']['CardName']}',
+                                'Customer Name',
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                          pw.Container(
+                            child: pw.Text(
+                              //'${months[filterredDummy[index]]}',
+                              //   'Customers Name : ${oldlogindatalist['UserDetails']['CardName']}',
+                                SharedPrefs.userData!.cntctPrsn.toString(),
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                          pw.Container(
+                            child: pw.Text(
+                                //'${months[filterredDummy[index]]}',
+                                'Date & Time :',
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                          pw.Container(
+                            child: pw.Text(
+                              //'${months[filterredDummy[index]]}',
+                              //   'Customers Name : ${oldlogindatalist['UserDetails']['CardName']}',
+                                DateTime.now().toString(),
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                        ])),
+              ]),
+          table
+        ])));
 
 /// ////
 //     doc.addPage(pw.MultiPage(

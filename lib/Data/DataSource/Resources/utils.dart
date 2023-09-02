@@ -151,7 +151,7 @@ class Utils {
     DrawerModel(
         screenName: 'Customer survey',
         iconPath: Assets.customerSurveyIcon,
-        widgetToNavigate: const CustomerSurvey()),
+        widgetToNavigate: const CustomerSurveyScreen()),
     DrawerModel(
         screenName: 'About us',
         iconPath: Assets.aboutUsIcon,

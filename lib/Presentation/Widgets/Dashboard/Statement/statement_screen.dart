@@ -578,6 +578,10 @@ print(index);
 
         return AppColors.primaryColor;
       }
+      else if(employees[index-1].type=='Invoice')
+        {
+          return Colors.red;
+        }
       else {
         return Colors.black;
       }

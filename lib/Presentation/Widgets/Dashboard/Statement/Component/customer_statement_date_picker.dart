@@ -8,13 +8,17 @@ import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Controller/invoice_cubit.dart';
+
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/statement_data_cubit.dart';
 
 
 
-Widget buildDateRangePicker(BuildContext context) {
-  String startDate='';
-  String endDate='';
+Widget buildDateRangePicker(BuildContext context,{ BuildContext? bottomSheetContext }) {
+  DateTime st= DateTime.now().subtract(const Duration(days: 400));
+  DateTime ed=DateTime.now();
+  String startDate='${st.year}/${st.month}/${st.day}';
+  String endDate='${ed.year}/${ed.month}/${ed.day}';
   return Column(
     children: <Widget>[
       CustomSizedBox.height(10),
@@ -61,8 +65,71 @@ startDate = date;
       CustomSizedBox.height(10),
       CustomButton(onTap: () {
 
-        if(startDate != '' || endDate != '') {
+        if(startDate != '' && endDate != '') {
+          Navigator.pop(context);
           context.read<StatementDataCubit>().getStatementDto(convertDateString(startDate), convertDateString(endDate));
+
+        }
+
+      }, text: "Apply",horizontalMargin: 15,)// Second date picker for "To"
+    ],
+  );
+}
+Widget buildDateRangePickerForInvoice(BuildContext context,{ BuildContext? bottomSheetContext }) {
+  DateTime st= DateTime.now().subtract(const Duration(days: 400));
+  DateTime ed=DateTime.now();
+  String startDate='${st.year}/${st.month}/${st.day}';
+  String endDate='${ed.year}/${ed.month}/${ed.day}';
+  return Column(
+    children: <Widget>[
+      CustomSizedBox.height(10),
+      Padding(
+        padding:  EdgeInsets.only(top: 8.0,left: 20.sp),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: AppText(
+
+            'From Date',
+            style: Styles.circularStdBold(context,fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      Expanded(
+          flex: 1,
+
+
+          child: SingleChildScrollView(child: _buildSingleDatePicker(context,(date){
+            startDate = date;
+            // print(startDate);
+          }))), // First date picker for "From"
+      Padding(
+        padding:  EdgeInsets.only(top: 8.0,left: 20.sp),
+        child:Align(
+          alignment: Alignment.centerLeft,
+          child: AppText(
+
+            'To Date',
+            style: Styles.circularStdBold(context,fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      Expanded(
+          flex: 1,
+          child: Align(
+
+              alignment: Alignment.topCenter,
+              child: SingleChildScrollView(child: _buildSingleDatePicker(context,(date){
+                endDate=date;
+                //    print(endDate);
+
+              })))),
+      CustomSizedBox.height(10),
+      CustomButton(onTap: () {
+
+        if(startDate != '' && endDate != '') {
+          Navigator.pop(context);
+          context.read<InvoiceCubit>().getInvoicesData(convertDateString(startDate), convertDateString(endDate));
+
         }
 
       }, text: "Apply",horizontalMargin: 15,)// Second date picker for "To"

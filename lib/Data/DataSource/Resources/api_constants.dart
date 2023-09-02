@@ -21,7 +21,8 @@ const String allProductGuestUrl='http://imtxt.sbsolutions.com.pk:44891/api/GetAl
 const String categoryProductUrl='http://imtxt.sbsolutions.com.pk:44891/api/GetAllCategoryItems?Code=';
 const String productAuthUrl='http://imtxt.sbsolutions.com.pk:44891/api/GetAllItemsAuth?code=';
 const String faqUrl = 'http://sap.al-imdad.com:44891/Picture/CustomerApplogin/faq.json';
-
+const String invoiceUrl='http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/GetAllSAPInvoices?Cardcode=';
+const String invoiceDetailUrl='http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/GetInvoice?DocEntry=';
 const String feedBackUrl = 'http://imtxt.sbsolutions.com.pk:44891/api/PostApis/PostAppFeedback';
 
 const String sliderImagesUrl = 'http://imtxt.sbsolutions.com.pk:44891/api/Get/Slider';

@@ -13,6 +13,7 @@ import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'Component/customer_statement_date_picker.dart';
+
 import 'Controller/statement_data_cubit.dart';
 
 class CustomerStatementScreen extends  StatefulWidget {
@@ -102,6 +103,7 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
                   children: <Widget>[
 
                     AppText(AppStrings.accountBalance, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 16),),
+                    SizedBox(width: 2.sp,),
                     RichText(text: TextSpan(children: [
                       TextSpan(
                           text: 'Rs ',
@@ -114,6 +116,7 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
 
 
                     ])),
+                    SizedBox(width: 1.sp,)
 
 
                   ],
@@ -578,10 +581,23 @@ print(index);
 
         return AppColors.primaryColor;
       }
+
+      else {
+        return Colors.black;
+      }
+    }
+    Color getTextColor2() {
+      int index = _employees.indexOf(rowsss) + 1;
+      print(index);
+
+      if (employees[index-1].type=="") {
+
+        return AppColors.primaryColor;
+      }
       else if(employees[index-1].type=='Invoice')
-        {
-          return Colors.red;
-        }
+      {
+        return Colors.red;
+      }
       else {
         return Colors.black;
       }
@@ -599,7 +615,9 @@ print(index);
                 : Alignment.center,
             padding: const EdgeInsets.all(10.0),
 
-            child: AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context,color: getTextColor()),maxLine: 3,
+            child: dataGridCell.columnName=='Amount'? AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context,color: getTextColor2()),maxLine: 3,
+
+            ):AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context,color: getTextColor()),maxLine: 3,
 
             ),
           );

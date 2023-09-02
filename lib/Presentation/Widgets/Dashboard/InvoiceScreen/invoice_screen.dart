@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
@@ -21,6 +23,8 @@ import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Component/invoice_details.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/customer_statement_date_picker.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+
+import 'Controller/invoice_cubit.dart';
 
 
 
@@ -61,7 +65,9 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
   void initState() {
     super.initState();
     //employees= getEmployees();
-    invoiceDataSource = InvoiceListDataSource(employees: invoiceListData, context: context);
+context.read<InvoiceCubit>().getInvoicesData(DateTime.now().subtract(const Duration(days: 400)).toString(),DateTime.now().toString());
+    
+
   }
   // final TextEditingController searchControllerPrice=TextEditingController();
   @override
@@ -103,7 +109,14 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
           ),
 
           Expanded(
-            child:  SfDataGridTheme(
+            child:  BlocConsumer<InvoiceCubit, InvoiceState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    if(state is InvoiceLoaded) {
+      invoiceDataSource = InvoiceListDataSource(employees: state.actualInvoiceData, context: context);
+      return SfDataGridTheme(
               data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
               child: SfDataGrid(
                 horizontalScrollPhysics: const BouncingScrollPhysics(),
@@ -128,7 +141,19 @@ Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowInde
                 frozenRowsCount: 0,
                 frozenColumnsCount: 0, source: invoiceDataSource, // Number of frozen columns (sticky columns)
               ),
-            ),
+            );
+    }
+    else if( state is InvoiceLoading)
+      {
+        return LoadingDialog.loadingWidget();
+      }
+    else
+      {
+
+        return const SizedBox();
+      }
+  },
+),
           ),
           // SizedBox(
           //   width: 1.sw,
@@ -464,9 +489,9 @@ Navigate.to(context, InvoiceDetails(invoiceData:invoiceListData[i]));
       ),
       builder: (BuildContext builder) {
         return SizedBox(
-          height: 300,
+          height: 600,
           width: 1.sw,
-          child: buildDateSinglePicker(context),
+          child: buildDateRangePickerForInvoice(context),
         );
       },
     );

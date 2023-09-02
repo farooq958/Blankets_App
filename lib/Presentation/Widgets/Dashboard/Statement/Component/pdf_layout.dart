@@ -327,7 +327,7 @@ columnWidths: {
               pw.Container(
                 alignment: pw.Alignment.centerRight,
                 padding: const pw.EdgeInsets.all(5),
-                child: pw.Text(data.amount, style: const pw.TextStyle(fontSize: 10)),
+                child: pw.Text(data.amount, style:  pw.TextStyle(fontSize: 10,color: data.type=='Invoice'?pd.PdfColors.red:null)),
               ),
             ],
           ),
@@ -357,23 +357,42 @@ columnWidths: {
     );
 
  
-    doc.addPage(pw.Page(
+    doc.addPage(pw.MultiPage(
       pageTheme: pageTheme,
 
 
-
-        build: (context) =>  pw.Column(children: [
-            pw.Column(
+        header: (pw.Context context) {
+          return pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
-              // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
                 pw.ClipRRect(
-                  child: pw.Image(
-                    pw.MemoryImage(imageJpg),
-                    height: 1.sh / 10,
-                    fit: pw.BoxFit.contain,
-                  ),
-                ),
+                    child: pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.Container(
+                              width: 1.sw / 4,
+                              child: pw.Center(
+                                child: pw.Image(
+                                  pw.MemoryImage(imageJpg),
+                                  width: 1.sw / 4,
+                                  height: 1.sh / 8,
+                                  fit: pw.BoxFit.contain,
+                                ),
+                              )),
+                          pw.Container(
+                            height: 1.sh / 30,
+                            child: pw.Text(
+                              //'${months[filterredDummy[index]]}',
+                                'Customer Statement',
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 15,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                        ])),
                 pw.Container(
                     height: 1.sh / 30,
                     width: 1.sw * 1.15,
@@ -384,34 +403,10 @@ columnWidths: {
                         children: [
                           pw.Container(
                             child: pw.Text(
-                                //'${months[filterredDummy[index]]}',
-                                //   'Customers Name : ${oldlogindatalist['UserDetails']['CardName']}',
-                                'Customer Name',
-                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
-                                textAlign: pw.TextAlign.center,
-                                style: pw.TextStyle(
-                                    decoration: pw.TextDecoration.none,
-                                    //color: whitecolor,
-                                    fontSize: 1.sw / 35,
-                                    fontWeight: pw.FontWeight.bold)),
-                          ),
-                          pw.Container(
-                            child: pw.Text(
-                              //'${months[filterredDummy[index]]}',
-                              //   'Customers Name : ${oldlogindatalist['UserDetails']['CardName']}',
                                 SharedPrefs.userData!.cntctPrsn.toString(),
-                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
-                                textAlign: pw.TextAlign.center,
-                                style: pw.TextStyle(
-                                    decoration: pw.TextDecoration.none,
-                                    //color: whitecolor,
-                                    fontSize: 1.sw / 35,
-                                    fontWeight: pw.FontWeight.bold)),
-                          ),
-                          pw.Container(
-                            child: pw.Text(
                                 //'${months[filterredDummy[index]]}',
-                                'Date & Time :',
+                                //'${oldlogindatalist['UserDetails']['CardName']}',
+
                                 //"${filterredDummy[index]['date'].toString().split(" ").first}",
                                 textAlign: pw.TextAlign.center,
                                 style: pw.TextStyle(
@@ -423,8 +418,9 @@ columnWidths: {
                           pw.Container(
                             child: pw.Text(
                               //'${months[filterredDummy[index]]}',
-                              //   'Customers Name : ${oldlogindatalist['UserDetails']['CardName']}',
-                                DateTime.now().toString(),
+
+                              // 'Date & Time : ${DateTime.now().toDMYHM()}',
+                                'Date & Time: ${DateFormat.yMMMMEEEEd().format(DateTime.now())}',
                                 //"${filterredDummy[index]['date'].toString().split(" ").first}",
                                 textAlign: pw.TextAlign.center,
                                 style: pw.TextStyle(
@@ -434,9 +430,49 @@ columnWidths: {
                                     fontWeight: pw.FontWeight.bold)),
                           ),
                         ])),
-              ]),
-          table
-        ])));
+                // pw.Container(
+                //     height: height / 30,
+                //     width: width * 1.15,
+                //     //color: PdfColors.red,
+                //     child: pw.Row(
+                //         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                //         crossAxisAlignment: pw.CrossAxisAlignment.center,
+                //         children: [
+                //           pw.Container(
+                //             child: pw.Text(
+                //                 //'${months[filterredDummy[index]]}',
+                //                 'Date & Time : ${DateTime.now().toDMYHM()}',
+                //                 //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                //                 textAlign: pw.TextAlign.center,
+                //                 style: pw.TextStyle(
+                //                     decoration: pw.TextDecoration.none,
+                //                     //color: whitecolor,
+                //                     fontSize: width / 35,
+                //                     fontWeight: pw.FontWeight.bold)),
+                //           ),
+                //         ])),
+              ]);
+        },
+
+        build: (context) =>  [
+          table,
+        //   pw.Column(children: [
+        //  // pw.SizedBox(
+        //  //     height: 1.sh/5,
+        //  //
+        //  //     child: pw.Column(
+        //  //      crossAxisAlignment: pw.CrossAxisAlignment.start,
+        //  //      // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        //  //      children: [
+        //  //
+        //  //      ])),
+        //
+        //
+        //  pw.Expanded(child:table)
+        // ])
+
+
+        ]));
 
 /// ////
 //     doc.addPage(pw.MultiPage(

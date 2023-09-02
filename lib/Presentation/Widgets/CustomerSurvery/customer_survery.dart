@@ -7,7 +7,7 @@ import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/Controller/customer_survey_cubit.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/State/customer_survey_state.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/customer_survey_steps.dart';
-import 'package:hbk/Presentation/demo.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomerSurveyScreen extends StatefulWidget {

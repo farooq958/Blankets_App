@@ -1,17 +1,20 @@
 import 'package:cross_scroll/cross_scroll.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Controller/invoice_detail_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/invoice_screen.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'invoice_tile.dart';
 
 class InvoiceDetails extends StatefulWidget {
-   InvoiceDetails({super.key, required InvoiceModel invoiceData});
+  final InvoiceModel invoiceData;
+   InvoiceDetails({super.key, required this.invoiceData});
 
   @override
   State<InvoiceDetails> createState() => _InvoiceDetailsState();
@@ -49,6 +52,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
   void initState() {
     super.initState();
     //employees= getEmployees();
+    context.read<InvoiceDetailCubit>().getInvoiceDetail(widget.invoiceData.invoiceNo);
     invoiceDataSource = InvoiceDataSource(employees: rewardListData, context: context);
   }
 
@@ -773,10 +777,20 @@ class InvoiceDetailModel {
   final String? packing;
   final String? ctn;
   final String? pcs;
+  final String? customerName;
+  final String? contactPerson;
+  final String? phoneNumber;
+  final String? address;
+  final String? createdBy;
+  final String? status;
+  final String? invoiceNo;
+  final String? date;
+  final String? salePerson;
+
   final String? unitPrice;
   final String? totalPrice;
 
-  InvoiceDetailModel(   {this.productName,this.type, this.packing, this.ctn, this.pcs, this.unitPrice,this.totalPrice});
+  InvoiceDetailModel(   {this.productName,this.type, this.packing, this.ctn, this.pcs, this.unitPrice,this.totalPrice,this.customerName, this.contactPerson, this.phoneNumber, this.address, this.createdBy, this.status, this.invoiceNo, this.date, this.salePerson, });
 }
 class InvoiceDataSource extends DataGridSource {
  final  BuildContext context;

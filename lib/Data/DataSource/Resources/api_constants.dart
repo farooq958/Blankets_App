@@ -12,6 +12,7 @@ const String dashUrl='http://imtxt.sbsolutions.com.pk:44891/api/lookupapi/Custom
 const String newArrivalProductUrl='http://imtxt.sbsolutions.com.pk:44891/api/lookupapi/GetAllNewArrivalsOpen?code=all';
 ///
 const String rewardUrl='http://imtxt.sbsolutions.com.pk:44891/api/lookupapi/CustomerReward?cardcode=';
+const String statementUrl='http://imtxt.sbsolutions.com.pk:44891/api/lookupapi/CustomerStatement?cardcode=';
 const String newArrivalGuest='http://imtxt.sbsolutions.com.pk:44891/api/GetAllNewArrivalsGuest';
 const String newArrivalAuth='http://imtxt.sbsolutions.com.pk:44891/api/GetAllNewArrivalsAuth?code=all';
 const String contactUsUrl = 'http://sap.al-imdad.com:44891/Picture/CustomerApplogin/Contact.json';

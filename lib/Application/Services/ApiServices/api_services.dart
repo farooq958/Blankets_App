@@ -65,11 +65,21 @@ return 401;
     try {
       // final headers = {'Content-Type': 'application/json'};
 
+
+
       http.Response res = await http.post(
         Uri.parse(url),
         headers: header ?? _authMiddleWare(),
         body: (body),
       );
+
+
+      print("Body in Services $body");
+
+      print(url);
+
+
+      print("Response ${res.body}");
 
       if (res.statusCode == 200 || res.statusCode == 201) {
         Map<String, dynamic> decode = jsonDecode(res.body);
@@ -251,24 +261,31 @@ return 401;
     }
   }
 
-  static Future<Map<String, dynamic>> post1(
+  static Future post1(
       Map<String, dynamic> body, {
         required String url,
       }) async {
     try {
       final response = await http.post(Uri.parse(url),
-          headers: {'Content-Type': 'application/json'},
+          headers: _authMiddleWare(),
           body: jsonEncode(body));
+
+      print("Response status ${response.statusCode}");
+
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return data;
+        return 200;
       } else {
         throw Exception('Failed to sign up user');
       }
+
+
+
     } catch (e) {
       return Future.error(e.toString());
     }
+
   }
 
   static Future<Map<String, dynamic>> put(String url, Map<String, dynamic>? body,

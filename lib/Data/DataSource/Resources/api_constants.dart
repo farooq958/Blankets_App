@@ -2,7 +2,7 @@
 
 import 'package:hbk/Data/AppData/app_preferences.dart';
 
-const String baseUrl = '';
+const String baseUrl = 'http://imtxt.sbsolutions.com.pk:44891';
 
 
 const String aboutUsUrl = 'http://sap.al-imdad.com:44891/Picture/CustomerApplogin/about.json';
@@ -21,3 +21,10 @@ const String allProductGuestUrl='http://imtxt.sbsolutions.com.pk:44891/api/GetAl
 const String categoryProductUrl='http://imtxt.sbsolutions.com.pk:44891/api/GetAllCategoryItems?Code=';
 const String productAuthUrl='http://imtxt.sbsolutions.com.pk:44891/api/GetAllItemsAuth?code=';
 const String faqUrl = 'http://sap.al-imdad.com:44891/Picture/CustomerApplogin/faq.json';
+
+const String feedBackUrl = 'http://imtxt.sbsolutions.com.pk:44891/api/PostApis/PostAppFeedback';
+
+const String sliderImagesUrl = 'http://imtxt.sbsolutions.com.pk:44891/api/Get/Slider';
+
+
+const String surveyQuestionUrl = 'http://imtxt.sbsolutions.com.pk:44891/api/lookupapi/GetAllQuestions?CardCode=C00459';

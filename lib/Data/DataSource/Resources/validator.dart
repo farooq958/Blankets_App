@@ -104,7 +104,15 @@ class Validate {
   }
   static String? feedbackNotes(v) {
     if (v.trim().isEmpty) {
-      return "Notes for match required";
+      return "Feedback is required";
+    }
+
+    return null;
+  }
+
+  static String? feedBackTitle(v) {
+    if (v.trim().isEmpty) {
+      return "Subject is required";
     }
 
     return null;

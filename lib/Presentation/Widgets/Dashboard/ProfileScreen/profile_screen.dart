@@ -1,5 +1,5 @@
-
 import 'package:app_settings/app_settings.dart';
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/order_history.dart';
@@ -13,6 +13,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userData = SharedPrefs.userData;
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -29,13 +31,15 @@ class ProfileScreen extends StatelessWidget {
                 CustomSizedBox.height(10.h),
                 isGuest
                     ? AppText('Guest User',
-                    style: Styles.circularStdBold(context, fontSize: 24.sp))
-                    : AppText('Aqib javid',
-                    style: Styles.circularStdBold(context, fontSize: 24.sp)),
+                        style: Styles.circularStdBold(context, fontSize: 24.sp))
+                    : AppText(userData!.cardName!,
+                        style:
+                            Styles.circularStdBold(context, fontSize: 24.sp)),
                 isGuest
                     ? const SizedBox()
-                    : AppText('example@gmail.com',
-                    style: Styles.circularStdMedium(context, fontSize: 16.sp)),
+                    : AppText(userData!.cardCode!,
+                        style:
+                            Styles.circularStdMedium(context, fontSize: 16.sp)),
               ],
             ),
           ),
@@ -49,7 +53,6 @@ class ProfileScreen extends StatelessWidget {
   Widget _userList(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
         ListTileWidget(
           tileTitle: AppStrings.manageAccount,
@@ -62,30 +65,25 @@ class ProfileScreen extends StatelessWidget {
           tileTitle: AppStrings.orderHistory,
           icon: Assets.orderHistory,
           onTap: () {
-            Navigate.to(context, const OrderHistory(orderStatus: OrderStatus.Completed,));
+            Navigate.to(
+                context,
+                const OrderHistory(
+                  orderStatus: OrderStatus.Completed,
+                ));
           },
         ),
         ListTileWidget(
           tileTitle: AppStrings.notificationPreferences,
           icon: Assets.notificationPreferences,
-          onTap: ()async {
-            await AppSettings.openAppSettings(type: AppSettingsType.notification);
+          onTap: () async {
+            await AppSettings.openAppSettings(
+                type: AppSettingsType.notification);
           },
         ),
         ListTileWidget(
           tileTitle: AppStrings.privacyPolicy,
           icon: Assets.privacyPolicy,
           onTap: () {},
-        ),
-        Padding(
-          padding:  EdgeInsets.only(left: 5.w),
-          child: ListTileWidget(
-            tileTitle: AppStrings.logout,
-            icon: Assets.logout,
-            onTap: () {
-              Navigate.to(context, const LoginScreen());
-            },
-          ),
         ),
       ],
     );
@@ -116,4 +114,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-

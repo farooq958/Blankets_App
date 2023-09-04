@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:hbk/Domain/Models/Auth/user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 class SharedPrefs {
   /// reference of Shared Preferences
   static SharedPreferences? _preferences;
@@ -14,9 +12,11 @@ class SharedPrefs {
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
 
+  ///survey
+  static Future setSurveyDate({required String? survey}) async =>
+      await _preferences?.setString("survey", survey ?? 'no');
 
-
-
+  static String? getSurvey() => _preferences!.getString("survey");
 
   ///token
   static Future setUserToken({required String? token}) async =>
@@ -27,12 +27,11 @@ class SharedPrefs {
   ///UserData stored in json
   ///userRawData will be in map<String,dynamic>
   static Future setUserLoginData(
-      {required Map<String, dynamic> userRawData}) async =>
+          {required Map<String, dynamic> userRawData}) async =>
       await _preferences?.setString(
           "user", jsonEncode(userRawData) ?? 'no_data');
 
   static UserDetails? getUserLoginData() {
-
     String? userJson = _preferences!.getString("user") ?? "no_data";
     if (userJson == "no_data") {
       return userData;
@@ -61,8 +60,7 @@ class SharedPrefs {
     // }
   }
 
-  static clearPref()
-  {
-    return  _preferences?.clear();
+  static clearPref() {
+    return _preferences?.clear();
   }
 }

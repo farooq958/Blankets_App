@@ -32,8 +32,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
       body: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
-          if (state is NotificationLoading) {
-            return Center(child: LoadingDialog.loadingWidget());
+          if (state is NotificationError) {
+            return Center(
+                child: AppText(
+              state.error,
+              style: Styles.circularStdMedium(context, fontSize: 16),
+            ));
           } else if (state is NotificationLoaded) {
             return ListView.builder(
                 physics: const BouncingScrollPhysics(),
@@ -43,7 +47,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       notification: state.notifications, index: index);
                 });
           } else {
-            return Text('Error');
+            return Center(child: LoadingDialog.loadingWidget());
           }
         },
       ),

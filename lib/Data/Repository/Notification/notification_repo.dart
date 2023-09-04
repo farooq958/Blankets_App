@@ -7,10 +7,15 @@ import '../../../Application/Services/ApiServices/api_services.dart';
 import '../../DataSource/Resources/api_constants.dart';
 
 class NotificationRepo {
-  Future getNotifications() async {
+  Future getNotifications(String cardCode) async {
+    String perms = 'CardCode=$cardCode';
+
+    print(perms);
+
     try {
-      return await Api.getCat(notificationUrl).then((value) {
+      return await Api.getCat(notificationUrl + perms).then((value) {
         if (kDebugMode) {
+          print(value);
           print("Notification Response $value");
         }
         if (value.runtimeType != int) {

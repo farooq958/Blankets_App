@@ -194,20 +194,14 @@ class CustomAppBarState extends State<CustomAppBar> {
                                           );
                                         } else {
                                           return GestureDetector(
-                                              onTap: widget.onNotificationTap ??
-                                                  () {},
-                                              child: badges.Badge(
-                                                badgeContent: const Text(
-                                                  '',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                                child: SvgPicture.asset(
-                                                  Assets.notificationIcon,
-                                                  height: 20.h,
-                                                  width: 20.w,
-                                                ),
-                                              ));
+                                            onTap: widget.onNotificationTap ??
+                                                () {},
+                                            child: SvgPicture.asset(
+                                              Assets.notificationIcon,
+                                              height: 20.h,
+                                              width: 20.w,
+                                            ),
+                                          );
                                         }
                                       },
                                     ),

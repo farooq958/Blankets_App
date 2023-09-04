@@ -1,11 +1,10 @@
-
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Presentation/Widgets/AboutUs/Controller/about_us_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Auth/Controller/login_cubit.dart';
 import 'package:hbk/Presentation/Widgets/ContactUs/Controller/in_out_cubit.dart';
+import 'package:hbk/Presentation/Widgets/CustomerSurvery/Controller/add_survey_cubit.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/Controller/customer_survey_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Controller/dashboard_bottom_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Controller/category_cubit.dart';
@@ -14,6 +13,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Controller/new_arr
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/SliderImages/Controller/slider_images_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Controller/invoice_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Controller/invoice_detail_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/Controller/create_new_password_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/Controller/reward_controller_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/statement_data_cubit.dart';
@@ -40,7 +40,6 @@ List<BlocProvider> appProviders = [
 //   BlocProvider<StatementDataCubit>(create: (context) => StatementDataCubit())
 // ];
 
-
   BlocProvider<InOutCubit>(create: (context) => InOutCubit()),
   BlocProvider<AboutUsCubit>(create: (context) => AboutUsCubit()),
   BlocProvider<CategoryCubit>(create: (context) => CategoryCubit()),
@@ -60,24 +59,33 @@ List<BlocProvider> appProviders = [
   BlocProvider<ReadNotificationCubit>(
       create: (context) => ReadNotificationCubit()),
 
+  BlocProvider<AboutUsCubit>(create: (context) => AboutUsCubit()),
+  BlocProvider<CategoryCubit>(create: (context) => CategoryCubit()),
+  BlocProvider<ContactUsCubit>(create: (context) => ContactUsCubit()),
+  BlocProvider<FaqsCubit>(create: (context) => FaqsCubit()),
+  BlocProvider<NewArrivalProductCubit>(
+      create: (context) => NewArrivalProductCubit()),
+  BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
+  BlocProvider<AllProductsCubit>(
+      create: (context) => AllProductsCubit()..getAllProducts()),
+  BlocProvider<DashboardBottomCubit>(
+      create: (context) => DashboardBottomCubit()),
+  BlocProvider<RewardControllerCubit>(
+      create: (context) => RewardControllerCubit()),
+  BlocProvider<StatementDataCubit>(create: (context) => StatementDataCubit()),
+  BlocProvider<RewardControllerCubit>(
+      create: (context) => RewardControllerCubit()),
 
-  BlocProvider<AboutUsCubit>(create: (context)=>AboutUsCubit()),
-  BlocProvider<CategoryCubit>(create: (context)=>CategoryCubit()),
-  BlocProvider<ContactUsCubit>(create: (context)=> ContactUsCubit()),
-  BlocProvider<FaqsCubit>(create: (context)=> FaqsCubit()),
-  BlocProvider<NewArrivalProductCubit>(create: (context)=>NewArrivalProductCubit()),
-  BlocProvider<LoginCubit>(create: (context)=>LoginCubit()),
-  BlocProvider<AllProductsCubit>(create: (context)=>AllProductsCubit()..getAllProducts()),
-  BlocProvider<DashboardBottomCubit>(create: (context)=>DashboardBottomCubit()),
-  BlocProvider<RewardControllerCubit>(create: (context)=>RewardControllerCubit()),
-  BlocProvider<StatementDataCubit>(create: (context)=>StatementDataCubit()),
-  BlocProvider<RewardControllerCubit>(create: (context)=>RewardControllerCubit()),
+  BlocProvider<FeedBackCubit>(create: (context) => FeedBackCubit()),
 
-  BlocProvider<FeedBackCubit>(create: (context)=>FeedBackCubit()),
+  BlocProvider<SliderImagesCubit>(create: (context) => SliderImagesCubit()),
 
-  BlocProvider<SliderImagesCubit>(create: (context)=> SliderImagesCubit()),
+  BlocProvider<CustomerSurveyQuestionCubit>(
+      create: (context) => CustomerSurveyQuestionCubit()),
+  BlocProvider<InvoiceCubit>(create: (context) => InvoiceCubit()),
+  BlocProvider<InvoiceDetailCubit>(create: (context) => InvoiceDetailCubit()),
+  BlocProvider<CreateNewPasswordCubit>(
+      create: (context) => CreateNewPasswordCubit()),
 
-  BlocProvider<CustomerSurveyQuestionCubit>(create: (context)=> CustomerSurveyQuestionCubit()),
-  BlocProvider<InvoiceCubit>(create: (context)=>InvoiceCubit()),
-  BlocProvider<InvoiceDetailCubit>(create: (context)=>InvoiceDetailCubit())
+  BlocProvider<AddSurveyCubit>(create: (context) => AddSurveyCubit())
 ];

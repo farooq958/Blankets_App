@@ -22,10 +22,10 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
 
   Future<bool> hasUserGivenFeedbackToday() async {
     // Get the last feedback date from shared preferences
-    String? lastFeedbackDate = "2023-09-04 17:03:40.536660";
+    String? lastFeedbackDate = SharedPrefs.getSurvey();
 
     if (lastFeedbackDate != null && lastFeedbackDate != 'no') {
-      DateTime lastDate = DateTime.parse(lastFeedbackDate!);
+      DateTime lastDate = DateTime.parse(lastFeedbackDate);
       print(lastDate);
       // Get the current date
       DateTime currentDate = DateTime.now();

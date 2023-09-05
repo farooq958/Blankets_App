@@ -3,6 +3,7 @@ import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/validator.dart';
 import 'package:hbk/Domain/Models/CustomerSurvey/customer_survey.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
 
 import '../../Common/Dialogs/loading_dialog.dart';
 import 'Controller/add_survey_cubit.dart';
@@ -78,6 +79,19 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
   Map<String, dynamic> map5 = {};
 
   @override
+  void initState() {
+    ///Assign a default answer to the questions if the user doesn't click on any answer.
+    /// The default value will be the first answer, which is answer number 1.
+
+    map1 = {'${widget.customerSurveyData![0].sno}': 1};
+    map2 = {'${widget.customerSurveyData![1].sno}': 1};
+    map3 = {'${widget.customerSurveyData![2].sno}': 1};
+    map4 = {'${widget.customerSurveyData![3].sno}': 1};
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   void dispose() {
     currentPageNotifier.dispose();
     super.dispose();
@@ -95,14 +109,18 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
                 if (state is AddSurveyLoaded) {
                   SharedPrefs.setSurveyDate(
                       survey: DateTime.now().toIso8601String());
+
                   CustomDialog.successDialog(context,
                       title: 'Thank You for Your Valuable Feedback!',
                       message:
                           'We sincerely appreciate you taking the time to participate in our customer survey.',
                       image: Assets.customerSurveySuccess);
                   Future.delayed(const Duration(seconds: 1), () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigate.toReplaceAll(
+                        context,
+                        const BottomNavigationScreen(
+                          isGuest: false,
+                        ));
                   });
                 } else if (state is AddSurveyError) {
                   WidgetFunctions.instance.snackBar(context, text: state.error);
@@ -166,11 +184,6 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
                           },
                           itemCount: widget.customerSurveyData!.length,
                           itemBuilder: (context, index) {
-                            map1 = {'${widget.customerSurveyData![0].sno}': 1};
-                            map2 = {'${widget.customerSurveyData![1].sno}': 1};
-                            map3 = {'${widget.customerSurveyData![2].sno}': 1};
-                            map4 = {'${widget.customerSurveyData![3].sno}': 1};
-
                             return index == 4
                                 ? Form(
                                     key: _formKey,
@@ -314,6 +327,8 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
                             return CustomButton(
                               borderRadius: 30.r,
                               onTap: () {
+                                /// map 5 is
+
                                 map5 = {
                                   '${widget.customerSurveyData![4].question}':
                                       suggestionController.text.trim()
@@ -347,6 +362,8 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
   }
 
   addToList(int index) {
+    /// The function is use to add a specific answer and value in the list which is map
+
     print(index);
     index == 0
         ? listData.add(map1)
@@ -362,6 +379,7 @@ class _CustomerSurveyStepsState extends State<CustomerSurveySteps> {
   }
 
   addDataToMap(int index, String ansVal) {
+    /// The function is use to add answer in the map of the specific question
     index == 0
         ? map1 = {
             '${widget.customerSurveyData![index].sno}': ansVal,

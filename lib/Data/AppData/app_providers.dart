@@ -13,6 +13,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Controller/new_arr
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/SliderImages/Controller/slider_images_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Controller/invoice_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Controller/invoice_detail_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Orders/Controller/orders_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/Controller/create_new_password_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/Controller/reward_controller_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
@@ -87,5 +88,6 @@ List<BlocProvider> appProviders = [
   BlocProvider<CreateNewPasswordCubit>(
       create: (context) => CreateNewPasswordCubit()),
 
-  BlocProvider<AddSurveyCubit>(create: (context) => AddSurveyCubit())
+  BlocProvider<AddSurveyCubit>(create: (context) => AddSurveyCubit()),
+  BlocProvider<OrdersCubit>(create: (context) => OrdersCubit())
 ];

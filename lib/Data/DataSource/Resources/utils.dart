@@ -16,7 +16,6 @@ import 'package:hbk/Presentation/Widgets/AboutUs/about_us.dart';
 import 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
 import 'package:hbk/Presentation/Widgets/ContactUs/contact_us.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/customer_survery.dart';
-import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/dashboard_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/invoice_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
@@ -27,7 +26,7 @@ import 'package:hbk/Presentation/Widgets/Feedback/feedback.dart';
 import 'package:hbk/Presentation/Widgets/SalePolicy/sales_policy.dart';
 
 class Utils {
-  static  ValueNotifier<String> productTitle=ValueNotifier('All Products');
+  static ValueNotifier<String> productTitle = ValueNotifier('All Products');
   static List<String> textList = [
     'Discover Warmth',
     'Effortless Shopping Experience',
@@ -119,19 +118,19 @@ class Utils {
     DrawerModel(
         screenName: 'Statement',
         iconPath: Assets.statementIcon,
-        widgetToNavigate:  CustomerStatementScreen()),
+        widgetToNavigate: CustomerStatementScreen()),
     DrawerModel(
         screenName: 'Price list',
         iconPath: Assets.priceIcon,
-        widgetToNavigate:  const PriceListScreen()),
+        widgetToNavigate: const PriceListScreen()),
     DrawerModel(
         screenName: 'Reward',
         iconPath: Assets.rewardIcon,
-        widgetToNavigate:  RewardScreen()),
+        widgetToNavigate: RewardScreen()),
     DrawerModel(
         screenName: 'Invoice',
         iconPath: Assets.invoiceIcon,
-        widgetToNavigate:  InvoiceScreen()),
+        widgetToNavigate: InvoiceScreen()),
     DrawerModel(
         screenName: 'Sale policies',
         iconPath: Assets.salePolicyIcon,
@@ -147,7 +146,7 @@ class Utils {
     DrawerModel(
         screenName: 'Contact us',
         iconPath: Assets.contactUsIcon,
-        widgetToNavigate:  const ContactUsScreen()),
+        widgetToNavigate: const ContactUsScreen()),
     DrawerModel(
         screenName: 'Customer survey',
         iconPath: Assets.customerSurveyIcon,
@@ -181,73 +180,94 @@ class Utils {
         iconPath: Assets.contactUsIcon,
         widgetToNavigate: const ContactUsScreen()),
 
-
     DrawerModel(
         screenName: 'Login',
         iconPath: Assets.logoutIcon,
         widgetToNavigate: const LoginScreen()),
   ];
-static getGraceLimit(creditLimit,tolerance)
-  {
-  var graceLimit= ((double.parse(creditLimit.toString()) * double.parse(tolerance.toString())) / 100.0).toString();
+  static getGraceLimit(creditLimit, tolerance) {
+    var graceLimit = ((double.parse(creditLimit.toString()) *
+                double.parse(tolerance.toString())) /
+            100.0)
+        .toString();
 
-
-return graceLimit;
+    return graceLimit;
   }
-  static getMaxLimit(creditLimit,tolerance,specialDeal)
-  {
 
- var maxLimit=   (double.parse(creditLimit) + ((double.parse(creditLimit) * double.parse(tolerance)) / 100.0) + double.parse(specialDeal));
-return maxLimit.toString();
+  static getMaxLimit(creditLimit, tolerance, specialDeal) {
+    var maxLimit = (double.parse(creditLimit) +
+        ((double.parse(creditLimit) * double.parse(tolerance)) / 100.0) +
+        double.parse(specialDeal));
+    return maxLimit.toString();
   }
-  static getOverLimit(balance,creditLimit)
-  {
-    var overLimit= (double.parse(balance)-double.parse(creditLimit));
 
-    return overLimit<=0 ? '0':overLimit.toString();
+  static getOverLimit(balance, creditLimit) {
+    var overLimit = (double.parse(balance) - double.parse(creditLimit));
+
+    return overLimit <= 0 ? '0' : overLimit.toString();
   }
-static getAvailableLimit(creditLimit,tolerance,balance,ordersBal,specialDeal)
-{
- return double.parse(((double.parse(
-    creditLimit.toString()) +
-    (double.parse(creditLimit
-        .toString()) *
-        double.parse(tolerance
-            .toString())) /
-        100.0 +
-    double.parse(
-        specialDeal.toString())) -
-    double.parse(balance.toString()) -
-    double.parse(ordersBal.toString()))
-    .toString()).toString();
 
-}
+  static getAvailableLimit(
+      creditLimit, tolerance, balance, ordersBal, specialDeal) {
+    return double.parse(((double.parse(creditLimit.toString()) +
+                    (double.parse(creditLimit.toString()) *
+                            double.parse(tolerance.toString())) /
+                        100.0 +
+                    double.parse(specialDeal.toString())) -
+                double.parse(balance.toString()) -
+                double.parse(ordersBal.toString()))
+            .toString())
+        .toString();
+  }
+
   static List<CustomCardModel> customCardData = [
-    CustomCardModel(amount: SharedPrefs.userData!.creditLimit.toString(), name: "Credit limit"),
-    CustomCardModel(amount:  getGraceLimit(SharedPrefs.userData!.creditLimit.toString(), SharedPrefs.userData!.tolerance.toString()), name: "Grace limit(${SharedPrefs.userData!.tolerance.toString()}%)"),
-    CustomCardModel(amount: SharedPrefs.userData!.specialDeal.toString(), name: "Special deal"),
-    CustomCardModel(amount: getMaxLimit(SharedPrefs.userData!.creditLimit.toString(), SharedPrefs.userData!.tolerance.toString(), SharedPrefs.userData!.specialDeal.toString()), name: "Max limit"),
-    CustomCardModel(amount: getOverLimit(SharedPrefs.userData!.balance.toString(), SharedPrefs.userData!.creditLimit.toString()), name: "Over limit"),
-    CustomCardModel(amount: getAvailableLimit(SharedPrefs.userData!.creditLimit.toString(), SharedPrefs.userData!.tolerance.toString(), SharedPrefs.userData!.balance.toString(), SharedPrefs.userData!.ordersBal.toString(), SharedPrefs.userData!.specialDeal.toString()), name: "Available limit"),
+    CustomCardModel(
+        amount: SharedPrefs.userData!.creditLimit.toString(),
+        name: "Credit limit"),
+    CustomCardModel(
+        amount: getGraceLimit(SharedPrefs.userData!.creditLimit.toString(),
+            SharedPrefs.userData!.tolerance.toString()),
+        name: "Grace limit(${SharedPrefs.userData!.tolerance.toString()}%)"),
+    CustomCardModel(
+        amount: SharedPrefs.userData!.specialDeal.toString(),
+        name: "Special deal"),
+    CustomCardModel(
+        amount: getMaxLimit(
+            SharedPrefs.userData!.creditLimit.toString(),
+            SharedPrefs.userData!.tolerance.toString(),
+            SharedPrefs.userData!.specialDeal.toString()),
+        name: "Max limit"),
+    CustomCardModel(
+        amount: getOverLimit(SharedPrefs.userData!.balance.toString(),
+            SharedPrefs.userData!.creditLimit.toString()),
+        name: "Over limit"),
+    CustomCardModel(
+        amount: getAvailableLimit(
+            SharedPrefs.userData!.creditLimit.toString(),
+            SharedPrefs.userData!.tolerance.toString(),
+            SharedPrefs.userData!.balance.toString(),
+            SharedPrefs.userData!.ordersBal.toString(),
+            SharedPrefs.userData!.specialDeal.toString()),
+        name: "Available limit"),
   ];
-  static List<CustomCardModel> customCardData1 = [
+  static List<CustomCardModel> customCardData1 = [];
 
-  ];
-
-  static List<DashboardModel> dashData=[];
+  static List<DashboardModel> dashData = [];
   static List<BottomCardModel> bottomCardData1 = [
-    BottomCardModel('Running Status', dashData[0].status.toString(), Assets.dashboardRunningStatus),
-    BottomCardModel('Next Target',  dashData[0].nextStatus.toString(), Assets.dashBoardNextTarget),
+    BottomCardModel('Running Status', dashData[0].status.toString(),
+        Assets.dashboardRunningStatus),
+    BottomCardModel('Next Target', dashData[0].nextStatus.toString(),
+        Assets.dashBoardNextTarget),
+    BottomCardModel('Sale Required', "Rs ${dashData[0].nextSales.toString()}",
+        Assets.dashboardSaleRequired),
+    BottomCardModel('Total Winning', 'Rs ${dashData[0].totalReward.toString()}',
+        Assets.dashboardTotalWinning),
+    BottomCardModel('Sale Required', 'Rs ${dashData[0].netSales.toString()}',
+        Assets.dashboardSaleOfSession),
     BottomCardModel(
-        'Sale Required', "Rs ${dashData[0].nextSales.toString()}", Assets.dashboardSaleRequired),
-    BottomCardModel(
-        'Total Winning', 'Rs ${dashData[0].totalReward.toString()}', Assets.dashboardTotalWinning),
-    BottomCardModel(
-        'Sale Required', 'Rs ${dashData[0].netSales.toString()}', Assets.dashboardSaleOfSession),
-    BottomCardModel(
-        'Pending Orders', 'Rs  ${SharedPrefs.userData!.ordersBal.toString()}', Assets.dashboardPendingOrders),
-
-
+        'Pending Orders',
+        'Rs  ${SharedPrefs.userData!.ordersBal.toString()}',
+        Assets.dashboardPendingOrders),
   ];
   static List<BottomCardModel> bottomCardData2 = [
     BottomCardModel(
@@ -261,9 +281,16 @@ static getAvailableLimit(creditLimit,tolerance,balance,ordersBal,specialDeal)
     BottomCardModel('Pending Orders', 'Rs 0', Assets.dashboardPendingOrders),
   ];
   static List<CustomCardModel> customInfoData = [
-    CustomCardModel(amount: "Sale Person", name: SharedPrefs.userData!.slperson.toString()),
-    CustomCardModel(amount: "Group", name: " ${SharedPrefs.userData!.property3=='Y'?'Common,':''} ${SharedPrefs.userData!.property2=='Y'?'B,':''}  ${SharedPrefs.userData!.property1=='Y'?'H':''} "),
-    CustomCardModel(amount: "Loyal", name: SharedPrefs.userData!.loyalty.toString()=='Loyal'?'Yes':'No'),
+    CustomCardModel(
+        amount: "Sale Person", name: SharedPrefs.userData!.slperson.toString()),
+    CustomCardModel(
+        amount: "Group",
+        name:
+            " ${SharedPrefs.userData!.property3 == 'Y' ? 'Common,' : ''} ${SharedPrefs.userData!.property2 == 'Y' ? 'B,' : ''}  ${SharedPrefs.userData!.property1 == 'Y' ? 'H' : ''} "),
+    CustomCardModel(
+        amount: "Loyal",
+        name:
+            SharedPrefs.userData!.loyalty.toString() == 'Loyal' ? 'Yes' : 'No'),
   ];
 
   static List<CartItem> cartItems = [
@@ -416,8 +443,6 @@ static getAvailableLimit(creditLimit,tolerance,balance,ordersBal,specialDeal)
         itemCount: 03,
         amount: 2000),
   ];
-
-
 
   void function() {
     Data data = Data();

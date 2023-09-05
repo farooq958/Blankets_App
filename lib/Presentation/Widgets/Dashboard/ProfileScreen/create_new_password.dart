@@ -61,7 +61,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 if (state.message == '"Password Updated Successfully."') {
                   CustomDialog.successDialog(context,
                       barrierDismissible: true,
-                      title: "Password Change Successfully",
+                      title: state.message,
                       message:
                           "Awesome! you’ve successfully change your password");
                   Future.delayed(const Duration(seconds: 2), () {
@@ -75,7 +75,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                       textStyle: Styles.circularStdMedium(context,
                           fontSize: 16, color: AppColors.whiteColor));
                 }
-              }
+              } else {}
               // TODO: implement listener
             },
             builder: (context, state) {

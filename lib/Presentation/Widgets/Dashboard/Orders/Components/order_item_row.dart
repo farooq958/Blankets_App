@@ -1,9 +1,8 @@
-
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
-
+import 'package:hbk/Domain/Models/Order/orders_model.dart';
 
 class OrderItemRow extends StatelessWidget {
-  final OrderItem? item;
+  final Salesorderdetaila? item;
 
   const OrderItemRow({Key? key, this.item}) : super(key: key);
 
@@ -18,7 +17,7 @@ class OrderItemRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
-                item!.image,
+                Assets.bagIcon,
                 height: 50.h,
                 width: 50.w,
                 color: AppColors.primaryColor,
@@ -27,14 +26,13 @@ class OrderItemRow extends StatelessWidget {
               SizedBox(
                   width: 120.w,
                   child: AppText(
-                    item!.itemTitle,
+                    item!.itemName!,
                     style: Styles.circularStdMedium(context, fontSize: 14.sp),
                     maxLine: 4,
                   )),
             ],
           ),
-          AppText(item!.itemCount.toString(),
-              style: Styles.circularStdMedium(context)),
+          AppText(item!.quantity!, style: Styles.circularStdMedium(context)),
           // AppText('PKR ${item!.amount.toStringAsFixed(2)}',
           //     style: Styles.circularStdMedium(context)),
           RichText(
@@ -43,7 +41,7 @@ class OrderItemRow extends StatelessWidget {
                 text: 'PKR ',
                 style: Styles.circularStdBold(context, fontSize: 15.sp)),
             TextSpan(
-                text: item!.amount.toString(),
+                text: item!.price,
                 style: Styles.circularStdBold(context,
                     fontWeight: FontWeight.w700,
                     fontSize: 15.sp,

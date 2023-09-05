@@ -62,3 +62,6 @@ const String surveyQuestionUrl =
 
 const String addSurveyUrl =
     'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/postingreview';
+
+const String ordersUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/ClosedApisLookup/GetAllSAPSalesOrder?';

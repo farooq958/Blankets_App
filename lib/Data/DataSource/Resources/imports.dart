@@ -26,7 +26,6 @@ export 'package:hbk/Presentation/Common/custom_radio_tile.dart';
 export 'package:hbk/Data/DataSource/Resources/utils.dart';
 export 'package:hbk/Presentation/Common/custom_app_bar.dart';
 export 'package:hbk/Presentation/Widgets/Auth/Login/login_screen.dart';
-export 'package:hbk/Domain/Models/orderModel.dart';
 export 'package:hbk/Application/Services/Navigation/navigation.dart';
 export 'dart:math';
 export 'package:hbk/Presentation/Common/circle_icon_button.dart';

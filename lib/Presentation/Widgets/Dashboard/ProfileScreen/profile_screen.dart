@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Domain/Models/orderModel.dart';
 
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/order_history.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/Components/list_tile_widget.dart';
@@ -65,11 +66,7 @@ class ProfileScreen extends StatelessWidget {
           tileTitle: AppStrings.orderHistory,
           icon: Assets.orderHistory,
           onTap: () {
-            Navigate.to(
-                context,
-                const OrderHistory(
-                  orderStatus: OrderStatus.Completed,
-                ));
+            Navigate.to(context, const OrderHistory());
           },
         ),
         ListTileWidget(

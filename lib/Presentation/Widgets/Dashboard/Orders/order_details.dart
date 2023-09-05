@@ -1,12 +1,12 @@
-
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
-
-
+import 'package:hbk/Domain/Models/Order/orders_model.dart';
+import 'package:hbk/Domain/Models/orderModel.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
-  final OrderModel? orderModel;
-
-  const OrderDetailsScreen({Key? key, required this.orderModel})
+  final OrdersApiModel? orderModel;
+  final int index;
+  const OrderDetailsScreen(
+      {Key? key, required this.orderModel, required this.index})
       : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class OrderDetailsScreen extends StatelessWidget {
                         Row(
                           children: [
                             SvgPicture.asset(
-                              orderModel!.image,
+                              Assets.bagIcon,
                               height: 80.h,
                               width: 100.w,
                               color: AppColors.primaryColor,
@@ -43,57 +43,54 @@ class OrderDetailsScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AppText('S# ${orderModel!.orderNo}',
+                                AppText('S# ${orderModel!.docnum}',
                                     style: Styles.circularStdMedium(context)),
-                                CustomSizedBox.height(5.h
-                                ),
-                                AppText('Items ${orderModel!.noOfItems}',
-                                    style: Styles.circularStdMedium(context)),CustomSizedBox.height(5.h
-                                ),
-
+                                CustomSizedBox.height(5.h),
+                                AppText(
+                                    'Items ${orderModel!.salesorderdetailas!.length}',
+                                    style: Styles.circularStdMedium(context)),
+                                CustomSizedBox.height(5.h),
                                 RichText(
                                     text: TextSpan(children: [
-                                      TextSpan(
-                                          text: 'Total Rs ',
-                                          style: Styles.circularStdBold(context, fontSize: 16.sp)),
-
-                                      TextSpan(
-                                          text: '50,490 ',
-                                          style: Styles.circularStdBold(context,
-                                              fontWeight: FontWeight.w900, fontSize: 20,color: Colors.blue)),
-                                    ])),
+                                  TextSpan(
+                                      text: 'Total Rs ',
+                                      style: Styles.circularStdBold(context,
+                                          fontSize: 16.sp)),
+                                  TextSpan(
+                                      text: '${orderModel!.docTotal}',
+                                      style: Styles.circularStdBold(context,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 20,
+                                          color: Colors.blue)),
+                                ])),
                               ],
                             ),
                           ],
                         ),
-                        CustomSizedBox.height(10.h
-                        ),
+                        CustomSizedBox.height(10.h),
                         Chip(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
-side: const BorderSide(color: Colors.white),
+                          side: const BorderSide(color: Colors.white),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.r)),
-                          backgroundColor: MaterialStateColor.resolveWith((states) =>
-                              _getStatusColor(orderModel!.orderStatus)),
+                          backgroundColor: MaterialStateColor.resolveWith(
+                              (states) => _getStatusColor(orderModel!.status!)),
                           label: AppText(
-                            orderModel!.orderStatus
-                                .toString()
-                                .split('.')
-                                .last,
+                            orderModel!.status.toString().split('.').last,
                             style: Styles.circularStdRegular(context,
-                                color: AppColors.whiteColor,fontSize: 10.sp),
+                                color: AppColors.whiteColor, fontSize: 10.sp),
                           ),
                         ),
                       ],
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(left: 8.w),
+                      padding: EdgeInsets.only(left: 8.w),
                       child: AppText(AppStrings.pleaseCallMe,
                           style: Styles.circularStdMedium(context)),
                     ),
                     CustomSizedBox.height(15.h),
                     Padding(
-                      padding:  EdgeInsets.only(left: 8.w),
+                      padding: EdgeInsets.only(left: 8.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -116,25 +113,25 @@ side: const BorderSide(color: Colors.white),
                     SizedBox(
                       height: 350.h,
                       child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
-                          itemCount: Utils.orderItems.length,
+                          itemCount: orderModel!.salesorderdetailas!.length,
                           itemBuilder: (context, index) {
-                            final item = Utils.orderItems[index];
+                            final item = orderModel!.salesorderdetailas![index];
                             return OrderItemRow(
                               item: item,
                             );
                           }),
                     ),
                     CustomSizedBox.height(20.h),
-                    const RowWidget(
+                    RowWidget(
                       title: 'Total Items:',
-                      amount: 07,
+                      amount: orderModel!.salesorderdetailas!.length.toString(),
                     ),
                     CustomSizedBox.height(10.h),
-                    const RowWidget(
+                    RowWidget(
                       title: 'Total amount',
-                      amount: 50490,
+                      amount: orderModel!.docTotal,
                       isRs: true,
                     ),
                   ],
@@ -147,10 +144,10 @@ side: const BorderSide(color: Colors.white),
     );
   }
 
-  Color _getStatusColor(OrderStatus status) {
-    if (status == OrderStatus.Active) {
+  Color _getStatusColor(String status) {
+    if (status == 'Active') {
       return AppColors.primaryColor;
-    } else if (status == OrderStatus.Completed) {
+    } else if (status == 'Completed') {
       return Colors.green;
     } else {
       return Colors.yellow.shade700;

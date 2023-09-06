@@ -20,6 +20,30 @@ class CustomerSurveyScreen extends StatefulWidget {
 class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
   UserDetails? userDetails;
 
+  Future<bool> hasUserGivenFeedbackToday() async {
+    // Get the last feedback date from shared preferences
+    String? lastFeedbackDate = SharedPrefs.getSurvey();
+
+    if (lastFeedbackDate != null && lastFeedbackDate != 'no') {
+      DateTime lastDate = DateTime.parse(lastFeedbackDate);
+      print(lastDate);
+      // Get the current date
+      DateTime currentDate = DateTime.now();
+
+      // Check if the last feedback date is the same as the current date
+      return lastDate.year == currentDate.year &&
+          lastDate.month == currentDate.month &&
+          lastDate.day == currentDate.day;
+      // No feedback has been given before
+      return false;
+    } else {
+      print('false');
+      return false;
+    }
+
+    // Parse the last feedback date string into a DateTime object
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -43,9 +67,8 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
           // TODO: implement listener
           if (state is CustomerSurveyLoading) {
             LoadingDialog.showLoadingDialog(context);
-
           }
-          if(state is CustomerSurveyLoaded){
+          if (state is CustomerSurveyLoaded) {
             Navigator.of(context).pop(true);
           }
           if (state is CustomerSurveyError) {
@@ -94,11 +117,17 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
                   ),
                   CustomButton(
                       borderRadius: 30.r,
-                      onTap: () {
-                        Navigate.to(context, CustomerSurveySteps(customerSurveyData: state.questionsData,));
+                      onTap: () async {
+                        bool value = await hasUserGivenFeedbackToday();
+                        Navigate.to(
+                            context,
+                            CustomerSurveySteps(
+                              customerSurveyData: state.questionsData,
+                              feedBackAdded: value,
+                            ));
                       },
                       text: 'Submit'),
-10.y,
+                  10.y,
                   CustomButton(
                       borderRadius: 30.r,
                       bgColor: Colors.white,

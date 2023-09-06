@@ -35,10 +35,8 @@ const String productAuthUrl =
 const String faqUrl =
     'http://sap.al-imdad.com:44891/Picture/CustomerApplogin/faq.json';
 
-
-
 const String notificationUrl =
-    'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/GetAllAlerts?CardCode=c00459';
+    'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/GetAllAlerts?';
 
 const String imageUrl =
     'http://imtxt.sbsolutions.com.pk:44891/Picture/CustomerApplogin/';
@@ -46,15 +44,24 @@ const String imageUrl =
 const String readNotificationUrl =
     'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/postingAlert';
 
+const String invoiceUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/GetAllSAPInvoices?Cardcode=';
+const String invoiceDetailUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/GetInvoice?DocEntry=';
+const String feedBackUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/PostApis/PostAppFeedback';
 
-const String invoiceUrl='http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/GetAllSAPInvoices?Cardcode=';
-const String invoiceDetailUrl='http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/GetInvoice?DocEntry=';
-const String feedBackUrl = 'http://imtxt.sbsolutions.com.pk:44891/api/PostApis/PostAppFeedback';
+const String sliderImagesUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/Get/Slider';
 
-const String sliderImagesUrl = 'http://imtxt.sbsolutions.com.pk:44891/api/Get/Slider';
+const String updatePasswordUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/lookupapi/';
 
+const String surveyQuestionUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/lookupapi/GetAllQuestions?CardCode=C00459';
 
+const String addSurveyUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/postingreview';
 
-
-
-const String surveyQuestionUrl = 'http://imtxt.sbsolutions.com.pk:44891/api/lookupapi/GetAllQuestions?CardCode=C00459';
+const String ordersUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/api/ClosedApisLookup/GetAllSAPSalesOrder?';

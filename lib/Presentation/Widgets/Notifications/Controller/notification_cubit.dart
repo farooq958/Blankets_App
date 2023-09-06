@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../Data/AppData/app_preferences.dart';
 import '../../../../Data/Repository/AboutUs/about_us_repo.dart';
 import '../../../../Data/Repository/Notification/notification_repo.dart';
 import '../../../../Domain/Models/Notification/notification_model.dart';
@@ -11,14 +12,22 @@ class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit() : super(NotificationInitial());
 
   getNotification() async {
+    // getShadePref to access user CardCode
+    String? cardCode = SharedPrefs.userData!.cardCode;
+
     emit(NotificationLoading());
 
     try {
-      await NotificationRepo().getNotifications().then((value) {
+      await NotificationRepo().getNotifications(cardCode!).then((value) {
         if (value.runtimeType != int) {
-          var notification = List<NotificationsModel>.from(
-              value.map((x) => NotificationsModel.fromJson(x)));
-          emit(NotificationLoaded(notifications: notification));
+          print("notification in cubits${value}");
+          if (value['Message'] == null) {
+            var notification = List<NotificationsModel>.from(
+                value.map((x) => NotificationsModel.fromJson(x)));
+            emit(NotificationLoaded(notifications: notification));
+          } else {
+            emit(NotificationError(error: value['Message']));
+          }
         } else {
           print('condition false');
         }

@@ -17,7 +17,7 @@ if(dispose != null) {
     emit(AllProductsLoading());
     try {
 
-      await ProductRepo().getProduct(catId!=null && isGuest ==true ? categoryProductUrl+catId:catId!=null && isGuest ==false ?productAuthUrl+catId:allProductGuestUrl).then((value) {
+      await ProductRepo().getProduct(catId!=null && isGuest ==true ? categoryProductUrl+catId:catId != null && isGuest ==false ?productAuthUrl+catId:allProductGuestUrl).then((value) {
 
 if(value !=int ) {
   var newArrivalData = List<ProductApiModel>.from(

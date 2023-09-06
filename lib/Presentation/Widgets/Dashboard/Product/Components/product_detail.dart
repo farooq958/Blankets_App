@@ -32,7 +32,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     isRemove= widget.isRemove;
 
    }
-
+print("updated");
     // TODO: implement initState
     super.initState();
   }

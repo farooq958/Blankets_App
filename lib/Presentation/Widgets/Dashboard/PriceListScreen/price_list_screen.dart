@@ -13,8 +13,9 @@ import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
-import 'package:linked_scroll_controller/linked_scroll_controller.dart';
+
 import 'package:open_file/open_file.dart';
+import 'package:sync_scroll_controller/sync_scroll_controller.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class PriceListScreen extends StatefulWidget {
@@ -105,25 +106,25 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
 
   final TextEditingController searchControllerPrice = TextEditingController();
   late PriceListDataSource priceListDataSource;
-   final  LinkedScrollControllerGroup _controllers=LinkedScrollControllerGroup();
+   final  SyncScrollControllerGroup _controllers=SyncScrollControllerGroup();
   ScrollController horizontalScrollController=ScrollController();
   ScrollController horizontalScrollControllerTitle=ScrollController();
-@override
-  void dispose() {
-// horizontalScrollController.dispose();
-// horizontalScrollControllerTitle.dispose();
-//BlocProvider.of<AllProductsCubit>(context).close();
-
-//  context.read<AllProductsCubit>().getAllProducts(dispose: true);
-    // TODO: implement dispose
-    super.dispose();
-  }
-  double _horizontalScrollOffset = 0;
+// @override
+//   void dispose() {
+// _controllers.removeOffsetChangedListener(() { });
+// //horizontalScrollControllerTitle.dispose();
+// //BlocProvider.of<AllProductsCubit>(context).close();
+//
+// //  context.read<AllProductsCubit>().getAllProducts(dispose: true);
+//     // TODO: implement dispose
+//     super.dispose();
+//   }
 
   @override
   bool get wantKeepAlive => true;
   @override
   void initState() {
+
 
     //employees= getEmployees();
 if(mounted)
@@ -1108,13 +1109,13 @@ return dto;
    // print(dto);
     return productsListDta;
   }
-  Future<void> readData() async {
-    print('calleddto');
-    await Future.delayed(const Duration(seconds: 2));
-    BlocProvider.of<AllProductsCubit>(context).getAllProducts();
-
-
-  }
+  // Future<void> readData() async {
+  //   print('calleddto');
+  //   await Future.delayed(const Duration(seconds: 2));
+  //   BlocProvider.of<AllProductsCubit>(context).getAllProducts();
+  //
+  //
+  // }
 
 
 }

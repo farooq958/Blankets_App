@@ -61,8 +61,11 @@ class _CustomAppBarWithBackButtonState
 
           onPressed: () {
             Navigator.of(context).pop();
-            context.read<AllProductsCubit>().getAllProducts(catId: widget.catId ?? 'all',isGuest:widget.isGuest);
-            context.read<NewArrivalProductCubit>().getNewArrivalProducts();
+        if(widget.isGuest==false) {
+          context.read<AllProductsCubit>().getAllProducts(catId: widget.catId ?? 'all',isGuest:widget.isGuest);
+          context.read<NewArrivalProductCubit>().getNewArrivalProducts();
+        }
+
            // context.read<AllProductsCubit>().getAllProducts();
           },
           width: 15.w,

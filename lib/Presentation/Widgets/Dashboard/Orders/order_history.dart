@@ -36,7 +36,8 @@ class _OrderHistoryState extends State<OrderHistory> {
       }, builder: (context, state) {
         if (state is OrdersLoading) {
           return Center(child: LoadingDialog.loadingWidget());
-        } else if (state is OrdersLoaded) {
+        }
+        else if (state is OrdersLoaded) {
           List filteredOrders = state.model
               .where((order) => order.status == 'Completed')
               .toList();
@@ -51,12 +52,14 @@ class _OrderHistoryState extends State<OrderHistory> {
             },
           );
         } else if (state is OrdersError) {
-          return AppText(
-            state.error,
-            style: Styles.circularStdMedium(context),
+          return Center(
+            child: AppText(
+              state.error,
+              style: Styles.circularStdMedium(context,fontSize: 16.sp),
+            ),
           );
         } else {
-          return SizedBox();
+          return const SizedBox();
         }
       }),
     );

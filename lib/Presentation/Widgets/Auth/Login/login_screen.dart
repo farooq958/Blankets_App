@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
             WidgetFunctions.instance.snackBar(context,
                 text: 'Login Successfully!', bgColor: AppColors.primaryColor);
 
-            Navigate.to(
+            Navigate.toReplaceAll(
                 context,
                 const BottomNavigationScreen(
                   isGuest: false,

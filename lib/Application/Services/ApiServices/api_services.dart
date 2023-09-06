@@ -12,7 +12,7 @@ class Api {
     return us != null
         ? {
             "Authorization": "Bearer $us",
-            //'Content-Type': 'application/json',
+            //'Content-Type': 'application/x-www-form-urlencoded',
             //'Content-Type': 'application/json'
           }
         : {
@@ -263,6 +263,40 @@ class Api {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         return 200;
+      } else {
+        throw Exception('Failed to sign up user');
+      }
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+  static Future postOrder(
+      Map<String, dynamic> body, {
+        required String url,
+      }) async {
+    try {
+      String? us = SharedPrefs.getUserToken();
+  final head=    {
+        "Authorization": "Bearer $us",
+    'Content-Type': 'application/x-www-form-urlencoded',
+    //'Content-Type': 'application/json'
+  };
+      final response = await http.post(Uri.parse(url),
+          headers: head, body: (body));
+
+      print("Response status ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        print("api response");
+        print(data);
+        if(data['UserDetails']==null) {
+          return 200;
+        }
+        else
+          {
+            return 240;
+          }
       } else {
         throw Exception('Failed to sign up user');
       }

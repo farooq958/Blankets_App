@@ -134,6 +134,24 @@ print('from db total');
     return grandTotal;
   }
 
+  Future<Object> getTotalQuantity() async {
+    final db = await cartDatabaseInstance.database;
+
+    // Calculate the total quantity by summing up all productQuantity values
+    final result = await db.rawQuery('SELECT SUM(productQuantity) AS totalQuantity FROM CartTable');
+
+    // Extract the total quantity from the query result
+    final totalQuantity = result.isNotEmpty ? result.first['totalQuantity'] ?? 0 : 0;
+
+    return totalQuantity;
+  }
+  Future<void> clearCart() async {
+    final db = await cartDatabaseInstance.database;
+
+    // Delete all rows from the 'cart' table
+    await db.delete('CartTable');
+  }
+
 
   Future<int> updateCart(CartModel cart) async {
     final db = await cartDatabaseInstance.database;

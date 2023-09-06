@@ -28,4 +28,20 @@ class OrdersRepo {
       rethrow;
     }
   }
+
+  static Future postOrders(data)async{
+
+    print("In Repo Data $data");
+    try {
+      return await Api.postOrder( data,url:'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/PostSAPSalesOrders',).then((value) {
+
+        print("value $value");
+        return value;
+      }).catchError((e) {
+        throw e;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

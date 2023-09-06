@@ -19,6 +19,12 @@ class SharedPrefs {
 
   static String? getSurvey() => _preferences!.getString("survey");
 
+
+  ///survey
+  static Future setOrderDate({required String survey}) async =>
+      await _preferences?.setString("order", survey);
+
+  static String? getOrderDate() => _preferences!.getString("order");
   ///token
   static Future setUserToken({required String? token}) async =>
       await _preferences?.setString("token", token ?? 'no_token');

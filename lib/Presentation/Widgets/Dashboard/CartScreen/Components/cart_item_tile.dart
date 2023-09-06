@@ -150,7 +150,10 @@ setGrandTotal()
                 ),
               ],
             ),
-            Row(
+            BlocBuilder<CartGrandTotalMapCubit, Map<int,String>>(
+  builder: (context, qState) {
+
+    return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 RichText(
@@ -164,7 +167,7 @@ setGrandTotal()
                       style:
                           Styles.circularStdBold(context, fontSize: 16.sp)),
                   TextSpan(
-                      text: '${double.parse(widget.cartDto!.productPrice.toString()) * quantityNotifier.value}',
+                      text: '${double.parse(widget.cartDto!.productPrice.toString()) *double.parse( widget.mapQuantity[widget.index].toString())}',
                       style: Styles.circularStdBold(context,
                           fontWeight: FontWeight.w900, fontSize: 20.sp)),
                 ])),
@@ -201,7 +204,7 @@ if( quantityNotifier.value!=0) {
   print(quantityNotifier.value.toString() +"from minuss");
 
   CartNotifier.grandSumTotalNotifier.value -= double.parse(widget.cartDto!.productPrice.toString());
-
+  CartNotifier.grandCtnNotifier.value--;
 
 }
 
@@ -235,6 +238,7 @@ if( quantityNotifier.value!=0) {
                               });
 
                               CartNotifier.grandSumTotalNotifier.value += double.parse(widget.cartDto!.productPrice.toString());
+                              CartNotifier.grandCtnNotifier.value++;
                             },
                             width: 25.w,
                             height: 25.h,
@@ -249,7 +253,9 @@ if( quantityNotifier.value!=0) {
                   ),
                 )
               ],
-            )
+            );
+  },
+)
           ],
         ),
       ),

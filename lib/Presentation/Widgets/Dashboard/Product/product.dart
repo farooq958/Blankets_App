@@ -40,9 +40,9 @@ class _ProductScreenState extends State<ProductScreen> {
     // TODO: implement initState
   isFromFilter=false;
   isFromSort=false;
-  // if(widget.catId == null){
-  //
-  // }
+  if(widget.catId == null){
+
+  }
   context.read<AllProductsCubit>().getAllProducts(catId: widget.catId ?? 'all',isGuest:widget.isGuest);
 
   super.initState();

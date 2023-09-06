@@ -11,6 +11,7 @@ import 'package:hbk/Presentation/Widgets/CustomerSurvery/Controller/customer_sur
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/add_cart_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_grand_total_map_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/post_order_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Controller/dashboard_bottom_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Controller/category_cubit.dart';
 import 'package:hbk/Presentation/Widgets/ContactUs/Controller/contact_us_cubit.dart';
@@ -56,7 +57,7 @@ List<BlocProvider> appProviders = [
       create: (context) => NewArrivalProductCubit()),
   BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
   BlocProvider<AllProductsCubit>(
-      create: (context) => AllProductsCubit()..getAllProducts()),
+      create: (context) => AllProductsCubit()),
   BlocProvider<DashboardBottomCubit>(
       create: (context) => DashboardBottomCubit()),
   BlocProvider<RewardControllerCubit>(
@@ -89,5 +90,12 @@ List<BlocProvider> appProviders = [
 
   BlocProvider<CustomerSurveyQuestionCubit>(create: (context)=> CustomerSurveyQuestionCubit()),
   BlocProvider<InvoiceCubit>(create: (context)=>InvoiceCubit()),
-  BlocProvider<InvoiceDetailCubit>(create: (context)=>InvoiceDetailCubit())
+  BlocProvider<InvoiceDetailCubit>(create: (context)=>InvoiceDetailCubit()),
+  BlocProvider<CartGrandTotalMapCubit>(create: (context)=>CartGrandTotalMapCubit()),
+  BlocProvider<CartCubit>(create: (context)=>CartCubit()),
+  BlocProvider<AddSurveyCubit>(create: (context) => AddSurveyCubit()),
+  BlocProvider<OrdersCubit>(create: (context) => OrdersCubit()),
+  BlocProvider<CreateNewPasswordCubit>(
+      create: (context) => CreateNewPasswordCubit()),
+  BlocProvider<PostOrderCubit>(create: (context)=>PostOrderCubit())
 ];

@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Domain/Models/Cart/cart_model.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/cart_item_tile.dart';
@@ -11,6 +14,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_gr
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
 import 'Checkout/check_out_screen.dart';
 import 'Controller/notifier.dart';
+import 'Controller/post_order_cubit.dart';
 
 class CartScreen extends StatefulWidget {
   final PageController? pageController;
@@ -37,7 +41,7 @@ TextEditingController instructionController=TextEditingController();
     CartNotifier.grandSumTotalNotifier.value = 0.0;
     getGrandTotalFromDb();
     context.read<CartCubit>().getAllCartItems();
-    context.read<CartGrandTotalMapCubit>().setGetMap(0,'1', {});
+    context.read<CartGrandTotalMapCubit>().setGetMap(0,'1', {},fromRemove: true);
     super.initState();
   }
 
@@ -95,7 +99,9 @@ TextEditingController instructionController=TextEditingController();
                             SizedBox(
                               width: 1.sw,
                               height: 1.sh / 2.3,
-                              child: ListView.separated(
+                              child: state.cartData.isEmpty? EmptyCartScreen(
+                                pageController: widget.pageController,
+                              ): ListView.separated(
                                 //  shrinkWrap: true,
                                   itemBuilder: (context, index) {
 
@@ -116,7 +122,10 @@ TextEditingController instructionController=TextEditingController();
                                         (double.parse(
                                             state.cartData[index].productPrice
                                                 .toString()) *
-                                            double.parse(context.read<CartGrandTotalMapCubit>().state[index]!));
+                                            double.parse(quantityMapState[index]!));
+
+                                        CartNotifier.grandCtnNotifier.value -=   double.parse(quantityMapState[index]!);
+                                      //  context.read<CartGrandTotalMapCubit>().setGetMap(index, quantityMapState[index]!, quantityMapState);
 
                                         int val = await CartDatabase
                                             .cartDatabaseInstance.deleteCart(
@@ -153,15 +162,19 @@ TextEditingController instructionController=TextEditingController();
                               isShadowRequired: true,
                               maxline: 2,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AppText('Total ctn',
-                                    style: Styles.circularStdMedium(context)),
-                                AppText(
-                                    '07',
-                                    style: Styles.circularStdMedium(context)),
-                              ],
+                            ValueListenableBuilder(
+                              builder: (context,ctnState,ch) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AppText('Total ctn',
+                                        style: Styles.circularStdMedium(context)),
+                                    AppText(
+                                        ctnState.toString(),
+                                        style: Styles.circularStdMedium(context)),
+                                  ],
+                                );
+                              }, valueListenable: CartNotifier.grandCtnNotifier,
                             ),
                             CustomSizedBox.height(10.h),
 
@@ -182,9 +195,63 @@ TextEditingController instructionController=TextEditingController();
                               },
                               valueListenable: CartNotifier.grandSumTotalNotifier,
                             ),
-                            CustomButton(
+                            BlocListener<PostOrderCubit, PostOrderState>(
+  listener: (context, state) {
+    // TODO: implement listener
+    if(state is PostOrderLoading)
+      {
+        LoadingDialog.showLoadingDialog(context);
+      }
+    if(state is PostOrderSuccess)
+      {
+        SharedPrefs.setOrderDate(survey: DateTime.now().toIso8601String());
+        Navigate.pop(context);
+        CustomDialog.successDialog(context,
+            title: 'Success! Your order has been Placed',
+            message:
+            'We sincerely appreciate you taking the time.',
+            image: Assets.customerSurveySuccess);
+
+      }
+  },
+  child: CustomButton(
                                 borderRadius: 30.r,
-                                onTap: () {
+                                onTap: () async {
+                                  List<Map<String,dynamic>> toSendCartData=[];
+                                  List<CartModel> dbList=await CartDatabase.cartDatabaseInstance.getAllCartItems();
+
+                                  for(var i in dbList)
+                                    {
+                                      print(i.productQuantity);
+                                      toSendCartData.add({
+                                        "ItemCode": i.productId.toString(),
+                                        "UomCode": i.pcsCtn.toString(),
+                                        "Quantity":
+                                        double.parse(i.multiplier.toString()) * double.parse(i.productQuantity.toString()),
+                                        "WhsCode": "PEW-410",
+
+
+                                      });
+
+                                    }
+                                  final data = {
+                                    'SONumMblapp': 'TEST',
+                                    'CardCode': SharedPrefs.userData!.cardCode.toString(),
+                                    'DocDate': DateTime.now().toString(),
+                                    'DocDueDate': DateTime.now().toString(),
+                                    'GridData': jsonEncode(toSendCartData),
+                                    'Remarks': instructionController.text
+                                  };
+                          bool check= await hasUserGivenOrderToday();
+                      if(check == false) {
+                        context.read<PostOrderCubit>().postOrder(data);
+                      }
+                      else
+                        {
+
+                          WidgetFunctions.instance.snackBar(context,text: 'Already have posted order Today',textStyle: Styles.circularStdMedium(context,color: AppColors.whiteColor),bgColor: AppColors.primaryColor);
+                        }
+                                  // print(toSendCartData);
                                   // Navigate.to(
                                   //     context,
                                   //     CheckOutScreen(
@@ -192,8 +259,12 @@ TextEditingController instructionController=TextEditingController();
                                   //       totalPayment: Utils.cartItems[0].price!,
                                   //       pageController: widget.pageController,
                                   //     ));
+
+
+
                                 },
                                 text: AppStrings.placeOrder),
+),
 
 
                           ],
@@ -217,8 +288,31 @@ TextEditingController instructionController=TextEditingController();
   Future<void> getGrandTotalFromDb() async {
     var grandT = await CartDatabase.cartDatabaseInstance.calculateGrandTotal();
     CartNotifier.grandSumTotalNotifier.value = double.parse(grandT.toString());
+    var grandCtn=await CartDatabase.cartDatabaseInstance.getTotalQuantity();
+    CartNotifier.grandCtnNotifier.value = double.parse(grandCtn.toString());
+  }
+
+  Future<bool> hasUserGivenOrderToday() async {
+    // Get the last feedback date from shared preferences
+    String? lastFeedbackDate = SharedPrefs.getOrderDate();
+
+    if (lastFeedbackDate != null) {
+      DateTime lastDate = DateTime.parse(lastFeedbackDate);
+      print(lastDate);
+      // Get the current date
+      DateTime currentDate = DateTime.now();
+
+      // Check if the last feedback date is the same as the current date
+      return lastDate.year == currentDate.year &&
+          lastDate.month == currentDate.month &&
+          lastDate.day == currentDate.day;
+      // No feedback has been given before
+      return false;
+    } else {
+      print('false');
+      return false;
+    }
+
+    // Parse the last feedback date string into a DateTime object
   }
 }
-// EmptyCartScreen(
-// pageController: widget.pageController,
-// )

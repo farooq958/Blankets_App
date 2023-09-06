@@ -9,7 +9,8 @@ class ProductRepo{
 
   Future<dynamic> getProduct(url)async{
     try{
-
+      print("firstUrl");
+print(url);
       return await Api.getCat(url).then((value){
         if (kDebugMode) {
           print("P Response $value");

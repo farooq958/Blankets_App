@@ -42,7 +42,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   void initState() {
     // TODO: implement initState
     init();
-    context.read<CartCubit>().getAllCartItems();
+    if(widget.isGuest==false) {
+      context.read<CartCubit>().getAllCartItems();
+    }
     var dto = SharedPrefs.getUserLoginData();
     print("user details---");
     print(dto?.cardCode);

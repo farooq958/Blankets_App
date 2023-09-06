@@ -11,6 +11,7 @@ import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Component/drawer_row.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 
@@ -108,17 +109,20 @@ final  GlobalKey<ScaffoldState>? drawerKey;
                     );
                         },
                         itemCount: Utils.drawerGuestData.length)
-                    : ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return DrawerRow(
-                            screenName: Utils.drawerData[index].screenName,
-                            iconPath: Utils.drawerData[index].iconPath,
-                            onTap: () async {
+                    : SizedBox(
+                  height: 1.sh,
+                      child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                        //  shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return DrawerRow(
+                              screenName: Utils.drawerData[index].screenName,
+                              iconPath: Utils.drawerData[index].iconPath,
+                              onTap: () async {
 if(Utils.drawerData[index].screenName=='Price list'){
-  context.read<AllProductsCubit>().getAllProducts(catId: 'all',isGuest: isGuest);
+  context.read<AllProductsCubit>().getAllProducts(catId: 'all',isGuest: false);
  await Future.delayed(const Duration(milliseconds: 30));
+
   Navigate.to(context,
       Utils.drawerData[index].widgetToNavigate!);
 }
@@ -129,23 +133,24 @@ else if( Utils.drawerData[index].screenName=='Logout')
 
     await Future.delayed(const Duration(seconds: 3));
     SharedPrefs.clearPref();
-
+ await  CartDatabase.cartDatabaseInstance.clearCart();
     Navigate.toReplaceAll(drawerKey!.currentState!.context,
         Utils.drawerData[index].widgetToNavigate!);
   }
 else
   {
-                              Navigate.to(context,
-                                  Utils.drawerData[index].widgetToNavigate!);}
-                            },
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(
-                            height: 25.sp,
-                          );
-                        },
-                        itemCount: Utils.drawerData.length)
+                                Navigate.to(context,
+                                    Utils.drawerData[index].widgetToNavigate!);}
+                              },
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(
+                              height: 25.sp,
+                            );
+                          },
+                          itemCount: Utils.drawerData.length),
+                    )
               ],
             ),
           ),

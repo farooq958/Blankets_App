@@ -23,7 +23,7 @@ class OrdersCubit extends Cubit<OrdersState> {
         }
       }).catchError((e) {
         print(e.toString());
-        emit(OrdersError(error: e.toString()));
+        emit(OrdersError(error: "Something Went Wrong"));
       });
     } catch (e) {
       emit(OrdersError(error: e.toString()));

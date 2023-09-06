@@ -39,13 +39,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
               style: Styles.circularStdMedium(context, fontSize: 16),
             ));
           } else if (state is NotificationLoaded) {
-            return ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: state.notifications.length,
-                itemBuilder: (context, index) {
-                  return NotificationTile(
-                      notification: state.notifications, index: index);
-                });
+            return state.notifications.isNotEmpty
+                ? ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: state.notifications.length,
+                    itemBuilder: (context, index) {
+                      return NotificationTile(
+                          notification: state.notifications, index: index);
+                    })
+                : Center(
+                    child: AppText(
+                      'No have any notification',
+                      style: Styles.circularStdMedium(context,
+                          fontSize: 18, color: AppColors.primaryColor),
+                    ),
+                  );
           } else {
             return Center(child: LoadingDialog.loadingWidget());
           }

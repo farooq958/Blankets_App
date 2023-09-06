@@ -6,6 +6,7 @@ import 'package:hbk/Domain/Models/orderModel.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Orders/order_history.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/Components/list_tile_widget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/manage_account.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/ProfileScreen/privacy_police.dart';
 
 class ProfileScreen extends StatelessWidget {
   final bool isGuest;
@@ -80,7 +81,9 @@ class ProfileScreen extends StatelessWidget {
         ListTileWidget(
           tileTitle: AppStrings.privacyPolicy,
           icon: Assets.privacyPolicy,
-          onTap: () {},
+          onTap: () {
+            Navigate.to(context, const PrivacyPolice());
+          },
         ),
       ],
     );

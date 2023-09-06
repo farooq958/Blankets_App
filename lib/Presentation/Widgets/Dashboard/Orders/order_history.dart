@@ -40,23 +40,31 @@ class _OrderHistoryState extends State<OrderHistory> {
           List filteredOrders = state.model
               .where((order) => order.status == 'Completed')
               .toList();
-          return ListView.builder(
-            itemCount: filteredOrders.length,
-            itemBuilder: (context, index) {
-              OrdersApiModel order = filteredOrders[index];
-              return OrderCard(
-                orderModel: order,
-                index: index,
-              );
-            },
-          );
+          return filteredOrders.isNotEmpty
+              ? ListView.builder(
+                  itemCount: filteredOrders.length,
+                  itemBuilder: (context, index) {
+                    OrdersApiModel order = filteredOrders[index];
+                    return OrderCard(
+                      orderModel: order,
+                      index: index,
+                    );
+                  },
+                )
+              : Center(
+                  child: AppText(
+                    'No have any order',
+                    style: Styles.circularStdMedium(context,
+                        fontSize: 18, color: AppColors.primaryColor),
+                  ),
+                );
         } else if (state is OrdersError) {
           return AppText(
             state.error,
             style: Styles.circularStdMedium(context),
           );
         } else {
-          return SizedBox();
+          return const SizedBox();
         }
       }),
     );

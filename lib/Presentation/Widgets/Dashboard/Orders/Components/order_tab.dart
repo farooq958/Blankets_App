@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbk/Application/Services/Navigation/navigation.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
+import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Domain/Models/Order/orders_model.dart';
 import 'package:hbk/Domain/Models/orderModel.dart';
@@ -26,17 +27,25 @@ class OrderTab extends StatelessWidget {
 
     return Stack(
       children: [
-        ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: filteredOrders.length,
-          itemBuilder: (context, index) {
-            OrdersApiModel order = filteredOrders[index];
-            return OrderCard(
-              orderModel: order,
-              index: index,
-            );
-          },
-        ),
+        filteredOrders.isNotEmpty
+            ? ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: filteredOrders.length,
+                itemBuilder: (context, index) {
+                  OrdersApiModel order = filteredOrders[index];
+                  return OrderCard(
+                    orderModel: order,
+                    index: index,
+                  );
+                },
+              )
+            : Center(
+                child: AppText(
+                  'No have any order',
+                  style: Styles.circularStdMedium(context,
+                      fontSize: 18, color: AppColors.primaryColor),
+                ),
+              ),
         // orderStatus == "Completed"
         //     ? Positioned(
         //         bottom: 10.h,

@@ -32,7 +32,7 @@ class NotificationCubit extends Cubit<NotificationState> {
           print('condition false');
         }
       }).catchError((e) {
-        emit(NotificationError(error: e.toString()));
+        emit(NotificationError(error: "Something Went Wrong"));
       });
     } catch (e) {
       emit(NotificationError(error: e.toString()));

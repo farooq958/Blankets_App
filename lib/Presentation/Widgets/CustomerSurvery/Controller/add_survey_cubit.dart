@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/Repository/AddSurvey/add_survey_repo.dart';
 import 'package:meta/meta.dart';
 
@@ -8,6 +9,7 @@ class AddSurveyCubit extends Cubit<AddSurveyState> {
   AddSurveyCubit() : super(AddSurveyInitial());
 
   addSurvey(var data) {
+    print(data);
     emit(AddSurveyLoading());
     try {
       AddSurveyRepo().addSurvey(listData: data).then((value) {

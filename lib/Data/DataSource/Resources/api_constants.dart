@@ -65,3 +65,6 @@ const String addSurveyUrl =
 
 const String ordersUrl =
     'http://imtxt.sbsolutions.com.pk:44891/api/ClosedApisLookup/GetAllSAPSalesOrder?';
+
+const String categoryImageUrl =
+    'http://imtxt.sbsolutions.com.pk:44891/Picture/CustomerApplogin/cat_images/';

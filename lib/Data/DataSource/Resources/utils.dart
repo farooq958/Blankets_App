@@ -237,7 +237,8 @@ class Utils {
     CustomCardModel(
         amount: getGraceLimit(SharedPrefs.userData!.creditLimit.toString(),
             SharedPrefs.userData!.tolerance.toString()),
-        name: "Grace limit(${SharedPrefs.userData!.tolerance.toString()}%)"),
+        name:
+            "Tolerance limit(${SharedPrefs.userData!.tolerance.toString()}%)"),
     CustomCardModel(
         amount: SharedPrefs.userData!.specialDeal.toString(),
         name: "Special deal"),
@@ -264,20 +265,20 @@ class Utils {
 
   static List<DashboardModel> dashData = [];
   static List<BottomCardModel> bottomCardData1 = [
+    BottomCardModel('Current Sale', "Rs ${dashData[0].nextSales.toString()}",
+        Assets.dashboardSaleRequired),
     BottomCardModel('Running Status', dashData[0].status.toString(),
         Assets.dashboardRunningStatus),
     BottomCardModel('Next Target', dashData[0].nextStatus.toString(),
         Assets.dashBoardNextTarget),
-    BottomCardModel('Sale Required', "Rs ${dashData[0].nextSales.toString()}",
-        Assets.dashboardSaleRequired),
-    BottomCardModel('Total Winning', 'Rs ${dashData[0].totalReward.toString()}',
-        Assets.dashboardTotalWinning),
     BottomCardModel('Sale Required', 'Rs ${dashData[0].netSales.toString()}',
         Assets.dashboardSaleOfSession),
     BottomCardModel(
         'Pending Orders',
         'Rs  ${SharedPrefs.userData!.ordersBal.toString()}',
         Assets.dashboardPendingOrders),
+    BottomCardModel('Total Winning', 'Rs ${dashData[0].totalReward.toString()}',
+        Assets.dashboardTotalWinning),
   ];
   static List<BottomCardModel> bottomCardData2 = [
     BottomCardModel(
@@ -453,6 +454,29 @@ class Utils {
         itemCount: 03,
         amount: 2000),
   ];
+
+  static todayCheck({required String? date}) {
+    // Get the last feedback date from shared preferences
+    String? dateFromShade = date;
+
+    if (dateFromShade != null && dateFromShade != 'no') {
+      DateTime lastDate = DateTime.parse(dateFromShade);
+      // Get the current date
+      DateTime currentDate = DateTime.now();
+
+      // Check if the last feedback date is the same as the current date
+      return lastDate.year == currentDate.year &&
+          lastDate.month == currentDate.month &&
+          lastDate.day == currentDate.day;
+      // No feedback has been given before
+      return false;
+    } else {
+      print('false');
+      return false;
+    }
+
+    // Parse the last feedback date string into a DateTime object
+  }
 
   void function() {
     Data data = Data();

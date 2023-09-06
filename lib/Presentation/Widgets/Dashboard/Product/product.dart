@@ -22,7 +22,8 @@ class ProductScreen extends StatefulWidget {
   final bool? isGuest;
   final PageController? pageController;
   final String? catId;
-   const ProductScreen({super.key, this.title,this.isGuest,  this.pageController, this.catId});
+  const ProductScreen(
+      {super.key, this.title, this.isGuest, this.pageController, this.catId});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -50,11 +51,15 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.title!=null?
-      CustomAppBarWithBackButton(title: widget.title,iconData: Icons.arrow_back_ios,iconSize: 15.sp,padding:
-      EdgeInsets.only(left: 5.sp),iconColor: AppColors.primaryColor,) :null,
-
-
+      appBar: widget.title != null
+          ? CustomAppBarWithBackButton(
+              title: widget.title,
+              iconData: Icons.arrow_back_ios,
+              iconSize: 15.sp,
+              padding: EdgeInsets.only(left: 5.sp),
+              iconColor: AppColors.primaryColor,
+            )
+          : null,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.sp),
         child: BlocConsumer<AllProductsCubit, AllProductsState>(
@@ -66,20 +71,24 @@ class _ProductScreenState extends State<ProductScreen> {
             //     });
             //   }
 // TODO: implement listener
-            if(state is LogOutProductState)
-            {
-              showLoginDialog(context,fromSession: true);
-
+            if (state is LogOutProductState) {
+              showLoginDialog(context, fromSession: true);
             }
-
           },
           builder: (context, state) {
-            String productLength=state is AllProductsLoaded?state.allProductsData.length.toString():'0';
-            if(isFromFilter == false && isFromSort==false) {
-              tempSearchData = state is AllProductsLoaded && tempSearchChange==null? state.allProductsData:tempSearchChange==true? tempSearchData: [];
+            String productLength = state is AllProductsLoaded
+                ? state.allProductsData.length.toString()
+                : '0';
+            if (isFromFilter == false && isFromSort == false) {
+              tempSearchData =
+                  state is AllProductsLoaded && tempSearchChange == null
+                      ? state.allProductsData
+                      : tempSearchChange == true
+                          ? tempSearchData
+                          : [];
             }
             Future<bool> getBoolValueForCart(String itemCode,List<ProductApiModel> pr)    async {
-           
+
           //    print("here in function + value = $stat");
               List<ProductApiModel2> p2=[];
               for(int i=0;i<tempSearchData.length;i++) {
@@ -105,8 +114,8 @@ class _ProductScreenState extends State<ProductScreen> {
               print(mapIsRemove);
               print(isRemove);
             }
-            
-            
+
+
             print("${tempSearchData.length}templength");
     return BlocBuilder<CartCubit, CartState>(
   builder: (context, cState) {
@@ -318,7 +327,7 @@ CustomSizedBox.height(5),
                 //context.read<AllProductsCubit>().getAllProducts(catId: widget.catId ?? 'all',isGuest:widget.isGuest);
                 context.read<CartCubit>().getAllCartItems();
 
-                
+
                 // CustomDialog.successConfirmDialog(context,
                 //     button1Text: "Explore",
                 //     button2Text: "Cart",
@@ -348,7 +357,7 @@ CustomSizedBox.height(5),
                   productData: tempSearchData[i],
                   isFromApi:true,
                 isRemoveCart: mapIsRemove[i],
-                  
+
               )
 
 

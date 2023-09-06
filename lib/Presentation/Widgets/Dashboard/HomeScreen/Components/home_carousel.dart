@@ -47,6 +47,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
 
             if (state is SliderImagesLoaded) {
 
+// print("$baseUrl/Picture/CustomerApplogin/${state.loadedImages[0].uImage?.trim().toString()}");
               return CarouselSlider.builder(
                 itemCount: imageList.length,
                 itemBuilder: (context, index, realIndex) {
@@ -54,7 +55,7 @@ class _HomeCarouselState extends State<HomeCarousel> {
                   return CachedImage(
                     isCircle: false,
                       url:
-                          "$baseUrl/Picture/CustomerApplogin/${state.loadedImages[index].uImage}",
+                          "$baseUrl/Picture/CustomerApplogin/${state.loadedImages[index].uImage?.trim().toString()}",
                       width: 1.sw / 1);
                 },
                 carouselController: _carouselController,

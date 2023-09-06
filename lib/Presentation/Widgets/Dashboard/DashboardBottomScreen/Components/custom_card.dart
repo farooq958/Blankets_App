@@ -15,10 +15,10 @@ class CustomCard extends StatelessWidget {
       width: 110.w,
       height: 61.h,
       padding: const EdgeInsets.only(
-        top: 10,
+        top: 7,
         left: 15,
         right: 10.50,
-        bottom: 10,
+        bottom: 0,
       ),
       decoration: ShapeDecoration(
         color: const Color(0xFF0C4A9F),

@@ -130,7 +130,7 @@ onCellTap: (details){
   int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
   var row =
   invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
-Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowIndex]));
+Navigate.to(context, InvoiceDetails(invoiceData: state.actualInvoiceData[selectedRowIndex]));
   print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
 
 },

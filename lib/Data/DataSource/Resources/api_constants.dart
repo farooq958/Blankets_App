@@ -1,6 +1,6 @@
 import 'package:hbk/Data/AppData/app_preferences.dart';
 
-const String baseUrl = '';
+const String baseUrl = 'http://imtxt.sbsolutions.com.pk:44891';
 
 const String aboutUsUrl =
     'http://sap.al-imdad.com:44891/Picture/CustomerApplogin/about.json';

@@ -1,29 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hbk/Data/DataSource/Resources/assets.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
+import 'package:hbk/Domain/Models/Cart/cart_model.dart';
 import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
+import 'package:hbk/Presentation/Common/dialog.dart';
 import 'package:hbk/Presentation/Common/image_widgets.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
 
-class NewArrivalProduct extends StatelessWidget {
+class NewArrivalProduct extends StatefulWidget {
  final ProductModel? dummyProduct;
  final VoidCallback onAddToCardTap;
  final ProductApiModel? productData;
  final VoidCallback? onDetailTap;
  final  bool? isGuest;
  final bool? isFromApi;
-  const NewArrivalProduct({super.key, this.dummyProduct, required this.onAddToCardTap, this.onDetailTap, this.isGuest, this.productData, this.isFromApi});
+ final bool? isRemoveCart;
+  const NewArrivalProduct({super.key, this.dummyProduct, required this.onAddToCardTap, this.onDetailTap, this.isGuest, this.productData, this.isFromApi, this.isRemoveCart});
 
   @override
+  State<NewArrivalProduct> createState() => _NewArrivalProductState();
+}
+
+class _NewArrivalProductState extends State<NewArrivalProduct> {
+ bool isRemove=true;
+  @override
+  void initState() {
+    // TODO: implement initState
+  if(widget.isFromApi==true){
+    print("itembool");
+    print(widget.isRemoveCart);
+  //  getBoolValueForCart(widget.productData!.itemCode.toString());
+  }
+
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+   // print(isRemove);
     return Container(
       width: 150.w,
-      height:  isGuest==true? 194.h:245.h,
+      height:  widget.isGuest==true? 194.h:245.h,
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -45,31 +70,34 @@ class NewArrivalProduct extends StatelessWidget {
           children: [
             CustomSizedBox.height(15),
             GestureDetector(
-                onTap: onDetailTap ,
+                onTap: widget.onDetailTap ,
 
-                child: isFromApi ==true?
-                    
-                    CachedImage(url:"http://imtxt.sbsolutions.com.pk:44891/Picture/${productData!.uImage.toString()}",isCircle: false,width: 110,height: 100.h,)
+                child: widget.isFromApi ==true?
+
+                    CachedImage(url:"http://imtxt.sbsolutions.com.pk:44891/Picture/${widget.productData!.uImage.toString()}",isCircle: false,width: 110,height: 100.h,)
                     :
-                
-                AssetImageWidget(url:dummyProduct!.productImage.toString(),radius: 40.sp,width: 110.w,height: 100.h,)),
+
+                AssetImageWidget(url:widget.dummyProduct!.productImage.toString(),radius: 40.sp,width: 110.w,height: 100.h,)),
             CustomSizedBox.height(10),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child:isFromApi ==true?
-              AppText(productData!.itemName.toString(),
-                  maxLine: 3,
-                  style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
+            GestureDetector(
+              onTap: widget.onDetailTap,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child:widget.isFromApi ==true?
+                AppText(widget.productData!.itemName.toString(),
+                    maxLine: 3,
+                    style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
 
-              )
-                  : AppText(dummyProduct!.productDescription.toString(),
-                  maxLine: 3,
-                  style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
+                )
+                    : AppText(widget.dummyProduct!.productDescription.toString(),
+                    maxLine: 3,
+                    style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
 
+                ),
               ),
             ),
             CustomSizedBox.height(10),
-           isGuest==true? const SizedBox(height: 0,width: 0,): Padding(
+           widget.isGuest==true? const SizedBox(height: 0,width: 0,): Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
                 children: [
@@ -79,11 +107,11 @@ class NewArrivalProduct extends StatelessWidget {
 
                   ),
                   CustomSizedBox.width(2),
-                  isFromApi ==true?AppText( "${productData!.price?.replaceAll(RegExp(r'\.0+$'), '')}",
+                  widget.isFromApi ==true?AppText( "${widget.productData!.price?.replaceAll(RegExp(r'\.0+$'), '')}",
                       maxLine: 1,
                       style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,color: AppColors.primaryColor)
 
-                  ) : AppText( "${dummyProduct!.productPrice}",
+                  ) : AppText( "${widget.dummyProduct!.productPrice}",
                       maxLine: 1,
                       style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,color: AppColors.primaryColor)
 
@@ -92,8 +120,8 @@ class NewArrivalProduct extends StatelessWidget {
               ),
             ),
             CustomSizedBox.height(10),
-            isGuest==true? const SizedBox(height: 0,width: 0,):  GestureDetector(
-              onTap: onAddToCardTap,
+            widget.isGuest==true? const SizedBox(height: 0,width: 0,):  GestureDetector(
+              onTap: widget.onAddToCardTap,
               child: Container(
                 width: 125.sp,
                 height: 32,
@@ -128,7 +156,7 @@ class NewArrivalProduct extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 2),
-                    AppText("Add to cart", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppColors.whiteColor))
+                    AppText( widget.isRemoveCart==false? 'Remove':"Add to cart", style: Styles.circularStdBold(context,fontWeight: FontWeight.w500,fontSize: 12.sp,color: AppColors.whiteColor))
                   ],
                 ),
               ),
@@ -139,5 +167,11 @@ class NewArrivalProduct extends StatelessWidget {
         ),
       ),
     );
+  }
+
+   getBoolValueForCart(String string) async {
+    isRemove = await CartDatabase.cartDatabaseInstance.isProductInCart(string);
+   // return  await CartDatabase.cartDatabaseInstance.isProductInCart(string);
+    
   }
 }

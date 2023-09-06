@@ -108,6 +108,16 @@ class Utils {
         productId: "5",
         productImage: "assets/images/dummy.png",
         productDescription: "Belpla Teenagers 1 Ply Single Bed Blanket",
+        productPrice: "12000"),
+    ProductModel(
+        productId: "4",
+        productImage: "assets/images/appname.png",
+        productDescription: "Belpla Teenagers 1 Ply Single Bed Blanket",
+        productPrice: "9000"),
+    ProductModel(
+        productId: "5",
+        productImage: "assets/images/dummy.png",
+        productDescription: "Belpla Teenagers 1 Ply Single Bed Blanket",
         productPrice: "12000")
   ];
 

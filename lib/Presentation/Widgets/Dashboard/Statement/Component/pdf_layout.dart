@@ -14,6 +14,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_sc
 import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/reward_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/statement_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:number_to_words_english/number_to_words_english.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -911,7 +912,7 @@ columnWidths: {
      return color;
   }
 
-  Future<Uint8List> generateDocumentForInvoice(invoiceDataList) async {
+  Future<Uint8List> generateDocumentForInvoice(List<InvoiceDetailModel>invoiceDataList,ctnTotal,pcsTotal,grandTotal) async {
     //var allStudents = new List.from(absentStudents)..addAll(presentStudents);
     final Document doc = Document();
 
@@ -1074,12 +1075,12 @@ columnWidths: {
                                               //  color: greencolor,
                                               child: Text(
                                                 index == 0
-                                                    ? "Sardar Cahse Blanket And Bedding Store"
+                                                    ? invoiceDataList[0].customerName.toString()
                                                     : index == 1
-                                                        ? "M. Fayaz / M. Shehzad / M. S"
+                                                        ? invoiceDataList[0].contactPerson.toString()
                                                         : index == 2
-                                                            ? "03244796788"
-                                                            : "Village Sorha Near Masjid Rahmania Kahna Nao Nishat Milll Ltd Lahore",
+                                                            ? invoiceDataList[0].phoneNumber.toString()
+                                                            : invoiceDataList[0].address.toString(),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                     //color: lightblackcolor,
@@ -1155,14 +1156,14 @@ columnWidths: {
                                               //  color: greencolor,
                                               child: Text(
                                                 index == 0
-                                                    ? "Diamond"
+                                                    ? invoiceDataList[0].status.toString()
                                                     : index == 1
-                                                        ? "Bilal Jabbar"
+                                                        ?invoiceDataList[0].createdBy.toString()
                                                         : index == 2
-                                                            ? "3979"
+                                                            ? invoiceDataList[0].invoiceNo.toString()
                                                             : index == 3
-                                                                ? "25.July.2023"
-                                                                : "Muhammad Bilal",
+                                                                ? invoiceDataList[0].date.toString()
+                                                                : invoiceDataList[0].salePerson.toString(),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                     //color: lightblackcolor,
@@ -1487,7 +1488,7 @@ columnWidths: {
                         Column(children: [
                           invoiceListDataTableData(
                               0, invoiceDataList.length, invoiceDataList),
-                          totalAmountInvoice()
+                          totalAmountInvoice(ctnTotal.toString(),pcsTotal.toString(),grandTotal.toString())
                         ])
                       ]),
                   //
@@ -1595,7 +1596,7 @@ columnWidths: {
                             //  width: width / 1.5,
                             //  color: yellowcolor,
                             child: Text(
-                              "Two million five hundred eighty-six thousand two hundred and fifty",
+                              NumberToWordsEnglish.convert(double.parse(grandTotal.toString()).toInt()),
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   //color: blackcolor,
@@ -2007,7 +2008,7 @@ columnWidths: {
     // await OpenFile.open(file.path);
   }
 
-  Widget totalAmountInvoice() {
+  Widget totalAmountInvoice(totalCtn,totalPcs,grandTotal) {
     final height = 1.sh;
     final width = 1.sw;
     var pdfblackcolor = pd.PdfColors.black;
@@ -2047,7 +2048,7 @@ columnWidths: {
             // color: pdfblackcolor,
             child: Center(
               child: Text(
-                "70",
+                totalCtn,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     // color: blackcolor,
@@ -2064,7 +2065,7 @@ columnWidths: {
             //   color: pdfgreycolor,
             child: Center(
               child: Text(
-                "487",
+                totalPcs,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     // color: blackcolor,
@@ -2081,7 +2082,7 @@ columnWidths: {
             // color: pdfappthemecolor,
             child: Center(
               child: Text(
-                "34902223",
+               grandTotal,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     //color: blackcolor,

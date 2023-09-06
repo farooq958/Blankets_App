@@ -5,16 +5,18 @@ import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Controller/invoice_detail_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/invoice_screen.dart';
+import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'invoice_tile.dart';
 
 class InvoiceDetails extends StatefulWidget {
   final InvoiceModel invoiceData;
-   InvoiceDetails({super.key, required this.invoiceData});
+   const InvoiceDetails({super.key, required this.invoiceData});
 
   @override
   State<InvoiceDetails> createState() => _InvoiceDetailsState();
@@ -53,76 +55,110 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
     super.initState();
     //employees= getEmployees();
     context.read<InvoiceDetailCubit>().getInvoiceDetail(widget.invoiceData.invoiceNo);
-    invoiceDataSource = InvoiceDataSource(employees: rewardListData, context: context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return    SafeArea(
-      child:
+    return    Scaffold(
+      body: SafeArea(
+        child:
 
-        Stack(
-          children: [
-            NestedScrollView(
-              physics: const BouncingScrollPhysics(),
-             // floatHeaderSlivers: false,
-             // handle:NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              //controller: _innerScrollController,
-              headerSliverBuilder: (BuildContext context,
+          BlocConsumer<InvoiceDetailCubit, InvoiceDetailState>(
+  listener: (context, state) {
 
-                  bool innerBoxIsScrolled) {
-                print(innerBoxIsScrolled);
-                return [
-                  SliverAppBar(
-                   // appBar: const CustomAppBarWithBackButton(title: 'Invoice detail',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
+      if(state is InvoiceDetailLoading)
+        {
+          LoadingDialog.showLoadingDialog(context);
+        }
+      if(state is InvoiceDetailLoaded)
+        {
+          Navigate.pop(context);
+        }
+      if(state is InvoiceDetailError)
+        {
+          Navigate.pop(context);
+          WidgetFunctions.instance.snackBar(context,text: state.error,textStyle: Styles.circularStdMedium(context,color: Colors.white),bgColor: AppColors.primaryColor);
+        }
+      // TODO: implement listener
+  },
+  builder: (context, state) {
+      if(state is InvoiceDetailLoaded) {
 
-                  //primary: true,
-                  //  pinned: true,
+        invoiceDataSource = InvoiceDataSource(employees: state.actualInvoiceData, context: context);
+        return Stack(
+            children: [
+              NestedScrollView(
+                physics: const BouncingScrollPhysics(),
+               // floatHeaderSlivers: false,
+               // handle:NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                //controller: _innerScrollController,
+                headerSliverBuilder: (BuildContext context,
+
+                    bool innerBoxIsScrolled) {
+                  print(innerBoxIsScrolled);
+                  return [
+                    SliverAppBar(
+                     // appBar: const CustomAppBarWithBackButton(title: 'Invoice detail',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
+
+                    //primary: true,
+                    //  pinned: true,
 elevation: 0,
-                   // forceElevated: innerBoxIsScrolled,
-                    //leading: ,
-                    automaticallyImplyLeading: false,
-                    flexibleSpace:    mainColumn(context),
-                    backgroundColor: AppColors.whiteColor,
-                    expandedHeight: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.77,
-                  ),
-                ];
-              },
-              body:     Container(
-                  color: AppColors.whiteColor,
-                  child: dataTableSfData(context)),
+                     // forceElevated: innerBoxIsScrolled,
+                      //leading: ,
+                      automaticallyImplyLeading: false,
+                      flexibleSpace:    mainColumn(context,state),
+                      backgroundColor: AppColors.whiteColor,
+                      expandedHeight: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.77,
+                    ),
+                  ];
+                },
+                body:     Container(
+                    color: AppColors.whiteColor,
+                    child: dataTableSfData(context)),
 
-            ),
-            Positioned(
-              bottom: 0,
-              child: Material(
-                child: SizedBox(
-                  width: 1.sw,
-                  child: FractionallySizedBox(
-                    widthFactor: 1,
-                    child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+              ),
+              Positioned(
+                bottom: 0,
+                child: Material(
+                  child: SizedBox(
+                    width: 1.sw,
+                    child: FractionallySizedBox(
+                      widthFactor: 1,
+                      child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
 
-                      await PdfDownload().generatePdf(invoiceTitle,rewardListData,null,null).then((value) => null);
+                        await PdfDownload().generatePdf(invoiceTitle,state.actualInvoiceData,state.totalCtn,state.totalPcs,state.grandTotal).then((value) async {
+
+                          await OpenFile.open(value?.path);
+
+                        });
 
 
 
 
-                    }, text: "Download",horizontalMargin: 20,),
+                      }, text: "Download",horizontalMargin: 20,),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+      }
+      else
+        {
+          return const SizedBox();
+        }
+  },
+),
 
 
+      ),
     );
   }
 
-  Widget mainColumn(BuildContext context) {
+  Widget mainColumn(BuildContext context, InvoiceDetailLoaded state) {
     return Container(
       padding: const EdgeInsets.all(5),
 
@@ -180,12 +216,12 @@ elevation: 0,
                 child: AppText('Customer details',style: Styles.circularStdBold(context,fontSize: 16,fontWeight: FontWeight.w600),)),),
             //CustomSizedBox.height(10),
 
-          invoiceDetailTile(context,text1: 'Customer name',text2: 'Shama Cloth House',text3: 'Contact person',text4: 'Ahmad Ali / Rizwan'),
+          invoiceDetailTile(context,text1: 'Customer name',text2: state.actualInvoiceData[0].customerName,text3: 'Contact person',text4: state.actualInvoiceData[0].contactPerson),
 
             //CustomSizedBox.height(20),
             invoiceDetailTile(
 
-                context,sizeHeight: 105.h ,text1: 'Phone number',text2: '0300-57106687',text3: 'Address',text4: 'Shama Cloth House Shaheen Market Bank Road Mardan, Pakistan'),
+                context,sizeHeight: 105.h ,text1: 'Phone number',text2: state.actualInvoiceData[0].phoneNumber,text3: 'Address',text4: state.actualInvoiceData[0].address),
 
             //CustomSizedBox.height(20),
             Container(width: 1.sw,height: 60.h,
@@ -196,11 +232,11 @@ elevation: 0,
                   alignment: Alignment.centerLeft,
                   child: AppText('Invoice',style: Styles.circularStdBold(context,fontSize: 16,fontWeight: FontWeight.w600),)),),
             //CustomSizedBox.height(12),
-            invoiceDetailTile(context,text1: 'Invoice No',text2: '6874',text3: 'Created by',text4: 'Ahmad Ali / Rizwan'),
+            invoiceDetailTile(context,text1: 'Invoice No',text2: state.actualInvoiceData[0].invoiceNo,text3: 'Created by',text4: state.actualInvoiceData[0].createdBy),
             //CustomSizedBox.height(12),
-            invoiceDetailTile(context,text1: 'Status',text2: 'Gold',text3: 'Date',text4: '12 Jan,2023'),
+            invoiceDetailTile(context,text1: 'Status',text2: state.actualInvoiceData[0].status,text3: 'Date',text4: state.actualInvoiceData[0].date),
             //CustomSizedBox.height(20),
-            invoiceDetailTile(context,text1: 'Sale Person',text2: 'Ahmed Ali'),
+            invoiceDetailTile(context,text1: 'Sale Person',text2: state.actualInvoiceData[0].salePerson),
            // CustomSizedBox.height(20),
            ///this should not be in sliver app bar
 

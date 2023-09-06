@@ -2,6 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 class QuantityNotifier{
 
-  static ValueNotifier<int> quantityNotifier=ValueNotifier(5);
+  static ValueNotifier<int> quantityNotifier=ValueNotifier(1);
 
 }

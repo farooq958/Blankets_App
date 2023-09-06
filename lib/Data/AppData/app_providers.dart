@@ -7,6 +7,9 @@ import 'package:hbk/Presentation/Widgets/AboutUs/Controller/about_us_cubit.dart'
 import 'package:hbk/Presentation/Widgets/Auth/Controller/login_cubit.dart';
 import 'package:hbk/Presentation/Widgets/ContactUs/Controller/in_out_cubit.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/Controller/customer_survey_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/add_cart_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_grand_total_map_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Controller/dashboard_bottom_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Controller/category_cubit.dart';
 import 'package:hbk/Presentation/Widgets/ContactUs/Controller/contact_us_cubit.dart';
@@ -79,5 +82,8 @@ List<BlocProvider> appProviders = [
 
   BlocProvider<CustomerSurveyQuestionCubit>(create: (context)=> CustomerSurveyQuestionCubit()),
   BlocProvider<InvoiceCubit>(create: (context)=>InvoiceCubit()),
-  BlocProvider<InvoiceDetailCubit>(create: (context)=>InvoiceDetailCubit())
+  BlocProvider<InvoiceDetailCubit>(create: (context)=>InvoiceDetailCubit()),
+  BlocProvider<CartCubit>(create: (context)=>CartCubit()),
+  BlocProvider<AddCartCubit>(create: (context)=>AddCartCubit()),
+  BlocProvider<CartGrandTotalMapCubit>(create: (context)=>CartGrandTotalMapCubit())
 ];

@@ -10,11 +10,15 @@ part '../State/new_arrival_product_state.dart';
 class NewArrivalProductCubit extends Cubit<NewArrivalProductState> {
   NewArrivalProductCubit() : super(NewArrivalProductInitial());
 
-  getNewArrivalProducts({ bool? isGuest}) async {
+  getNewArrivalProducts({ bool? isGuest,bool? notReload}) async {
 
 
     await Future.delayed(const Duration(milliseconds: 16));
-    emit(NewArrivalProductLoading());
+   if(notReload==null) {emit(NewArrivalProductLoading());}
+   else{
+     emit(NewArrivalIndividualLoading());
+   }
+
     try {
 
       await ProductRepo().getProduct(isGuest==true?newArrivalGuest:newArrivalAuth).then((value) {

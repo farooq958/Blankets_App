@@ -1,11 +1,19 @@
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
+import 'package:hbk/Domain/Models/Cart/cart_model.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_grand_total_map_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/notifier.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
 
 class CartItemTile extends StatefulWidget {
   final CartItem? cartItem;
-  final VoidCallback? onRemove;
-
-  const CartItemTile({Key? key, required this.cartItem, this.onRemove})
+  final CartModel? cartDto;
+  final Map<int,String> mapQuantity;
+  final void Function(String)? onRemove;
+  final void Function(String)? getCurrentValue;
+final int? index;
+  const CartItemTile({Key? key, required this.cartItem, this.onRemove, this.cartDto, this.getCurrentValue, this.index, required this.mapQuantity})
       : super(key: key);
 
   @override
@@ -18,11 +26,48 @@ class _CartItemTileState extends State<CartItemTile> {
    @override
   void initState() {
     // TODO: implement initState
-     quantityNotifier.value= widget.cartItem!.quantity!.toInt();
+
+
+setGrandTotal();
+
+     // widget.getCurrentValue!('${double.parse(widget.cartDto!.productPrice.toString()) * quantityNotifier.value}');
     super.initState();
   }
+setGrandTotal()
+ async {
+
+
+
+   print(double.parse(widget.cartDto!.productQuantity.toString()).toInt());
+   quantityNotifier.value =
+       double.parse(widget.cartDto!.productQuantity.toString()).toInt();
+   print('value');
+   print(quantityNotifier.value);
+
+     context.read<CartGrandTotalMapCubit>().setGetMap(widget.index!.toInt(),quantityNotifier.value.toString(),widget.mapQuantity);
+
+
+   // CartNotifier.grandSumTotalNotifier.value +=
+   //     double.parse(widget.cartDto!.productPrice.toString()) *
+   //         quantityNotifier.value;
+
+
+
+
+
+    // print(double.parse(widget.cartDto!.productQuantity.toString()).toInt());
+    // quantityNotifier.value = double.parse(widget.cartDto!.productQuantity.toString()).toInt();
+    // print('value');
+    // print(quantityNotifier.value);
+    // CartNotifier.grandSumTotalNotifier.value+=double.parse(widget.cartDto!.productPrice.toString()) * quantityNotifier.value;
+
+    //your code goes here
+  // });
+}
   @override
   Widget build(BuildContext context) {
+     print('rebuild');
+     widget.getCurrentValue!('${double.parse(widget.cartDto!.productPrice.toString()) * quantityNotifier.value}');
     return Container(
       margin: EdgeInsets.only(top: 10.h),
       padding: EdgeInsets.only(top: 10.h),
@@ -46,11 +91,11 @@ class _CartItemTileState extends State<CartItemTile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                AssetImageWidget(
-                  url: widget.cartItem!.image!,
-                  color: widget.cartItem!.image!.contains('appLogo.png')
-                      ? AppColors.primaryColor
-                      : null,
+                CachedImage(
+                  url: widget.cartDto!.productImage.toString(),
+                  // color: widget.cartItem!.image!.contains('appLogo.png')
+                  //     ? AppColors.primaryColor
+
                   width: 80.w,
                   height: 80.h,
                 ),
@@ -61,12 +106,12 @@ class _CartItemTileState extends State<CartItemTile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        widget.cartItem!.title!,
+                        widget.cartDto!.productName!,
                         style: Styles.circularStdMedium(context),
                         maxLine: 3,
                       ),
                       AppText(
-                        'Pcs/Ctn : ${widget.cartItem!.pcsAvailable}',
+                        'Pcs/Ctn : ${widget.cartDto!.pcsCtn.toString()}',
                         style: Styles.circularStdMedium(context),
                         maxLine: 2,
                       ),
@@ -79,7 +124,7 @@ class _CartItemTileState extends State<CartItemTile> {
                                 style: Styles.circularStdBold(context,
                                     fontSize: 16.sp)),
                             TextSpan(
-                                text: '${widget.cartItem!.price}',
+                                text: widget.cartDto!.productPrice!.split('.0').first,
                                 style: Styles.circularStdBold(context,
                                     fontWeight: FontWeight.w900,
                                     fontSize: 20,
@@ -96,7 +141,7 @@ class _CartItemTileState extends State<CartItemTile> {
                     icon: Icons.close,
                     onPressed: () {
                       if(widget.onRemove != null){
-                        widget.onRemove!();
+                        widget.onRemove!(quantityNotifier.value.toString());
                       }
                     },
                     width: 30.w,
@@ -119,7 +164,7 @@ class _CartItemTileState extends State<CartItemTile> {
                       style:
                           Styles.circularStdBold(context, fontSize: 16.sp)),
                   TextSpan(
-                      text: '${widget.cartItem!.price}',
+                      text: '${double.parse(widget.cartDto!.productPrice.toString()) * quantityNotifier.value}',
                       style: Styles.circularStdBold(context,
                           fontWeight: FontWeight.w900, fontSize: 20.sp)),
                 ])),
@@ -138,9 +183,26 @@ class _CartItemTileState extends State<CartItemTile> {
                             svgIconWidth: 11.w,
 
                             // icon: Icons.remove,
-                            onPressed: (){
-if(state!=0) {
+                            onPressed: () async {
+if( quantityNotifier.value!=0) {
   quantityNotifier.value--;
+  await context.read<CartGrandTotalMapCubit>().setGetMap(widget.index!.toInt(),quantityNotifier.value.toString(),widget.mapQuantity);
+
+  CartModel cm = CartModel(productId:widget.cartDto!.productId.toString(),
+      productName: widget.cartDto!.productName.toString(),productQuantity: (quantityNotifier.value.toString()) ,
+      productPrice: widget.cartDto!.productPrice.toString() ,
+      multiplier: widget.cartDto!.multiplier.toString(),
+      productImage:widget.cartDto!.productImage.toString(),
+      pcsCtn:widget.cartDto!.pcsCtn.toString());
+  await CartDatabase.cartDatabaseInstance.updateCart(cm);
+  setState(() {
+
+  });
+  print(quantityNotifier.value.toString() +"from minuss");
+
+  CartNotifier.grandSumTotalNotifier.value -= double.parse(widget.cartDto!.productPrice.toString());
+
+
 }
 
                             },
@@ -156,8 +218,23 @@ if(state!=0) {
                             isSvg:true,
                             svgIcon: Assets.plusIcon,
 
-                            onPressed: () {
+                            onPressed: () async {
+
                               quantityNotifier.value++;
+                              context.read<CartGrandTotalMapCubit>().setGetMap(widget.index!.toInt(),quantityNotifier.value.toString(),widget.mapQuantity);
+
+                              CartModel cm = CartModel(productId:widget.cartDto!.productId.toString(),
+                                  productName: widget.cartDto!.productName.toString(),productQuantity: (quantityNotifier.value.toString()) ,
+                                  productPrice: widget.cartDto!.productPrice.toString() ,
+                                  multiplier: widget.cartDto!.multiplier.toString(),
+                                  productImage:widget.cartDto!.productImage.toString(),
+                                  pcsCtn:widget.cartDto!.pcsCtn.toString());
+                              await CartDatabase.cartDatabaseInstance.updateCart(cm);
+                              setState(() {
+
+                              });
+
+                              CartNotifier.grandSumTotalNotifier.value += double.parse(widget.cartDto!.productPrice.toString());
                             },
                             width: 25.w,
                             height: 25.h,

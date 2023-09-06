@@ -1,3 +1,5 @@
+
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +8,9 @@ import 'package:hbk/Presentation/Widgets/Auth/Controller/login_cubit.dart';
 import 'package:hbk/Presentation/Widgets/ContactUs/Controller/in_out_cubit.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/Controller/add_survey_cubit.dart';
 import 'package:hbk/Presentation/Widgets/CustomerSurvery/Controller/customer_survey_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/add_cart_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_grand_total_map_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Controller/dashboard_bottom_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Controller/category_cubit.dart';
 import 'package:hbk/Presentation/Widgets/ContactUs/Controller/contact_us_cubit.dart';
@@ -40,6 +45,7 @@ List<BlocProvider> appProviders = [
 //       create: (context) => RewardControllerCubit()),
 //   BlocProvider<StatementDataCubit>(create: (context) => StatementDataCubit())
 // ];
+
 
   BlocProvider<InOutCubit>(create: (context) => InOutCubit()),
   BlocProvider<AboutUsCubit>(create: (context) => AboutUsCubit()),
@@ -81,13 +87,7 @@ List<BlocProvider> appProviders = [
 
   BlocProvider<SliderImagesCubit>(create: (context) => SliderImagesCubit()),
 
-  BlocProvider<CustomerSurveyQuestionCubit>(
-      create: (context) => CustomerSurveyQuestionCubit()),
-  BlocProvider<InvoiceCubit>(create: (context) => InvoiceCubit()),
-  BlocProvider<InvoiceDetailCubit>(create: (context) => InvoiceDetailCubit()),
-  BlocProvider<CreateNewPasswordCubit>(
-      create: (context) => CreateNewPasswordCubit()),
-
-  BlocProvider<AddSurveyCubit>(create: (context) => AddSurveyCubit()),
-  BlocProvider<OrdersCubit>(create: (context) => OrdersCubit())
+  BlocProvider<CustomerSurveyQuestionCubit>(create: (context)=> CustomerSurveyQuestionCubit()),
+  BlocProvider<InvoiceCubit>(create: (context)=>InvoiceCubit()),
+  BlocProvider<InvoiceDetailCubit>(create: (context)=>InvoiceDetailCubit())
 ];

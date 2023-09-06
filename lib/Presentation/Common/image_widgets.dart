@@ -124,7 +124,7 @@ class CachedImage extends StatelessWidget {
              isCircle!
                  ?
              CircleAvatar(
-             radius: radius,
+             radius: radius,backgroundColor: Colors.transparent,
              backgroundImage: const NetworkImage("https://firebasestorage.googleapis.com/v0/b/hbk-blankets.appspot.com/o/logo.png?alt=media&token=409f2508-9b66-44ac-9c82-ec19a1046cd6")
 
 

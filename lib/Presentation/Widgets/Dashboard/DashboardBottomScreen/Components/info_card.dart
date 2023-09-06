@@ -30,15 +30,19 @@ class CustomInfoWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2),
-           AppText(
-             nameInfoValue,
-            style: Styles.circularStdBold(context,
-              color: Colors.black, // Regular black color
-              fontSize: 16.sp,
+           Expanded(
+             flex: 2,
+             child: AppText(
+               nameInfoValue,
+              maxLine: 2,
+              style: Styles.circularStdBold(context,
+                color: Colors.black, // Regular black color
+                fontSize: 16.sp,
 
-              fontWeight: FontWeight.w500,
-            ),
+                fontWeight: FontWeight.w500,
+              ),
           ),
+           ),
         ],
       ),
     );

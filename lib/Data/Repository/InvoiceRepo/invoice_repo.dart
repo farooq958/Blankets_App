@@ -30,6 +30,7 @@ class InvoiceRepo{
 
   Future<dynamic> getInvoicesDetails(String docEntry)async{
     try{
+      print(invoiceDetailUrl+docEntry);
       return await Api.getCat(invoiceDetailUrl+docEntry).then((value){
         if (kDebugMode) {
           print("detail invoices Response $value");

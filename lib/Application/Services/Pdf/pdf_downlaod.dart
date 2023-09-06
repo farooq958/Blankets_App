@@ -30,8 +30,8 @@ class PdfDownload{
         await FileDownloader.download(tempFilePath.absolute.path);
         Future.delayed(const Duration(seconds: 2)).then((value){
 
-          NotificationServices()
-              .showNotification(Random().nextInt(1000), 'PDF Saved', tempFilePath.path, payload: tempFilePath.path);
+          // NotificationServices()
+          //     .showNotification(Random().nextInt(1000), 'PDF Saved', tempFilePath.path, payload: tempFilePath.path);
 
         });
         return tempFilePath;
@@ -59,8 +59,8 @@ class PdfDownload{
         await FileDownloader.download(tempFilePath.absolute.path);
         Future.delayed(const Duration(seconds: 2)).then((value){
 
-          NotificationServices()
-              .showNotification(Random().nextInt(1000), 'PDF Saved', tempFilePath.path, payload: tempFilePath.path);
+          // NotificationServices()
+          //     .showNotification(Random().nextInt(1000), 'PDF Saved', tempFilePath.path, payload: tempFilePath.path);
 
         });
         return tempFilePath;
@@ -88,8 +88,8 @@ class PdfDownload{
         await FileDownloader.download(tempFilePath.absolute.path);
         Future.delayed(const Duration(seconds: 2)).then((value){
 
-          NotificationServices()
-              .showNotification(Random().nextInt(1000), 'PDF Saved', tempFilePath.path, payload: tempFilePath.path);
+          // NotificationServices()
+          //     .showNotification(Random().nextInt(1000), 'PDF Saved', tempFilePath.path, payload: tempFilePath.path);
 
         });
         return tempFilePath;
@@ -101,14 +101,14 @@ class PdfDownload{
   }
 
 
-  Future<File?> generatePdf(listOfTitle,listOfData ,pdfWidget,pdfTitleWidget) async {
+  Future<File?> generatePdf(listOfTitle,listOfData ,ctnTotal,pcsTotal,grandTotal) async {
     try{
 //       Uint8List pdfData = await PDFLayouts.customerStatement(
 // listOfTitle,listOfData,
 // pdfWidget,pdfTitleWidget
 //
 //       );
-      Uint8List pdfData=await PDFLayouts().generateDocumentForInvoice(listOfData);
+      Uint8List pdfData=await PDFLayouts().generateDocumentForInvoice(listOfData,ctnTotal,pcsTotal,grandTotal);
       File? tempFilePath = await GeneratePDF.hbkInvoice(pdfData);
       //print(tempFilePath!.path);
       print(tempFilePath.runtimeType);
@@ -118,8 +118,8 @@ class PdfDownload{
         await FileDownloader.download(tempFilePath.absolute.path);
         Future.delayed(const Duration(seconds: 2)).then((value){
 
-          NotificationServices()
-              .showNotification(Random().nextInt(1000), 'PDF Saved', tempFilePath.path, payload: tempFilePath.path);
+          // NotificationServices()
+          //     .showNotification(Random().nextInt(1000), 'PDF Saved', tempFilePath.path, payload: tempFilePath.path);
 
         });
         return tempFilePath;

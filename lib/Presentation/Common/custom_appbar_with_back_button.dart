@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Data/DataSource/Resources/assets.dart';
@@ -6,10 +7,13 @@ import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/circle_icon_button.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Controller/new_arrival_product_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 ///use padding optional property to set the child alignment plus if you use svg icon then make typeIconSvg true and pass the svgIconPath
 class CustomAppBarWithBackButton extends StatefulWidget
     implements PreferredSizeWidget {
-  const CustomAppBarWithBackButton({Key? key,this.title, this.iconData, this.typeIconSvg, this.svgIconPath, this.iconSize, this.padding, this.iconColor, this.isBottom})
+  const CustomAppBarWithBackButton({Key? key,this.title, this.iconData, this.typeIconSvg, this.svgIconPath, this.iconSize, this.padding, this.iconColor, this.isBottom, this.catId, this.isGuest})
       : preferredSize = const Size.fromHeight(65),
         super(key: key);
   final String? title;
@@ -19,6 +23,8 @@ class CustomAppBarWithBackButton extends StatefulWidget
   final double? iconSize;
   final Color? iconColor;
   final  bool? isBottom;
+  final String? catId;
+  final bool? isGuest;
   final  EdgeInsetsGeometry? padding;
 
 
@@ -55,6 +61,9 @@ class _CustomAppBarWithBackButtonState
 
           onPressed: () {
             Navigator.of(context).pop();
+            context.read<AllProductsCubit>().getAllProducts(catId: widget.catId ?? 'all',isGuest:widget.isGuest);
+            context.read<NewArrivalProductCubit>().getNewArrivalProducts();
+           // context.read<AllProductsCubit>().getAllProducts();
           },
           width: 15.w,
          // iconSize: 15,

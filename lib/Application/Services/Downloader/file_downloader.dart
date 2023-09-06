@@ -97,6 +97,7 @@ else
         headers: {},
         // optional: header send with url (auth token etc)
         savedDir: myImgDir.path,
+        showNotification: false,
         //  showNotification: true,
         // show download progress in status bar (for Android)
         openFileFromNotification: true,

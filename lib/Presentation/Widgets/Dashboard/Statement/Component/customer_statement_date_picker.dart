@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
+import 'package:flutter_linear_datepicker/month_name_handler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/colors_pallete.dart';
 import 'package:hbk/Data/DataSource/Resources/sized_box.dart';
 import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/InvoiceScreen/Controller/invoice_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/notifier_dateTime.dart';
 
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/statement_data_cubit.dart';
 
@@ -69,6 +72,15 @@ startDate = date;
           Navigator.pop(context);
           context.read<StatementDataCubit>().getStatementDto(convertDateString(startDate), convertDateString(endDate));
 
+          DateTime startD= DateTime.parse(convertDateString(startDate));
+          DateTime endD= DateTime.parse(convertDateString(endDate));
+   // String fromMonth=convertDateString(startDate).split('-')[1];
+   //        String fromYear=convertDateString(startDate).split('-')[0];
+   //        String toMonth=convertDateString(endDate).split('-')[1];
+   //        String toYear=convertDateString(endDate).split('-')[0];
+
+
+          NotifierDateTime.pickerNotifier.value='${startD.month.englishName} ${startD.year}-${endD.month.englishName} ${endD.year}';
         }
 
       }, text: "Apply",horizontalMargin: 15,)// Second date picker for "To"
@@ -129,6 +141,9 @@ Widget buildDateRangePickerForInvoice(BuildContext context,{ BuildContext? botto
         if(startDate != '' && endDate != '') {
           Navigator.pop(context);
           context.read<InvoiceCubit>().getInvoicesData(convertDateString(startDate), convertDateString(endDate));
+          DateTime startD= DateTime.parse(convertDateString(startDate));
+          DateTime endD= DateTime.parse(convertDateString(endDate));
+          NotifierDateTime.pickerNotifier.value='${startD.month.englishName} ${startD.year}-${endD.month.englishName} ${endD.year}';
 
         }
 

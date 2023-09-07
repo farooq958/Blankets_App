@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/notifier_dateTime.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
@@ -65,7 +67,9 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
   void initState() {
     super.initState();
     //employees= getEmployees();
-context.read<InvoiceCubit>().getInvoicesData(DateTime.now().subtract(const Duration(days: 400)).toString(),DateTime.now().toString());
+    NotifierDateTime.pickerNotifier.value='${DateTime.now().subtract(const Duration(days: 150)).month.englishName}-${DateTime.now().month.englishName} ${DateTime.now().year}';
+
+    context.read<InvoiceCubit>().getInvoicesData(DateTime.now().subtract(const Duration(days: 150)).toString(),DateTime.now().toString());
     
 
   }
@@ -86,22 +90,27 @@ context.read<InvoiceCubit>().getInvoicesData(DateTime.now().subtract(const Durat
               const Spacer(),
 
               Expanded(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: CustomButton(
-                   // horizontalMargin: 20,
-                    bgColor: AppColors.whiteColor,
-                    borderColor: AppColors.primaryColor,
-                    textColor: AppColors.primaryColor,
-                    textFontWeight: FontWeight.w400,
-                    trailingIcon: Assets.calenderIcon,
-                    borderThickness: 1.5,
-                    trailIconWidth: 19.sp,
-                    trailIconHeight: 19,
-                    onTap: (){
-                      showDatePicker(context);
+                flex: 2,
+                child: ValueListenableBuilder(
+                  builder: (context,dateState,ch) {
+                    return Align(
+                      alignment: Alignment.centerLeft,
+                      child: CustomButton(
+                       // horizontalMargin: 20,
+                        bgColor: AppColors.whiteColor,
+                        borderColor: AppColors.primaryColor,
+                        textColor: AppColors.primaryColor,
+                        textFontWeight: FontWeight.w400,
+                        trailingIcon: Assets.calenderIcon,
+                        borderThickness: 1.5,
+                        trailIconWidth: 19.sp,
+                        trailIconHeight: 19,
+                        onTap: (){
+                          showDatePicker(context);
 
-                    }, text: 'Jan-Feb 2023',verticalMargin: 20,verticalPadding: 10,),
+                        }, text: dateState,verticalMargin: 20,verticalPadding: 10,),
+                    );
+                  }, valueListenable: NotifierDateTime.pickerNotifier,
                 ),
               ),
               CustomSizedBox.width(20)
@@ -147,9 +156,13 @@ Navigate.to(context, InvoiceDetails(invoiceData: state.actualInvoiceData[selecte
       {
         return LoadingDialog.loadingWidget();
       }
-    else
+    else if(state is InvoiceError)
       {
 
+        return  Center(child: AppText(state.error.toString(), style: Styles.circularStdMedium(context)));
+      }
+    else
+      {
         return const SizedBox();
       }
   },

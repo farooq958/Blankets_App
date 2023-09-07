@@ -111,12 +111,11 @@ class _ProductScreenState extends State<ProductScreen> {
             }
             if(state is AllProductsLoaded) {
               var isRemove =   getBoolValueForCart('tempSearchData[i].itemCode.toString()',tempSearchData);
-              print(mapIsRemove);
-              print(isRemove);
+
             }
 
 
-            print("${tempSearchData.length}templength");
+
     return BlocBuilder<CartCubit, CartState>(
   builder: (context, cState) {
     return Column(children: [
@@ -156,7 +155,9 @@ class _ProductScreenState extends State<ProductScreen> {
           widget.isGuest==true? const SizedBox(height: 0,width: 0,):
 
                        SortAndFilter(
-               onFilterTap:(){
+               onFilterTap:() async {
+           List<String> categoryDto =  getCategoryData(state is AllProductsLoaded?state.allProductsData:[]);
+         //  categoryDto.add('dummyCat');
                SortSheet.showBottomSheet(context, FilterBottomSheetWidget(isGuest:true, dto: state is AllProductsLoaded?state.allProductsData:[], getData: (data ) {
 
                  setState(() {
@@ -177,7 +178,7 @@ class _ProductScreenState extends State<ProductScreen> {
                  isFromFilter=false;
                  Navigate.pop(context);
 
-               },),'Filters');
+               }, categoryList: categoryDto,),'Filters');
 
             } ,onSortTap: (){
 
@@ -376,5 +377,19 @@ CustomSizedBox.height(5),
       ) ,
 
     );
+  }
+
+ List<String> getCategoryData(List<ProductApiModel> list) {
+  List<String> categoryDto=[];
+  for(var i in list)
+    {
+      print(i.cat);
+      if(!categoryDto.contains(i.cat.toString())) {
+        categoryDto.add(i.cat.toString());
+      }
+
+    }
+  return categoryDto;
+
   }
 }

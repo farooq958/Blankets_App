@@ -140,7 +140,7 @@ class Utils {
     DrawerModel(
         screenName: 'Invoice',
         iconPath: Assets.invoiceIcon,
-        widgetToNavigate: InvoiceScreen()),
+        widgetToNavigate: const InvoiceScreen()),
     DrawerModel(
         screenName: 'Sale policies',
         iconPath: Assets.salePolicyIcon,

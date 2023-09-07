@@ -22,26 +22,33 @@ class InvoiceCubit extends Cubit<InvoiceState> {
         DateTime startD= DateTime.parse(startDate);
         DateTime endD= DateTime.parse(endDate);
         if(value.runtimeType != int) {
-          var invoiceDto = List<InvoiceApiModel>.from(
-              value.map((x) => InvoiceApiModel.fromMap(x)));
-          // Utils.dashData=dashData;
-          List<InvoiceModel> actualInvoiceData= [];
+          if(value['Message']!=null)
+            {
+              emit(InvoiceError(error: value['Message']));
+            }
+          else{
+            var invoiceDto = List<InvoiceApiModel>.from(
+                value.map((x) => InvoiceApiModel.fromMap(x)));
+            // Utils.dashData=dashData;
+            List<InvoiceModel> actualInvoiceData= [];
 
-          var invoiceFilteredData=filterStatementsByDate(invoiceDto, startD, endD);
-          for(var i in invoiceFilteredData)
-          {
-            actualInvoiceData.add(InvoiceModel(
+            var invoiceFilteredData=filterStatementsByDate(invoiceDto, startD, endD);
+            for(var i in invoiceFilteredData)
+            {
+              actualInvoiceData.add(InvoiceModel(
 
-              date: i.postingDate.toString().split(' ').first,
-              invoiceNo: i.docEntry.toString(),
-              noOfCtns: i.sumofSalesQuantities.toString(),
-              total: i.docTotal.toString()
+                  date: i.postingDate.toString().split(' ').first,
+                  invoiceNo: i.docEntry.toString(),
+                  noOfCtns: i.sumofSalesQuantities.toString(),
+                  total: i.docTotal.toString()
 
-            ));
+              ));
 
+            }
+
+            emit(InvoiceLoaded(rawData: invoiceDto,actualInvoiceData:actualInvoiceData));
           }
 
-          emit(InvoiceLoaded(rawData: invoiceDto,actualInvoiceData:actualInvoiceData));
         }
         else
         {

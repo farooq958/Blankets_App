@@ -16,12 +16,13 @@ class OrderItemRow extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset(
-                Assets.bagIcon,
-                height: 50.h,
-                width: 50.w,
-                color: AppColors.primaryColor,
-              ),
+              SizedBox(
+                  width: 40.w,
+                  child: AppText(
+                    "   ${item!.id}",
+                    style: Styles.circularStdMedium(context, fontSize: 14.sp),
+                    maxLine: 4,
+                  )),
               CustomSizedBox.width(5.w),
               SizedBox(
                   width: 120.w,

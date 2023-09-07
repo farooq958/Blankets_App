@@ -49,7 +49,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     })
                 : Center(
                     child: AppText(
-                      'No have any notification',
+                      'Notifications not found',
                       style: Styles.circularStdMedium(context,
                           fontSize: 18, color: AppColors.primaryColor),
                     ),

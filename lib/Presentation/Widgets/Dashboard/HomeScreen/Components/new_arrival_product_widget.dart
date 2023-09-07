@@ -85,7 +85,7 @@ class _NewArrivalProductState extends State<NewArrivalProduct> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child:widget.isFromApi ==true?
                 AppText(widget.productData!.itemName.toString(),
-                    maxLine: 3,
+                    maxLine: widget.isGuest==true?3: 2,
                     style: Styles.circularStdBold(context,fontWeight: FontWeight.w500)
 
                 )

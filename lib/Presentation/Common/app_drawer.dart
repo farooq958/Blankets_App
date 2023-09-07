@@ -11,6 +11,7 @@ import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 import 'package:hbk/Data/DataSource/Resources/utils.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Component/drawer_row.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
@@ -33,6 +34,7 @@ final  GlobalKey<ScaffoldState>? drawerKey;
         children: [
           Expanded(
             child: ListView(
+              physics:  const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.symmetric(horizontal: 20.sp),
               children: [
               isGuest==true?  30.y :CustomSizedBox.height(35.sp),
@@ -132,8 +134,10 @@ else if( Utils.drawerData[index].screenName=='Logout')
     LoadingDialog.showLoadingDialog(context);
 
     await Future.delayed(const Duration(seconds: 3));
+
     SharedPrefs.clearPref();
  await  CartDatabase.cartDatabaseInstance.clearCart();
+await drawerKey!.currentState!.context.read<CartCubit>().getAllCartItems();
     Navigate.toReplaceAll(drawerKey!.currentState!.context,
         Utils.drawerData[index].widgetToNavigate!);
   }

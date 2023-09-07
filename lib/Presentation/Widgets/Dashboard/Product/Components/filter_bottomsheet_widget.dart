@@ -13,7 +13,8 @@ class FilterBottomSheetWidget extends StatefulWidget {
    final List<ProductApiModel> dto;
    final VoidCallback onClearTap;
    final void Function(List<ProductApiModel> val) getData;
-  const FilterBottomSheetWidget({super.key, this.isGuest, required this.dto, required this.getData, required this.onClearTap});
+   final  List<String> categoryList;
+  const FilterBottomSheetWidget({super.key, this.isGuest, required this.dto, required this.getData, required this.onClearTap, required this.categoryList});
 
   @override
   State<FilterBottomSheetWidget> createState() => _FilterBottomSheetWidgetState();
@@ -21,13 +22,14 @@ class FilterBottomSheetWidget extends StatefulWidget {
 
 class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
   double slideValue=0.0;
-  List<String> categoryList = ['category1', 'category2', "category3"];
+  //List<String> categoryList = ['category1', 'category2', "category3"];
   String? selectedCategory;
   double maxValue=0;
 
   @override
   Widget build(BuildContext context) {
     maxValue=getMaxValue();
+
     return  Padding(
 
       padding: EdgeInsets.symmetric(horizontal: 10.sp,vertical: 20),
@@ -40,7 +42,7 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
               child: AppText('Filters', style: Styles.circularStdBold(context,letterSpacing: 1.1,fontWeight:
               FontWeight.w600,fontSize: 19.sp),),
             ),
-            CustomSizedBox.height(40.sp),
+            CustomSizedBox.height(20.sp),
           Align(
               alignment: Alignment.centerLeft,
               child: AppText('Price Range', style: Styles.circularStdRegular(context,letterSpacing: 1.1,fontWeight:
@@ -92,30 +94,36 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
             //   FontWeight.w600,fontSize: 16.sp),),
             // ),
             // CustomSizedBox.height(10),
-            // Material(
-            //   color: Colors.transparent,
-            //   child: CustomDropDownWidget(
-            //     isBorderRequired: true,
-            //
-            //
-            //
-            //
-            //     prefixIcon: null, hintText: 'Categories', value: selectedCategory, validationText: 'Please Select Category', onChanged: (value) {  }, itemsMap: [
-            //
-            //     for (int i = 0; i < categoryList.length; i++)
-            //       DropdownMenuItem(
-            //         value: categoryList[i],
-            //         child: AppText(
-            //           categoryList[i],
-            //           style: Styles.circularStdBold(context, fontSize: 12.sp),
-            //         ),
-            //       ),
-            //
-            //   ],),
-            //
-            //
-            //
-            // ),
+            Material(
+              color: Colors.transparent,
+              child: CustomDropDownWidget(
+                isBorderRequired: true,
+
+
+
+
+                prefixIcon: null, hintText: 'Categories', value: selectedCategory, validationText: 'Please Select Category', onChanged: (value) {
+
+                  setState(() {
+                    selectedCategory=value;
+                  });
+
+              }, itemsMap: [
+
+                for (int i = 0; i < widget.categoryList.length; i++)
+                  DropdownMenuItem(
+                    value: widget.categoryList[i],
+                    child: AppText(
+                      widget.categoryList[i],
+                      style: Styles.circularStdBold(context, fontSize: 12.sp),
+                    ),
+                  ),
+
+              ],),
+
+
+
+            ),
             CustomSizedBox.height(30),
              Row(
               children: <Widget>[
@@ -128,10 +136,11 @@ borderColor: AppColors.greyColor,
 
                 )),
                 Expanded(child: CustomButton(onTap: (){
-
+            double comparePrice=  slideValue==0.0?maxValue:slideValue;
                   List<ProductApiModel> filteredProducts = widget.dto.where((product) {
                     double productPrice = double.parse(product.price.toString());
-                    return productPrice >= 0.0 && productPrice <= slideValue;
+                    String cat=product.cat.toString();
+                    return selectedCategory!=null? (productPrice >= 0.0 && productPrice <= comparePrice && cat == selectedCategory.toString()):productPrice >= 0.0 && productPrice <= comparePrice;
                   }).toList();
                   setState(() {
                     widget.getData(filteredProducts);

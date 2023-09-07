@@ -67,7 +67,7 @@ setGrandTotal()
   @override
   Widget build(BuildContext context) {
      print('rebuild');
-     widget.getCurrentValue!('${double.parse(widget.cartDto!.productPrice.toString()) * quantityNotifier.value}');
+   //  widget.getCurrentValue!('${double.parse(widget.cartDto!.productPrice.toString()) * quantityNotifier.value}');
     return Container(
       margin: EdgeInsets.only(top: 10.h),
       padding: EdgeInsets.only(top: 10.h),
@@ -167,7 +167,7 @@ setGrandTotal()
                       style:
                           Styles.circularStdBold(context, fontSize: 16.sp)),
                   TextSpan(
-                      text: '${double.parse(widget.cartDto!.productPrice.toString()) *double.parse( widget.mapQuantity[widget.index].toString())}',
+                      text: '${double.parse(widget.cartDto!.productPrice.toString()) *double.parse( widget.mapQuantity[widget.index]??'0.0')}',
                       style: Styles.circularStdBold(context,
                           fontWeight: FontWeight.w900, fontSize: 20.sp)),
                 ])),
@@ -187,7 +187,7 @@ setGrandTotal()
 
                             // icon: Icons.remove,
                             onPressed: () async {
-if( quantityNotifier.value!=0) {
+if( quantityNotifier.value>=2) {
   quantityNotifier.value--;
   await context.read<CartGrandTotalMapCubit>().setGetMap(widget.index!.toInt(),quantityNotifier.value.toString(),widget.mapQuantity);
 
@@ -222,7 +222,7 @@ if( quantityNotifier.value!=0) {
                             svgIcon: Assets.plusIcon,
 
                             onPressed: () async {
-
+if(quantityNotifier.value<=49){
                               quantityNotifier.value++;
                               context.read<CartGrandTotalMapCubit>().setGetMap(widget.index!.toInt(),quantityNotifier.value.toString(),widget.mapQuantity);
 
@@ -239,6 +239,7 @@ if( quantityNotifier.value!=0) {
 
                               CartNotifier.grandSumTotalNotifier.value += double.parse(widget.cartDto!.productPrice.toString());
                               CartNotifier.grandCtnNotifier.value++;
+}
                             },
                             width: 25.w,
                             height: 25.h,

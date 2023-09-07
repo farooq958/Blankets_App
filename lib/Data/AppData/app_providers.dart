@@ -75,7 +75,7 @@ List<BlocProvider> appProviders = [
       create: (context) => NewArrivalProductCubit()),
   BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
   BlocProvider<AllProductsCubit>(
-      create: (context) => AllProductsCubit()..getAllProducts()),
+      create: (context) => AllProductsCubit()),
   BlocProvider<DashboardBottomCubit>(
       create: (context) => DashboardBottomCubit()),
   BlocProvider<RewardControllerCubit>(

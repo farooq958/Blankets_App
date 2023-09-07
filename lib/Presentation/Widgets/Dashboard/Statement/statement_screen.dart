@@ -6,9 +6,11 @@ import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbk/Application/Services/Pdf/pdf_downlaod.dart';
 import 'package:hbk/Data/AppData/app_preferences.dart';
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/notifier_dateTime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -64,7 +66,8 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
   void initState() {
     super.initState();
     //employees= getEmployees();
-    context.read<StatementDataCubit>().getStatementDto(DateTime.now().subtract(const Duration(days: 365)).toString(), DateTime.now().toString());
+    NotifierDateTime.pickerNotifier.value='${DateTime.now().subtract(const Duration(days: 100)).month.englishName}-${DateTime.now().month.englishName} ${DateTime.now().year}';
+    context.read<StatementDataCubit>().getStatementDto(DateTime.now().subtract(const Duration(days: 100)).toString(), DateTime.now().toString());
     //
   }
 
@@ -129,20 +132,27 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
                   const Spacer(),
 
                   Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: CustomButton(
-                        bgColor: AppColors.whiteColor,
-                        borderColor: AppColors.primaryColor,
-                        textColor: AppColors.primaryColor,
-                        textFontWeight: FontWeight.w400,
-                        trailingIcon: Assets.calenderIcon,
+                    flex: 2,
+                    child: ValueListenableBuilder(
+                      builder: (context,dateState,cc) {
+                        return Align(
+                          alignment: Alignment.centerRight,
+                          child: CustomButton(
+                          //  horizontalMargin: 0,
+
+                            bgColor: AppColors.whiteColor,
+                            borderColor: AppColors.primaryColor,
+                            textColor: AppColors.primaryColor,
+                            textFontWeight: FontWeight.w400,
+                            trailingIcon: Assets.calenderIcon,
 borderThickness: 1.5,
 trailIconWidth: 19.sp,
-                        trailIconHeight: 19,
-                        onTap: (){
-                          showDatePicker(context);
-                        }, text: 'Jan-Feb 2023',verticalMargin: 20,verticalPadding: 10,),
+                            trailIconHeight: 19,
+                            onTap: (){
+                              showDatePicker(context);
+                            }, text: dateState,verticalMargin: 20,verticalPadding: 10,),
+                        );
+                      }, valueListenable: NotifierDateTime.pickerNotifier,
                     ),
                   ),
                 ],

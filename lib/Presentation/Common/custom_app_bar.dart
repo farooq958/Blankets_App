@@ -224,7 +224,7 @@ class CustomAppBarState extends State<CustomAppBar> {
                             return state == 3
                                 ? GestureDetector(
                                     onTap: () {
-                                      widget.pageController!.jumpToPage(0);
+                                      widget.pageController!.jumpToPage(2);
                                     },
                                     child: Container(
                                       alignment: Alignment.center,

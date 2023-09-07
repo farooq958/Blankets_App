@@ -11,6 +11,9 @@ import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
 import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Product/Components/product_detail.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
 
@@ -25,7 +28,8 @@ class PriceListScreen extends StatefulWidget {
   State<PriceListScreen> createState() => _PriceListScreenState();
 }
 
-class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepAliveClientMixin<PriceListScreen>{
+class _PriceListScreenState extends State<PriceListScreen>
+    with AutomaticKeepAliveClientMixin<PriceListScreen> {
   final List<PriceListModel> priceListData = [
     PriceListModel(
       "",
@@ -91,6 +95,7 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
 
     // Add more data for other months
   ];
+
   // GlobalKey<> scrollControllerKey1 = GlobalKey<>();
 
 //  GlobalKey<LinkedScrollControllerState> scrollControllerKey2 = GlobalKey<LinkedScrollControllerState>();
@@ -106,9 +111,11 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
 
   final TextEditingController searchControllerPrice = TextEditingController();
   late PriceListDataSource priceListDataSource;
-  final  SyncScrollControllerGroup _controllers=SyncScrollControllerGroup();
-  ScrollController horizontalScrollController=ScrollController();
-  ScrollController horizontalScrollControllerTitle=ScrollController();
+  final SyncScrollControllerGroup _controllers = SyncScrollControllerGroup();
+  ScrollController horizontalScrollController = ScrollController();
+  ScrollController horizontalScrollControllerTitle = ScrollController();
+  Map<String, bool> mapIsRemove = {};
+
 // @override
 //   void dispose() {
 // _controllers.removeOffsetChangedListener(() { });
@@ -122,13 +129,11 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
 
   @override
   bool get wantKeepAlive => true;
+
   @override
   void initState() {
-
-
     //employees= getEmployees();
-    if(mounted)
-    {
+    if (mounted) {
       horizontalScrollController = _controllers.addAndGet();
       horizontalScrollControllerTitle = _controllers.addAndGet();
       // _controllers = LinkedScrollControllerGroup()..addOffsetChangedListener(() {
@@ -140,17 +145,20 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
     // priceListDataSource =
     //     PriceListDataSource(employees: priceListData, context: context);
     super.initState();
-
   }
 
-  List<ProductApiModel> tempSearchData=[];
+  List<ProductApiModel> tempSearchData = [];
   bool? tempSearchChange;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return WillPopScope(
-      onWillPop: ()async { return true; },
+      onWillPop: () async {
+        Navigate.toReplaceAll(
+            context, const BottomNavigationScreen(isGuest: false));
+        return false;
+      },
       child: Scaffold(
         // appBar: const CustomAppBarWithBackButton(
         //   title: 'Price list',
@@ -165,37 +173,40 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
             height: 1.sh,
             child: Stack(
               children: [
-
                 Column(
                   children: [
                     //    CustomSizedBox.height(10),
 
                     ///Top Row
                     SizedBox(
-                      height: 1.sh *0.26,
+                      height: 1.sh * 0.26,
                       child: Column(
                         children: [
-
                           SizedBox(
                             height: 40,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                SizedBox(width: 10.sp,)
-                                ,      Align(
+                                SizedBox(
+                                  width: 10.sp,
+                                ),
+                                Align(
                                   child: CircleIconButton(
-
                                     icon: Icons.arrow_back_ios,
                                     padding: EdgeInsets.only(left: 5.sp),
-                                    iconColor: AppColors.primaryColor ,
+                                    iconColor: AppColors.primaryColor,
                                     iconSize: 15,
-
 
                                     onPressed: () {
                                       dispose();
-                                      _controllers.removeOffsetChangedListener(() { });
+                                      _controllers
+                                          .removeOffsetChangedListener(() {});
                                       _controllers.resetScroll();
-                                      Navigator.of(context).pop();
+                                      Navigate.toReplaceAll(
+                                          context,
+                                          const BottomNavigationScreen(
+                                              isGuest: false));
+                                      // Navigator.of(context).pop();
                                     },
                                     width: 37.w,
                                     // iconSize: 15,
@@ -206,36 +217,39 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Padding(
-                                      padding:  EdgeInsets.only(right: 47.0.sp),
+                                      padding: EdgeInsets.only(right: 47.0.sp),
                                       child: AppText(
                                         'Price List',
-                                        style: Styles.circularStdBold(context, fontSize: 20.sp,fontWeight: FontWeight.w500),
+                                        style: Styles.circularStdBold(context,
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500),
                                       ),
                                     ),
                                   ),
                                 )
                               ],
                             ),
-
                           ),
-                          SizedBox(height: 10.sp,),
+                          SizedBox(
+                            height: 10.sp,
+                          ),
                           BlocListener<AllProductsCubit, AllProductsState>(
                             listener: (context, state) {
                               // TODO: implement listener
-                              if(state is LogOutProductState)
-                              {
-                                showLoginDialog(context,fromSession: true);
-
+                              if (state is LogOutProductState) {
+                                showLoginDialog(context, fromSession: true);
                               }
                             },
-                            child: BlocBuilder<AllProductsCubit, AllProductsState>(
+                            child:
+                                BlocBuilder<AllProductsCubit, AllProductsState>(
                               builder: (context, state) {
                                 return SizedBox(
                                   height: 80,
                                   child: Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15.0),
                                       child: CustomTextFieldWithOnTap2(
                                           isShadowRequired: true,
                                           prefixIcon: SvgPicture.asset(
@@ -246,31 +260,44 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                                           onChanged: (query) {
                                             ///tobe evaluated
                                             ///
-                                            if(state is AllProductsLoaded) {
-
+                                            if (state is AllProductsLoaded) {
                                               setState(() {
+                                                tempSearchData = state
+                                                    .allProductsData
+                                                    .where((model) {
+                                                  final nameLower = model
+                                                      .itemName
+                                                      ?.toLowerCase()
+                                                      .toString();
+                                                  final category = model.cat
+                                                      ?.toLowerCase()
+                                                      .toString();
+                                                  final price = model.price
+                                                      ?.toLowerCase()
+                                                      .toString();
+                                                  final trimmedString =
+                                                      price?.replaceAll(
+                                                          RegExp(r'\.0+$'),
+                                                          ''); // Convert age to string for comparison
+                                                  final queryLower =
+                                                      query.toLowerCase();
 
-                                                tempSearchData=state.allProductsData.where((model) {
-
-
-                                                  final nameLower = model.itemName?.toLowerCase().toString();
-                                                  final category = model.cat?.toLowerCase().toString();
-                                                  final price=model.price?.toLowerCase().toString();
-                                                  final trimmedString = price?.replaceAll(RegExp(r'\.0+$'), '');// Convert age to string for comparison
-                                                  final queryLower = query.toLowerCase();
-
-                                                  return nameLower!.contains(queryLower) || category!.contains(queryLower) || trimmedString!.contains(queryLower);
-
+                                                  return nameLower!.contains(
+                                                          queryLower) ||
+                                                      category!.contains(
+                                                          queryLower) ||
+                                                      trimmedString!
+                                                          .contains(queryLower);
                                                 }).toList();
-                                                tempSearchChange=true;
-
+                                                tempSearchChange = true;
                                               });
                                             }
                                           },
                                           borderRadius: 30.sp,
                                           hintTextColor: AppColors.greyColor,
                                           controller: searchControllerPrice,
-                                          hintText: 'Search Products Price Category Title',
+                                          hintText:
+                                              'Search Products Price Category Title',
                                           textInputType: TextInputType.text),
                                     ),
                                   ),
@@ -289,7 +316,9 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    for (var i = 0; i < invoiceTitle.length; i++)
+                                    for (var i = 0;
+                                        i < invoiceTitle.length;
+                                        i++)
                                       Container(
                                         height: 60.sp,
                                         width: i == 0 ? 50 : 100.sp,
@@ -319,19 +348,21 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
 
                     Expanded(
                       child: BlocBuilder<AllProductsCubit, AllProductsState>(
-
                         builder: (context, state) {
+                          if (state is AllProductsLoaded) {
+                            tempSearchData = tempSearchChange == null
+                                ? state.allProductsData
+                                : tempSearchChange == true
+                                    ? tempSearchData
+                                    : [];
 
-                          if(state is AllProductsLoaded) {
-
-                            tempSearchData = tempSearchChange==null? state.allProductsData:tempSearchChange==true? tempSearchData: [];
-
-                            var data= filterData(tempSearchData);
+                            var data = filterData(tempSearchData);
 
                             return CrossScroll(
                               horizontalBar: const CrossScrollBar(thickness: 0),
                               verticalBar: const CrossScrollBar(thickness: 0),
-                              horizontalScrollController: horizontalScrollController,
+                              horizontalScrollController:
+                                  horizontalScrollController,
                               horizontalScroll: CrossScrollDesign(
                                   physics: const BouncingScrollPhysics(),
                                   padding: const EdgeInsets.only(
@@ -340,7 +371,8 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                                   )),
                               verticalScroll: CrossScrollDesign(
                                   physics: const BouncingScrollPhysics(),
-                                  padding: const EdgeInsets.only(top: 0, bottom: 70)),
+                                  padding: const EdgeInsets.only(
+                                      top: 0, bottom: 70)),
                               child: Container(
                                 // padding: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
@@ -351,9 +383,12 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                                     Visibility(
                                       visible: false,
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
-                                          for (var i = 0; i < invoiceTitle.length; i++)
+                                          for (var i = 0;
+                                              i < invoiceTitle.length;
+                                              i++)
                                             Container(
                                               height: 60.sp,
                                               width: i == 0 ? 50 : 100.sp,
@@ -366,16 +401,19 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                                               child: AppText(
                                                 invoiceTitle[i],
                                                 // textAlign:  TextAlign.center,
-                                                style: Styles.circularStdBold(context,
+                                                style: Styles.circularStdBold(
+                                                    context,
                                                     fontSize: 13.sp,
                                                     fontWeight: FontWeight.w500,
-                                                    color: AppColors.whiteColor),
+                                                    color:
+                                                        AppColors.whiteColor),
                                               ),
                                             ),
                                         ],
                                       ),
                                     ),
-                                    showPriceListData(context,data),
+                                    showPriceListData(
+                                        context, data, tempSearchData),
                                     // SizedBox(
                                     //   width: 1.sw,
                                     //   child: FractionallySizedBox(
@@ -392,15 +430,13 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                                 ),
                               ),
                             );
-                          }
-                          else if(state is AllProductsLoading)
-                          {
-                            return  LoadingDialog.loadingWidget();
-                          }
-                          else{
-
-
-                            return SizedBox(height: 0.sp,width: 0.sp,);
+                          } else if (state is AllProductsLoading) {
+                            return LoadingDialog.loadingWidget();
+                          } else {
+                            return SizedBox(
+                              height: 0.sp,
+                              width: 0.sp,
+                            );
                           }
                         },
                       ),
@@ -474,8 +510,6 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                     // ),
                   ],
                 ),
-
-
                 Positioned(
                   bottom: 0,
                   child: SizedBox(
@@ -484,7 +518,7 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                       widthFactor: 1,
                       child: BlocBuilder<AllProductsCubit, AllProductsState>(
                         builder: (context, state) {
-                          if(state is AllProductsLoaded) {
+                          if (state is AllProductsLoaded) {
                             return CustomButton(
                               gapWidth: 10,
                               textFontWeight: FontWeight.w400,
@@ -493,12 +527,12 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                               leadingSvgIcon: true,
                               leadingIcon: (Assets.downloadIcon),
                               onTap: () async {
-
-                                await PdfDownload().generatePdfForPrice(filterDataForDownload(state.allProductsData)).then((value)async{
-
-                                  if(value!=null){
+                                await PdfDownload()
+                                    .generatePdfForPrice(filterDataForDownload(
+                                        state.allProductsData))
+                                    .then((value) async {
+                                  if (value != null) {
                                     await OpenFile.open(value.path);
-
                                   }
                                   print("valueeeeeeeeeeee $value");
                                 });
@@ -507,9 +541,7 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                               text: "Download",
                               horizontalMargin: 20,
                             );
-                          }
-                          else
-                          {
+                          } else {
                             return const SizedBox();
                           }
                         },
@@ -736,7 +768,10 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
     ];
   }
 
-  Widget showPriceListData(context, Map<String?, Map<String?, List<PriceListModel>>> data) {
+  Widget showPriceListData(
+      context,
+      Map<String?, Map<String?, List<PriceListModel>>> data,
+      List<ProductApiModel> tempSearchData) {
     List<List<PriceListModel>> invoiceFinalData = [
       [],
       [],
@@ -746,69 +781,68 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
     List<List<PriceListModel>> inData = [priceListData];
 
     List<Widget> row = [];
+    for (int i = 0; i < tempSearchData.length; i++) {
+      getBoolValueForCart(
+          tempSearchData[i].itemCode.toString(), tempSearchData, 0);
+    }
 
-
-    for(var main in data.entries)
-    {
-
+    for (var main in data.entries) {
       var country = main.key;
       print(main.key);
-      row.add(Column(children: [
-        CustomSizedBox.height(10.sp),
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                //color: AppColors.primaryColor,
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 30.sp),
-                width: 1.sw * 1.57,
-                child: (AppText(country.toString(),
-                    style: Styles.circularStdRegular(context,
-                        color: AppColors.blackColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 19.sp))),
-              )
-            ],
-          ),
-        )
-
-      ],));
-      for(var sub in main.value.entries)
-      {
-
-        var category= sub.key;
-        print(sub.key);
-        row.add(Column(children: [
+      row.add(Column(
+        children: [
           CustomSizedBox.height(10.sp),
           Container(
-            height: 50,
-            color: AppColors.lightInvoiceColor,
+            alignment: Alignment.centerLeft,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
+                  //color: AppColors.primaryColor,
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 30.sp),
                   width: 1.sw * 1.57,
-                  child: (AppText(category.toString(),
+                  child: (AppText(country.toString(),
                       style: Styles.circularStdRegular(context,
-                          color: AppColors.primaryColor,
+                          color: AppColors.blackColor,
                           fontWeight: FontWeight.w500,
-                          fontSize: 14.sp))),
+                          fontSize: 19.sp))),
                 )
               ],
             ),
           )
-
-        ],));
-        for (int i = 0; i < sub.value.length; i++)
-        {
+        ],
+      ));
+      for (var sub in main.value.entries) {
+        var category = sub.key;
+        print(sub.key);
+        row.add(Column(
+          children: [
+            CustomSizedBox.height(10.sp),
+            Container(
+              height: 50,
+              color: AppColors.lightInvoiceColor,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: 30.sp),
+                    width: 1.sw * 1.57,
+                    child: (AppText(category.toString(),
+                        style: Styles.circularStdRegular(context,
+                            color: AppColors.primaryColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp))),
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
+        for (int i = 0; i < sub.value.length; i++) {
           List<Widget> textWidget = [];
           print(sub.value);
-
 
           textWidget.add(Container(
               padding: EdgeInsets.only(left: 20.sp),
@@ -841,35 +875,35 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
             // margin: const EdgeInsets.only(left: 20),
             child: sub.value[i].item == ""
                 ? Center(
-              child: SingleChildScrollView(
-                child: FittedBox(
-                  child: AppText(priceListData[i].specification,
-                      maxLine: 4,
-                      style: Styles.circularStdRegular(context,
-                          color: AppColors.blackColor,
-                          fontWeight: FontWeight.normal)),
-                ),
-              ),
-            )
+                    child: SingleChildScrollView(
+                      child: FittedBox(
+                        child: AppText(priceListData[i].specification,
+                            maxLine: 4,
+                            style: Styles.circularStdRegular(context,
+                                color: AppColors.blackColor,
+                                fontWeight: FontWeight.normal)),
+                      ),
+                    ),
+                  )
                 : Center(
-              child: SingleChildScrollView(
-                child: AppText(sub.value[i].specification,
-                    maxLine: 4,
-                    style: Styles.circularStdRegular(context,
-                        color: sub.value[i].item == ""
-                            ? AppColors.primaryColor
-                            : AppColors.blackColor,
-                        fontWeight:sub.value[i].item == ""
-                            ? FontWeight.w500
-                            : FontWeight.normal)),
-              ),
-            ),
+                    child: SingleChildScrollView(
+                      child: AppText(sub.value[i].specification,
+                          maxLine: 4,
+                          style: Styles.circularStdRegular(context,
+                              color: sub.value[i].item == ""
+                                  ? AppColors.primaryColor
+                                  : AppColors.blackColor,
+                              fontWeight: sub.value[i].item == ""
+                                  ? FontWeight.w500
+                                  : FontWeight.normal)),
+                    ),
+                  ),
           ));
           textWidget.add(SizedBox(
             width: 10.sp,
           ));
           textWidget.add(Container(
-            // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+              // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(right: 30.sp),
               child: AppText(sub.value[i].packing,
@@ -880,7 +914,7 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
             width: 10.sp,
           ));
           textWidget.add(Container(
-            // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+              // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(right: 30.sp),
               child: AppText(sub.value[i].ctn.toString(),
@@ -891,7 +925,7 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
             width: 10.sp,
           ));
           textWidget.add(Container(
-            // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+              // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(right: 30.sp),
               child: AppText(sub.value[i].price.toString(),
@@ -899,31 +933,45 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
                       color: AppColors.blackColor,
                       fontWeight: FontWeight.normal))));
 
-          row.add(Column(children: [
-            // CustomSizedBox.height(10.sp),
-            Container(
-              // width:priceListData[i].title!=null? 1.sw *1.15:null,
+          row.add(Column(
+            children: [
+              // CustomSizedBox.height(10.sp),
+              GestureDetector(
+                onTap: () {
+                  for (var dto in tempSearchData) {
+                    if (dto.itemCode == sub.value[i].sNo) {
+                      Navigate.to(
+                          context,
+                          ProductDetails(
+                            isGuest: false,
+                            isRemove: mapIsRemove[dto.itemCode.toString()],
+                            isApi: true,
+                            catId: dto.cat,
+                            fromPriceList: true,
+                            productDto: dto,
+                          ));
+                      break;
+                    }
+                  }
+                  print(sub.value[i]);
+                },
+                // width:priceListData[i].title!=null? 1.sw *1.15:null,
 
-              //  color: priceListData[i].title!=null?AppColors.lightInvoiceColor:AppColors.whiteColor,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ...textWidget,
-
-                ],
+                //  color: priceListData[i].title!=null?AppColors.lightInvoiceColor:AppColors.whiteColor,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ...textWidget,
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20.sp,
-            )
-
-          ],));
-
-
+              SizedBox(
+                height: 20.sp,
+              )
+            ],
+          ));
         }
-
       }
-
     }
 
     // for (int i = 0; i < priceListData.length; i++) {
@@ -1083,28 +1131,54 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
     );
   }
 
-  Map<String?, Map<String?, List<PriceListModel>>> filterData(List<ProductApiModel> allProductsData) {
-    List<PriceListModel> productsListDta =[];
-    print(allProductsData.length.toString()+"productslength");
-    for(var i in allProductsData)
-    {
-      productsListDta.add(PriceListModel(i.itemName, i.uGoodstype.toString(), i.uPacking.toString(),category: i.cat,country: getOriginString(i),ctn: i.defaultSalesUom,price: i.price));
-
+  Future<bool> getBoolValueForCart(
+      String itemCode, List<ProductApiModel> pr, int index) async {
+    bool stat =
+        await CartDatabase.cartDatabaseInstance.isProductInCart(itemCode);
+    print("here in function + value = $stat");
+    List<ProductApiModel2> p2 = [];
+    if (mapIsRemove.containsKey(itemCode)) {
+      mapIsRemove.update(itemCode, (value) => stat);
+    } else {
+      mapIsRemove.addAll({itemCode: stat});
     }
 
-    Map<String?, Map<String?, List<PriceListModel>>> dto=groupedAndFilter(productsListDta);
+    return stat;
+    // return  await CartDatabase.cartDatabaseInstance.isProductInCart(string);
+  }
+
+  Map<String?, Map<String?, List<PriceListModel>>> filterData(
+      List<ProductApiModel> allProductsData) {
+    List<PriceListModel> productsListDta = [];
+    print(allProductsData.length.toString() + "productslength");
+    for (var i in allProductsData) {
+      productsListDta.add(PriceListModel(
+          i.itemName, i.uGoodstype.toString(), i.uPacking.toString(),
+          category: i.cat,
+          country: getOriginString(i),
+          sNo: i.itemCode.toString(),
+          ctn: i.defaultSalesUom,
+          price: i.price));
+    }
+
+    Map<String?, Map<String?, List<PriceListModel>>> dto =
+        groupedAndFilter(productsListDta);
     print(dto);
     return dto;
   }
-  List<PriceListModel> filterDataForDownload(List<ProductApiModel> allProductsData) {
-    List<PriceListModel> productsListDta =[];
-    print(allProductsData.length.toString()+"productslength");
-    for(var i in allProductsData)
-    {
-      productsListDta.add(PriceListModel(i.itemName, i.uGoodstype.toString(), i.uPacking.toString(),category: i.cat,country: getOriginString(i),ctn: i.defaultSalesUom,price: i.price));
 
+  List<PriceListModel> filterDataForDownload(
+      List<ProductApiModel> allProductsData) {
+    List<PriceListModel> productsListDta = [];
+    print(allProductsData.length.toString() + "productslength");
+    for (var i in allProductsData) {
+      productsListDta.add(PriceListModel(
+          i.itemName, i.uGoodstype.toString(), i.uPacking.toString(),
+          category: i.cat,
+          country: getOriginString(i),
+          ctn: i.defaultSalesUom,
+          price: i.price));
     }
-
 
     // print(dto);
     return productsListDta;
@@ -1116,11 +1190,12 @@ class _PriceListScreenState extends State<PriceListScreen>   with AutomaticKeepA
 //
 //
 // }
-
-
 }
-Map<String?, Map<String?, List<PriceListModel>>> groupedAndFilter(List<PriceListModel> products) {
-  Map<String?, Map<String?, List<PriceListModel>>> productsByCountryAndCategory = {};
+
+Map<String?, Map<String?, List<PriceListModel>>> groupedAndFilter(
+    List<PriceListModel> products) {
+  Map<String?, Map<String?, List<PriceListModel>>>
+      productsByCountryAndCategory = {};
   //Map<String?, Map<String?, List<Product>>> productsByCountryAndCategory = {};
 
   for (var product in products) {
@@ -1135,8 +1210,6 @@ Map<String?, Map<String?, List<PriceListModel>>> groupedAndFilter(List<PriceList
 
     productsByCountryAndCategory[country]![category]!.add(product);
   }
-
-
 
   return productsByCountryAndCategory;
 }
@@ -1158,32 +1231,33 @@ class PriceListModel {
 class PriceListDataSource extends DataGridSource {
   final BuildContext context;
   final List<PriceListModel> employees;
+
   PriceListDataSource({required this.employees, required this.context}) {
     _employees = List.generate(
         employees.length,
-            (index) => DataGridRow(cells:
-        // employees[index].title!= null?[
-        //   DataGridCell<String>(columnName: 'Title', value: employees[index].title),
-        //
-        // ] : employees[index].country!= null?[
-        //
-        //   DataGridCell<String>(columnName: 'Country', value: employees[index].country),
-        // ]:
-        [
-          DataGridCell<String>(
-              columnName: '#', value: employees[index].sNo.toString()),
-          DataGridCell<String>(
-              columnName: 'Item', value: employees[index].item),
-          DataGridCell<String>(
-              columnName: 'Specification',
-              value: employees[index].specification),
-          DataGridCell<String>(
-              columnName: 'Packing', value: employees[index].packing),
-          DataGridCell<String>(
-              columnName: 'Pcs/Ctn', value: employees[index].ctn),
-          DataGridCell<String>(
-              columnName: 'Price', value: employees[index].price),
-        ]));
+        (index) => DataGridRow(cells:
+                // employees[index].title!= null?[
+                //   DataGridCell<String>(columnName: 'Title', value: employees[index].title),
+                //
+                // ] : employees[index].country!= null?[
+                //
+                //   DataGridCell<String>(columnName: 'Country', value: employees[index].country),
+                // ]:
+                [
+              DataGridCell<String>(
+                  columnName: '#', value: employees[index].sNo.toString()),
+              DataGridCell<String>(
+                  columnName: 'Item', value: employees[index].item),
+              DataGridCell<String>(
+                  columnName: 'Specification',
+                  value: employees[index].specification),
+              DataGridCell<String>(
+                  columnName: 'Packing', value: employees[index].packing),
+              DataGridCell<String>(
+                  columnName: 'Pcs/Ctn', value: employees[index].ctn),
+              DataGridCell<String>(
+                  columnName: 'Price', value: employees[index].price),
+            ]));
   }
 
   List<DataGridRow> _employees = [];
@@ -1213,33 +1287,33 @@ class PriceListDataSource extends DataGridSource {
 
     print(index);
     return DataGridRowAdapter(
-      //  color: AppColors.primaryColor,
+        //  color: AppColors.primaryColor,
 
         cells: rowsss.getCells().map<Widget>((dataGridCell) {
-          print(dataGridCell.columnName == "Item" && dataGridCell.value == null);
-          return Container(
-            // color: AppColors.primaryColor,
-            //  width: 50,
-            color: getBackgroundColor(index),
-            alignment:
-            employees[index].country != null || employees[index].category != null
-                ? Alignment.centerLeft
-                : (dataGridCell.columnName == '#')
+      print(dataGridCell.columnName == "Item" && dataGridCell.value == null);
+      return Container(
+        // color: AppColors.primaryColor,
+        //  width: 50,
+        color: getBackgroundColor(index),
+        alignment: employees[index].country != null ||
+                employees[index].category != null
+            ? Alignment.centerLeft
+            : (dataGridCell.columnName == '#')
                 ? Alignment.centerRight
                 : Alignment.center,
-            padding: const EdgeInsets.all(10.0),
-            child: dataGridCell.columnName == 'Item' && dataGridCell.value == ""
-                ? AppText(employees[index].country.toString(),
+        padding: const EdgeInsets.all(10.0),
+        child: dataGridCell.columnName == 'Item' && dataGridCell.value == ""
+            ? AppText(employees[index].country.toString(),
                 style: Styles.circularStdBold(context, fontSize: 19.sp))
-                : dataGridCell.columnName == "Item" && dataGridCell.value == null
+            : dataGridCell.columnName == "Item" && dataGridCell.value == null
                 ? AppText(employees[index].category.toString(),
-                style: Styles.circularStdBold(context,
-                    color: AppColors.primaryColor, fontSize: 16.sp))
+                    style: Styles.circularStdBold(context,
+                        color: AppColors.primaryColor, fontSize: 16.sp))
                 : AppText(
-              dataGridCell.value.toString(),
-              style: Styles.circularStdRegular(context, fontSize: 15.sp),
-            ),
-          );
-        }).toList());
+                    dataGridCell.value.toString(),
+                    style: Styles.circularStdRegular(context, fontSize: 15.sp),
+                  ),
+      );
+    }).toList());
   }
 }

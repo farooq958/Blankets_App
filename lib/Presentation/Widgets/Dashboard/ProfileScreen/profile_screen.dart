@@ -96,12 +96,17 @@ class ProfileScreen extends StatelessWidget {
         ListTileWidget(
           tileTitle: AppStrings.notificationPreferences,
           icon: Assets.salePolicyIcon,
-          onTap: () {},
+          onTap: () async {
+            await AppSettings.openAppSettings(
+                type: AppSettingsType.notification);
+          },
         ),
         ListTileWidget(
           tileTitle: AppStrings.privacyPolicy,
           icon: Assets.salePolicyIcon,
-          onTap: () {},
+          onTap: () {
+            Navigate.to(context, const PrivacyPolice());
+          },
         ),
         ListTileWidget(
           tileTitle: 'Login',

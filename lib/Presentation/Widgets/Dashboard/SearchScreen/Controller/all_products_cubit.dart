@@ -9,39 +9,37 @@ part '../State/all_products_state.dart';
 class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit() : super(AllProductsInitial());
 
-  getAllProducts({String? catId,bool? dispose,bool? isGuest}) async {
-if(dispose != null) {
-  close();
-}
+  getAllProducts({String? catId, bool? dispose, bool? isGuest}) async {
+    if (dispose != null) {
+      close();
+    }
     await Future.delayed(const Duration(milliseconds: 16));
     emit(AllProductsLoading());
     try {
+      await ProductRepo()
+          .getProduct(catId != null && isGuest == true
+              ? categoryProductUrl + catId
+              : catId != null && isGuest == false
+                  ? productAuthUrl + catId
+                  : allProductGuestUrl)
+          .then((value) {
+        if (value != int) {
+          var newArrivalData = List<ProductApiModel>.from(
+              value.map((x) => ProductApiModel.fromMap(x)));
 
-      await ProductRepo().getProduct(catId!=null && isGuest ==true ? categoryProductUrl+catId:catId != null && isGuest ==false ?productAuthUrl+catId:allProductGuestUrl).then((value) {
+          print(newArrivalData.length.toString() + "apiproductlenthacas");
 
-if(value !=int ) {
-  var newArrivalData = List<ProductApiModel>.from(
-      value.map((x) => ProductApiModel.fromMap(x)));
-
-  print(newArrivalData.length.toString() + "apiproductlenthacas");
-
-  emit(AllProductsLoaded(allProductsData: newArrivalData));
-}
-else
-  {
-    emit(LogOutProductState());
-
-  }
+          emit(AllProductsLoaded(allProductsData: newArrivalData));
+        } else {
+          emit(LogOutProductState());
+        }
       }).catchError((e) {
         //throw e;
         emit(AllProductsError(error: e));
       });
     } catch (e) {
       //rethrow;
-      emit(AllProductsError(error:e.toString()));
+      emit(AllProductsError(error: e.toString()));
     }
   }
-
-
-
 }

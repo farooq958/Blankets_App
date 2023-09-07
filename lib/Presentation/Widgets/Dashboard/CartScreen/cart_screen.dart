@@ -29,7 +29,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   Map<int, String> grandMap = {};
 
-TextEditingController instructionController=TextEditingController();
+  TextEditingController instructionController = TextEditingController();
 
   @override
   void initState() {
@@ -39,9 +39,12 @@ TextEditingController instructionController=TextEditingController();
       CustomDialog.dialog(context, const Column());
     }
     CartNotifier.grandSumTotalNotifier.value = 0.0;
+    CartNotifier.grandCtnNotifier.value = 0.0;
     getGrandTotalFromDb();
     context.read<CartCubit>().getAllCartItems();
-    context.read<CartGrandTotalMapCubit>().setGetMap(0,'1', {},fromRemove: true);
+    context
+        .read<CartGrandTotalMapCubit>()
+        .setGetMap(0, '1', {}, fromRemove: true);
     super.initState();
   }
 
@@ -51,8 +54,7 @@ TextEditingController instructionController=TextEditingController();
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
-        child:
-        BlocBuilder<CartGrandTotalMapCubit, Map<int,String>>(
+        child: BlocBuilder<CartGrandTotalMapCubit, Map<int, String>>(
           builder: (context, quantityMapState) {
             return SingleChildScrollView(
               child: Column(
@@ -67,18 +69,17 @@ TextEditingController instructionController=TextEditingController();
                       ),
                       RichText(
                           text: TextSpan(children: [
-                            TextSpan(
-                                text: 'Rs ',
-                                style: Styles.circularStdBold(
-                                    context, fontSize: 16.sp)),
-                            TextSpan(
-                                text: SharedPrefs.userData!.balance.toString(),
-                                style: Styles.circularStdBold(context,
-                                    fontWeight: FontWeight.w900, fontSize: 20)),
-                          ]))
+                        TextSpan(
+                            text: 'Rs ',
+                            style: Styles.circularStdBold(context,
+                                fontSize: 16.sp)),
+                        TextSpan(
+                            text: SharedPrefs.userData!.balance.toString(),
+                            style: Styles.circularStdBold(context,
+                                fontWeight: FontWeight.w900, fontSize: 20)),
+                      ]))
                     ],
                   ),
-
                   BlocConsumer<CartCubit, CartState>(
                     listener: (context, state) {
                       print(state);
@@ -99,59 +100,63 @@ TextEditingController instructionController=TextEditingController();
                             SizedBox(
                               width: 1.sw,
                               height: 1.sh / 2.3,
-                              child: state.cartData.isEmpty? EmptyCartScreen(
-                                pageController: widget.pageController,
-                              ): ListView.separated(
-                                //  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
+                              child: state.cartData.isEmpty
+                                  ? EmptyCartScreen(
+                                      pageController: widget.pageController,
+                                    )
+                                  : ListView.separated(
+                                      //  shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return CartItemTile(
+                                          cartItem: null,
+                                          getCurrentValue: (total) async {
+                                            print(total);
+                                          },
+                                          cartDto: state.cartData[index],
+                                          index: index,
+                                          onRemove: (notiValue) async {
+                                            // context.read<CartCubit>().getAllCartItems();
 
-                                    return CartItemTile(
-                                      cartItem: null,
-                                      getCurrentValue: (total) async {
-                                        print(total);
+                                            // print(quantityMapState[index]! + "quantityyyy");
+                                            CartNotifier.grandSumTotalNotifier
+                                                .value -= (double.parse(state
+                                                    .cartData[index]
+                                                    .productPrice
+                                                    .toString()) *
+                                                double.parse(
+                                                    quantityMapState[index]!));
+
+                                            CartNotifier
+                                                    .grandCtnNotifier.value -=
+                                                double.parse(
+                                                    quantityMapState[index]!);
+                                            //  context.read<CartGrandTotalMapCubit>().setGetMap(index, quantityMapState[index]!, quantityMapState);
+
+                                            int val = await CartDatabase
+                                                .cartDatabaseInstance
+                                                .deleteCart(state
+                                                    .cartData[index].productId
+                                                    .toString());
+                                            state.cartData.removeAt(index);
+                                            if (val != 0) {
+                                              //
+                                            }
+
+                                            setState(() {
+                                              context
+                                                  .read<CartCubit>()
+                                                  .getAllCartItems();
+                                            });
+                                          },
+                                          mapQuantity: quantityMapState,
+                                        );
                                       },
-
-                                      cartDto: state.cartData[index],
-                                      index: index,
-                                      onRemove: (notiValue) async {
-                                        // context.read<CartCubit>().getAllCartItems();
-
-                                       // print(quantityMapState[index]! + "quantityyyy");
-                                        CartNotifier.grandSumTotalNotifier
-                                            .value -=
-                                        (double.parse(
-                                            state.cartData[index].productPrice
-                                                .toString()) *
-                                            double.parse(quantityMapState[index]!));
-
-                                        CartNotifier.grandCtnNotifier.value -=   double.parse(quantityMapState[index]!);
-                                      //  context.read<CartGrandTotalMapCubit>().setGetMap(index, quantityMapState[index]!, quantityMapState);
-
-                                        int val = await CartDatabase
-                                            .cartDatabaseInstance.deleteCart(
-                                            state.cartData[index].productId
-                                                .toString());
-                                        state.cartData.removeAt(index);
-                                        if (val != 0) {
-                                          //
-                                        }
-
-
-                                        setState(() {
-                                          context.read<CartCubit>()
-                                              .getAllCartItems();
-                                        });
+                                      separatorBuilder: (context, index) {
+                                        return SizedBox(
+                                          height: 4.h,
+                                        );
                                       },
-                                      mapQuantity: quantityMapState,
-
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(
-                                      height: 4.h,
-                                    );
-                                  },
-                                  itemCount: state.cartData.length),
+                                      itemCount: state.cartData.length),
                             ),
                             // CustomSizedBox.height(30.h),
                             CustomTextFieldWithOnTap(
@@ -163,26 +168,29 @@ TextEditingController instructionController=TextEditingController();
                               maxline: 2,
                             ),
                             ValueListenableBuilder(
-                              builder: (context,ctnState,ch) {
+                              builder: (context, ctnState, ch) {
                                 return Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     AppText('Total ctn',
-                                        style: Styles.circularStdMedium(context)),
-                                    AppText(
-                                        ctnState.toString(),
-                                        style: Styles.circularStdMedium(context)),
+                                        style:
+                                            Styles.circularStdMedium(context)),
+                                    AppText(ctnState.toString(),
+                                        style:
+                                            Styles.circularStdMedium(context)),
                                   ],
                                 );
-                              }, valueListenable: CartNotifier.grandCtnNotifier,
+                              },
+                              valueListenable: CartNotifier.grandCtnNotifier,
                             ),
                             CustomSizedBox.height(10.h),
 
                             ValueListenableBuilder(
                               builder: (context, state, ch) {
                                 return Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     AppText('Total amount',
                                         style: Styles.circularStdBold(context,
@@ -193,102 +201,110 @@ TextEditingController instructionController=TextEditingController();
                                   ],
                                 );
                               },
-                              valueListenable: CartNotifier.grandSumTotalNotifier,
+                              valueListenable:
+                                  CartNotifier.grandSumTotalNotifier,
                             ),
                             BlocListener<PostOrderCubit, PostOrderState>(
-  listener: (context, state) {
-    // TODO: implement listener
-    if(state is PostOrderLoading)
-      {
-        LoadingDialog.showLoadingDialog(context);
-      }
-    if(state is PostOrderSuccess)
-      {
-        SharedPrefs.setOrderDate(survey: DateTime.now().toIso8601String());
-        Navigate.pop(context);
-        CustomDialog.successDialog(context,
-            title: 'Success! Your order has been Placed',
-            message:
-            'We sincerely appreciate you taking the time.',
-            image: Assets.customerSurveySuccess);
+                              listener: (context, state) async {
+                                // TODO: implement listener
+                                if (state is PostOrderLoading) {
+                                  LoadingDialog.showLoadingDialog(context);
+                                }
+                                if (state is PostOrderSuccess) {
+                                  SharedPrefs.setOrderDate(
+                                      survey: DateTime.now().toIso8601String());
+                                  Navigate.pop(context);
+                                  CustomDialog.successDialog(context,
+                                      title:
+                                          'Success! Your order has been Placed',
+                                      message:
+                                          'We sincerely appreciate you taking the time.',
+                                      image: Assets.customerSurveySuccess);
 
-      }
-  },
-  child: CustomButton(
-                                borderRadius: 30.r,
-                                onTap: () async {
-                                  List<Map<String,dynamic>> toSendCartData=[];
-                                  List<CartModel> dbList=await CartDatabase.cartDatabaseInstance.getAllCartItems();
+                                  await CartDatabase.cartDatabaseInstance
+                                      .clearCart();
+                                  CartNotifier.grandSumTotalNotifier.value =
+                                      0.0;
+                                  CartNotifier.grandCtnNotifier.value = 0.0;
+                                  context.read<CartCubit>().getAllCartItems();
+                                  context
+                                      .read<CartGrandTotalMapCubit>()
+                                      .setGetMap(0, '1', {}, fromRemove: true);
+                                }
+                              },
+                              child: CustomButton(
+                                  borderRadius: 30.r,
+                                  onTap: () async {
+                                    List<Map<String, dynamic>> toSendCartData =
+                                        [];
+                                    List<CartModel> dbList = await CartDatabase
+                                        .cartDatabaseInstance
+                                        .getAllCartItems();
 
-                                  for(var i in dbList)
-                                    {
+                                    for (var i in dbList) {
                                       print(i.productQuantity);
                                       toSendCartData.add({
                                         "ItemCode": i.productId.toString(),
                                         "UomCode": i.pcsCtn.toString(),
-                                        "Quantity":
-                                        double.parse(i.multiplier.toString()) * double.parse(i.productQuantity.toString()),
+                                        "Quantity": double.parse(
+                                                i.multiplier.toString()) *
+                                            double.parse(
+                                                i.productQuantity.toString()),
                                         "WhsCode": "PEW-410",
-
-
                                       });
-
                                     }
-                                  final data = {
-                                    'SONumMblapp': 'TEST',
-                                    'CardCode': SharedPrefs.userData!.cardCode.toString(),
-                                    'DocDate': DateTime.now().toString(),
-                                    'DocDueDate': DateTime.now().toString(),
-                                    'GridData': jsonEncode(toSendCartData),
-                                    'Remarks': instructionController.text
-                                  };
-                          bool check= await hasUserGivenOrderToday();
-                      if(check == false) {
-                        context.read<PostOrderCubit>().postOrder(data);
-                      }
-                      else
-                        {
-
-                          WidgetFunctions.instance.snackBar(context,text: 'Already have posted order Today',textStyle: Styles.circularStdMedium(context,color: AppColors.whiteColor),bgColor: AppColors.primaryColor);
-                        }
-                                  // print(toSendCartData);
-                                  // Navigate.to(
-                                  //     context,
-                                  //     CheckOutScreen(
-                                  //       totalCtn: '07',
-                                  //       totalPayment: Utils.cartItems[0].price!,
-                                  //       pageController: widget.pageController,
-                                  //     ));
-
-
-
-                                },
-                                text: AppStrings.placeOrder),
-),
-
-
+                                    final data = {
+                                      'SONumMblapp': 'TEST',
+                                      'CardCode': SharedPrefs.userData!.cardCode
+                                          .toString(),
+                                      'DocDate': DateTime.now().toString(),
+                                      'DocDueDate': DateTime.now().toString(),
+                                      'GridData': jsonEncode(toSendCartData),
+                                      'Remarks': instructionController.text
+                                    };
+                                    bool check = await hasUserGivenOrderToday();
+                                    if (check == false) {
+                                      context
+                                          .read<PostOrderCubit>()
+                                          .postOrder(data);
+                                    } else {
+                                      WidgetFunctions.instance.snackBar(context,
+                                          text:
+                                              'Already have posted order Today',
+                                          textStyle: Styles.circularStdMedium(
+                                              context,
+                                              color: AppColors.whiteColor),
+                                          bgColor: AppColors.primaryColor);
+                                    }
+                                    // print(toSendCartData);
+                                    // Navigate.to(
+                                    //     context,
+                                    //     CheckOutScreen(
+                                    //       totalCtn: '07',
+                                    //       totalPayment: Utils.cartItems[0].price!,
+                                    //       pageController: widget.pageController,
+                                    //     ));
+                                  },
+                                  text: AppStrings.placeOrder),
+                            ),
                           ],
                         );
-                      }
-                      else {
+                      } else {
                         return LoadingDialog.loadingWidget();
                       }
                     },
                   )
-
                 ],
               ),
             );
           },
-        )
-
-    );
+        ));
   }
 
   Future<void> getGrandTotalFromDb() async {
     var grandT = await CartDatabase.cartDatabaseInstance.calculateGrandTotal();
     CartNotifier.grandSumTotalNotifier.value = double.parse(grandT.toString());
-    var grandCtn=await CartDatabase.cartDatabaseInstance.getTotalQuantity();
+    var grandCtn = await CartDatabase.cartDatabaseInstance.getTotalQuantity();
     CartNotifier.grandCtnNotifier.value = double.parse(grandCtn.toString());
   }
 

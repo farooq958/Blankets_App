@@ -28,9 +28,7 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'Controller/invoice_cubit.dart';
 
-
-
-class InvoiceScreen extends  StatefulWidget {
+class InvoiceScreen extends StatefulWidget {
   const InvoiceScreen({super.key});
 
   @override
@@ -39,64 +37,129 @@ class InvoiceScreen extends  StatefulWidget {
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
   final List<InvoiceModel> invoiceListData = [
-InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8908',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8907',noOfCtns: '89',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8906',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8905',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8904',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8903',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8902',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8901',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8900',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8920',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8921',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8922',noOfCtns: '90',total: 'Rs 2,980,650'),
-    InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,980,650'),
-
-
-
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8909',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8908',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8907',
+        noOfCtns: '89',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8906',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8905',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8904',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8903',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8902',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8901',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8900',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8920',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8921',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8922',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
+    InvoiceModel(
+        date: '04 Jan, 2023',
+        invoiceNo: '8909',
+        noOfCtns: '90',
+        total: 'Rs 2,980,650'),
 
     // Add more data for other months
   ];
 
-  final List<String> invoiceTitle=['Date','Invoice No','No of Ctns','Total'];
+  final List<String> invoiceTitle = [
+    'Date',
+    'Invoice No',
+    'No of Ctns',
+    'Total'
+  ];
   late InvoiceListDataSource invoiceDataSource;
 
   @override
   void initState() {
     super.initState();
     //employees= getEmployees();
-    NotifierDateTime.pickerNotifier.value='${DateTime.now().subtract(const Duration(days: 150)).month.englishName}-${DateTime.now().month.englishName} ${DateTime.now().year}';
+    NotifierDateTime.pickerNotifier.value =
+        '${DateTime.now().subtract(const Duration(days: 150)).month.englishName}-${DateTime.now().month.englishName} ${DateTime.now().year}';
 
-    context.read<InvoiceCubit>().getInvoicesData(DateTime.now().subtract(const Duration(days: 150)).toString(),DateTime.now().toString());
-    
-
+    context.read<InvoiceCubit>().getInvoicesData(
+        DateTime.now().subtract(const Duration(days: 150)).toString(),
+        DateTime.now().toString());
   }
+
   // final TextEditingController searchControllerPrice=TextEditingController();
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      appBar: const CustomAppBarWithBackButton(title: 'Invoice list',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
+      appBar: const CustomAppBarWithBackButton(
+        title: 'Invoice list',
+        exceptional: true,
+        iconColor: AppColors.primaryColor,
+        iconData: Icons.arrow_back_ios,
+        padding: EdgeInsets.only(left: 5),
+        iconSize: 15,
+      ),
       body: Column(
         children: [
 // TODO: Use Extension for sizeBox, the below size box code should be 10.y
           CustomSizedBox.height(10),
+
           ///Top Row
           Row(
             children: [
               const Spacer(),
-
               Expanded(
                 flex: 2,
                 child: ValueListenableBuilder(
-                  builder: (context,dateState,ch) {
+                  builder: (context, dateState, ch) {
                     return Align(
                       alignment: Alignment.centerLeft,
                       child: CustomButton(
-                       // horizontalMargin: 20,
+                        // horizontalMargin: 20,
                         bgColor: AppColors.whiteColor,
                         borderColor: AppColors.primaryColor,
                         textColor: AppColors.primaryColor,
@@ -105,12 +168,16 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
                         borderThickness: 1.5,
                         trailIconWidth: 19.sp,
                         trailIconHeight: 19,
-                        onTap: (){
+                        onTap: () {
                           showDatePicker(context);
-
-                        }, text: dateState,verticalMargin: 20,verticalPadding: 10,),
+                        },
+                        text: dateState,
+                        verticalMargin: 20,
+                        verticalPadding: 10,
+                      ),
                     );
-                  }, valueListenable: NotifierDateTime.pickerNotifier,
+                  },
+                  valueListenable: NotifierDateTime.pickerNotifier,
                 ),
               ),
               CustomSizedBox.width(20)
@@ -118,55 +185,59 @@ InvoiceModel(date: '04 Jan, 2023',invoiceNo: '8909',noOfCtns: '90',total: 'Rs 2,
           ),
 
           Expanded(
-            child:  BlocConsumer<InvoiceCubit, InvoiceState>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    if(state is InvoiceLoaded) {
-      invoiceDataSource = InvoiceListDataSource(employees: state.actualInvoiceData, context: context);
-      return SfDataGridTheme(
-              data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
-              child: SfDataGrid(
-                horizontalScrollPhysics: const BouncingScrollPhysics(),
-                verticalScrollPhysics: const BouncingScrollPhysics(),
-                gridLinesVisibility: GridLinesVisibility.none,
-                columnWidthMode: ColumnWidthMode.auto,
-              //  defaultColumnWidth: 100,
-                // source: DataGridSource().buildRow(row),
-                columns: getColumns(context),
-onCellTap: (details){
-  int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
-  var row =
-  invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
-Navigate.to(context, InvoiceDetails(invoiceData: state.actualInvoiceData[selectedRowIndex]));
-  print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+            child: BlocConsumer<InvoiceCubit, InvoiceState>(
+              listener: (context, state) {
+                // TODO: implement listener
+              },
+              builder: (context, state) {
+                if (state is InvoiceLoaded) {
+                  invoiceDataSource = InvoiceListDataSource(
+                      employees: state.actualInvoiceData, context: context);
+                  return SfDataGridTheme(
+                    data: SfDataGridThemeData(
+                        headerColor: AppColors.primaryColor),
+                    child: SfDataGrid(
+                      horizontalScrollPhysics: const BouncingScrollPhysics(),
+                      verticalScrollPhysics: const BouncingScrollPhysics(),
+                      gridLinesVisibility: GridLinesVisibility.none,
+                      columnWidthMode: ColumnWidthMode.auto,
+                      //  defaultColumnWidth: 100,
+                      // source: DataGridSource().buildRow(row),
+                      columns: getColumns(context),
+                      onCellTap: (details) {
+                        int selectedRowIndex =
+                            details.rowColumnIndex.rowIndex - 1;
+                        var row = invoiceDataSource.effectiveRows
+                            .elementAt(selectedRowIndex);
+                        Navigate.to(
+                            context,
+                            InvoiceDetails(
+                                invoiceData:
+                                    state.actualInvoiceData[selectedRowIndex]));
+                        print(
+                            "${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+                      },
+                      headerRowHeight: 65,
 
-},
-                headerRowHeight: 65,
+                      // headerGridLineStrokeWidth: 0.0,
 
-                // headerGridLineStrokeWidth: 0.0,
-
-                frozenRowsCount: 0,
-                frozenColumnsCount: 0, source: invoiceDataSource, // Number of frozen columns (sticky columns)
-              ),
-            );
-    }
-    else if( state is InvoiceLoading)
-      {
-        return LoadingDialog.loadingWidget();
-      }
-    else if(state is InvoiceError)
-      {
-
-        return  Center(child: AppText(state.error.toString(), style: Styles.circularStdMedium(context)));
-      }
-    else
-      {
-        return const SizedBox();
-      }
-  },
-),
+                      frozenRowsCount: 0,
+                      frozenColumnsCount: 0,
+                      source:
+                          invoiceDataSource, // Number of frozen columns (sticky columns)
+                    ),
+                  );
+                } else if (state is InvoiceLoading) {
+                  return LoadingDialog.loadingWidget();
+                } else if (state is InvoiceError) {
+                  return Center(
+                      child: AppText(state.error.toString(),
+                          style: Styles.circularStdMedium(context)));
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
           ),
           // SizedBox(
           //   width: 1.sw,
@@ -242,7 +313,6 @@ Navigate.to(context, InvoiceDetails(invoiceData: state.actualInvoiceData[selecte
           //     ),
           //   ],
           // ),
-
         ],
       ),
     );
@@ -325,7 +395,7 @@ Navigate.to(context, InvoiceDetails(invoiceData: state.actualInvoiceData[selecte
     ];
   }
 
-///old cross scroll
+  ///old cross scroll
 //   CrossScroll(
 //   horizontalScroll: CrossScrollDesign(
 //   physics: const BouncingScrollPhysics(),
@@ -397,14 +467,12 @@ Navigate.to(context, InvoiceDetails(invoiceData: state.actualInvoiceData[selecte
       [],
       [],
       [],
-
     ];
     List<List<InvoiceModel>> inData = [invoiceListData];
 
-
     List<Widget> row = [];
 
-    for(int i=0;i<invoiceListData.length;i++){
+    for (int i = 0; i < invoiceListData.length; i++) {
       List<Widget> textWidget = [];
 
       textWidget.add(Container(
@@ -412,19 +480,28 @@ Navigate.to(context, InvoiceDetails(invoiceData: state.actualInvoiceData[selecte
           //  width: 130,
           // color: Colors.red,
           // margin: EdgeInsets.only(right: 50.sp),
-          child: AppText(invoiceListData[i].date.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight: FontWeight.normal))));
+          child: AppText(invoiceListData[i].date.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
       //  textWidget.add(SizedBox(width: 10.sp,));
-      textWidget.add(SizedBox(width: 40.sp,));
+      textWidget.add(SizedBox(
+        width: 40.sp,
+      ));
       textWidget.add(Container(
-        //width: 100.sp,
-        //   color: Colors.black,
+          //width: 100.sp,
+          //   color: Colors.black,
           alignment: Alignment.centerLeft,
           //  padding: EdgeInsets.only(right: 100.sp),
 
           child: AppText(invoiceListData[i].invoiceNo.toString(),
               // maxLine: 4,
-              style: Styles.circularStdRegular(context,color:  AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 40.sp,));
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 40.sp,
+      ));
       textWidget.add(Container(
         // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
         // height: 50.sp,
@@ -433,73 +510,72 @@ Navigate.to(context, InvoiceDetails(invoiceData: state.actualInvoiceData[selecte
         // padding: EdgeInsets.only(right: 10.sp),
 
         // margin: const EdgeInsets.only(left: 20),
-        child:  Center(
+        child: Center(
           child: SingleChildScrollView(
             child: AppText(invoiceListData[i].noOfCtns.toString(),
-                style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight:  FontWeight.normal)),
+                style: Styles.circularStdRegular(context,
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.normal)),
           ),
         ),
       ));
-      textWidget.add(SizedBox(width: 40.sp,));
-
+      textWidget.add(SizedBox(
+        width: 40.sp,
+      ));
 
       textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           //padding: EdgeInsets.only(right: 30.sp),
-          child: AppText(invoiceListData[i].total.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
-     // textWidget.add(SizedBox(width: 40.sp,));
+          child: AppText(invoiceListData[i].total.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      // textWidget.add(SizedBox(width: 40.sp,));
       row.add(Column(
-
         children: [
           CustomSizedBox.height(10.sp),
           GestureDetector(
-            onTap: (){
-log('index: ${i.toString()}');
-log(invoiceListData[i].toString());
-Navigate.to(context, InvoiceDetails(invoiceData:invoiceListData[i]));
-
+            onTap: () {
+              log('index: ${i.toString()}');
+              log(invoiceListData[i].toString());
+              Navigate.to(
+                  context, InvoiceDetails(invoiceData: invoiceListData[i]));
             },
             child: Container(
               height: 50.sp,
               // width:priceListData[i].title!=null? 1.sw *1.15:null,
 
-                color:i%2==0?AppColors.whiteColor:AppColors.lightInvoiceColor,
+              color: i % 2 == 0
+                  ? AppColors.whiteColor
+                  : AppColors.lightInvoiceColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-
                   ...textWidget,
-
-
                 ],
               ),
             ),
           ),
-          SizedBox(height: 5.sp,)
+          SizedBox(
+            height: 5.sp,
+          )
         ],
       ));
-
-
     }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: row,
     );
-
-
   }
 
   void showDatePicker(BuildContext context) {
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20)
-
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       builder: (BuildContext builder) {
         return SizedBox(
           height: 600,
@@ -510,33 +586,39 @@ Navigate.to(context, InvoiceDetails(invoiceData:invoiceListData[i]));
     );
   }
 }
+
 class InvoiceModel {
   final String? date;
   final String? invoiceNo;
   final String? noOfCtns;
   final String? total;
 
-
-  InvoiceModel(   {this.date,this.invoiceNo, this.noOfCtns, this.total});
+  InvoiceModel({this.date, this.invoiceNo, this.noOfCtns, this.total});
 }
+
 class InvoiceListDataSource extends DataGridSource {
-  final  BuildContext context;
-  InvoiceListDataSource({required List<InvoiceModel> employees,required this.context}) {
-    _employees = List.generate(employees.length, (index) => DataGridRow(cells: [
+  final BuildContext context;
 
-      DataGridCell<String>(columnName: 'Date', value: employees[index].date),
-      DataGridCell<String>(columnName: 'Invoice No', value: employees[index].invoiceNo),
-      DataGridCell<String>(columnName: 'No Of Ctns', value: employees[index].noOfCtns),
-      DataGridCell<String>(columnName: 'Total', value: employees[index].total),
-
-
-    ]));
+  InvoiceListDataSource(
+      {required List<InvoiceModel> employees, required this.context}) {
+    _employees = List.generate(
+        employees.length,
+        (index) => DataGridRow(cells: [
+              DataGridCell<String>(
+                  columnName: 'Date', value: employees[index].date),
+              DataGridCell<String>(
+                  columnName: 'Invoice No', value: employees[index].invoiceNo),
+              DataGridCell<String>(
+                  columnName: 'No Of Ctns', value: employees[index].noOfCtns),
+              DataGridCell<String>(
+                  columnName: 'Total', value: employees[index].total),
+            ]));
   }
 
-  List<DataGridRow>  _employees = [];
+  List<DataGridRow> _employees = [];
 
   @override
-  List<DataGridRow> get rows =>  _employees;
+  List<DataGridRow> get rows => _employees;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow rowsss) {
@@ -550,18 +632,21 @@ class InvoiceListDataSource extends DataGridSource {
     }
 
     return DataGridRowAdapter(
-    //  color: AppColors.primaryColor,
+        //  color: AppColors.primaryColor,
 
         cells: rowsss.getCells().map<Widget>((dataGridCell) {
-          return Container(
-           // color: AppColors.primaryColor,
-            color: getBackgroundColor(),
-            alignment: (dataGridCell.columnName == 'Date')
-                ? Alignment.centerRight
-                : Alignment.center,
-            padding: const EdgeInsets.all(10.0),
-            child: AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context),),
-          );
-        }).toList());
+      return Container(
+        // color: AppColors.primaryColor,
+        color: getBackgroundColor(),
+        alignment: (dataGridCell.columnName == 'Date')
+            ? Alignment.centerRight
+            : Alignment.center,
+        padding: const EdgeInsets.all(10.0),
+        child: AppText(
+          dataGridCell.value.toString(),
+          style: Styles.circularStdRegular(context),
+        ),
+      );
+    }).toList());
   }
 }

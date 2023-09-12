@@ -16,18 +16,20 @@ import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_p
 ///use padding optional property to set the child alignment plus if you use svg icon then make typeIconSvg true and pass the svgIconPath
 class CustomAppBarWithBackButton extends StatefulWidget
     implements PreferredSizeWidget {
-  const CustomAppBarWithBackButton({Key? key,
-    this.title,
-    this.iconData,
-    this.typeIconSvg,
-    this.svgIconPath,
-    this.iconSize,
-    this.padding,
-    this.iconColor,
-    this.isBottom,
-    this.catId,
-    this.isGuest,
-    this.fromPriceList})
+  const CustomAppBarWithBackButton(
+      {Key? key,
+      this.title,
+      this.iconData,
+      this.typeIconSvg,
+      this.svgIconPath,
+      this.iconSize,
+      this.padding,
+      this.iconColor,
+      this.isBottom,
+      this.catId,
+      this.isGuest,
+      this.fromPriceList,
+      this.exceptional})
       : preferredSize = const Size.fromHeight(65),
         super(key: key);
   final String? title;
@@ -40,6 +42,7 @@ class CustomAppBarWithBackButton extends StatefulWidget
   final String? catId;
   final bool? fromPriceList;
   final bool? isGuest;
+  final bool? exceptional;
   final EdgeInsetsGeometry? padding;
 
   @override
@@ -69,53 +72,55 @@ class _CustomAppBarWithBackButtonState
         padding: const EdgeInsets.only(bottom: 8.0, top: 8, left: 8),
         child: widget.typeIconSvg != null
             ? SvgPicture.asset(
-          widget.svgIconPath.toString(),
-        )
+                widget.svgIconPath.toString(),
+              )
             : CircleIconButton(
-          icon: widget.iconData ?? Icons.arrow_back_ios,
-          padding: widget.padding ?? EdgeInsets.only(left: 5.sp),
-          iconColor: widget.iconColor ?? AppColors.primaryColor,
-          iconSize: widget.iconSize ?? 15,
-          isSvg: widget.typeIconSvg,
+                icon: widget.iconData ?? Icons.arrow_back_ios,
+                padding: widget.padding ?? EdgeInsets.only(left: 5.sp),
+                iconColor: widget.iconColor ?? AppColors.primaryColor,
+                iconSize: widget.iconSize ?? 15,
+                isSvg: widget.typeIconSvg,
 
-          onPressed: () async {
-            if (widget.isGuest == false && widget.fromPriceList == null) {
-              context.read<AllProductsCubit>().getAllProducts(
-                  catId: widget.catId ?? 'all', isGuest: widget.isGuest);
-              context
-                  .read<NewArrivalProductCubit>()
-                  .getNewArrivalProducts();
-              Navigator.of(context).pop();
-            }
-            else if (widget.isGuest == true) {
-              Navigator.of(context).pop();
-            }
-            if (widget.fromPriceList == true) {
-              await context
-                  .read<AllProductsCubit>()
-                  .getAllProducts(catId: 'all', isGuest: false);
-              await Future.delayed(const Duration(milliseconds: 30));
-              Navigate.toReplace(context, const PriceListScreen());
-            }
+                onPressed: () async {
+                  if (widget.exceptional != null) {
+                    Navigate.pop(context);
+                  }
+                  if (widget.isGuest == false && widget.fromPriceList == null) {
+                    context.read<AllProductsCubit>().getAllProducts(
+                        catId: widget.catId ?? 'all', isGuest: widget.isGuest);
+                    context
+                        .read<NewArrivalProductCubit>()
+                        .getNewArrivalProducts();
+                    Navigator.of(context).pop();
+                  } else if (widget.isGuest == true) {
+                    Navigator.of(context).pop();
+                  }
+                  if (widget.fromPriceList == true) {
+                    await context
+                        .read<AllProductsCubit>()
+                        .getAllProducts(catId: 'all', isGuest: false);
+                    await Future.delayed(const Duration(milliseconds: 30));
+                    Navigate.toReplace(context, const PriceListScreen());
+                  }
 
-            // context.read<AllProductsCubit>().getAllProducts();
-          },
-          width: 15.w,
-          // iconSize: 15,
-          height: 15.h,
-        ),
+                  // context.read<AllProductsCubit>().getAllProducts();
+                },
+                width: 15.w,
+                // iconSize: 15,
+                height: 15.h,
+              ),
       ),
       bottom: widget.isBottom != null
           ? TabBar(
-          labelStyle:
-          Styles.circularStdMedium(context, color: Colors.black26),
-          labelColor: AppColors.primaryColor,
-          indicatorColor: AppColors.primaryColor,
-          tabs: const [
-            Tab(text: 'Active'),
-            Tab(text: 'Pending'),
-            Tab(text: 'Completed'),
-          ])
+              labelStyle:
+                  Styles.circularStdMedium(context, color: Colors.black26),
+              labelColor: AppColors.primaryColor,
+              indicatorColor: AppColors.primaryColor,
+              tabs: const [
+                  Tab(text: 'Active'),
+                  Tab(text: 'Pending'),
+                  Tab(text: 'Completed'),
+                ])
           : null,
     );
   }

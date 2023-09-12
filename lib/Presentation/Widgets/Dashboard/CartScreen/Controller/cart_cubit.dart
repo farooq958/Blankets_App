@@ -8,28 +8,19 @@ part '../State/cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
 
-  getAllCartItems()
-  async {
-    await Future.delayed(const Duration(milliseconds: 20));
-    emit(CartLoading());
-    try{
-
-    List<CartModel> status= await  CartDatabase.cartDatabaseInstance.getAllCartItems();
-    print("calledd the function");
-    print(status.length);
-    emit(CartLoaded(cartData:status));
-
-
-  }
-  catch (e)
-    {
+  getAllCartItems({bool? isReload}) async {
+    await Future.delayed(const Duration(milliseconds: 25));
+    if (isReload == null) {
+      emit(CartLoading());
+    }
+    try {
+      List<CartModel> status =
+          await CartDatabase.cartDatabaseInstance.getAllCartItems();
+      print("calledd the function");
+      print(status.length);
+      emit(CartLoaded(cartData: status));
+    } catch (e) {
       emit(CartError());
     }
   }
-
-
-
-
-
-
 }

@@ -37,6 +37,7 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: AppStrings.customerSurvey,
+        exceptional: true,
       ),
       body: BlocConsumer<CustomerSurveyQuestionCubit, CustomerSurveyState>(
         listener: (context, state) {

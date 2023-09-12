@@ -5,6 +5,7 @@ import 'package:hbk/Domain/Models/orderModel.dart';
 class OrderDetailsScreen extends StatelessWidget {
   final OrdersApiModel? orderModel;
   final int index;
+
   const OrderDetailsScreen(
       {Key? key, required this.orderModel, required this.index})
       : super(key: key);
@@ -14,6 +15,7 @@ class OrderDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: "Order Details",
+        exceptional: true,
       ),
       body: SingleChildScrollView(
         child: Padding(

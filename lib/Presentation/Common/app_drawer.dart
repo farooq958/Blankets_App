@@ -13,6 +13,7 @@ import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/Component/drawer_row.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/post_order_db.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/PriceListScreen/price_list_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 
@@ -21,8 +22,9 @@ import 'image_widgets.dart';
 
 class AppDrawer extends StatelessWidget {
   final bool? isGuest;
-final  GlobalKey<ScaffoldState>? drawerKey;
-  const AppDrawer({super.key, required this.isGuest,  this.drawerKey});
+  final GlobalKey<ScaffoldState>? drawerKey;
+
+  const AppDrawer({super.key, required this.isGuest, this.drawerKey});
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +32,13 @@ final  GlobalKey<ScaffoldState>? drawerKey;
       backgroundColor: AppColors.primaryColor,
       width: 1.sw / 1.35,
       child: Column(
-
         children: [
           Expanded(
             child: ListView(
-              physics:  const NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.symmetric(horizontal: 20.sp),
               children: [
-              isGuest==true?  30.y :CustomSizedBox.height(35.sp),
+                isGuest == true ? 30.y : CustomSizedBox.height(35.sp),
                 isGuest == false
                     ? SizedBox(
                         height: 124.sp,
@@ -54,107 +55,124 @@ final  GlobalKey<ScaffoldState>? drawerKey;
                             // CustomSizedBox.width(15),
 
                             Expanded(
-                              flex:2,
+                              flex: 2,
                               child: Align(
                                   alignment: Alignment.center,
-                                  child: AppText(SharedPrefs.userData!.cardName.toString(),
+                                  child: AppText(
+                                      SharedPrefs.userData!.cardName.toString(),
                                       maxLine: 2,
-                                      style: Styles.circularStdBold(
-                                          context,
-
+                                      style: Styles.circularStdBold(context,
                                           color: AppColors.whiteColor,
                                           fontSize: 20.sp,
-                                          fontWeight:
-                                              FontWeight.w600))),
+                                          fontWeight: FontWeight.w600))),
                             ),
                             Expanded(
-                                child: AppText(SharedPrefs.userData!.phone1.toString(),
-                                    style: Styles.circularStdRegular(
-                                        context,
+                                child: AppText(
+                                    SharedPrefs.userData!.phone1.toString(),
+                                    style: Styles.circularStdRegular(context,
                                         color: AppColors.whiteColor,
                                         fontSize: 12.sp))),
                             Expanded(
-                                child: AppText(SharedPrefs.userData!.address.toString(),
+                                child: AppText(
+                                    SharedPrefs.userData!.address.toString(),
                                     maxLine: 3,
-                                    style: Styles.circularStdRegular(
-                                        context,
+                                    style: Styles.circularStdRegular(context,
                                         color: AppColors.whiteColor,
                                         fontSize: 12.sp))),
                           ],
                         ),
                       )
-                    : UnconstrainedBox(alignment: Alignment.topLeft,
-                      child: AssetImageWidget(
+                    : UnconstrainedBox(
+                        alignment: Alignment.topLeft,
+                        child: AssetImageWidget(
                           url: Assets.appLogo,
                           height: 150.h,
                           width: 147.w,
                         ),
-                    ),
-
-              CustomSizedBox.height(   1.sp),
+                      ),
+                CustomSizedBox.height(1.sp),
                 isGuest == true
                     ? ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return DrawerRow(
                             screenName: Utils.drawerGuestData[index].screenName,
                             iconPath: Utils.drawerGuestData[index].iconPath,
                             onTap: () {
-                              Navigate.to(context, Utils.drawerGuestData[index].widgetToNavigate!);
+                              Navigate.to(
+                                  context,
+                                  Utils.drawerGuestData[index]
+                                      .widgetToNavigate!);
                             },
                           );
                         },
                         separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: 25.sp,
-                    );
+                          return SizedBox(
+                            height: 25.sp,
+                          );
                         },
                         itemCount: Utils.drawerGuestData.length)
                     : SizedBox(
-                  height: 1.sh,
-                      child: ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                        //  shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return DrawerRow(
-                              screenName: Utils.drawerData[index].screenName,
-                              iconPath: Utils.drawerData[index].iconPath,
-                              onTap: () async {
-if(Utils.drawerData[index].screenName=='Price list'){
-  context.read<AllProductsCubit>().getAllProducts(catId: 'all',isGuest: false);
- await Future.delayed(const Duration(milliseconds: 30));
+                        height: 1.sh,
+                        child: ListView.separated(
+                            physics: const NeverScrollableScrollPhysics(),
+                            //  shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return DrawerRow(
+                                screenName: Utils.drawerData[index].screenName,
+                                iconPath: Utils.drawerData[index].iconPath,
+                                onTap: () async {
+                                  if (Utils.drawerData[index].screenName ==
+                                      'Price list') {
+                                    context
+                                        .read<AllProductsCubit>()
+                                        .getAllProducts(
+                                            catId: 'all', isGuest: false);
+                                    await Future.delayed(
+                                        const Duration(milliseconds: 30));
 
-  Navigate.to(context,
-      Utils.drawerData[index].widgetToNavigate!);
-}
-else if( Utils.drawerData[index].screenName=='Logout')
-  {
-    drawerKey?.currentState?.closeDrawer();
-    LoadingDialog.showLoadingDialog(context);
+                                    Navigate.to(
+                                        context,
+                                        Utils.drawerData[index]
+                                            .widgetToNavigate!);
+                                  } else if (Utils
+                                          .drawerData[index].screenName ==
+                                      'Logout') {
+                                    drawerKey?.currentState?.closeDrawer();
+                                    LoadingDialog.showLoadingDialog(context);
 
-    await Future.delayed(const Duration(seconds: 3));
+                                    await Future.delayed(
+                                        const Duration(seconds: 3));
 
-    SharedPrefs.clearPref();
- await  CartDatabase.cartDatabaseInstance.clearCart();
-await drawerKey!.currentState!.context.read<CartCubit>().getAllCartItems();
-    Navigate.toReplaceAll(drawerKey!.currentState!.context,
-        Utils.drawerData[index].widgetToNavigate!);
-  }
-else
-  {
-                                Navigate.to(context,
-                                    Utils.drawerData[index].widgetToNavigate!);}
-                              },
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(
-                              height: 25.sp,
-                            );
-                          },
-                          itemCount: Utils.drawerData.length),
-                    )
+                                    SharedPrefs.clearPref();
+                                    Navigate.toReplaceAll(
+                                        drawerKey!.currentState!.context,
+                                        Utils.drawerData[index]
+                                            .widgetToNavigate!);
+                                    await CartDatabase.cartDatabaseInstance
+                                        .clearCart();
+                                    await PostOrderDb.orderDatabaseInstance
+                                        .clearOrders();
+                                    await drawerKey!.currentState!.context
+                                        .read<CartCubit>()
+                                        .getAllCartItems();
+                                  } else {
+                                    Navigate.to(
+                                        context,
+                                        Utils.drawerData[index]
+                                            .widgetToNavigate!);
+                                  }
+                                },
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                height: 25.sp,
+                              );
+                            },
+                            itemCount: Utils.drawerData.length),
+                      )
               ],
             ),
           ),

@@ -258,9 +258,9 @@ class PDFLayouts {
       List<StatementData> statementDataList) async {
     //var allStudents = new List.from(absentStudents)..addAll(presentStudents);
 
-   // var color=pd.PdfColors.white;
+    // var color=pd.PdfColors.white;
     //getPdfColor(statementData);
-   // int i=0;
+    // int i=0;
     final pw.Document doc = pw.Document();
 
     final imageJpg =
@@ -272,63 +272,68 @@ class PDFLayouts {
 
     // Define the table data
     final table = pw.Table(
-
-columnWidths: {
-  0: const pw.FixedColumnWidth(120),
-  1: const pw.FixedColumnWidth(120),
-  2: const pw.FixedColumnWidth(120),
-  3: const pw.FixedColumnWidth(120),
-},
+      columnWidths: {
+        0: const pw.FixedColumnWidth(120),
+        1: const pw.FixedColumnWidth(120),
+        2: const pw.FixedColumnWidth(120),
+        3: const pw.FixedColumnWidth(120),
+      },
 
       // border: pw.TableBorder.all(width: 0),
 
       children: [
-
         // Header row
         pw.TableRow(
           children: ['Date', 'Type', 'Narration', 'Amount']
               .map((text) => pw.Container(
-            alignment: pw.Alignment.center,
-            padding: const pw.EdgeInsets.all(5),
-            decoration: const pw.BoxDecoration(
-              color: PdfColor.fromInt(0xff0C4A9F),
-            ),
-            child: pw.Text(
-              text,
-              style: const pw.TextStyle(
-                fontSize: 12,
-                //fontWeight: pw.FontWeight.regular,
-                color: pd.PdfColors.white
-              ),
-            ),
-          ))
+                    alignment: pw.Alignment.center,
+                    padding: const pw.EdgeInsets.all(5),
+                    decoration: const pw.BoxDecoration(
+                      color: PdfColor.fromInt(0xff0C4A9F),
+                    ),
+                    child: pw.Text(
+                      text,
+                      style: const pw.TextStyle(
+                          fontSize: 12,
+                          //fontWeight: pw.FontWeight.regular,
+                          color: pd.PdfColors.white),
+                    ),
+                  ))
               .toList(),
         ),
         // Data rows
         for (final data in statementDataList)
           pw.TableRow(
-            decoration: data.type == '' ? const pw.BoxDecoration(color: PdfColors.grey300) : null,
-
+            decoration: data.type == ''
+                ? const pw.BoxDecoration(color: PdfColors.grey300)
+                : null,
             children: [
               pw.Container(
                 alignment: pw.Alignment.centerLeft,
                 padding: const pw.EdgeInsets.all(5),
-                child: pw.Text(data.date, style: const pw.TextStyle(fontSize: 10)),
+                child:
+                    pw.Text(data.date, style: const pw.TextStyle(fontSize: 10)),
               ),
               pw.Container(
                 alignment: pw.Alignment.center,
                 padding: const pw.EdgeInsets.all(5),
-                child: pw.Text(data.type, style: const pw.TextStyle(fontSize: 10)),
+                child:
+                    pw.Text(data.type, style: const pw.TextStyle(fontSize: 10)),
               ),
               pw.Container(
                 alignment: pw.Alignment.centerLeft,
                 padding: const pw.EdgeInsets.all(5),
-                child: pw.Text(data.narration, style: const pw.TextStyle(fontSize: 10)),
+                child: pw.Text(data.narration,
+                    style: const pw.TextStyle(fontSize: 10)),
               ),
               pw.Container(
                 alignment: pw.Alignment.centerRight,
                 padding: const pw.EdgeInsets.all(5),
-                child: pw.Text(data.amount, style:  pw.TextStyle(fontSize: 10,color: data.type=='Invoice'?pd.PdfColors.red:null)),
+                child: pw.Text(data.amount,
+                    style: pw.TextStyle(
+                        fontSize: 10,
+                        color:
+                            data.type == 'Invoice' ? pd.PdfColors.red : null)),
               ),
             ],
           ),
@@ -350,18 +355,14 @@ columnWidths: {
                   fit: pw.BoxFit.contain,
                 ),
               ),
-
             ],
           ),
         );
       },
     );
 
- 
     doc.addPage(pw.MultiPage(
-      pageTheme: pageTheme,
-
-
+        pageTheme: pageTheme,
         header: (pw.Context context) {
           return pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -370,30 +371,30 @@ columnWidths: {
                     child: pw.Row(
                         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
-                          pw.Container(
+                      pw.Container(
+                          width: 1.sw / 4,
+                          child: pw.Center(
+                            child: pw.Image(
+                              pw.MemoryImage(imageJpg),
                               width: 1.sw / 4,
-                              child: pw.Center(
-                                child: pw.Image(
-                                  pw.MemoryImage(imageJpg),
-                                  width: 1.sw / 4,
-                                  height: 1.sh / 8,
-                                  fit: pw.BoxFit.contain,
-                                ),
-                              )),
-                          pw.Container(
-                            height: 1.sh / 30,
-                            child: pw.Text(
-                              //'${months[filterredDummy[index]]}',
-                                'Customer Statement',
-                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
-                                textAlign: pw.TextAlign.center,
-                                style: pw.TextStyle(
-                                    decoration: pw.TextDecoration.none,
-                                    //color: whitecolor,
-                                    fontSize: 1.sw / 15,
-                                    fontWeight: pw.FontWeight.bold)),
-                          ),
-                        ])),
+                              height: 1.sh / 8,
+                              fit: pw.BoxFit.contain,
+                            ),
+                          )),
+                      pw.Container(
+                        height: 1.sh / 30,
+                        child: pw.Text(
+                            //'${months[filterredDummy[index]]}',
+                            'Customer Statement',
+                            //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                            textAlign: pw.TextAlign.center,
+                            style: pw.TextStyle(
+                                decoration: pw.TextDecoration.none,
+                                //color: whitecolor,
+                                fontSize: 1.sw / 15,
+                                fontWeight: pw.FontWeight.bold)),
+                      ),
+                    ])),
                 pw.Container(
                     height: 1.sh / 30,
                     width: 1.sw * 1.15,
@@ -418,9 +419,9 @@ columnWidths: {
                           ),
                           pw.Container(
                             child: pw.Text(
-                              //'${months[filterredDummy[index]]}',
+                                //'${months[filterredDummy[index]]}',
 
-                              // 'Date & Time : ${DateTime.now().toDMYHM()}',
+                                // 'Date & Time : ${DateTime.now().toDMYHM()}',
                                 'Date & Time: ${DateFormat.yMMMMEEEEd().format(DateTime.now())}',
                                 //"${filterredDummy[index]['date'].toString().split(" ").first}",
                                 textAlign: pw.TextAlign.center,
@@ -454,28 +455,25 @@ columnWidths: {
                 //         ])),
               ]);
         },
+        build: (context) => [
+              table,
+              //   pw.Column(children: [
+              //  // pw.SizedBox(
+              //  //     height: 1.sh/5,
+              //  //
+              //  //     child: pw.Column(
+              //  //      crossAxisAlignment: pw.CrossAxisAlignment.start,
+              //  //      // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              //  //      children: [
+              //  //
+              //  //      ])),
+              //
+              //
+              //  pw.Expanded(child:table)
+              // ])
+            ]));
 
-        build: (context) =>  [
-          table,
-        //   pw.Column(children: [
-        //  // pw.SizedBox(
-        //  //     height: 1.sh/5,
-        //  //
-        //  //     child: pw.Column(
-        //  //      crossAxisAlignment: pw.CrossAxisAlignment.start,
-        //  //      // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-        //  //      children: [
-        //  //
-        //  //      ])),
-        //
-        //
-        //  pw.Expanded(child:table)
-        // ])
-
-
-        ]));
-
-/// ////
+    /// ////
 //     doc.addPage(pw.MultiPage(
 //         maxPages: 500,
 //         pageFormat:
@@ -893,26 +891,26 @@ columnWidths: {
   }
 
   pd.PdfColor getPdfColor(StatementData statementData) {
-    pd.PdfColor color=pd.PdfColors.white;
-     // for(var i in statementData)
-     //  {
-        if(statementData.type=='')
-          {
+    pd.PdfColor color = pd.PdfColors.white;
+    // for(var i in statementData)
+    //  {
+    if (statementData.type == '') {
+      color = pd.PdfColors.grey300;
+      // break;
+    } else {
+      color = pd.PdfColors.white;
+      //break;
+    }
 
-            color=pd.PdfColors.grey300;
-           // break;
-          }
-        else
-          {
-            color=pd.PdfColors.white;
-            //break;
-          }
-
-      // }
-     return color;
+    // }
+    return color;
   }
 
-  Future<Uint8List> generateDocumentForInvoice(List<InvoiceDetailModel>invoiceDataList,ctnTotal,pcsTotal,grandTotal) async {
+  Future<Uint8List> generateDocumentForInvoice(
+      List<InvoiceDetailModel> invoiceDataList,
+      ctnTotal,
+      pcsTotal,
+      grandTotal) async {
     //var allStudents = new List.from(absentStudents)..addAll(presentStudents);
     final Document doc = Document();
 
@@ -1075,12 +1073,20 @@ columnWidths: {
                                               //  color: greencolor,
                                               child: Text(
                                                 index == 0
-                                                    ? invoiceDataList[0].customerName.toString()
+                                                    ? invoiceDataList[0]
+                                                        .customerName
+                                                        .toString()
                                                     : index == 1
-                                                        ? invoiceDataList[0].contactPerson.toString()
+                                                        ? invoiceDataList[0]
+                                                            .contactPerson
+                                                            .toString()
                                                         : index == 2
-                                                            ? invoiceDataList[0].phoneNumber.toString()
-                                                            : invoiceDataList[0].address.toString(),
+                                                            ? invoiceDataList[0]
+                                                                .phoneNumber
+                                                                .toString()
+                                                            : invoiceDataList[0]
+                                                                .address
+                                                                .toString(),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                     //color: lightblackcolor,
@@ -1156,14 +1162,26 @@ columnWidths: {
                                               //  color: greencolor,
                                               child: Text(
                                                 index == 0
-                                                    ? invoiceDataList[0].status.toString()
+                                                    ? invoiceDataList[0]
+                                                        .status
+                                                        .toString()
                                                     : index == 1
-                                                        ?invoiceDataList[0].createdBy.toString()
+                                                        ? invoiceDataList[0]
+                                                            .createdBy
+                                                            .toString()
                                                         : index == 2
-                                                            ? invoiceDataList[0].invoiceNo.toString()
+                                                            ? invoiceDataList[0]
+                                                                .invoiceNo
+                                                                .toString()
                                                             : index == 3
-                                                                ? invoiceDataList[0].date.toString()
-                                                                : invoiceDataList[0].salePerson.toString(),
+                                                                ? invoiceDataList[
+                                                                        0]
+                                                                    .date
+                                                                    .toString()
+                                                                : invoiceDataList[
+                                                                        0]
+                                                                    .salePerson
+                                                                    .toString(),
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                     //color: lightblackcolor,
@@ -1488,7 +1506,8 @@ columnWidths: {
                         Column(children: [
                           invoiceListDataTableData(
                               0, invoiceDataList.length, invoiceDataList),
-                          totalAmountInvoice(ctnTotal.toString(),pcsTotal.toString(),grandTotal.toString())
+                          totalAmountInvoice(ctnTotal.toString(),
+                              pcsTotal.toString(), grandTotal.toString())
                         ])
                       ]),
                   //
@@ -1596,7 +1615,8 @@ columnWidths: {
                             //  width: width / 1.5,
                             //  color: yellowcolor,
                             child: Text(
-                              NumberToWordsEnglish.convert(double.parse(grandTotal.toString()).toInt()),
+                              NumberToWordsEnglish.convert(
+                                  double.parse(grandTotal.toString()).toInt()),
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   //color: blackcolor,
@@ -1764,232 +1784,247 @@ columnWidths: {
     final doc = pw.Document();
     doc.addPage(
       pw.MultiPage(
-          crossAxisAlignment: pw.CrossAxisAlignment.center,
-          header: (pw.Context context) {
-            return pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                  pw.ClipRRect(
-                      child: pw.Row(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
-                        pw.Container(
-                            width: 1.sw / 4,
-                            child: pw.Center(
-                              child: pw.Image(
-                                pw.MemoryImage(imageJpg),
-                                width: 1.sw / 4,
-                                height: 1.sh / 8,
-                                fit: pw.BoxFit.contain,
-                              ),
-                            )),
-                        pw.Container(
-                          height: 1.sh / 30,
-                          child: pw.Text(
-                              //'${months[filterredDummy[index]]}',
-                              'Price List',
-                              //"${filterredDummy[index]['date'].toString().split(" ").first}",
-                              textAlign: pw.TextAlign.center,
-                              style: pw.TextStyle(
-                                  decoration: pw.TextDecoration.none,
-                                  //color: whitecolor,
-                                  fontSize: 1.sw / 15,
-                                  fontWeight: pw.FontWeight.bold)),
-                        ),
-                      ])),
-                  pw.Container(
-                      height: 1.sh / 30,
-                      width: 1.sw * 1.15,
-                      //color: PdfColors.red,
-                      child: pw.Row(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: pw.CrossAxisAlignment.center,
-                          children: [
-                            pw.Container(
-                              child: pw.Text(
-                                  SharedPrefs.userData!.cntctPrsn.toString(),
-                                  //'${months[filterredDummy[index]]}',
-                                  //'${oldlogindatalist['UserDetails']['CardName']}',
-
-                                  //"${filterredDummy[index]['date'].toString().split(" ").first}",
-                                  textAlign: pw.TextAlign.center,
-                                  style: pw.TextStyle(
-                                      decoration: pw.TextDecoration.none,
-                                      //color: whitecolor,
-                                      fontSize: 1.sw / 35,
-                                      fontWeight: pw.FontWeight.bold)),
+        crossAxisAlignment: pw.CrossAxisAlignment.center,
+        header: (pw.Context context) {
+          return pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.ClipRRect(
+                    child: pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                      pw.Container(
+                          width: 1.sw / 4,
+                          child: pw.Center(
+                            child: pw.Image(
+                              pw.MemoryImage(imageJpg),
+                              width: 1.sw / 4,
+                              height: 1.sh / 8,
+                              fit: pw.BoxFit.contain,
                             ),
-                            pw.Container(
-                              child: pw.Text(
-                                  //'${months[filterredDummy[index]]}',
+                          )),
+                      pw.Container(
+                        height: 1.sh / 30,
+                        child: pw.Text(
+                            //'${months[filterredDummy[index]]}',
+                            'Price List',
+                            //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                            textAlign: pw.TextAlign.center,
+                            style: pw.TextStyle(
+                                decoration: pw.TextDecoration.none,
+                                //color: whitecolor,
+                                fontSize: 1.sw / 15,
+                                fontWeight: pw.FontWeight.bold)),
+                      ),
+                    ])),
+                pw.Container(
+                    height: 1.sh / 30,
+                    width: 1.sw * 1.15,
+                    //color: PdfColors.red,
+                    child: pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: pw.CrossAxisAlignment.center,
+                        children: [
+                          pw.Container(
+                            child: pw.Text(
+                                SharedPrefs.userData!.cntctPrsn.toString(),
+                                //'${months[filterredDummy[index]]}',
+                                //'${oldlogindatalist['UserDetails']['CardName']}',
 
-                                  // 'Date & Time : ${DateTime.now().toDMYHM()}',
-                                  'Date & Time: ${DateFormat.yMMMMEEEEd().format(DateTime.now())}',
-                                  //"${filterredDummy[index]['date'].toString().split(" ").first}",
-                                  textAlign: pw.TextAlign.center,
-                                  style: pw.TextStyle(
-                                      decoration: pw.TextDecoration.none,
-                                      //color: whitecolor,
-                                      fontSize: 1.sw / 35,
-                                      fontWeight: pw.FontWeight.bold)),
-                            ),
-                          ])),
-                  // pw.Container(
-                  //     height: height / 30,
-                  //     width: width * 1.15,
-                  //     //color: PdfColors.red,
-                  //     child: pw.Row(
-                  //         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  //         crossAxisAlignment: pw.CrossAxisAlignment.center,
-                  //         children: [
-                  //           pw.Container(
-                  //             child: pw.Text(
-                  //                 //'${months[filterredDummy[index]]}',
-                  //                 'Date & Time : ${DateTime.now().toDMYHM()}',
-                  //                 //"${filterredDummy[index]['date'].toString().split(" ").first}",
-                  //                 textAlign: pw.TextAlign.center,
-                  //                 style: pw.TextStyle(
-                  //                     decoration: pw.TextDecoration.none,
-                  //                     //color: whitecolor,
-                  //                     fontSize: width / 35,
-                  //                     fontWeight: pw.FontWeight.bold)),
-                  //           ),
-                  //         ])),
-                ]);
-          },
-          build: (pw.Context context) => <pw.Widget>[
-                pw.Container(height: 1.sh / 100),
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                          pw.Container(
+                            child: pw.Text(
+                                //'${months[filterredDummy[index]]}',
+
+                                // 'Date & Time : ${DateTime.now().toDMYHM()}',
+                                'Date & Time: ${DateFormat.yMMMMEEEEd().format(DateTime.now())}',
+                                //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                    decoration: pw.TextDecoration.none,
+                                    //color: whitecolor,
+                                    fontSize: 1.sw / 35,
+                                    fontWeight: pw.FontWeight.bold)),
+                          ),
+                        ])),
                 // pw.Container(
-                //   // height: height / 1.35,
-                //   // color: redcolor.withOpacity(0.5),
-                //   // decoration: generaldecorationwithshadows(
-                //   //     appthemecolor,
-                //   //     appthemecolor.withOpacity(0),
-                //   //     width / 25,
-                //   //     1,
-                //   //     appthemecolor.withOpacity(0),
-                //   //     2),
-                //   child: pw.Column(
-                //     mainAxisAlignment: pw.MainAxisAlignment.start,
-                //     crossAxisAlignment: pw.CrossAxisAlignment.center,
-                //     children: [
-                //       pw.ClipRRect(
-                //         // borderRadius: pw.BorderRadius.only(
-                //         //     topLeft: pw.Radius.circular(width / 26),
-                //         //     topRight: pw.Radius.circular(width / 26)),
-                //         child: pw.Container(
-                //           height: height / 30,
-                //           decoration: pw.BoxDecoration(
-                //             color: PdfColors.grey300,
-                //             border: pw.Border.all(color: pdfblackcolor),
+                //     height: height / 30,
+                //     width: width * 1.15,
+                //     //color: PdfColors.red,
+                //     child: pw.Row(
+                //         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                //         crossAxisAlignment: pw.CrossAxisAlignment.center,
+                //         children: [
+                //           pw.Container(
+                //             child: pw.Text(
+                //                 //'${months[filterredDummy[index]]}',
+                //                 'Date & Time : ${DateTime.now().toDMYHM()}',
+                //                 //"${filterredDummy[index]['date'].toString().split(" ").first}",
+                //                 textAlign: pw.TextAlign.center,
+                //                 style: pw.TextStyle(
+                //                     decoration: pw.TextDecoration.none,
+                //                     //color: whitecolor,
+                //                     fontSize: width / 35,
+                //                     fontWeight: pw.FontWeight.bold)),
                 //           ),
-                //           //  color: appthemecolor,
-                //           child: pw.Row(
-                //             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                //             crossAxisAlignment: pw.CrossAxisAlignment.center,
-                //             children: [
-                //               pw.Container(
-                //                 width: width / 15,
+                //         ])),
+              ]);
+        },
+        build: (pw.Context context) => <pw.Widget>[
+          pw.Container(height: 1.sh / 100),
+          // pw.Container(
+          //   // height: height / 1.35,
+          //   // color: redcolor.withOpacity(0.5),
+          //   // decoration: generaldecorationwithshadows(
+          //   //     appthemecolor,
+          //   //     appthemecolor.withOpacity(0),
+          //   //     width / 25,
+          //   //     1,
+          //   //     appthemecolor.withOpacity(0),
+          //   //     2),
+          //   child: pw.Column(
+          //     mainAxisAlignment: pw.MainAxisAlignment.start,
+          //     crossAxisAlignment: pw.CrossAxisAlignment.center,
+          //     children: [
+          //       pw.ClipRRect(
+          //         // borderRadius: pw.BorderRadius.only(
+          //         //     topLeft: pw.Radius.circular(width / 26),
+          //         //     topRight: pw.Radius.circular(width / 26)),
+          //         child: pw.Container(
+          //           height: height / 30,
+          //           decoration: pw.BoxDecoration(
+          //             color: PdfColors.grey300,
+          //             border: pw.Border.all(color: pdfblackcolor),
+          //           ),
+          //           //  color: appthemecolor,
+          //           child: pw.Row(
+          //             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          //             crossAxisAlignment: pw.CrossAxisAlignment.center,
+          //             children: [
+          //               pw.Container(
+          //                 width: width / 15,
 
-                //                 // color: redcolor,
-                //                 child: pw.Center(
-                //                     child: pw.Text("#",
-                //                         style: pw.TextStyle(
-                //                             fontSize: width / 30,
-                //                             // color: whitecolor,
-                //                             fontWeight: pw.FontWeight.bold))),
-                //               ),
-                //               pw.Container(
-                //                 width: width / 4,
-                //                 // color: redcolor,
-                //                 child: pw.Center(
-                //                     child: pw.Text("Item",
-                //                         style: pw.TextStyle(
-                //                             fontSize: width / 30,
-                //                             //color: whitecolor,
-                //                             fontWeight: pw.FontWeight.bold))),
-                //               ),
-                //               pw.Container(
-                //                 // width: width / 6,
-                //                 // color: greencolor,
-                //                 child: pw.Center(
-                //                     child: pw.Text("Space",
-                //                         style: pw.TextStyle(
-                //                             fontSize: width / 30,
-                //                             // color: whitecolor,
-                //                             fontWeight: pw.FontWeight.bold))),
-                //               ),
-                //               pw.Container(
-                //                 width: width / 6,
-                //                 // color: greencolor,
-                //                 child: pw.Center(
-                //                     child: pw.Text("Packing",
-                //                         style: pw.TextStyle(
-                //                             fontSize: width / 30,
-                //                             // color: whitecolor,
-                //                             fontWeight: pw.FontWeight.bold))),
-                //               ),
-                //               pw.Container(
-                //                 width: width / 6,
-                //                 // color: bluecolor,
-                //                 child: pw.Center(
-                //                     child: pw.Text("Pcs/ctn",
-                //                         style: pw.TextStyle(
-                //                             fontSize: width / 30,
-                //                             //color: whitecolor,
-                //                             fontWeight: pw.FontWeight.bold))),
-                //               ),
-                //               pw.Container(
-                //                 // width: width / 5.2,
-                //                 //   color: redcolor,
-                //                 child: pw.Center(
-                //                     child: pw.Text("Price",
-                //                         style: pw.TextStyle(
-                //                             fontSize: width / 30,
-                //                             // color: whitecolor,
-                //                             fontWeight: pw.FontWeight.bold))),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     // ... pricelistdata(),
-                //      // pricelistdata(1),
+          //                 // color: redcolor,
+          //                 child: pw.Center(
+          //                     child: pw.Text("#",
+          //                         style: pw.TextStyle(
+          //                             fontSize: width / 30,
+          //                             // color: whitecolor,
+          //                             fontWeight: pw.FontWeight.bold))),
+          //               ),
+          //               pw.Container(
+          //                 width: width / 4,
+          //                 // color: redcolor,
+          //                 child: pw.Center(
+          //                     child: pw.Text("Item",
+          //                         style: pw.TextStyle(
+          //                             fontSize: width / 30,
+          //                             //color: whitecolor,
+          //                             fontWeight: pw.FontWeight.bold))),
+          //               ),
+          //               pw.Container(
+          //                 // width: width / 6,
+          //                 // color: greencolor,
+          //                 child: pw.Center(
+          //                     child: pw.Text("Space",
+          //                         style: pw.TextStyle(
+          //                             fontSize: width / 30,
+          //                             // color: whitecolor,
+          //                             fontWeight: pw.FontWeight.bold))),
+          //               ),
+          //               pw.Container(
+          //                 width: width / 6,
+          //                 // color: greencolor,
+          //                 child: pw.Center(
+          //                     child: pw.Text("Packing",
+          //                         style: pw.TextStyle(
+          //                             fontSize: width / 30,
+          //                             // color: whitecolor,
+          //                             fontWeight: pw.FontWeight.bold))),
+          //               ),
+          //               pw.Container(
+          //                 width: width / 6,
+          //                 // color: bluecolor,
+          //                 child: pw.Center(
+          //                     child: pw.Text("Pcs/ctn",
+          //                         style: pw.TextStyle(
+          //                             fontSize: width / 30,
+          //                             //color: whitecolor,
+          //                             fontWeight: pw.FontWeight.bold))),
+          //               ),
+          //               pw.Container(
+          //                 // width: width / 5.2,
+          //                 //   color: redcolor,
+          //                 child: pw.Center(
+          //                     child: pw.Text("Price",
+          //                         style: pw.TextStyle(
+          //                             fontSize: width / 30,
+          //                             // color: whitecolor,
+          //                             fontWeight: pw.FontWeight.bold))),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     // ... pricelistdata(),
+          //      // pricelistdata(1),
 
-                //     ],
-                //   ),
-                // ),
+          //     ],
+          //   ),
+          // ),
 
-                pw.Table.fromTextArray(
-                  context: context,
-                  cellStyle: const pw.TextStyle(fontSize: 8),
-                  headerAlignment: pw.Alignment.center,
-                  cellAlignment: pw.Alignment.centerLeft,
-                  data: <List<String>>[
-                    <String>[
-                      'Origin       ',
-                      'Category',
-                      'Item',
-                      'Specification',
-                      'Packing',
-                      'Pcs/ctn',
-                      'Price   '
-                    ],
-                    for (int i = 0; i < priceList.length; i++)
-                      <String>[
-                        '${priceList[i].country}',
-                        // '${productsapilist[i]['ItemName']}'
-                        '${priceList[i].category}',
-                        //"brands"
-                        '${priceList[i].item}',
-                        '${priceList[i].specification}',
-                        '${priceList[i].packing}',
-                        '${priceList[i].ctn}',
-                        '${double.parse(priceList[i].price.toString())}',
-                      ],
-                  ],
+          pw.Table.fromTextArray(
+            context: context,
+            cellStyle: const pw.TextStyle(fontSize: 8),
+            headerAlignment: pw.Alignment.center,
+            cellAlignment: pw.Alignment.centerLeft,
+            data: <List<String>>[
+              <String>[
+                'Origin       ',
+                'Category',
+                'Item',
+                'Specification',
+                'Packing',
+                'Pcs/ctn',
+                'Price   '
+              ],
+              for (int i = 0; i < priceList.length; i++)
+                <String>[
+                  '${priceList[i].country}',
+                  // '${productsapilist[i]['ItemName']}'
+                  '${priceList[i].category}',
+                  //"brands"
+                  '${priceList[i].item}',
+                  '${priceList[i].specification}',
+                  '${priceList[i].packing}',
+                  '${priceList[i].ctn}',
+                  '${double.parse(priceList[i].price.toString())}',
+                ],
+            ],
+          ),
+        ],
+        footer: (pw.Context context) {
+          return pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              // mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.ClipRRect(
+                  child: pw.Image(
+                    pw.MemoryImage(imageJpgfooter),
+                    height: 1.sh / 10,
+                    fit: pw.BoxFit.contain,
+                  ),
                 ),
-              ]),
+              ]);
+        },
+      ),
 
       //  index: 4
     );
@@ -2008,7 +2043,7 @@ columnWidths: {
     // await OpenFile.open(file.path);
   }
 
-  Widget totalAmountInvoice(totalCtn,totalPcs,grandTotal) {
+  Widget totalAmountInvoice(totalCtn, totalPcs, grandTotal) {
     final height = 1.sh;
     final width = 1.sw;
     var pdfblackcolor = pd.PdfColors.black;
@@ -2082,7 +2117,7 @@ columnWidths: {
             // color: pdfappthemecolor,
             child: Center(
               child: Text(
-               grandTotal,
+                grandTotal,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     //color: blackcolor,

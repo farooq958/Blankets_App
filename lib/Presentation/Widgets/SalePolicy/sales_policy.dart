@@ -8,6 +8,7 @@ class SalesPolicy extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: AppStrings.salesPolicy,
+        exceptional: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(15.w),
@@ -45,8 +46,7 @@ class SalesPolicy extends StatelessWidget {
                     children: [
                       CachedImage(
                           url:
-
-                          'http://imtxt.sbsolutions.com.pk:44890/Picture/CustomerApplogin/loyal_policy.jpg',
+                              'http://imtxt.sbsolutions.com.pk:44890/Picture/CustomerApplogin/loyal_policy.jpg',
                           isCircle: false),
                     ],
                   ),
@@ -64,7 +64,7 @@ class SalesPolicy extends StatelessWidget {
                     children: [
                       CachedImage(
                           url:
-                          'http://imtxt.sbsolutions.com.pk:44890/Picture/CustomerApplogin/transport_policy.jpg',
+                              'http://imtxt.sbsolutions.com.pk:44890/Picture/CustomerApplogin/transport_policy.jpg',
                           isCircle: false),
                     ],
                   ),

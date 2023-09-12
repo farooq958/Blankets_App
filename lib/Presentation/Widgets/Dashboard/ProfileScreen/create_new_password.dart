@@ -50,6 +50,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
       resizeToAvoidBottomInset: true,
       appBar: const CustomAppBarWithBackButton(
         title: AppStrings.createNewPassword,
+        exceptional: true,
       ),
       body: SingleChildScrollView(
         child: Stack(
@@ -91,7 +92,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                     height: 1.sh,
                     width: 1.sw,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
+                      padding:
+                          EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
                       child: Form(
                         key: formKey,
                         child: Column(
@@ -188,7 +190,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                             newPasswordController.text.trim());
                       } else {
                         WidgetFunctions.instance.snackBar(context,
-                            text: 'New password and confirm password is not same',
+                            text:
+                                'New password and confirm password is not same',
                             bgColor: AppColors.primaryColor,
                             textStyle: Styles.circularStdMedium(context,
                                 fontSize: 16, color: AppColors.whiteColor));

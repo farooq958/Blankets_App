@@ -6,10 +6,10 @@ import '../../../Application/Services/ApiServices/api_services.dart';
 import '../../AppData/app_preferences.dart';
 
 class AddSurveyRepo {
-  Future addSurvey({required List<Map<String, dynamic>> listData}) async {
+  Future addSurvey({required List<Map<String, String>> listData}) async {
     String? rCode = SharedPrefs.userData!.cardCode;
 
-    final data = {'rcode': rCode, 'griddata': json.encode(listData)};
+    final data = {'rcode': rCode.toString(), 'griddata': json.encode(listData)};
 
     var header = {
       "Authorization": "Bearer ${SharedPrefs.getUserToken()}",

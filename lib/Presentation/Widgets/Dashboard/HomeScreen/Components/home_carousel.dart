@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,16 +43,13 @@ class _HomeCarouselState extends State<HomeCarousel> {
             // TODO: implement listener
           },
           builder: (context, state) {
-
             if (state is SliderImagesLoaded) {
-
 // print("$baseUrl/Picture/CustomerApplogin/${state.loadedImages[0].uImage?.trim().toString()}");
               return CarouselSlider.builder(
                 itemCount: imageList.length,
                 itemBuilder: (context, index, realIndex) {
-
                   return CachedImage(
-                    isCircle: false,
+                      isCircle: false,
                       url:
                           "$baseUrl/Picture/CustomerApplogin/${state.loadedImages[index].uImage?.trim().toString()}",
                       width: 1.sw / 1);
@@ -78,16 +74,15 @@ class _HomeCarouselState extends State<HomeCarousel> {
               return CarouselSlider.builder(
                 itemCount: 1,
                 itemBuilder: (context, index, realIndex) {
-                  return  Shimmer.fromColors(
+                  return Shimmer.fromColors(
                     baseColor: Colors.grey[300]!,
                     highlightColor: Colors.grey[100]!,
-                    child:  CachedImage(
+                    child: CachedImage(
                         isCircle: false,
                         url:
-                        "http://imtxt.sbsolutions.com.pk:44891/Picture/CustomerApplogin/slider_01_image_01.jpeg",
-                        width: 1.sw / 1),// Create a ShimmerListTile widget
+                            "http://imtxt.sbsolutions.com.pk:44891/Picture/CustomerApplogin/slider_01_image_01.jpeg",
+                        width: 1.sw / 1), // Create a ShimmerListTile widget
                   );
-
                 },
                 // carouselController: _carouselController,
                 options: CarouselOptions(

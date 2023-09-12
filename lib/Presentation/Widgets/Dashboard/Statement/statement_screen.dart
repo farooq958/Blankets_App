@@ -18,43 +18,55 @@ import 'Component/customer_statement_date_picker.dart';
 
 import 'Controller/statement_data_cubit.dart';
 
-class CustomerStatementScreen extends  StatefulWidget {
-   CustomerStatementScreen({super.key});
+class CustomerStatementScreen extends StatefulWidget {
+  CustomerStatementScreen({super.key});
 
   @override
-  State<CustomerStatementScreen> createState() => _CustomerStatementScreenState();
+  State<CustomerStatementScreen> createState() =>
+      _CustomerStatementScreenState();
 }
 
 class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
   final List<StatementData> invoiceData = [
     StatementData("Jan, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
 
-    StatementData("04 Jan, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+    StatementData("04 Jan, 2023", "Invoice",
+        "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
 
-    StatementData("04 Jan, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
+    StatementData(
+        "04 Jan, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
 
     StatementData("Feb, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
 
-    StatementData("04 Feb, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
+    StatementData(
+        "04 Feb, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
 
-    StatementData("04 Feb, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+    StatementData("04 Feb, 2023", "Invoice",
+        "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
 
-    StatementData("04 Feb, 2023", "Invoice", "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
+    StatementData("04 Feb, 2023", "Invoice",
+        "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
     StatementData("March, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
 
-    StatementData("04 march, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
+    StatementData(
+        "04 march, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
 
-    StatementData("04 march, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+    StatementData("04 march, 2023", "Invoice",
+        "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
 
-    StatementData("04 march, 2023", "Invoice", "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
+    StatementData("04 march, 2023", "Invoice",
+        "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
 
     StatementData("Apr, 2023", "", "Rs 0 Cr", 'Rs 10,500 Cr'),
 
-    StatementData("04 Apr, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
+    StatementData(
+        "04 Apr, 2023", "Invoice", "A/R invoices-C00066", 'Rs 102,000 Cr'),
 
-    StatementData("04 Apr, 2023", "Invoice", "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
+    StatementData("04 Apr, 2023", "Invoice",
+        "Online to MBL Gloabl S#3595+3598(5lac+5lac) On 31.1", 'Rs 102,000 Cr'),
 
-    StatementData("04 Apr, 2023", "Invoice", "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
+    StatementData("04 Apr, 2023", "Invoice",
+        "Online to MBL Global Txt Slip# 3593", 'Rs 102,000 Cr'),
     // Add more data for other months
 
     // Add more data for other months
@@ -66,205 +78,235 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
   void initState() {
     super.initState();
     //employees= getEmployees();
-    NotifierDateTime.pickerNotifier.value='${DateTime.now().subtract(const Duration(days: 100)).month.englishName}-${DateTime.now().month.englishName} ${DateTime.now().year}';
-    context.read<StatementDataCubit>().getStatementDto(DateTime.now().subtract(const Duration(days: 100)).toString(), DateTime.now().toString());
+    NotifierDateTime.pickerNotifier.value =
+        '${DateTime.now().subtract(const Duration(days: 100)).month.englishName}-${DateTime.now().month.englishName} ${DateTime.now().year}';
+    context.read<StatementDataCubit>().getStatementDto(
+        DateTime.now().subtract(const Duration(days: 100)).toString(),
+        DateTime.now().toString());
     //
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<String> invoiceTitle=["Date","Type","Narration","Amount"];
+    final List<String> invoiceTitle = ["Date", "Type", "Narration", "Amount"];
 
     return Scaffold(
-      appBar: const CustomAppBarWithBackButton(title: 'Customer Statement',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
+      appBar: const CustomAppBarWithBackButton(
+        title: 'Customer Statement',
+        exceptional: true,
+        iconColor: AppColors.primaryColor,
+        iconData: Icons.arrow_back_ios,
+        padding: EdgeInsets.only(left: 5),
+        iconSize: 15,
+      ),
       body: BlocConsumer<StatementDataCubit, StatementDataState>(
-  listener: (context, state) {
-    // TODO: implement listener
-    if(state is StatementLoading)
-      {
-        LoadingDialog.showLoadingDialog(context);
-      }
-    if(state is StatementLoaded)
-      {
-        Navigate.pop(context);
-      }
-  },
-  builder: (context, state) {
-    if(state is StatementLoaded) {
-      statementDataSource = StatementListDataSource(employees: state.statementData, context: context);
-      return  Stack(
-        children: [
-          Column(
-            children: [
+        listener: (context, state) {
+          // TODO: implement listener
+          if (state is StatementLoading) {
+            LoadingDialog.showLoadingDialog(context);
+          }
+          if (state is StatementLoaded) {
+            Navigate.pop(context);
+          }
+        },
+        builder: (context, state) {
+          if (state is StatementLoaded) {
+            statementDataSource = StatementListDataSource(
+                employees: state.statementData, context: context);
+            return Stack(
+              children: [
+                Column(
+                  children: [
+                    CustomSizedBox.height(10),
 
-              CustomSizedBox.height(10),
-              ///Top Row
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-
-                    AppText(AppStrings.accountBalance, style: Styles.circularStdRegular(context,fontWeight: FontWeight.w500,fontSize: 16),),
-                    SizedBox(width: 2.sp,),
-                    RichText(text: TextSpan(children: [
-                      TextSpan(
-                          text: 'Rs ',
-                          style: Styles.circularStdBold(context,fontSize: 16.sp
-                          )),
-                      TextSpan(
-                          text: SharedPrefs.userData!.balance.toString(),
-                          style: Styles.circularStdBold(context,fontWeight: FontWeight.w900,fontSize: 20
-                          )),
-
-
-                    ])),
-                    SizedBox(width: 1.sp,)
-
-
-                  ],
-
-
-                ),
-              ),
-              Row(
-                children: [
-                  const Spacer(),
-
-                  Expanded(
-                    flex: 2,
-                    child: ValueListenableBuilder(
-                      builder: (context,dateState,cc) {
-                        return Align(
-                          alignment: Alignment.centerRight,
-                          child: CustomButton(
-                          //  horizontalMargin: 0,
-
-                            bgColor: AppColors.whiteColor,
-                            borderColor: AppColors.primaryColor,
-                            textColor: AppColors.primaryColor,
-                            textFontWeight: FontWeight.w400,
-                            trailingIcon: Assets.calenderIcon,
-borderThickness: 1.5,
-trailIconWidth: 19.sp,
-                            trailIconHeight: 19,
-                            onTap: (){
-                              showDatePicker(context);
-                            }, text: dateState,verticalMargin: 20,verticalPadding: 10,),
-                        );
-                      }, valueListenable: NotifierDateTime.pickerNotifier,
+                    ///Top Row
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          AppText(
+                            AppStrings.accountBalance,
+                            style: Styles.circularStdRegular(context,
+                                fontWeight: FontWeight.w500, fontSize: 16),
+                          ),
+                          SizedBox(
+                            width: 2.sp,
+                          ),
+                          RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                                text: 'Rs ',
+                                style: Styles.circularStdBold(context,
+                                    fontSize: 16.sp)),
+                            TextSpan(
+                                text: SharedPrefs.userData!.balance.toString(),
+                                style: Styles.circularStdBold(context,
+                                    fontWeight: FontWeight.w900, fontSize: 20)),
+                          ])),
+                          SizedBox(
+                            width: 1.sp,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    Row(
+                      children: [
+                        const Spacer(),
+                        Expanded(
+                          flex: 2,
+                          child: ValueListenableBuilder(
+                            builder: (context, dateState, cc) {
+                              return Align(
+                                alignment: Alignment.centerRight,
+                                child: CustomButton(
+                                  //  horizontalMargin: 0,
 
-///sf data grid
-              state.statementData.isEmpty?Expanded(child: Center(child: AppText('No Data Found',style: Styles.circularStdMedium(context,color: AppColors.primaryColor,fontSize: 16.sp),),)): Expanded(child: SfDataGridTheme(
-  data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
-  child: SfDataGrid(
-    horizontalScrollPhysics: const BouncingScrollPhysics(),
-    verticalScrollPhysics: const BouncingScrollPhysics(),
-    gridLinesVisibility: GridLinesVisibility.none,
-    columnSizer: ColumnSizer(),
-    defaultColumnWidth: 130,
-    //columnWidthMode: ColumnWidthMode.none,
-    rowHeight: 60,
-    //  defaultColumnWidth: 100,
-    // source: DataGridSource().buildRow(row),
-    columns: getColumns(context),
-    onCellTap: (details){
-      // int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
-      // var row =
-      // invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
-      // Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowIndex]));
-      // print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+                                  bgColor: AppColors.whiteColor,
+                                  borderColor: AppColors.primaryColor,
+                                  textColor: AppColors.primaryColor,
+                                  textFontWeight: FontWeight.w400,
+                                  trailingIcon: Assets.calenderIcon,
+                                  borderThickness: 1.5,
+                                  trailIconWidth: 19.sp,
+                                  trailIconHeight: 19,
+                                  onTap: () {
+                                    showDatePicker(context);
+                                  },
+                                  text: dateState,
+                                  verticalMargin: 20,
+                                  verticalPadding: 10,
+                                ),
+                              );
+                            },
+                            valueListenable: NotifierDateTime.pickerNotifier,
+                          ),
+                        ),
+                      ],
+                    ),
 
-    },
-    headerRowHeight: 65,
+                    ///sf data grid
+                    state.statementData.isEmpty
+                        ? Expanded(
+                            child: Center(
+                            child: AppText(
+                              'No Data Found',
+                              style: Styles.circularStdMedium(context,
+                                  color: AppColors.primaryColor,
+                                  fontSize: 16.sp),
+                            ),
+                          ))
+                        : Expanded(
+                            child: SfDataGridTheme(
+                              data: SfDataGridThemeData(
+                                  headerColor: AppColors.primaryColor),
+                              child: SfDataGrid(
+                                horizontalScrollPhysics:
+                                    const BouncingScrollPhysics(),
+                                verticalScrollPhysics:
+                                    const BouncingScrollPhysics(),
+                                gridLinesVisibility: GridLinesVisibility.none,
+                                columnSizer: ColumnSizer(),
+                                defaultColumnWidth: 130,
+                                //columnWidthMode: ColumnWidthMode.none,
+                                rowHeight: 60,
+                                //  defaultColumnWidth: 100,
+                                // source: DataGridSource().buildRow(row),
+                                columns: getColumns(context),
+                                onCellTap: (details) {
+                                  // int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
+                                  // var row =
+                                  // invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
+                                  // Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowIndex]));
+                                  // print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+                                },
+                                headerRowHeight: 65,
 
+                                // headerGridLineStrokeWidth: 0.0,
 
-    // headerGridLineStrokeWidth: 0.0,
+                                frozenRowsCount: 0,
+                                frozenColumnsCount: 0,
+                                source:
+                                    statementDataSource, // Number of frozen columns (sticky columns)
+                              ),
+                            ),
+                          ),
 
-    frozenRowsCount: 0,
-    frozenColumnsCount: 0, source: statementDataSource, // Number of frozen columns (sticky columns)
-  ),
-) ,),
-///cross scroll
- //      Expanded(
- //        child: CrossScroll(
- //          horizontalScroll: CrossScrollDesign(
- //              physics: const BouncingScrollPhysics(),
- //              padding: const EdgeInsets.only(
- //                left: 1.0,
- //                right: 9.0,
- //              )),
- //          verticalScroll: CrossScrollDesign(
- //              physics: const BouncingScrollPhysics(),
- //              padding:
- //              const EdgeInsets.only(top: 10, bottom: 70))
- //
- //        ,
- //          child: Container(
- //           // padding: const EdgeInsets.all(2),
- //            decoration: BoxDecoration(
- //                color: AppColors.whiteColor,
- //                borderRadius: BorderRadius.circular(10)),
- //            child: Column(
- //            children: <Widget>[
- //
- //              Row(
- //                mainAxisAlignment: MainAxisAlignment.start,
- //                children: [
- //
- //                  for (var i = 0; i < invoiceTitle.length; i++)
- //                    Container(
- //                      height: 60.sp,
- //                     width: 110.sp,
- //                     // margin: EdgeInsets.only(right: 0),
- //
- //                      alignment: Alignment.center,
- //                      padding: EdgeInsets.only(right: 20.sp),
- //                      color: AppColors.primaryColor,
- //                      child: AppText(
- //                        invoiceTitle[i],
- //                        textAlign: TextAlign.center,
- //                        style: Styles.circularStdBold(context,
- //                            fontSize: 13.sp,
- //                            fontWeight: FontWeight.w500,
- //                            color: AppColors.whiteColor),
- //                      ),
- //                    ),
- //
- //
- //
- //
- //
- //
- //
- //                ],
- //              ),
- //               showInvoiceData(context),
- //              SizedBox(
- //                width: 1.sw,
- //                child: FractionallySizedBox(
- //                  widthFactor: 1,
- //                  child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
- //
- // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
+                    ///cross scroll
+                    //      Expanded(
+                    //        child: CrossScroll(
+                    //          horizontalScroll: CrossScrollDesign(
+                    //              physics: const BouncingScrollPhysics(),
+                    //              padding: const EdgeInsets.only(
+                    //                left: 1.0,
+                    //                right: 9.0,
+                    //              )),
+                    //          verticalScroll: CrossScrollDesign(
+                    //              physics: const BouncingScrollPhysics(),
+                    //              padding:
+                    //              const EdgeInsets.only(top: 10, bottom: 70))
+                    //
+                    //        ,
+                    //          child: Container(
+                    //           // padding: const EdgeInsets.all(2),
+                    //            decoration: BoxDecoration(
+                    //                color: AppColors.whiteColor,
+                    //                borderRadius: BorderRadius.circular(10)),
+                    //            child: Column(
+                    //            children: <Widget>[
+                    //
+                    //              Row(
+                    //                mainAxisAlignment: MainAxisAlignment.start,
+                    //                children: [
+                    //
+                    //                  for (var i = 0; i < invoiceTitle.length; i++)
+                    //                    Container(
+                    //                      height: 60.sp,
+                    //                     width: 110.sp,
+                    //                     // margin: EdgeInsets.only(right: 0),
+                    //
+                    //                      alignment: Alignment.center,
+                    //                      padding: EdgeInsets.only(right: 20.sp),
+                    //                      color: AppColors.primaryColor,
+                    //                      child: AppText(
+                    //                        invoiceTitle[i],
+                    //                        textAlign: TextAlign.center,
+                    //                        style: Styles.circularStdBold(context,
+                    //                            fontSize: 13.sp,
+                    //                            fontWeight: FontWeight.w500,
+                    //                            color: AppColors.whiteColor),
+                    //                      ),
+                    //                    ),
+                    //
+                    //
+                    //
+                    //
+                    //
+                    //
+                    //
+                    //                ],
+                    //              ),
+                    //               showInvoiceData(context),
+                    //              SizedBox(
+                    //                width: 1.sw,
+                    //                child: FractionallySizedBox(
+                    //                  widthFactor: 1,
+                    //                  child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
+                    //
+                    // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
 
-
- //
- //
- //                  }, text: "Download",horizontalMargin: 20,),
- //                ),
- //              )
- //
- //            ],
- //          ),),
- //
- //        ),
- //      )
-///data table
+                    //
+                    //
+                    //                  }, text: "Download",horizontalMargin: 20,),
+                    //                ),
+                    //              )
+                    //
+                    //            ],
+                    //          ),),
+                    //
+                    //        ),
+                    //      )
+                    ///data table
 //               Expanded(
 //                 child: SingleChildScrollView(
 //                   scrollDirection: Axis.horizontal,
@@ -326,42 +368,49 @@ trailIconWidth: 19.sp,
 //                   ),
 //                 ),
 //               ),
-              CustomSizedBox.height(50),
+                    CustomSizedBox.height(50),
+                  ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: SizedBox(
+                    width: 1.sw,
+                    child: FractionallySizedBox(
+                      widthFactor: 1,
+                      child: CustomButton(
+                        gapWidth: 10,
+                        textFontWeight: FontWeight.w400,
+                        imageWidth: 20.sp,
+                        imageHeight: 20,
+                        leadingSvgIcon: true,
+                        leadingIcon: (Assets.downloadIcon),
+                        onTap: () async {
+                          // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
 
-            ],
-          ),
-          Positioned(
-            bottom: 0,
-            child: SizedBox(
-              width: 1.sw,
-              child: FractionallySizedBox(
-                widthFactor: 1,
-                child: CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: () async {
-
-                  // await PdfDownload().generatePdf(invoiceTitle,invoiceData,PDFLayouts().showCustomerStatementDataPdf(invoiceData),PDFLayouts().pdfTitleCustomerStatement(invoiceTitle)).then((value) => null);
-
-                  await PdfDownload().generatePdfForStatement(state.statementData).then((value) async{
-                    if(value!=null){
-                      await OpenFile.open(value.path);
-                    }
-                  });
-
-
-                }, text: "Download",horizontalMargin: 20,),
-              ),
-            ),
-          )
-        ],
-      );
-    }
-    else
-      {
-        return const SizedBox();
-      }
-  },
-),
+                          await PdfDownload()
+                              .generatePdfForStatement(state.statementData)
+                              .then((value) async {
+                            if (value != null) {
+                              await OpenFile.open(value.path);
+                            }
+                          });
+                        },
+                        text: "Download",
+                        horizontalMargin: 20,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            );
+          } else {
+            return const SizedBox();
+          }
+        },
+      ),
     );
   }
+
   List<GridColumn> getColumns(BuildContext context) {
     return [
       GridColumn(
@@ -445,10 +494,7 @@ trailIconWidth: 19.sp,
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20)
-
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       builder: (BuildContext builder) {
         return SizedBox(
           height: 600,
@@ -465,82 +511,120 @@ trailIconWidth: 19.sp,
       [],
       [],
       [],
-
     ];
     List<List<StatementData>> inData = [invoiceData];
 
-
     List<Widget> row = [];
 
-    for(int i=0;i<invoiceData.length;i++){
+    for (int i = 0; i < invoiceData.length; i++) {
       List<Widget> textWidget = [];
 
       textWidget.add(Container(
           height: 40,
           width: 100,
-padding: EdgeInsets.only(left: 10.sp),
-
-alignment: Alignment.centerLeft,
+          padding: EdgeInsets.only(left: 10.sp),
+          alignment: Alignment.centerLeft,
 //color: AppColors.primaryColor,
-          child: AppText(invoiceData[i].date, style: Styles.circularStdRegular(context,color:  invoiceData[i].type==""?AppColors.primaryColor:AppColors.blackColor,fontWeight:  invoiceData[i].type==""?FontWeight.w500:FontWeight.normal))));
-      textWidget.add(SizedBox(width: 20.sp,));
-    textWidget.add(AppText(invoiceData[i].type, style: Styles.circularStdRegular(context,color:  invoiceData[i].type==""?AppColors.primaryColor:AppColors.blackColor,fontWeight:  invoiceData[i].type==""?FontWeight.w500:FontWeight.normal)));
-      textWidget.add(SizedBox(width: 20.sp,));
-    textWidget.add(Container(
-      padding: invoiceData[i].type==""? EdgeInsets.only(left: 50.sp):null,
-     // height: 50.sp,
-      width: 100,
-      margin: const EdgeInsets.only(left: 20),
-      child: invoiceData[i].type==""?Center(
-        child: SingleChildScrollView(
-          child: FittedBox(
-            child: AppText(invoiceData[i].narration,
-                maxLine:4,style: Styles.circularStdRegular(context,color: invoiceData[i].type==""?AppColors.primaryColor:AppColors.blackColor,fontWeight:  invoiceData[i].type==""?FontWeight.w500:FontWeight.normal)),
-          ),
-        ),
-      ) : Center(
-        child: SingleChildScrollView(
-          child: AppText(invoiceData[i].narration,
-              maxLine:4,style: Styles.circularStdRegular(context,color: invoiceData[i].type==""?AppColors.primaryColor:AppColors.blackColor,fontWeight:  invoiceData[i].type==""?FontWeight.w500:FontWeight.normal)),
-        ),
-      ),
-    ));
-      textWidget.add(SizedBox(width: 20.sp,));
-    textWidget.add(Container(
-        padding: invoiceData[i].type==""? EdgeInsets.only(left: 50.sp):null,
-
-        child: AppText(invoiceData[i].amount, style: Styles.circularStdRegular(context,color: invoiceData[i].type==""?AppColors.primaryColor:AppColors.blackColor,fontWeight:  invoiceData[i].type==""?FontWeight.w500:FontWeight.normal))));
+          child: AppText(invoiceData[i].date,
+              style: Styles.circularStdRegular(context,
+                  color: invoiceData[i].type == ""
+                      ? AppColors.primaryColor
+                      : AppColors.blackColor,
+                  fontWeight: invoiceData[i].type == ""
+                      ? FontWeight.w500
+                      : FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 20.sp,
+      ));
+      textWidget.add(AppText(invoiceData[i].type,
+          style: Styles.circularStdRegular(context,
+              color: invoiceData[i].type == ""
+                  ? AppColors.primaryColor
+                  : AppColors.blackColor,
+              fontWeight: invoiceData[i].type == ""
+                  ? FontWeight.w500
+                  : FontWeight.normal)));
+      textWidget.add(SizedBox(
+        width: 20.sp,
+      ));
+      textWidget.add(Container(
+        padding:
+            invoiceData[i].type == "" ? EdgeInsets.only(left: 50.sp) : null,
+        // height: 50.sp,
+        width: 100,
+        margin: const EdgeInsets.only(left: 20),
+        child: invoiceData[i].type == ""
+            ? Center(
+                child: SingleChildScrollView(
+                  child: FittedBox(
+                    child: AppText(invoiceData[i].narration,
+                        maxLine: 4,
+                        style: Styles.circularStdRegular(context,
+                            color: invoiceData[i].type == ""
+                                ? AppColors.primaryColor
+                                : AppColors.blackColor,
+                            fontWeight: invoiceData[i].type == ""
+                                ? FontWeight.w500
+                                : FontWeight.normal)),
+                  ),
+                ),
+              )
+            : Center(
+                child: SingleChildScrollView(
+                  child: AppText(invoiceData[i].narration,
+                      maxLine: 4,
+                      style: Styles.circularStdRegular(context,
+                          color: invoiceData[i].type == ""
+                              ? AppColors.primaryColor
+                              : AppColors.blackColor,
+                          fontWeight: invoiceData[i].type == ""
+                              ? FontWeight.w500
+                              : FontWeight.normal)),
+                ),
+              ),
+      ));
+      textWidget.add(SizedBox(
+        width: 20.sp,
+      ));
+      textWidget.add(Container(
+          padding:
+              invoiceData[i].type == "" ? EdgeInsets.only(left: 50.sp) : null,
+          child: AppText(invoiceData[i].amount,
+              style: Styles.circularStdRegular(context,
+                  color: invoiceData[i].type == ""
+                      ? AppColors.primaryColor
+                      : AppColors.blackColor,
+                  fontWeight: invoiceData[i].type == ""
+                      ? FontWeight.w500
+                      : FontWeight.normal))));
       row.add(Column(
         children: [
           Container(
-            width:invoiceData[i].type==""? 1.sw *1.15:null,
-
-            color: invoiceData[i].type==""?AppColors.lightInvoiceColor:AppColors.whiteColor,
+            width: invoiceData[i].type == "" ? 1.sw * 1.15 : null,
+            color: invoiceData[i].type == ""
+                ? AppColors.lightInvoiceColor
+                : AppColors.whiteColor,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-
                 ...textWidget,
-
-
               ],
             ),
           ),
-           SizedBox(height: 20.sp,)
+          SizedBox(
+            height: 20.sp,
+          )
         ],
       ));
-
-
     }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: row,
     );
-
-
   }
 }
+
 class StatementData {
   final String date;
   final String type;
@@ -549,71 +633,70 @@ class StatementData {
 
   StatementData(this.date, this.type, this.narration, this.amount);
 }
+
 class StatementListDataSource extends DataGridSource {
-  final  BuildContext context;
+  final BuildContext context;
   final List<StatementData> employees;
-  StatementListDataSource({required this.employees,required this.context}) {
-    _employees = List.generate(employees.length, (index) => DataGridRow(cells: [
 
-      DataGridCell<String>(columnName: 'Date', value: employees[index].date),
-      DataGridCell<String>(columnName: 'Type', value: employees[index].type),
-      DataGridCell<String>(columnName: 'Narration', value: employees[index].narration),
-      DataGridCell<String>(columnName: 'Amount', value: employees[index].amount),
-
-
-    ]));
+  StatementListDataSource({required this.employees, required this.context}) {
+    _employees = List.generate(
+        employees.length,
+        (index) => DataGridRow(cells: [
+              DataGridCell<String>(
+                  columnName: 'Date', value: employees[index].date),
+              DataGridCell<String>(
+                  columnName: 'Type', value: employees[index].type),
+              DataGridCell<String>(
+                  columnName: 'Narration', value: employees[index].narration),
+              DataGridCell<String>(
+                  columnName: 'Amount', value: employees[index].amount),
+            ]));
   }
 
-  List<DataGridRow>  _employees = [];
+  List<DataGridRow> _employees = [];
 
   @override
-  List<DataGridRow> get rows =>  _employees;
+  List<DataGridRow> get rows => _employees;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow rowsss) {
     Color getBackgroundColor() {
       int index = _employees.indexOf(rowsss) + 1;
-print(index);
+      print(index);
 
-      if (employees[index-1].type=="") {
-
+      if (employees[index - 1].type == "") {
         return AppColors.lightInvoiceColor;
+      } else {
+        return Colors.white;
       }
-      else {
-      return Colors.white;
     }
-    }
+
     Color getTextColor() {
       int index = _employees.indexOf(rowsss) + 1;
       print(index);
 
-      if (employees[index-1].type=="") {
-
+      if (employees[index - 1].type == "") {
         return AppColors.primaryColor;
-      }
-
-      else {
+      } else {
         return Colors.black;
       }
     }
+
     Color getTextColor2() {
       int index = _employees.indexOf(rowsss) + 1;
       print(index);
 
-      if (employees[index-1].type=="") {
-
+      if (employees[index - 1].type == "") {
         return AppColors.primaryColor;
-      }
-      else if(employees[index-1].type=='Invoice')
-      {
+      } else if (employees[index - 1].type == 'Invoice') {
         return Colors.red;
-      }
-      else {
+      } else {
         return Colors.black;
       }
     }
+
     return DataGridRowAdapter(
-      //  color: AppColors.primaryColor,
+        //  color: AppColors.primaryColor,
         color: getBackgroundColor(),
         cells: rowsss.getCells().map<Widget>((dataGridCell) {
           return Container(
@@ -625,11 +708,19 @@ print(index);
                 : Alignment.center,
             padding: const EdgeInsets.all(10.0),
 
-            child: dataGridCell.columnName=='Amount'? AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context,color: getTextColor2()),maxLine: 3,
-
-            ):AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context,color: getTextColor()),maxLine: 3,
-
-            ),
+            child: dataGridCell.columnName == 'Amount'
+                ? AppText(
+                    dataGridCell.value.toString(),
+                    style: Styles.circularStdRegular(context,
+                        color: getTextColor2()),
+                    maxLine: 3,
+                  )
+                : AppText(
+                    dataGridCell.value.toString(),
+                    style: Styles.circularStdRegular(context,
+                        color: getTextColor()),
+                    maxLine: 3,
+                  ),
           );
         }).toList());
   }

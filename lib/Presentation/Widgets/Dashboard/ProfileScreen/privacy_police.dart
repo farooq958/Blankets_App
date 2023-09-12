@@ -11,6 +11,7 @@ class PrivacyPolice extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: AppStrings.privacyPolicy,
+        exceptional: true,
       ),
       body: Padding(
         padding: EdgeInsets.only(left: 20.sp, right: 20.sp, top: 20.sp),

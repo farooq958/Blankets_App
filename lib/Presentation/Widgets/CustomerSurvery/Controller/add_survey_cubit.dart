@@ -8,7 +8,7 @@ part 'State/add_survey_state.dart';
 class AddSurveyCubit extends Cubit<AddSurveyState> {
   AddSurveyCubit() : super(AddSurveyInitial());
 
-  addSurvey(var data) {
+  addSurvey(List<Map<String, String>> data) {
     print(data);
     emit(AddSurveyLoading());
     try {

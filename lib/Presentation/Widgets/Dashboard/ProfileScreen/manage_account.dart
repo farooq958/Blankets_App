@@ -11,6 +11,7 @@ class ManageAccount extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: AppStrings.manageAccount,
+        exceptional: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(20.0.r),
@@ -35,7 +36,7 @@ class ManageAccount extends StatelessWidget {
                 height: 55.h,
                 iconColor: AppColors.blackColor,
                 gapWidth: 15.w,
-                isButtonAlignLeft:true,
+                isButtonAlignLeft: true,
               ),
             ),
             CustomSizedBox.height(20.h),
@@ -53,7 +54,7 @@ class ManageAccount extends StatelessWidget {
                 textColor: AppColors.blackColor,
                 leadingIcon: Assets.delete,
                 leadingSvgIcon: true,
-                isButtonAlignLeft:true,
+                isButtonAlignLeft: true,
                 gapWidth: 15.w,
                 // borderRadius: 15,
 

@@ -25,7 +25,7 @@ class _FeedbackState extends State<Feedback> {
       appBar: CustomAppBarWithBackButton(
         iconSize: 15.sp,
         title: AppStrings.feedback,
-
+        exceptional: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(20.r),
@@ -59,20 +59,25 @@ class _FeedbackState extends State<Feedback> {
                   listener: (context, state) {
                     // TODO: implement listener
 
-                    if(state is FeedBackLoading){
+                    if (state is FeedBackLoading) {
                       LoadingDialog.showLoadingDialog(context);
-                    }if(state is FeedBackError){
+                    }
+                    if (state is FeedBackError) {
                       Navigator.of(context).pop(true);
 
-                      WidgetFunctions.instance.snackBar(context,text:state.error,bgColor: AppColors.primaryColor);
-                    }if(state is FeedBackSuccess){
-
+                      WidgetFunctions.instance.snackBar(context,
+                          text: state.error, bgColor: AppColors.primaryColor);
+                    }
+                    if (state is FeedBackSuccess) {
                       Navigator.of(context).pop(true);
-                      CustomDialog.successDialog(context, title: "Thank You for Your Valuable Feedback!",
-                          message: "We sincerely appreciate you taking the time to participate in our customer survey.",image: "assets/images/feedback.png");
+                      CustomDialog.successDialog(context,
+                          title: "Thank You for Your Valuable Feedback!",
+                          message:
+                              "We sincerely appreciate you taking the time to participate in our customer survey.",
+                          image: "assets/images/feedback.png");
                       feedbackController.clear();
                       subjectController.clear();
-                       Future.delayed(const Duration(seconds: 2),(){
+                      Future.delayed(const Duration(seconds: 2), () {
                         Navigator.of(context).pop(true);
                       });
                     }
@@ -81,21 +86,19 @@ class _FeedbackState extends State<Feedback> {
                     return CustomButton(
                         borderRadius: 30.r,
                         onTap: () {
-
-
-
-                         if(_formKey.currentState!.validate()){
-                           Map<String,dynamic> feedBackData = {
-                             "feedback": feedbackController.text,
-                             "title": subjectController.text,
-                           };
-                           context.read<FeedBackCubit>().postFeedBack(feedBackData);
-                         }
-                        }, text: 'submit');
+                          if (_formKey.currentState!.validate()) {
+                            Map<String, dynamic> feedBackData = {
+                              "feedback": feedbackController.text,
+                              "title": subjectController.text,
+                            };
+                            context
+                                .read<FeedBackCubit>()
+                                .postFeedBack(feedBackData);
+                          }
+                        },
+                        text: 'submit');
                   },
                 ),
-
-
               ],
             ),
           ),

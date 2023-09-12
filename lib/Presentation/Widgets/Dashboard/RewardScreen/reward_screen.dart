@@ -24,9 +24,7 @@ import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-
-
-class RewardScreen extends  StatefulWidget {
+class RewardScreen extends StatefulWidget {
   RewardScreen({super.key});
 
   @override
@@ -35,33 +33,167 @@ class RewardScreen extends  StatefulWidget {
 
 class _RewardScreenState extends State<RewardScreen> {
   final List<RewardModel> rewardListData = [
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
 
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
 
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-    RewardModel(session: '01/05/ - 06/06/2023',status: 'loyal silver',netSale: 'Rs 1,754,000',bonusReward: 'Rs 1,754,000',loyalReward: 'Rs 1,754,000',totalReward: 'Rs 1,754,000'),
-
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
+    RewardModel(
+        session: '01/05/ - 06/06/2023',
+        status: 'loyal silver',
+        netSale: 'Rs 1,754,000',
+        bonusReward: 'Rs 1,754,000',
+        loyalReward: 'Rs 1,754,000',
+        totalReward: 'Rs 1,754,000'),
 
     // Add more data for other months
   ];
 
-  final List<String> invoiceTitle=["Session","Status","Net sale","Bonus reward",'Loyal reward','Total reward'];
+  final List<String> invoiceTitle = [
+    "Session",
+    "Status",
+    "Net sale",
+    "Bonus reward",
+    'Loyal reward',
+    'Total reward'
+  ];
   late RewardListDataSource rewardDataSource;
 
   @override
@@ -71,105 +203,116 @@ class _RewardScreenState extends State<RewardScreen> {
     context.read<RewardControllerCubit>().getRewardDto();
     // rewardDataSource = RewardListDataSource(employees: rewardListData, context: context);
   }
- // final TextEditingController searchControllerPrice=TextEditingController();
+
+  // final TextEditingController searchControllerPrice=TextEditingController();
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      appBar: const CustomAppBarWithBackButton(title: 'Rewards',iconColor: AppColors.primaryColor,iconData: Icons.arrow_back_ios,padding: EdgeInsets.only(left: 5),iconSize: 15,),
+      appBar: const CustomAppBarWithBackButton(
+        title: 'Rewards',
+        exceptional: true,
+        iconColor: AppColors.primaryColor,
+        iconData: Icons.arrow_back_ios,
+        padding: EdgeInsets.only(left: 5),
+        iconSize: 15,
+      ),
       body: Column(
         children: [
-
           CustomSizedBox.height(10),
-          ///Top Row
 
+          ///Top Row
 
           Expanded(
             child: BlocConsumer<RewardControllerCubit, RewardControllerState>(
-  listener: (context, state) {
-    // TODO: implement listener
-    if(state is RewardLoading)
-      {
-        LoadingDialog.showLoadingDialog(context);
-      }
-    if(state is RewardLoaded)
-      {
-        Navigate.pop(context);
-      }
+              listener: (context, state) {
+                // TODO: implement listener
+                if (state is RewardLoading) {
+                  LoadingDialog.showLoadingDialog(context);
+                }
+                if (state is RewardLoaded) {
+                  Navigate.pop(context);
+                }
+              },
+              builder: (context, state) {
+                if (state is RewardLoaded) {
+                  rewardDataSource = RewardListDataSource(
+                      employees: state.actualRewardData, context: context);
+                  return SfDataGridTheme(
+                    data: SfDataGridThemeData(
+                        headerColor: AppColors.primaryColor),
+                    child: SfDataGrid(
+                      horizontalScrollPhysics: const BouncingScrollPhysics(),
+                      verticalScrollPhysics: const BouncingScrollPhysics(),
+                      gridLinesVisibility: GridLinesVisibility.none,
+                      columnWidthMode: ColumnWidthMode.auto,
+                      //  defaultColumnWidth: 100,
+                      // source: DataGridSource().buildRow(row),
+                      columns: getColumns(context),
+                      onCellTap: (details) {
+                        // int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
+                        // var row =
+                        // invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
+                        // Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowIndex]));
+                        // print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+                      },
+                      headerRowHeight: 65,
 
-  },
-  builder: (context, state) {
-    if(state is RewardLoaded) {
-      rewardDataSource = RewardListDataSource(employees: state.actualRewardData, context: context);
-      return SfDataGridTheme(
-              data: SfDataGridThemeData(headerColor: AppColors.primaryColor),
-              child: SfDataGrid(
-                horizontalScrollPhysics: const BouncingScrollPhysics(),
-                verticalScrollPhysics: const BouncingScrollPhysics(),
-                gridLinesVisibility: GridLinesVisibility.none,
-                columnWidthMode: ColumnWidthMode.auto,
-                //  defaultColumnWidth: 100,
-                // source: DataGridSource().buildRow(row),
-                columns: getColumns(context),
-                onCellTap: (details){
-                  // int selectedRowIndex = details.rowColumnIndex.rowIndex - 1;
-                  // var row =
-                  // invoiceDataSource.effectiveRows.elementAt(selectedRowIndex);
-                  // Navigate.to(context, InvoiceDetails(invoiceData: invoiceListData[selectedRowIndex]));
-                  // print("${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+                      // headerGridLineStrokeWidth: 0.0,
 
-                },
-                headerRowHeight: 65,
-
-                // headerGridLineStrokeWidth: 0.0,
-
-                frozenRowsCount: 0,
-                frozenColumnsCount: 0, source: rewardDataSource, // Number of frozen columns (sticky columns)
-              ),
-            );
-    }
-    // else if(State is RewardLoading)
-    //   {
-    //     return LoadingDialog.loadingWidget();
-    //
-    //   }
-    else if(state is RewardError)
-      {
-        return Center(child: AppText(state.error, style: Styles.circularStdBold(context)));
-      }
-    else
-      {
-
-        return const SizedBox();
-      }
-  },
-) ,
+                      frozenRowsCount: 0,
+                      frozenColumnsCount: 0,
+                      source:
+                          rewardDataSource, // Number of frozen columns (sticky columns)
+                    ),
+                  );
+                }
+                // else if(State is RewardLoading)
+                //   {
+                //     return LoadingDialog.loadingWidget();
+                //
+                //   }
+                else if (state is RewardError) {
+                  return Center(
+                      child: AppText(state.error,
+                          style: Styles.circularStdBold(context)));
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
           ),
           SizedBox(
             width: 1.sw,
             child: FractionallySizedBox(
               widthFactor: 1,
               child: BlocBuilder<RewardControllerCubit, RewardControllerState>(
-  builder: (context, state) {
-    if(state is RewardLoaded) {
-      return CustomButton(gapWidth: 10,textFontWeight: FontWeight.w400, imageWidth: 20.sp,imageHeight: 20,leadingSvgIcon: true,leadingIcon:(Assets.downloadIcon),onTap: ()async{
-                await PdfDownload().generatePdfForReward(state.actualRewardData).then((value)async{
-
-                if(value!=null){
-                 await OpenFile.open(value.path);
-
-                }
-                  print("valueeeeeeeeeeee $value");
-                });
-              }, text: "Download",horizontalMargin: 20,);
-    }
-    else
-      {
-        return const SizedBox();
-      }
-  },
-),
+                builder: (context, state) {
+                  if (state is RewardLoaded) {
+                    return CustomButton(
+                      gapWidth: 10,
+                      textFontWeight: FontWeight.w400,
+                      imageWidth: 20.sp,
+                      imageHeight: 20,
+                      leadingSvgIcon: true,
+                      leadingIcon: (Assets.downloadIcon),
+                      onTap: () async {
+                        await PdfDownload()
+                            .generatePdfForReward(state.actualRewardData)
+                            .then((value) async {
+                          if (value != null) {
+                            await OpenFile.open(value.path);
+                          }
+                          print("valueeeeeeeeeeee $value");
+                        });
+                      },
+                      text: "Download",
+                      horizontalMargin: 20,
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
             ),
           ),
           CustomSizedBox.height(10)
@@ -239,7 +382,6 @@ class _RewardScreenState extends State<RewardScreen> {
           //     ),
           //   ],
           // ),
-
         ],
       ),
     );
@@ -364,72 +506,94 @@ class _RewardScreenState extends State<RewardScreen> {
       [],
       [],
       [],
-
     ];
     List<List<RewardModel>> inData = [rewardListData];
 
-
     List<Widget> row = [];
 
-    for(int i=0;i<rewardListData.length;i++){
+    for (int i = 0; i < rewardListData.length; i++) {
       List<Widget> textWidget = [];
 
       textWidget.add(Container(
-        alignment: Alignment.centerLeft,
-      //  width: 130,
-       // color: Colors.red,
-         // margin: EdgeInsets.only(right: 50.sp),
-          child: AppText(rewardListData[i].session.toString(), style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight: FontWeight.normal))));
-    //  textWidget.add(SizedBox(width: 10.sp,));
-      textWidget.add(SizedBox(width: 40.sp,));
+          alignment: Alignment.centerLeft,
+          //  width: 130,
+          // color: Colors.red,
+          // margin: EdgeInsets.only(right: 50.sp),
+          child: AppText(rewardListData[i].session.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      //  textWidget.add(SizedBox(width: 10.sp,));
+      textWidget.add(SizedBox(
+        width: 40.sp,
+      ));
       textWidget.add(Container(
           //width: 100.sp,
           //   color: Colors.black,
           alignment: Alignment.centerLeft,
-        //  padding: EdgeInsets.only(right: 100.sp),
+          //  padding: EdgeInsets.only(right: 100.sp),
 
           child: AppText(rewardListData[i].status.toString(),
-             // maxLine: 4,
-              style: Styles.circularStdRegular(context,color:  AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 40.sp,));
+              // maxLine: 4,
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 40.sp,
+      ));
       textWidget.add(Container(
         // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
         // height: 50.sp,
-       // width: 100,
+        // width: 100,
         alignment: Alignment.centerLeft,
-       // padding: EdgeInsets.only(right: 10.sp),
+        // padding: EdgeInsets.only(right: 10.sp),
 
         // margin: const EdgeInsets.only(left: 20),
-        child:  Center(
+        child: Center(
           child: SingleChildScrollView(
             child: AppText(rewardListData[i].netSale.toString(),
-                style: Styles.circularStdRegular(context,color: AppColors.blackColor,fontWeight:  FontWeight.normal)),
+                style: Styles.circularStdRegular(context,
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.normal)),
           ),
         ),
       ));
-      textWidget.add(SizedBox(width: 40.sp,));
-
+      textWidget.add(SizedBox(
+        width: 40.sp,
+      ));
 
       textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           //padding: EdgeInsets.only(right: 30.sp),
-          child: AppText(rewardListData[i].bonusReward.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 40.sp,));
+          child: AppText(rewardListData[i].bonusReward.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 40.sp,
+      ));
       textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           //padding: EdgeInsets.only(right: 30.sp),
-          child: AppText(rewardListData[i].loyalReward.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
-      textWidget.add(SizedBox(width: 40.sp,));
+          child: AppText(rewardListData[i].loyalReward.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
+      textWidget.add(SizedBox(
+        width: 40.sp,
+      ));
       textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           margin: EdgeInsets.only(left: 10.sp),
           //padding: EdgeInsets.only(right: 30.sp),
-          child: AppText(rewardListData[i].totalReward.toString(), style: Styles.circularStdRegular(context,color:AppColors.blackColor,fontWeight: FontWeight.normal))));
+          child: AppText(rewardListData[i].totalReward.toString(),
+              style: Styles.circularStdRegular(context,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal))));
       row.add(Column(
-
         children: [
           CustomSizedBox.height(10.sp),
           Container(
@@ -440,28 +604,24 @@ class _RewardScreenState extends State<RewardScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-
                 ...textWidget,
-
-
               ],
             ),
           ),
-          SizedBox(height: 20.sp,)
+          SizedBox(
+            height: 20.sp,
+          )
         ],
       ));
-
-
     }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: row,
     );
-
-
   }
 }
+
 class RewardModel {
   final String? session;
   final String? status;
@@ -470,7 +630,14 @@ class RewardModel {
   final String? loyalReward;
   final String? totalReward;
 
-  RewardModel(   {this.session,this.status, this.netSale, this.bonusReward, this.loyalReward, this.totalReward,});
+  RewardModel({
+    this.session,
+    this.status,
+    this.netSale,
+    this.bonusReward,
+    this.loyalReward,
+    this.totalReward,
+  });
 }
 
 ///crooss scroll
@@ -539,51 +706,61 @@ class RewardModel {
 //
 // )
 
-
-
 class RewardListDataSource extends DataGridSource {
-  final  BuildContext context;
-  RewardListDataSource({required List<RewardModel> employees,required this.context}) {
-    _employees = List.generate(employees.length, (index) => DataGridRow(cells: [
+  final BuildContext context;
 
-      DataGridCell<String>(columnName: 'Session', value: employees[index].session),
-      DataGridCell<String>(columnName: 'Status', value: employees[index].status),
-      DataGridCell<String>(columnName: 'Net Sale', value: employees[index].netSale),
-      DataGridCell<String>(columnName: 'Bonus Reward', value: employees[index].bonusReward),
-      DataGridCell<String>(columnName: 'Loyal Reward', value: employees[index].loyalReward),
-      DataGridCell<String>(columnName: 'Total Reward', value: employees[index].totalReward),
-
-
-    ]));
+  RewardListDataSource(
+      {required List<RewardModel> employees, required this.context}) {
+    _employees = List.generate(
+        employees.length,
+        (index) => DataGridRow(cells: [
+              DataGridCell<String>(
+                  columnName: 'Session', value: employees[index].session),
+              DataGridCell<String>(
+                  columnName: 'Status', value: employees[index].status),
+              DataGridCell<String>(
+                  columnName: 'Net Sale', value: employees[index].netSale),
+              DataGridCell<String>(
+                  columnName: 'Bonus Reward',
+                  value: employees[index].bonusReward),
+              DataGridCell<String>(
+                  columnName: 'Loyal Reward',
+                  value: employees[index].loyalReward),
+              DataGridCell<String>(
+                  columnName: 'Total Reward',
+                  value: employees[index].totalReward),
+            ]));
   }
 
-  List<DataGridRow>  _employees = [];
+  List<DataGridRow> _employees = [];
 
   @override
-  List<DataGridRow> get rows =>  _employees;
+  List<DataGridRow> get rows => _employees;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow rowsss) {
     Color getBackgroundColor() {
       int index = _employees.indexOf(rowsss) + 1;
 
-        return Colors.white;
-
+      return Colors.white;
     }
 
     return DataGridRowAdapter(
-      //  color: AppColors.primaryColor,
+        //  color: AppColors.primaryColor,
 
         cells: rowsss.getCells().map<Widget>((dataGridCell) {
-          return Container(
-            // color: AppColors.primaryColor,
-            color: getBackgroundColor(),
-            alignment: (dataGridCell.columnName == 'Session')
-                ? Alignment.centerRight
-                : Alignment.center,
-            padding: const EdgeInsets.all(10.0),
-            child: AppText(dataGridCell.value.toString(), style: Styles.circularStdRegular(context),),
-          );
-        }).toList());
+      return Container(
+        // color: AppColors.primaryColor,
+        color: getBackgroundColor(),
+        alignment: (dataGridCell.columnName == 'Session')
+            ? Alignment.centerRight
+            : Alignment.center,
+        padding: const EdgeInsets.all(10.0),
+        child: AppText(
+          dataGridCell.value.toString(),
+          style: Styles.circularStdRegular(context),
+        ),
+      );
+    }).toList());
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hbk/Domain/Models/Cart/cart_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+
 class CartDatabase {
   CartDatabase._init();
 
@@ -76,16 +77,34 @@ class CartDatabase {
           )
     ''');
   }
+
   Future<int> insertCart(CartModel cart) async {
     final db = await cartDatabaseInstance.database;
- int status=  await db.insert(
-      'CartTable',
-      cart.toMap()
-     // conflictAlgorithm: ConflictAlgorithm.ignore,
-    );
- print(status);
+    int status = await db.insert('CartTable', cart.toMap()
+        // conflictAlgorithm: ConflictAlgorithm.ignore,
+        );
+    print(status);
     return status;
   }
+
+  Future<double> getProductQuantity(String productId) async {
+    final db = await cartDatabaseInstance.database;
+
+    // Query the 'cart' table to retrieve the product quantity for the given product ID
+    final result = await db.rawQuery(
+      'SELECT productQuantity FROM CartTable WHERE productId = ? LIMIT 1',
+      [productId],
+    );
+
+    if (result.isNotEmpty) {
+      // If a row is found, return the product quantity as a double
+      return double.parse(result.first['productQuantity'].toString());
+    } else {
+      // If no row is found, return a default value (e.g., 0)
+      return 1;
+    }
+  }
+
   Future<int?> createOrInsert(CartModel cart) async {
     try {
       //01. get db reference
@@ -107,29 +126,30 @@ class CartDatabase {
     final List<Map<String, dynamic>> maps = await db.query('CartTable');
     return List.generate(maps.length, (i) {
       return CartModel(
-       // id: maps[i]['id'],
-        productId: maps[i]['productId'],
-        productImage: maps[i]['productImage'],
-        productName: maps[i]['productName'],
-        productPrice: maps[i]['productPrice'],
-        pcsCtn: maps[i]['pcsCtn'],
-        productQuantity: maps[i]['productQuantity'],
-        multiplier: maps[i]['multiplier']
-      );
+          // id: maps[i]['id'],
+          productId: maps[i]['productId'],
+          productImage: maps[i]['productImage'],
+          productName: maps[i]['productName'],
+          productPrice: maps[i]['productPrice'],
+          pcsCtn: maps[i]['pcsCtn'],
+          productQuantity: maps[i]['productQuantity'],
+          multiplier: maps[i]['multiplier']);
     });
   }
+
   Future<Object> calculateGrandTotal() async {
     final db = await cartDatabaseInstance.database;
 
     // Calculate the total for each item and sum them up to get the grand total
     final result = await db.rawQuery('''
-    SELECT SUM(CAST(productQuantity AS REAL) * CAST(productPrice AS REAL)) AS grandTotal
+    SELECT SUM((CAST(productQuantity AS REAL) * CAST(productPrice AS REAL))*CAST(REPLACE(pcsCtn, ' Pcs', '') AS REAL)) AS grandTotal
     FROM CartTable
   ''');
 
     // Extract the grand total from the query result
-    final grandTotal = result.isNotEmpty ? result.first['grandTotal'] ?? 0.0 : 0.0;
-print('from db total');
+    final grandTotal =
+        result.isNotEmpty ? result.first['grandTotal'] ?? 0.0 : 0.0;
+    print('from db total');
     print(grandTotal);
     return grandTotal;
   }
@@ -138,13 +158,16 @@ print('from db total');
     final db = await cartDatabaseInstance.database;
 
     // Calculate the total quantity by summing up all productQuantity values
-    final result = await db.rawQuery('SELECT SUM(productQuantity) AS totalQuantity FROM CartTable');
+    final result = await db.rawQuery(
+        'SELECT SUM(productQuantity) AS totalQuantity FROM CartTable');
 
     // Extract the total quantity from the query result
-    final totalQuantity = result.isNotEmpty ? result.first['totalQuantity'] ?? 0 : 0;
+    final totalQuantity =
+        result.isNotEmpty ? result.first['totalQuantity'] ?? 0 : 0;
 
     return totalQuantity;
   }
+
   Future<void> clearCart() async {
     final db = await cartDatabaseInstance.database;
 
@@ -152,12 +175,11 @@ print('from db total');
     await db.delete('CartTable');
   }
 
-
   Future<int> updateCart(CartModel cart) async {
     final db = await cartDatabaseInstance.database;
 
     // Update the record where productId matches
-    int status=   await db.update(
+    int status = await db.update(
       'CartTable',
       cart.toMap(),
       where: 'productId = ?',
@@ -172,7 +194,7 @@ print('from db total');
     final db = await cartDatabaseInstance.database;
 
     // Delete the record where productId matches
- int status=   await db.delete(
+    int status = await db.delete(
       'CartTable',
       where: 'productId = ?',
       whereArgs: [productId],
@@ -192,11 +214,7 @@ print('from db total');
     );
     print('fromDbbool');
     print(result);
-bool res= result.isEmpty ? true :false;
-    return  res; // If the list is not empty, the product exists; otherwise, it doesn't.
+    bool res = result.isEmpty ? true : false;
+    return res; // If the list is not empty, the product exists; otherwise, it doesn't.
   }
-
-
-
-
 }

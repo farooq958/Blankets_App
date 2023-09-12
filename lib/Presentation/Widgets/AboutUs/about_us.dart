@@ -40,6 +40,8 @@ class _AboutUsState extends State<AboutUs> {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: AppStrings.aboutUs,
+        exceptional: true,
+        // isGuest: ,
       ),
       body: BlocListener<AboutUsCubit, AboutUsState>(
         // listenWhen: (oldState, newState) => oldState != newState,
@@ -72,20 +74,19 @@ class _AboutUsState extends State<AboutUs> {
                         imageUrl: Assets.homeIcon,
                         text: AppStrings.getStarted,
                         expendedContent: Padding(
-                          padding: EdgeInsets.only(
-                              left: 15.w, right: 15.w, bottom: 5.h),
-                          child:
-                          Column(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText(
-                              state.aboutUsModel!.introduction ?? "",
-                              style: Styles.circularStdMedium(context),
-                              maxLine: 22,
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        )),
+                            padding: EdgeInsets.only(
+                                left: 15.w, right: 15.w, bottom: 5.h),
+                            child: Column(
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppText(
+                                  state.aboutUsModel!.introduction ?? "",
+                                  style: Styles.circularStdMedium(context),
+                                  maxLine: 22,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            )),
                       ),
                       10.y,
                       ExpandableTileWidget(
@@ -94,19 +95,18 @@ class _AboutUsState extends State<AboutUs> {
                         imageUrl: Assets.trophy,
                         text: AppStrings.achievement,
                         expendedContent: Padding(
-                padding: EdgeInsets.only(
-                left: 15.w, right: 15.w, bottom: 5.h),
-                child:
-                Column(
-                          children: [
-                            AppText(
-                              state.aboutUsModel!.achievements ?? "",
-                              style: Styles.circularStdMedium(context),
-                              maxLine: 20,
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        )),
+                            padding: EdgeInsets.only(
+                                left: 15.w, right: 15.w, bottom: 5.h),
+                            child: Column(
+                              children: [
+                                AppText(
+                                  state.aboutUsModel!.achievements ?? "",
+                                  style: Styles.circularStdMedium(context),
+                                  maxLine: 20,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            )),
                       ),
                       10.y,
                       ExpandableTileWidget(
@@ -117,8 +117,7 @@ class _AboutUsState extends State<AboutUs> {
                         expendedContent: Padding(
                           padding: EdgeInsets.only(
                               left: 15.w, right: 15.w, bottom: 5.h),
-                          child:
-                Column(
+                          child: Column(
                             children: [
                               AppText(
                                 state.aboutUsModel!.ourVision ?? "",

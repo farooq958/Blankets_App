@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 //import 'dart:ffi';
 import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Domain/Models/Auth/user_data.dart';
@@ -270,19 +271,20 @@ class Api {
       return Future.error(e.toString());
     }
   }
+
   static Future postOrder(
-      Map<String, dynamic> body, {
-        required String url,
-      }) async {
+    Map<String, dynamic> body, {
+    required String url,
+  }) async {
     try {
       String? us = SharedPrefs.getUserToken();
-  final head=    {
+      final head = {
         "Authorization": "Bearer $us",
-    'Content-Type': 'application/x-www-form-urlencoded',
-    //'Content-Type': 'application/json'
-  };
-      final response = await http.post(Uri.parse(url),
-          headers: head, body: (body));
+        'Content-Type': 'application/x-www-form-urlencoded',
+        //'Content-Type': 'application/json'
+      };
+      final response =
+          await http.post(Uri.parse(url), headers: head, body: (body));
 
       print("Response status ${response.statusCode}");
 
@@ -290,13 +292,11 @@ class Api {
         final data = jsonDecode(response.body);
         print("api response");
         print(data);
-        if(data['UserDetails']==null) {
+        if (data['UserDetails'] == null) {
           return 200;
+        } else {
+          return 240;
         }
-        else
-          {
-            return 240;
-          }
       } else {
         throw Exception('Failed to sign up user');
       }

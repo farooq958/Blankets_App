@@ -1,4 +1,3 @@
-
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 
 class DeleteAccount extends StatelessWidget {
@@ -9,6 +8,7 @@ class DeleteAccount extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: AppStrings.deleteAccount,
+        exceptional: true,
       ),
       body: Stack(
         children: [
@@ -68,7 +68,6 @@ class DeleteAccount extends StatelessWidget {
               right: 10.w,
               child: CustomButton(
                 text: AppStrings.deleteAccount,
-
                 onTap: () {
                   CustomDialog.successConfirmDialog(
                     context,
@@ -88,7 +87,6 @@ class DeleteAccount extends StatelessWidget {
                           message:
                               'You’ve successfully delete your account and will longer be able to access it.',
                           image: Assets.deleteAccount,
-
                           imageColor: AppColors.primaryColor);
                     },
                     imageColor: AppColors.redColor,

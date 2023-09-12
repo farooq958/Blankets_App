@@ -29,14 +29,43 @@ class OrdersRepo {
     }
   }
 
-  static Future postOrders(data)async{
-
+  static Future postOrders(data) async {
     print("In Repo Data $data");
     try {
-      return await Api.postOrder( data,url:'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/PostSAPSalesOrders',).then((value) {
-
+      return await Api.postOrder(
+        data,
+        url:
+            'http://imtxt.sbsolutions.com.pk:44891/api/lookupApi/PostSAPSalesOrders',
+      ).then((value) {
         print("value $value");
         return value;
+      }).catchError((e) {
+        throw e;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future getWareHouseCode() async {
+    String cardCode = "CardCode=${SharedPrefs.userData!.cardCode}";
+
+    try {
+      return Api.getCat(
+              'http://imtxt.sbsolutions.com.pk:44891/api/CustomerProfile')
+          .then((value) {
+        if (value.runtimeType != int) {
+          var data = jsonDecode(value);
+          print('data from warehouse');
+          print(data);
+          if (data.runtimeType == List<dynamic>) {
+            return data[0]['U_WhsAppLoc'];
+          } else {
+            return 600;
+          }
+        } else {
+          return value;
+        }
       }).catchError((e) {
         throw e;
       });

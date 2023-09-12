@@ -30,14 +30,14 @@ class _OrderHistoryState extends State<OrderHistory> {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: 'Order History',
+        exceptional: true,
       ),
       body: BlocConsumer<OrdersCubit, OrdersState>(listener: (context, state) {
         // TODO: implement listener
       }, builder: (context, state) {
         if (state is OrdersLoading) {
           return Center(child: LoadingDialog.loadingWidget());
-        }
-        else if (state is OrdersLoaded) {
+        } else if (state is OrdersLoaded) {
           List filteredOrders = state.model
               .where((order) => order.status == 'Completed')
               .toList();
@@ -63,7 +63,7 @@ class _OrderHistoryState extends State<OrderHistory> {
           return Center(
             child: AppText(
               state.error,
-              style: Styles.circularStdMedium(context,fontSize: 16.sp),
+              style: Styles.circularStdMedium(context, fontSize: 16.sp),
             ),
           );
         } else {

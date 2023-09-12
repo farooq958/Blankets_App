@@ -26,6 +26,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     return Scaffold(
       appBar: const CustomAppBarWithBackButton(
         title: AppStrings.contactUs,
+        exceptional: true,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
@@ -88,7 +89,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                               onTap: () async {
                                                 Uri phoneNo = Uri.parse(
                                                   'tel:${
-                                                      //index == 0 ? "(+92) 91 2602150" :
+                                                  //index == 0 ? "(+92) 91 2602150" :
                                                   state.contactUsData.branches![index].phone.toString().trim()}',
                                                 );
                                                 if (await launchUrl(phoneNo)) {
@@ -98,11 +99,11 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                                 }
                                               },
                                               text:
-                                             // index==0? "(+92) 91 2602150" :
-                                              state.contactUsData
-                                                  .branches![index].phone
-                                                  .toString()
-                                                  .trim(),
+                                                  // index==0? "(+92) 91 2602150" :
+                                                  state.contactUsData
+                                                      .branches![index].phone
+                                                      .toString()
+                                                      .trim(),
                                               // text: '+92 300 85 42 950',
 
                                               horizontalMargin: 20.w,
@@ -147,7 +148,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                   .trim(),
 
                               button2Text:
-                              //newEmail ??
+                                  //newEmail ??
                                   state.contactUsData.branches![index].email
                                       .toString()
                                       .trim(),

@@ -12,8 +12,10 @@ import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/cart_it
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Components/empty_cart_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_grand_total_map_cubit.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/update_user_data_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/post_order_db.dart';
+import 'package:hbk/Presentation/Widgets/Dashboard/Orders/orderScreen.dart';
 import 'Checkout/check_out_screen.dart';
 import 'Controller/notifier.dart';
 import 'Controller/post_order_cubit.dart';
@@ -63,31 +65,67 @@ class _CartScreenState extends State<CartScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  AppText(
-                    'Account credit limit',
-                    style: Styles.circularStdRegular(context,
-                        fontWeight: FontWeight.w500, fontSize: 16),
-                  ),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: 'Rs ',
-                        style:
-                            Styles.circularStdBold(context, fontSize: 16.sp)),
-                    TextSpan(
-                        text: Utils.getAvailableLimit(
-                            SharedPrefs.userData!.creditLimit.toString(),
-                            SharedPrefs.userData!.tolerance.toString(),
-                            SharedPrefs.userData!.balance.toString(),
-                            SharedPrefs.userData!.ordersBal.toString(),
-                            SharedPrefs.userData!.specialDeal.toString()),
-                        style: Styles.circularStdBold(context,
-                            fontWeight: FontWeight.w900, fontSize: 20)),
-                  ]))
-                ],
+              BlocConsumer<UpdateUserDataCubit, UpdateUserDataState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                },
+                builder: (context, state) {
+                  if (state is UpdateSuccess) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        AppText(
+                          'Account credit limit',
+                          style: Styles.circularStdRegular(context,
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                              text: 'Rs ',
+                              style: Styles.circularStdBold(context,
+                                  fontSize: 16.sp)),
+                          TextSpan(
+                              text: Utils.getAvailableLimit(
+                                  SharedPrefs.userData!.creditLimit.toString(),
+                                  SharedPrefs.userData!.tolerance.toString(),
+                                  SharedPrefs.userData!.balance.toString(),
+                                  SharedPrefs.userData!.ordersBal.toString(),
+                                  SharedPrefs.userData!.specialDeal.toString()),
+                              style: Styles.circularStdBold(context,
+                                  fontWeight: FontWeight.w900, fontSize: 20)),
+                        ]))
+                      ],
+                    );
+                  } else {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        AppText(
+                          'Account credit limit',
+                          style: Styles.circularStdRegular(context,
+                              fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                              text: 'Rs ',
+                              style: Styles.circularStdBold(context,
+                                  fontSize: 16.sp)),
+                          TextSpan(
+                              text: Utils.getAvailableLimit(
+                                  SharedPrefs.userData!.creditLimit.toString(),
+                                  SharedPrefs.userData!.tolerance.toString(),
+                                  SharedPrefs.userData!.balance.toString(),
+                                  SharedPrefs.userData!.ordersBal.toString(),
+                                  SharedPrefs.userData!.specialDeal.toString()),
+                              style: Styles.circularStdBold(context,
+                                  fontWeight: FontWeight.w900, fontSize: 20)),
+                        ]))
+                      ],
+                    );
+                  }
+                },
               ),
               BlocConsumer<CartCubit, CartState>(
                 listener: (context, state) {
@@ -302,6 +340,13 @@ class _CartScreenState extends State<CartScreen> {
                     context
                         .read<CartGrandTotalMapCubit>()
                         .setGetMap(0, '1', {}, fromRemove: true);
+
+                    context.read<UpdateUserDataCubit>().updateData(
+                        SharedPrefs.getUsername(), SharedPrefs.getPassword());
+                    await Future.delayed(const Duration(seconds: 2));
+                    Navigate.pop(context);
+                    await Future.delayed(const Duration(seconds: 1));
+                    Navigate.to(context, const OrderScreen());
                   }
                 },
                 child: CustomButton(

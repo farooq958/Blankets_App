@@ -195,6 +195,7 @@ class Utils {
         iconPath: Assets.logoutIcon,
         widgetToNavigate: const LoginScreen()),
   ];
+
   static getGraceLimit(creditLimit, tolerance) {
     var graceLimit = ((double.parse(creditLimit.toString()) *
                 double.parse(tolerance.toString())) /
@@ -211,14 +212,17 @@ class Utils {
     return maxLimit.toString();
   }
 
-  static getOverLimit(balance, creditLimit) {
-    var overLimit = (double.parse(balance) - double.parse(creditLimit));
+  static getOverLimit(balance, creditLimit, pendingOrder) {
+    var overLimit = (double.parse(balance) + double.parse(pendingOrder)) -
+        double.parse(creditLimit);
 
-    return overLimit <= 0 ? '0' : overLimit.toString();
+    return overLimit > 0 ? overLimit.toString() : '0';
   }
 
   static getAvailableLimit(
       creditLimit, tolerance, balance, ordersBal, specialDeal) {
+    print(ordersBal);
+    print('in function');
     return double.parse(((double.parse(creditLimit.toString()) +
                     (double.parse(creditLimit.toString()) *
                             double.parse(tolerance.toString())) /
@@ -249,8 +253,10 @@ class Utils {
             SharedPrefs.userData!.specialDeal.toString()),
         name: "Max limit"),
     CustomCardModel(
-        amount: getOverLimit(SharedPrefs.userData!.balance.toString(),
-            SharedPrefs.userData!.creditLimit.toString()),
+        amount: getOverLimit(
+            SharedPrefs.userData!.balance.toString(),
+            SharedPrefs.userData!.creditLimit.toString(),
+            SharedPrefs.userData!.ordersBal.toString()),
         name: "Over limit"),
     CustomCardModel(
         amount: getAvailableLimit(
@@ -264,19 +270,18 @@ class Utils {
   static List<CustomCardModel> customCardData1 = [];
 
   static List<DashboardModel> dashData = [];
+  static String pendingOrders = '';
   static List<BottomCardModel> bottomCardData1 = [
-    BottomCardModel('Current Sale', "Rs ${dashData[0].nextSales.toString()}",
-        Assets.dashboardSaleRequired),
+    BottomCardModel('Sale Required', "Rs ${dashData[0].nextSales.toString()}",
+        Assets.dashboardSaleOfSession),
     BottomCardModel('Running Status', dashData[0].status.toString(),
         Assets.dashboardRunningStatus),
     BottomCardModel('Next Target', dashData[0].nextStatus.toString(),
         Assets.dashBoardNextTarget),
-    BottomCardModel('Sale Required', 'Rs ${dashData[0].netSales.toString()}',
-        Assets.dashboardSaleOfSession),
+    BottomCardModel('Current Sale', 'Rs ${dashData[0].netSales.toString()}',
+        Assets.dashboardSaleRequired),
     BottomCardModel(
-        'Pending Orders',
-        'Rs  ${SharedPrefs.userData!.ordersBal.toString()}',
-        Assets.dashboardPendingOrders),
+        'Pending Orders', 'Rs  $pendingOrders', Assets.dashboardPendingOrders),
     BottomCardModel('Total Winning', 'Rs ${dashData[0].totalReward.toString()}',
         Assets.dashboardTotalWinning),
   ];

@@ -11,6 +11,7 @@ import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/notifier_dateTime.dart';
+import 'package:hbk/Presentation/Widgets/pdf_screen.dart';
 import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -391,7 +392,9 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
                               .generatePdfForStatement(state.statementData)
                               .then((value) async {
                             if (value != null) {
-                              await OpenFile.open(value.path);
+                              //  await OpenFile.open(value.path);
+                              Navigate.to(context,
+                                  PdfScreen(filePath: value.absolute.path));
                             }
                           });
                         },

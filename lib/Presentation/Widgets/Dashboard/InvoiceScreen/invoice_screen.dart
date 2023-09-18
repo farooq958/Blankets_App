@@ -193,40 +193,51 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 if (state is InvoiceLoaded) {
                   invoiceDataSource = InvoiceListDataSource(
                       employees: state.actualInvoiceData, context: context);
-                  return SfDataGridTheme(
-                    data: SfDataGridThemeData(
-                        headerColor: AppColors.primaryColor),
-                    child: SfDataGrid(
-                      horizontalScrollPhysics: const BouncingScrollPhysics(),
-                      verticalScrollPhysics: const BouncingScrollPhysics(),
-                      gridLinesVisibility: GridLinesVisibility.none,
-                      columnWidthMode: ColumnWidthMode.auto,
-                      //  defaultColumnWidth: 100,
-                      // source: DataGridSource().buildRow(row),
-                      columns: getColumns(context),
-                      onCellTap: (details) {
-                        int selectedRowIndex =
-                            details.rowColumnIndex.rowIndex - 1;
-                        var row = invoiceDataSource.effectiveRows
-                            .elementAt(selectedRowIndex);
-                        Navigate.to(
-                            context,
-                            InvoiceDetails(
-                                invoiceData:
-                                    state.actualInvoiceData[selectedRowIndex]));
-                        print(
-                            "${row.getCells()[1].columnName}:${row.getCells()[1].value}");
-                      },
-                      headerRowHeight: 65,
+                  return state.actualInvoiceData.isEmpty
+                      ? Expanded(
+                          child: Center(
+                          child: AppText(
+                            'No Data Found',
+                            style: Styles.circularStdMedium(context,
+                                color: AppColors.primaryColor, fontSize: 16.sp),
+                          ),
+                        ))
+                      : SfDataGridTheme(
+                          data: SfDataGridThemeData(
+                              headerColor: AppColors.primaryColor),
+                          child: SfDataGrid(
+                            horizontalScrollPhysics:
+                                const BouncingScrollPhysics(),
+                            verticalScrollPhysics:
+                                const BouncingScrollPhysics(),
+                            gridLinesVisibility: GridLinesVisibility.none,
+                            columnWidthMode: ColumnWidthMode.auto,
+                            //  defaultColumnWidth: 100,
+                            // source: DataGridSource().buildRow(row),
+                            columns: getColumns(context),
+                            onCellTap: (details) {
+                              int selectedRowIndex =
+                                  details.rowColumnIndex.rowIndex - 1;
+                              var row = invoiceDataSource.effectiveRows
+                                  .elementAt(selectedRowIndex);
+                              Navigate.to(
+                                  context,
+                                  InvoiceDetails(
+                                      invoiceData: state.actualInvoiceData[
+                                          selectedRowIndex]));
+                              print(
+                                  "${row.getCells()[1].columnName}:${row.getCells()[1].value}");
+                            },
+                            headerRowHeight: 65,
 
-                      // headerGridLineStrokeWidth: 0.0,
+                            // headerGridLineStrokeWidth: 0.0,
 
-                      frozenRowsCount: 0,
-                      frozenColumnsCount: 0,
-                      source:
-                          invoiceDataSource, // Number of frozen columns (sticky columns)
-                    ),
-                  );
+                            frozenRowsCount: 0,
+                            frozenColumnsCount: 0,
+                            source:
+                                invoiceDataSource, // Number of frozen columns (sticky columns)
+                          ),
+                        );
                 } else if (state is InvoiceLoading) {
                   return LoadingDialog.loadingWidget();
                 } else if (state is InvoiceError) {

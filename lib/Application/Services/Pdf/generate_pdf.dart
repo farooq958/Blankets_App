@@ -18,9 +18,9 @@ class GeneratePDF {
   static Future<void> generateDocumentForPriceList(
       List<PriceListModel> priceList) async {
     final imageJpg =
-    (await rootBundle.load(Assets.headerPdf)).buffer.asUint8List();
+        (await rootBundle.load(Assets.headerPdf)).buffer.asUint8List();
     final imageJpgfooter =
-    (await rootBundle.load(Assets.footerPdf)).buffer.asUint8List();
+        (await rootBundle.load(Assets.footerPdf)).buffer.asUint8List();
 
     // print() {
 
@@ -28,7 +28,6 @@ class GeneratePDF {
     doc.addPage(
       pw.MultiPage(
           crossAxisAlignment: pw.CrossAxisAlignment.center,
-
           header: (pw.Context context) {
             return pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -224,9 +223,7 @@ class GeneratePDF {
                 // ),
 
                 pw.Table.fromTextArray(
-
                   context: context,
-
                   cellStyle: const pw.TextStyle(fontSize: 8),
                   headerAlignment: pw.Alignment.center,
                   cellAlignment: pw.Alignment.centerLeft,
@@ -267,9 +264,7 @@ class GeneratePDF {
     await file.writeAsBytes(await doc.save());
     print('opening file');
     await OpenFile.open(file.path);
-
   }
-
 
   static Future<File?> hbkInvoice(Uint8List data) async {
     File? file;
@@ -287,8 +282,8 @@ class GeneratePDF {
 
       return file;
     } else {
-      bool check = await AppPermissions.hasAccessNotificationPermission(
-          onSuccess: () async {
+      bool check =
+          await AppPermissions.hasStoragePermission(onSuccess: () async {
         // print()
         //file=temp;
         //print("filee2 ${temp!.path}");
@@ -298,13 +293,15 @@ class GeneratePDF {
       //  print("nooo ${file?.absolute}");
 
       if (check == true) {
-        Directory? tempDir = await getExternalStorageDirectory();
-        print("here");
-        File? tempFile = await File(
-                '${tempDir!.parent.parent.parent.parent.path}/Documents/${DateTime.now().year}_${DateTime.now().month}${DateTime.now().millisecond}_${DateTime.now().month}${DateTime.now().millisecond}.pdf')
-            .create(recursive: false);
+        Directory? tempDir = await AppPermissions.prepareSaveDir();
+        print("here in hbk data ${tempDir.path}");
+        // File? tempFile = await File(
+        //         '${tempDir!.parent.parent.parent.parent.path}/Documents/${DateTime.now().year}_${DateTime.now().month}${DateTime.now().millisecond}_${DateTime.now().month}${DateTime.now().millisecond}.pdf')
+        //     .create(recursive: false);
         //print("filee ${file!.path}");
-
+        File? tempFile = await File(
+                '${tempDir.path}/${DateTime.now().year}_${DateTime.now().month}${DateTime.now().millisecond}_${DateTime.now().month}${DateTime.now().millisecond}.pdf')
+            .create(recursive: false);
         file = await tempFile.writeAsBytes(data);
 
         //await file.writeAsBytes(data);
@@ -315,8 +312,6 @@ class GeneratePDF {
       }
     }
   }
-
-
 
   ///PDF UI for coach side play Attendance
   static playerInvoice() {}

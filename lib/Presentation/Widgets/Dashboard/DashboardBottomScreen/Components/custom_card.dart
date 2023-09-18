@@ -39,28 +39,25 @@ class CustomCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         const SizedBox(height: 5),
+          const SizedBox(height: 5),
           AppText(
-             name,
-             maxLine: 2,
-             style: Styles.circularStdBold(
-               context,
-               color: Colors.white,
-               fontSize: 12.sp,
-
-               fontWeight: FontWeight.w500,
-             ),
-           ),
-          const SizedBox(height:5 ),
+            name,
+            maxLine: 2,
+            style: Styles.circularStdBold(
+              context,
+              color: Colors.white,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 5),
           Expanded(
             child: AppText(
-             "Rs $amount",
-
+              "Rs $amount",
               style: Styles.circularStdBold(
                 context,
                 color: Colors.white,
-                fontSize: 13.sp,
-
+                fontSize: 11.3.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),

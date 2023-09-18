@@ -25,7 +25,7 @@ class DownloadCallBack {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- // Initialize sqflite_ffi
+  // Initialize sqflite_ffi
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -37,7 +37,7 @@ void main() async {
   //CartDatabase.cartDatabaseInstance.getAllCartItems();
   await NotificationServices().initNotification();
   await FlutterDownloader.initialize(
-      debug: true,
+      //debug: true,
       // optional: set to false to disable printing logs to console (default: true)
       ignoreSsl:
           true // option: set to false to disable working with http links (default: false)

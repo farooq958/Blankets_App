@@ -16,6 +16,7 @@ import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart'
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/Components/product_detail.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/SearchScreen/Controller/all_products_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Component/pdf_layout.dart';
+import 'package:hbk/Presentation/Widgets/pdf_screen.dart';
 
 import 'package:open_file/open_file.dart';
 import 'package:sync_scroll_controller/sync_scroll_controller.dart';
@@ -532,7 +533,11 @@ class _PriceListScreenState extends State<PriceListScreen>
                                         state.allProductsData))
                                     .then((value) async {
                                   if (value != null) {
-                                    await OpenFile.open(value.path);
+                                    // await OpenFile.open(value.path);
+                                    Navigate.to(
+                                        context,
+                                        PdfScreen(
+                                            filePath: value.absolute.path));
                                   }
                                   print("valueeeeeeeeeeee $value");
                                 });

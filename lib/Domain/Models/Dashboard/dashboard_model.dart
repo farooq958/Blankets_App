@@ -16,9 +16,11 @@ class DashboardModel {
   final String? nextSales;
   final String? nextStatus;
   final String? totalReward;
+  final String? pendingOrder;
 
   DashboardModel({
     this.id,
+    this.pendingOrder,
     this.cardCode,
     this.cardName,
     this.creditLine,
@@ -35,43 +37,44 @@ class DashboardModel {
     this.totalReward,
   });
 
-  factory DashboardModel.fromJson(String str) => DashboardModel.fromMap(json.decode(str));
+  factory DashboardModel.fromJson(String str) =>
+      DashboardModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
   factory DashboardModel.fromMap(Map<String, dynamic> json) => DashboardModel(
-    id: json["id"],
-    cardCode: json["CardCode"],
-    cardName: json["CardName"],
-    creditLine: json["CreditLine"],
-    sales: json["Sales"],
-    cr: json["CR"],
-    netSales: json["NetSales"],
-    status: json["Status"],
-    loyal: json["Loyal"],
-    loyalReward: json["LoyalReward"],
-    reward: json["Reward"],
-    percentage: json["percentage"],
-    nextSales: json["NextSales"],
-    nextStatus: json["NextStatus"],
-    totalReward: json["TotalReward"],
-  );
+        id: json["id"],
+        cardCode: json["CardCode"],
+        cardName: json["CardName"],
+        creditLine: json["CreditLine"],
+        sales: json["Sales"],
+        cr: json["CR"],
+        netSales: json["NetSales"],
+        status: json["Status"],
+        loyal: json["Loyal"],
+        loyalReward: json["LoyalReward"],
+        reward: json["Reward"],
+        percentage: json["percentage"],
+        nextSales: json["NextSales"],
+        nextStatus: json["NextStatus"],
+        totalReward: json["TotalReward"],
+      );
 
   Map<String, dynamic> toMap() => {
-    "id": id,
-    "CardCode": cardCode,
-    "CardName": cardName,
-    "CreditLine": creditLine,
-    "Sales": sales,
-    "CR": cr,
-    "NetSales": netSales,
-    "Status": status,
-    "Loyal": loyal,
-    "LoyalReward": loyalReward,
-    "Reward": reward,
-    "percentage": percentage,
-    "NextSales": nextSales,
-    "NextStatus": nextStatus,
-    "TotalReward": totalReward,
-  };
+        "id": id,
+        "CardCode": cardCode,
+        "CardName": cardName,
+        "CreditLine": creditLine,
+        "Sales": sales,
+        "CR": cr,
+        "NetSales": netSales,
+        "Status": status,
+        "Loyal": loyal,
+        "LoyalReward": loyalReward,
+        "Reward": reward,
+        "percentage": percentage,
+        "NextSales": nextSales,
+        "NextStatus": nextStatus,
+        "TotalReward": totalReward,
+      };
 }

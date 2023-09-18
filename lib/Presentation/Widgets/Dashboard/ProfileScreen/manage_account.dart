@@ -40,27 +40,29 @@ class ManageAccount extends StatelessWidget {
               ),
             ),
             CustomSizedBox.height(20.h),
-            Material(
-              borderRadius: BorderRadius.circular(10.r),
-              elevation: 2,
-              child: CustomButton(
-                onTap: () {
-                  Navigate.to(context, const DeleteAccount());
-                },
-                text: AppStrings.deleteAccount,
-                bgColor: AppColors.whiteColor,
-                isBorder: false,
-                height: 55.h,
-                textColor: AppColors.blackColor,
-                leadingIcon: Assets.delete,
-                leadingSvgIcon: true,
-                isButtonAlignLeft: true,
-                gapWidth: 15.w,
-                // borderRadius: 15,
 
-                iconColor: AppColors.blackColor,
-              ),
-            ),
+            ///delete not allowed
+            // Material(
+            //   borderRadius: BorderRadius.circular(10.r),
+            //   elevation: 2,
+            //   child: CustomButton(
+            //     onTap: () {
+            //       Navigate.to(context, const DeleteAccount());
+            //     },
+            //     text: AppStrings.deleteAccount,
+            //     bgColor: AppColors.whiteColor,
+            //     isBorder: false,
+            //     height: 55.h,
+            //     textColor: AppColors.blackColor,
+            //     leadingIcon: Assets.delete,
+            //     leadingSvgIcon: true,
+            //     isButtonAlignLeft: true,
+            //     gapWidth: 15.w,
+            //     // borderRadius: 15,
+            //
+            //     iconColor: AppColors.blackColor,
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -10,69 +10,63 @@ part '../State/invoice_state.dart';
 class InvoiceCubit extends Cubit<InvoiceState> {
   InvoiceCubit() : super(InvoiceInitial());
 
-
-  getInvoicesData(String startDate,String endDate) async {
-
-
+  getInvoicesData(String startDate, String endDate) async {
     await Future.delayed(const Duration(milliseconds: 16));
     emit(InvoiceLoading());
     try {
-
       await InvoiceRepo().getInvoices().then((value) {
-        DateTime startD= DateTime.parse(startDate);
-        DateTime endD= DateTime.parse(endDate);
-        if(value.runtimeType != int) {
-          if(value['Message']!=null)
-            {
-              emit(InvoiceError(error: value['Message']));
-            }
-          else{
+        DateTime startD = DateTime.parse(startDate);
+        DateTime endD = DateTime.parse(endDate);
+        print('typeeeeee');
+        print(value.runtimeType);
+        print(value);
+        if (value.runtimeType == List<dynamic>) {
+          {
             var invoiceDto = List<InvoiceApiModel>.from(
                 value.map((x) => InvoiceApiModel.fromMap(x)));
             // Utils.dashData=dashData;
-            List<InvoiceModel> actualInvoiceData= [];
+            List<InvoiceModel> actualInvoiceData = [];
 
-            var invoiceFilteredData=filterStatementsByDate(invoiceDto, startD, endD);
-            for(var i in invoiceFilteredData)
-            {
+            var invoiceFilteredData =
+                filterStatementsByDate(invoiceDto, startD, endD);
+            for (var i in invoiceFilteredData) {
               actualInvoiceData.add(InvoiceModel(
-
                   date: i.postingDate.toString().split(' ').first,
                   invoiceNo: i.docEntry.toString(),
                   noOfCtns: i.sumofSalesQuantities.toString(),
-                  total: i.docTotal.toString()
-
-              ));
-
+                  total: i.docTotal.toString()));
             }
 
-            emit(InvoiceLoaded(rawData: invoiceDto,actualInvoiceData:actualInvoiceData));
+            emit(InvoiceLoaded(
+                rawData: invoiceDto, actualInvoiceData: actualInvoiceData));
           }
-
-        }
-        else
-        {
+        } else if (value.runtimeType != int && value['Message'] != null) {
+          emit(InvoiceError(error: value['Message']));
+        } else {
           emit(InvoiceLogOutState());
         }
       }).catchError((e) {
         //throw e;
+        print(e);
         emit(InvoiceError(error: e));
       });
     } catch (e) {
-      //rethrow;
-      emit(InvoiceError(error:e.toString()));
+      // rethrow;
+      emit(InvoiceError(error: e.toString()));
     }
   }
-  List<InvoiceApiModel> filterStatementsByDate(List<InvoiceApiModel> statements, DateTime startDate, DateTime endDate) {
+
+  List<InvoiceApiModel> filterStatementsByDate(
+      List<InvoiceApiModel> statements, DateTime startDate, DateTime endDate) {
     List<InvoiceApiModel> filteredStatements = [];
 
     for (InvoiceApiModel statement in statements) {
       if (statement.postingDate != null) {
-        DateTime statementDate =DateFormat("MM/dd/yyyy").parse(statement.postingDate.toString());
+        DateTime statementDate =
+            DateFormat("MM/dd/yyyy").parse(statement.postingDate.toString());
 
-
-
-        if (statementDate.isAfter(startDate) && statementDate.isBefore(endDate)) {
+        if (statementDate.isAfter(startDate) &&
+            statementDate.isBefore(endDate)) {
           filteredStatements.add(statement);
         }
       }

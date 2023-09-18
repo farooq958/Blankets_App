@@ -60,35 +60,9 @@ class FileDownloader {
   static Future download(String url) async {
     // final directory = await getExternalStorageDirectory();
     // final directory = await getExternalStorageDirectory();
-if(Platform.isIOS)
-  {
-    Directory? directory=await getLibraryDirectory();
-    final myFilePath = '${directory.path}/HbkApp';
-
-
-    final myImgDir = await Directory(myFilePath).create();
-    // print(myImgDir);
-    final taskId = await FlutterDownloader.enqueue(
-      url: url,
-      headers: {},
-      // optional: header send with url (auth token etc)
-      savedDir: myImgDir.path,
-       showNotification: false,
-      // show download progress in status bar (for Android)
-      openFileFromNotification: true,
-      // click on notification to open downloaded file (for Android)
-      saveInPublicStorage: true,
-    );
-    print(taskId);
-
-  }
-else
-  {
-    await AppPermissions.hasStoragePermission(onSuccess: ()async{
-      List<Directory>? directory =
-          await getExternalStorageDirectories(type: StorageDirectory.downloads);
-      final myFilePath = '${directory![0].path}/HbkApp';
-
+    if (Platform.isIOS) {
+      Directory? directory = await getLibraryDirectory();
+      final myFilePath = '${directory.path}/HbkApp';
 
       final myImgDir = await Directory(myFilePath).create();
       // print(myImgDir);
@@ -98,16 +72,38 @@ else
         // optional: header send with url (auth token etc)
         savedDir: myImgDir.path,
         showNotification: false,
-        //  showNotification: true,
         // show download progress in status bar (for Android)
         openFileFromNotification: true,
         // click on notification to open downloaded file (for Android)
         saveInPublicStorage: true,
       );
       print(taskId);
-    });
+    } else {
+      await AppPermissions.hasStoragePermission(onSuccess: () async {
+        List<Directory>? directory = await getExternalStorageDirectories(
+            type: StorageDirectory.downloads);
+        final myFilePath = '${directory![0].path}/HbkApp';
+        final dire = await AppPermissions.prepareSaveDir();
 
-  }
-
+        final myImgDir = await Directory(myFilePath).create();
+        // print(myImgDir);
+        final taskId = await FlutterDownloader.enqueue(
+          url: url,
+          headers: {},
+          // optional: header send with url (auth token etc)
+          savedDir: dire.path,
+          showNotification: false,
+          //  showNotification: true,
+          // show download progress in status bar (for Android)
+          openFileFromNotification: true,
+          // click on notification to open downloaded file (for Android)
+          saveInPublicStorage: true,
+        );
+        // if (taskId != null) {
+        //   await FlutterDownloader.open(taskId: taskId);
+        // }
+        print(taskId);
+      });
+    }
   }
 }

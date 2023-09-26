@@ -109,6 +109,9 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
           if (state is StatementLoaded) {
             Navigate.pop(context);
           }
+          if (state is StatementError) {
+            Navigate.pop(context);
+          }
         },
         builder: (context, state) {
           if (state is StatementLoaded) {
@@ -405,6 +408,22 @@ class _CustomerStatementScreenState extends State<CustomerStatementScreen> {
                   ),
                 )
               ],
+            );
+          } else if (state is StatementError) {
+            return GestureDetector(
+              onTap: () {
+                // context.read<StatementDataCubit>().getStatementDto(
+                //     DateTime.now()
+                //         .subtract(const Duration(days: 100))
+                //         .toString(),
+                //     DateTime.now().toString());
+              },
+              child: Center(
+                  child: AppText(
+                state.error.toString(),
+                style: Styles.circularStdBold(context, fontSize: 16.sp),
+                maxLine: 3,
+              )),
             );
           } else {
             return const SizedBox();

@@ -23,23 +23,26 @@ class AllProductsCubit extends Cubit<AllProductsState> {
                   ? productAuthUrl + catId
                   : allProductGuestUrl)
           .then((value) {
-        if (value != int) {
+        if (value.runtimeType != int && value.runtimeType == List<dynamic>) {
           var newArrivalData = List<ProductApiModel>.from(
               value.map((x) => ProductApiModel.fromMap(x)));
 
           print(newArrivalData.length.toString() + "apiproductlenthacas");
 
           emit(AllProductsLoaded(allProductsData: newArrivalData));
-        } else {
+        } else if (value.runtimeType == int) {
           emit(LogOutProductState());
+        } else {
+          emit(
+              AllProductsError(error: value['error'], status: value['status']));
         }
       }).catchError((e) {
         //throw e;
-        emit(AllProductsError(error: e));
+        emit(AllProductsError(error: e, status: 32));
       });
     } catch (e) {
       //rethrow;
-      emit(AllProductsError(error: e.toString()));
+      emit(AllProductsError(error: e.toString(), status: 32));
     }
   }
 }

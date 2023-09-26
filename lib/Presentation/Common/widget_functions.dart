@@ -5,6 +5,7 @@ import 'package:hbk/Data/DataSource/Resources/text_styles.dart';
 
 class WidgetFunctions {
   WidgetFunctions._private();
+
   static final instance = WidgetFunctions._private();
 
   ///Application SnackBar
@@ -13,31 +14,23 @@ class WidgetFunctions {
       {String? text,
       Color? bgColor,
       TextStyle? textStyle}) async {
-    return ScaffoldMessenger.of(context).showSnackBar(
-
-        SnackBar(
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
         text!,
-        style:
-            textStyle ?? Styles.circularStdMedium(context, color: AppColors.whiteColor),
+        style: textStyle ??
+            Styles.circularStdMedium(context, color: AppColors.whiteColor),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       duration: const Duration(seconds: 2),
-      backgroundColor:
-          bgColor ?? Theme.of(context).snackBarTheme.backgroundColor,
+      backgroundColor: bgColor ?? AppColors.primaryColor,
       behavior: SnackBarBehavior.floating,
       shape: Theme.of(context).snackBarTheme.shape,
     ));
   }
 
   Future<ScaffoldFeatureController<SnackBar, SnackBarClosedReason>> toast(
-      BuildContext context,
-
-         SnackBar snackBar
-        ) async {
-    return ScaffoldMessenger.of(context).showSnackBar(
-
-       snackBar );
+      BuildContext context, SnackBar snackBar) async {
+    return ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   ///Application Button
@@ -139,8 +132,9 @@ class WidgetFunctions {
       insetPadding: insetsPadding,
       insetAnimationCurve: curve,
       insetAnimationDuration: Duration(milliseconds: insetAnimationDuration),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(radius)), //this right here
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+      //this right here
       child: child,
     );
     showDialog(

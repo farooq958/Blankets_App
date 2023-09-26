@@ -10,8 +10,14 @@ class PdfScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SfPdfViewer.file(
-      File(filePath),
+    return Scaffold(
+      appBar: const CustomAppBarWithBackButton(
+        title: 'Pdf',
+        exceptional: true,
+      ),
+      body: SfPdfViewer.file(
+        File(filePath),
+      ),
     );
   }
 }

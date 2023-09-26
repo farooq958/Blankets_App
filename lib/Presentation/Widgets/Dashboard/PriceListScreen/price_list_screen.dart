@@ -11,6 +11,7 @@ import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
 import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
+import 'package:hbk/Presentation/Common/serverDownWidget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/BottomNavigationScreen/bottom_navigation_screen.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Product/Components/product_detail.dart';
@@ -433,6 +434,17 @@ class _PriceListScreenState extends State<PriceListScreen>
                             );
                           } else if (state is AllProductsLoading) {
                             return LoadingDialog.loadingWidget();
+                          } else if (state is AllProductsError) {
+                            return ServerDownWidget(
+                                errorMessage: state.error.toString(),
+                                errorTitle: state.status == 30
+                                    ? 'Internet Error'
+                                    : 'Server Error',
+                                onTap: () {
+                                  context
+                                      .read<AllProductsCubit>()
+                                      .getAllProducts();
+                                });
                           } else {
                             return SizedBox(
                               height: 0.sp,

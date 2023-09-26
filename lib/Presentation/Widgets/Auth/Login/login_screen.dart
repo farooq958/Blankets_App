@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController cardCodeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   static String? validatorPassword(v) {
     if (v.trim().isEmpty) {
       return "Please provide password";

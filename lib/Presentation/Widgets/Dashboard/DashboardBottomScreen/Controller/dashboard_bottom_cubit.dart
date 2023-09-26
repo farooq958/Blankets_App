@@ -16,35 +16,42 @@ class DashboardBottomCubit extends Cubit<DashboardBottomState> {
     emit(DashboardLoading());
     try {
       await DashboardRepo().getDashboardData().then((value) {
-        if (value.runtimeType != int) {
+        print(value.runtimeType);
+        if (value.runtimeType != int && value.runtimeType == List<dynamic>) {
           var dashData = List<DashboardModel>.from(
               value.map((x) => DashboardModel.fromMap(x)));
           // Utils.dashData = dashData;
           List<BottomCardModel> bottomCardData1 = [
             BottomCardModel(
-                'Sale Required', "Rs ${dashData[0].nextSales.toString()}",
+                'Sale Required',
+                "Rs ${dashData[0].nextSales.toString()}",
                 Assets.dashboardSaleOfSession),
             BottomCardModel('Running Status', dashData[0].status.toString(),
                 Assets.dashboardRunningStatus),
             BottomCardModel('Next Target', dashData[0].nextStatus.toString(),
                 Assets.dashBoardNextTarget),
             BottomCardModel(
-                'Current Sale', 'Rs ${dashData[0].netSales.toString()}',
+                'Current Sale',
+                'Rs ${dashData[0].netSales.toString()}',
                 Assets.dashboardSaleRequired),
             BottomCardModel(
                 'Pending Orders',
                 'Rs  ${SharedPrefs.userData!.ordersBal.toString()}',
                 Assets.dashboardPendingOrders),
             BottomCardModel(
-                'Total Winning', 'Rs ${dashData[0].totalReward.toString()}',
+                'Total Winning',
+                'Rs ${dashData[0].totalReward.toString()}',
                 Assets.dashboardTotalWinning),
           ];
 
-
           emit(DashboardLoaded(
               dashData: dashData, bottomCardData1: bottomCardData1));
-        } else {
+        } else if (value.runtimeType == int) {
           emit(DashboardLogOutState());
+        } else {
+          print('in error rigth');
+          print(value['error']);
+          emit(DashboardError(error: value['error']));
         }
       }).catchError((e) {
         //throw e;
@@ -52,7 +59,7 @@ class DashboardBottomCubit extends Cubit<DashboardBottomState> {
       });
     } catch (e) {
       //rethrow;
-      emit(DashboardError(error: e.toString()));
+      emit(DashboardError(error: e.runtimeType.toString()));
     }
   }
 }

@@ -10,47 +10,43 @@ class RewardControllerCubit extends Cubit<RewardControllerState> {
   RewardControllerCubit() : super(RewardControllerInitial());
 
   getRewardDto() async {
-
-
     await Future.delayed(const Duration(milliseconds: 16));
     emit(RewardLoading());
     try {
-
       await RewardRepo().getRewardData().then((value) {
-
-        if(value.runtimeType != int) {
+        if (value.runtimeType != int && value.runtimeType == List<dynamic>) {
           var rewardDto = List<RewardApiModel>.from(
               value.map((x) => RewardApiModel.fromMap(x)));
-         // Utils.dashData=dashData;
-List<RewardModel> actualRewardData= [];
-for(var i in rewardDto)
-  {
-    actualRewardData.add(RewardModel(session: '${i.startDate?.split(' ').first}-${i.endDate?.split(' ').first}',
+          // Utils.dashData=dashData;
+          List<RewardModel> actualRewardData = [];
+          for (var i in rewardDto) {
+            actualRewardData.add(RewardModel(
+              session:
+                  '${i.startDate?.split(' ').first}-${i.endDate?.split(' ').first}',
+              status: '${i.loyal.toString()} ${i.status.toString()}',
+              netSale: i.netSales.toString(),
+              bonusReward: i.reward.toString(),
+              loyalReward: i.loyalReward.toString(),
+              totalReward: (double.parse(i.loyalReward.toString()) +
+                      double.parse(i.reward.toString()))
+                  .toString(),
+            ));
+          }
 
-    status:'${i.loyal.toString()} ${i.status.toString()}' ,
-      netSale: i.netSales.toString(),
-      bonusReward: i.reward.toString() ,
-      loyalReward: i.loyalReward.toString(),
-      totalReward: (double.parse(i.loyalReward.toString()) + double.parse(i.reward.toString()) ).toString(),
-
-    ));
-
-  }
-
-          emit(RewardLoaded(rewData: rewardDto,actualRewardData:actualRewardData));
-        }
-        else
-        {
+          emit(RewardLoaded(
+              rewData: rewardDto, actualRewardData: actualRewardData));
+        } else if (value.runtimeType == int) {
           emit(RewardLogOutState());
+        } else {
+          emit(RewardError(error: value['error'], status: value['status']));
         }
       }).catchError((e) {
         //throw e;
-        emit(RewardError(error: e));
+        emit(RewardError(error: e, status: 32));
       });
     } catch (e) {
       //rethrow;
-      emit(RewardError(error:e.toString()));
+      emit(RewardError(error: e.toString(), status: 33));
     }
   }
-
 }

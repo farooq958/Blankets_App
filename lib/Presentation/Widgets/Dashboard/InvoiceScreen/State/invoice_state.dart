@@ -4,19 +4,21 @@ part of '../Controller/invoice_cubit.dart';
 abstract class InvoiceState {}
 
 class InvoiceInitial extends InvoiceState {}
+
 class InvoiceLoading extends InvoiceState {}
+
 class InvoiceLoaded extends InvoiceState {
-  final  List<InvoiceApiModel> rawData;
+  final List<InvoiceApiModel> rawData;
   final List<InvoiceModel> actualInvoiceData;
+
   InvoiceLoaded({required this.rawData, required this.actualInvoiceData});
-
 }
+
 class InvoiceLogOutState extends InvoiceState {}
+
 class InvoiceError extends InvoiceState {
-final String error;
+  final String error;
+  final int status;
 
-  InvoiceError({required this.error});
+  InvoiceError({required this.error, required this.status});
 }
-
-
-

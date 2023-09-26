@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 //import 'dart:ffi';
 import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Domain/Models/Auth/user_data.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class Api {
   static Map<String, String> _authMiddleWare() {
@@ -39,17 +42,50 @@ class Api {
   }
 
   static getCat(String url, {Map<String, String>? header}) async {
-    var request = http.Request('GET', Uri.parse(url));
-    request.headers.addAll(header ?? _authMiddleWare());
+    try {
+      var request = http.Request('GET', Uri.parse(url));
 
-    http.StreamedResponse response = await request.send();
+      request.headers.addAll(header ?? _authMiddleWare());
 
-    if (response.statusCode == 200) {
-      // print();
-      return await response.stream.bytesToString();
-    } else if (response.statusCode == 401) {
-      print(response.reasonPhrase);
-      return 401;
+      var response = await request.send().timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        // print();
+        return await response.stream.bytesToString();
+      } else if (response.statusCode == 401) {
+        print(response.reasonPhrase);
+        return 401;
+      }
+    } on SocketException catch (e) {
+      print('in socet');
+      // Handle SocketException here.
+      return {
+        "success": false,
+        "error": 'No Internet Please Connect To Internet',
+        "status": 30
+      };
+
+      print('SocketException: $e');
+      // You can display an error message to the user or perform other actions.
+    } on TimeoutException catch (e) {
+      print('in timeout');
+      // Handle SocketException here.
+      return {
+        "success": false,
+        "error":
+            "Oops! We're experiencing technical difficulties at the moment. Our servers are currently not responding. Please try again later.",
+        "status": 31
+      };
+    } on HttpException catch (e) {
+      // Handle HttpException (e.g., invalid URL) here.
+      return {
+        "success": false,
+        "error":
+            "Oops! We're experiencing technical difficulties at the moment. Our servers are currently not responding. Please try again later.",
+        "status": 32
+      };
+    } catch (e) {
+      return Future.error(e);
     }
   }
 
@@ -74,6 +110,34 @@ class Api {
         "success": false,
         "error": "${res.statusCode} ${res.reasonPhrase}",
         "body": res.body
+      };
+    } on SocketException catch (e) {
+      print('in socet');
+      // Handle SocketException here.
+      return {
+        "success": false,
+        "error": 'No Internet Please Connect To Internet',
+        "status": 30
+      };
+
+      print('SocketException: $e');
+      // You can display an error message to the user or perform other actions.
+    } on TimeoutException catch (e) {
+      print('in timeout');
+      // Handle SocketException here.
+      return {
+        "success": false,
+        "error":
+            "Oops! We're experiencing technical difficulties at the moment. Our servers are currently not responding. Please try again later.",
+        "status": 31
+      };
+    } on HttpException catch (e) {
+      // Handle HttpException (e.g., invalid URL) here.
+      return {
+        "success": false,
+        "error":
+            "Oops! We're experiencing technical difficulties at the moment. Our servers are currently not responding. Please try again later.",
+        "status": 32
       };
     } catch (e) {
       return Future.error(e);

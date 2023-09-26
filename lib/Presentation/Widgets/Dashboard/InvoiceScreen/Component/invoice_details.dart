@@ -184,7 +184,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
               WidgetFunctions.instance.snackBar(context,
                   text: state.error,
                   textStyle:
-                      Styles.circularStdMedium(context, color: Colors.white),
+                  Styles.circularStdMedium(context, color: Colors.white),
                   bgColor: AppColors.primaryColor);
             }
             // TODO: implement listener
@@ -216,7 +216,10 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                           flexibleSpace: mainColumn(context, state),
                           backgroundColor: AppColors.whiteColor,
                           expandedHeight:
-                              MediaQuery.of(context).size.height * 0.77,
+                          MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.77,
                         ),
                       ];
                     },
@@ -241,11 +244,12 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                             onTap: () async {
                               await PdfDownload()
                                   .generatePdf(
-                                      invoiceTitle,
-                                      state.actualInvoiceData,
-                                      state.totalCtn,
-                                      state.totalPcs,
-                                      state.grandTotal)
+                                  invoiceTitle,
+                                  state.actualInvoiceData,
+                                  state.totalCtn,
+                                  state.totalPcs,
+
+                                  state.grandTotal)
                                   .then((value) async {
                                 Navigate.to(context,
                                     PdfScreen(filePath: value!.absolute.path));
@@ -525,7 +529,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
               frozenRowsCount: 0,
               frozenColumnsCount: 0,
               source:
-                  invoiceDataSource, // Number of frozen columns (sticky columns)
+              invoiceDataSource, // Number of frozen columns (sticky columns)
             ),
           ),
         ),
@@ -748,10 +752,10 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
   // )
   Widget invoiceDetailTile(BuildContext context,
       {String? text1,
-      String? text2,
-      String? text3,
-      String? text4,
-      double? sizeHeight}) {
+        String? text2,
+        String? text3,
+        String? text4,
+        double? sizeHeight}) {
     return SizedBox(
       height: sizeHeight ?? 65.h,
       child: Padding(
@@ -876,8 +880,8 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
       ));
 
       textWidget.add(Container(
-          // padding: const EdgeInsets.only(left: 10),
-          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+        // padding: const EdgeInsets.only(left: 10),
+        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           width: 180.sp,
           //padding: const EdgeInsets.only(right: 60),
@@ -891,7 +895,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
       ));
       // textWidget.add(SizedBox(width: 40.sp,));
       textWidget.add(Container(
-          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           width: 180.sp,
           //padding: EdgeInsets.only(right: 30.sp),
@@ -918,7 +922,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
       ));
       // textWidget.add(SizedBox(width: 40.sp,));
       textWidget.add(Container(
-          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.center,
           margin: EdgeInsets.only(left: 10.sp),
           //padding: EdgeInsets.only(right: 30.sp),
@@ -1018,7 +1022,8 @@ class InvoiceDataSource extends DataGridSource {
       {required List<InvoiceDetailModel> employees, required this.context}) {
     _employees = List.generate(
         employees.length,
-        (index) => DataGridRow(cells: [
+            (index) =>
+            DataGridRow(cells: [
               DataGridCell<String>(columnName: 'S#', value: index.toString()),
               DataGridCell<String>(
                   columnName: 'Product Name',
@@ -1048,16 +1053,16 @@ class InvoiceDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
-      return Container(
-        alignment: (dataGridCell.columnName == 'S#')
-            ? Alignment.centerRight
-            : Alignment.centerLeft,
-        padding: const EdgeInsets.all(16.0),
-        child: AppText(
-          dataGridCell.value.toString(),
-          style: Styles.circularStdRegular(context),
-        ),
-      );
-    }).toList());
+          return Container(
+            alignment: (dataGridCell.columnName == 'S#')
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
+            padding: const EdgeInsets.all(16.0),
+            child: AppText(
+              dataGridCell.value.toString(),
+              style: Styles.circularStdRegular(context),
+            ),
+          );
+        }).toList());
   }
 }

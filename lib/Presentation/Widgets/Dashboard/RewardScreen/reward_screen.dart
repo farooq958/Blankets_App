@@ -19,6 +19,7 @@ import 'package:hbk/Presentation/Common/app_buttons.dart';
 import 'package:hbk/Presentation/Common/app_text.dart';
 import 'package:hbk/Presentation/Common/custom_appbar_with_back_button.dart';
 import 'package:hbk/Presentation/Common/custom_textfield_with_on_tap.dart';
+import 'package:hbk/Presentation/Common/serverDownWidget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/RewardScreen/Controller/reward_controller_cubit.dart';
 import 'package:hbk/Presentation/Widgets/pdf_screen.dart';
 import 'package:open_file/open_file.dart';
@@ -233,6 +234,9 @@ class _RewardScreenState extends State<RewardScreen> {
                 if (state is RewardLoaded) {
                   Navigate.pop(context);
                 }
+                if (state is RewardError) {
+                  Navigate.pop(context);
+                }
               },
               builder: (context, state) {
                 if (state is RewardLoaded) {
@@ -263,7 +267,7 @@ class _RewardScreenState extends State<RewardScreen> {
                       frozenRowsCount: 0,
                       frozenColumnsCount: 0,
                       source:
-                      rewardDataSource, // Number of frozen columns (sticky columns)
+                          rewardDataSource, // Number of frozen columns (sticky columns)
                     ),
                   );
                 }
@@ -273,9 +277,14 @@ class _RewardScreenState extends State<RewardScreen> {
                 //
                 //   }
                 else if (state is RewardError) {
-                  return Center(
-                      child: AppText(state.error,
-                          style: Styles.circularStdBold(context)));
+                  return ServerDownWidget(
+                      errorMessage: state.error,
+                      errorTitle: state.status == 30
+                          ? 'Internet Error'
+                          : 'Server Error',
+                      onTap: () {
+                        context.read<RewardControllerCubit>().getRewardDto();
+                      });
                 } else {
                   return const SizedBox();
                 }
@@ -532,8 +541,8 @@ class _RewardScreenState extends State<RewardScreen> {
         width: 40.sp,
       ));
       textWidget.add(Container(
-        //width: 100.sp,
-        //   color: Colors.black,
+          //width: 100.sp,
+          //   color: Colors.black,
           alignment: Alignment.centerLeft,
           //  padding: EdgeInsets.only(right: 100.sp),
 
@@ -567,7 +576,7 @@ class _RewardScreenState extends State<RewardScreen> {
       ));
 
       textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           //padding: EdgeInsets.only(right: 30.sp),
           child: AppText(rewardListData[i].bonusReward.toString(),
@@ -578,7 +587,7 @@ class _RewardScreenState extends State<RewardScreen> {
         width: 40.sp,
       ));
       textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           //padding: EdgeInsets.only(right: 30.sp),
           child: AppText(rewardListData[i].loyalReward.toString(),
@@ -589,7 +598,7 @@ class _RewardScreenState extends State<RewardScreen> {
         width: 40.sp,
       ));
       textWidget.add(Container(
-        // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
+          // padding: priceListData[i].item==""? EdgeInsets.only(left: 50.sp):null,
           alignment: Alignment.centerLeft,
           margin: EdgeInsets.only(left: 10.sp),
           //padding: EdgeInsets.only(right: 30.sp),
@@ -717,8 +726,7 @@ class RewardListDataSource extends DataGridSource {
       {required List<RewardModel> employees, required this.context}) {
     _employees = List.generate(
         employees.length,
-            (index) =>
-            DataGridRow(cells: [
+        (index) => DataGridRow(cells: [
               DataGridCell<String>(
                   columnName: 'Session', value: employees[index].session),
               DataGridCell<String>(
@@ -751,21 +759,21 @@ class RewardListDataSource extends DataGridSource {
     }
 
     return DataGridRowAdapter(
-      //  color: AppColors.primaryColor,
+        //  color: AppColors.primaryColor,
 
         cells: rowsss.getCells().map<Widget>((dataGridCell) {
-          return Container(
-            // color: AppColors.primaryColor,
-            color: getBackgroundColor(),
-            alignment: (dataGridCell.columnName == 'Session')
-                ? Alignment.centerRight
-                : Alignment.center,
-            padding: const EdgeInsets.all(10.0),
-            child: AppText(
-              dataGridCell.value.toString(),
-              style: Styles.circularStdRegular(context),
-            ),
-          );
-        }).toList());
+      return Container(
+        // color: AppColors.primaryColor,
+        color: getBackgroundColor(),
+        alignment: (dataGridCell.columnName == 'Session')
+            ? Alignment.centerRight
+            : Alignment.center,
+        padding: const EdgeInsets.all(10.0),
+        child: AppText(
+          dataGridCell.value.toString(),
+          style: Styles.circularStdRegular(context),
+        ),
+      );
+    }).toList());
   }
 }

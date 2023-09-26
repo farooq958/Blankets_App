@@ -2269,7 +2269,7 @@ class PDFLayouts {
 
                 child: Center(
                   child: Text(
-                    "${invoiceDataList[index].pcs}",
+                    "${invoiceDataList[index].ctn}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         // color: blackcolor,
@@ -2289,7 +2289,7 @@ class PDFLayouts {
 
                 child: Center(
                   child: Text(
-                    "${invoiceDataList[index].ctn}",
+                    "${invoiceDataList[index].pcs}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         //color: blackcolor,

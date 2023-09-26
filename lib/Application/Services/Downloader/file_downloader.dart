@@ -61,7 +61,7 @@ class FileDownloader {
     // final directory = await getExternalStorageDirectory();
     // final directory = await getExternalStorageDirectory();
     if (Platform.isIOS) {
-      Directory? directory = await getLibraryDirectory();
+      Directory? directory = await getApplicationDocumentsDirectory();
       final myFilePath = '${directory.path}/HbkApp';
 
       final myImgDir = await Directory(myFilePath).create();

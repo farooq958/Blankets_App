@@ -4,18 +4,22 @@ part of '../Controller/new_arrival_product_cubit.dart';
 abstract class NewArrivalProductState {}
 
 class NewArrivalProductInitial extends NewArrivalProductState {}
+
 class NewArrivalProductLoading extends NewArrivalProductState {}
+
 class LogOutStateNewArrival extends NewArrivalProductState {}
-class NewArrivalIndividualLoading extends NewArrivalProductState{}
+
+class NewArrivalIndividualLoading extends NewArrivalProductState {}
+
 class NewArrivalProductLoaded extends NewArrivalProductState {
-
   final List<ProductApiModel> newArrivalData;
+
   NewArrivalProductLoaded({required this.newArrivalData});
-
 }
+
 class NewArrivalProductError extends NewArrivalProductState {
-
   final String? error;
+  final int status;
 
-  NewArrivalProductError({this.error});
+  NewArrivalProductError({required this.error, required this.status});
 }

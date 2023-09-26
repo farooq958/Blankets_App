@@ -43,7 +43,7 @@ class AuthRepo {
             if (kDebugMode) {
               print("login Response $value");
             }
-            if (value.runtimeType != int) {
+            if (value.runtimeType != int && value.runtimeType == String) {
               return jsonDecode(value);
             } else {
               return value;
@@ -54,6 +54,9 @@ class AuthRepo {
         }
         if (value1['body'] != null) {
           return jsonDecode(value1['body']);
+        }
+        if (value1['success'] != null) {
+          return value1;
         }
       });
     } catch (e) {
@@ -69,7 +72,7 @@ class AuthRepo {
         if (kDebugMode) {
           print("login Response $value");
         }
-        if (value.runtimeType != int) {
+        if (value.runtimeType != int && value.runtimeType == String) {
           return jsonDecode(value);
         } else {
           return value;

@@ -41,18 +41,20 @@ class InvoiceCubit extends Cubit<InvoiceState> {
                 rawData: invoiceDto, actualInvoiceData: actualInvoiceData));
           }
         } else if (value.runtimeType != int && value['Message'] != null) {
-          emit(InvoiceError(error: value['Message']));
-        } else {
+          emit(InvoiceError(error: value['Message'], status: 40));
+        } else if (value.runtimeType == int) {
           emit(InvoiceLogOutState());
+        } else {
+          emit(InvoiceError(error: value['error'], status: value['status']));
         }
       }).catchError((e) {
         //throw e;
         print(e);
-        emit(InvoiceError(error: e));
+        emit(InvoiceError(error: e, status: 34));
       });
     } catch (e) {
       // rethrow;
-      emit(InvoiceError(error: e.toString()));
+      emit(InvoiceError(error: e.toString(), status: 34));
     }
   }
 

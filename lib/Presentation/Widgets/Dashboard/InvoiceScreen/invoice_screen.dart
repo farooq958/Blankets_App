@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
+import 'package:hbk/Presentation/Common/serverDownWidget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/Statement/Controller/notifier_dateTime.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:bottom_picker/bottom_picker.dart';
@@ -241,9 +242,22 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 } else if (state is InvoiceLoading) {
                   return LoadingDialog.loadingWidget();
                 } else if (state is InvoiceError) {
-                  return Center(
-                      child: AppText(state.error.toString(),
-                          style: Styles.circularStdMedium(context)));
+                  return state.status == 40
+                      ? Center(
+                          child: AppText(state.error.toString(),
+                              style: Styles.circularStdMedium(context)))
+                      : ServerDownWidget(
+                          errorMessage: state.error.toString(),
+                          errorTitle: state.status == 30
+                              ? 'Internet Error'
+                              : 'Server Error',
+                          onTap: () {
+                            context.read<InvoiceCubit>().getInvoicesData(
+                                DateTime.now()
+                                    .subtract(const Duration(days: 150))
+                                    .toString(),
+                                DateTime.now().toString());
+                          });
                 } else {
                   return const SizedBox();
                 }

@@ -16,6 +16,8 @@ class LoginCubit extends Cubit<LoginState> {
         print("object");
         // print(username + password);
         print(value['UserDetails']);
+        print(value['error']);
+        print(value['success']);
         if (value['UserDetails'] != null && value['Message'] == null) {
           await SharedPrefs.setUserName(username: username);
           await SharedPrefs.setPassword(password: password);
@@ -24,8 +26,11 @@ class LoginCubit extends Cubit<LoginState> {
           print("${data!.cardName}card code username");
           emit(LoginSuccess());
         }
-        if (value['error'] != null) {
-          emit(LoginError(error: value['error_description']));
+        if (value['error'] != null && value['success'] == null) {
+          emit(LoginError(error: value['error_description'] ?? value['error']));
+        }
+        if (value['success'] != null) {
+          emit(LoginError(error: value['error']));
         }
       }).catchError((e) {
         throw e;

@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -8,27 +6,25 @@ import 'package:hbk/Data/DataSource/Resources/api_constants.dart';
 
 import 'package:http/http.dart' as http;
 
-class SliderImagesRepo{
+class SliderImagesRepo {
   SliderImagesRepo();
 
-
-  Future<dynamic> getSliderImages()async{
-    try{
-      return await Api.getCat(sliderImagesUrl).then((value){
+  Future<dynamic> getSliderImages() async {
+    try {
+      return await Api.getCat(sliderImagesUrl).then((value) {
         if (kDebugMode) {
           print("category Response $value");
         }
-        if(value.runtimeType != int) {
+        if (value.runtimeType != int && value.runtimeType == String) {
           return jsonDecode(value);
-        }
-        else {
+        } else {
           // print("here");
           return value;
         }
-      }).catchError((e){
+      }).catchError((e) {
         throw e;
       });
-    }catch(e){
+    } catch (e) {
       rethrow;
     }
   }

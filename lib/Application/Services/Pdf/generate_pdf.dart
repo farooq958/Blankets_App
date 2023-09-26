@@ -269,7 +269,7 @@ class GeneratePDF {
   static Future<File?> hbkInvoice(Uint8List data) async {
     File? file;
     if (Platform.isIOS) {
-      Directory? tempDir = await getApplicationSupportDirectory();
+      Directory? tempDir = await getApplicationDocumentsDirectory();
       print("here");
       File? tempFile = await File(
               '${tempDir.path}/${DateTime.now().year}_${DateTime.now().month}${DateTime.now().millisecond}_${DateTime.now().month}${DateTime.now().millisecond}.pdf')

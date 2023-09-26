@@ -5,28 +5,26 @@ import 'package:hbk/Application/Services/ApiServices/api_services.dart';
 import 'package:hbk/Data/AppData/app_preferences.dart';
 import 'package:hbk/Data/DataSource/Resources/api_constants.dart';
 
-class StatementRepo{
-
-
-  Future<dynamic> getStatementData()async{
-    try{
-      return await Api.getCat(statementUrl+SharedPrefs.userData!.cardCode.toString()).then((value){
+class StatementRepo {
+  Future<dynamic> getStatementData() async {
+    try {
+      return await Api.getCat(
+              statementUrl + SharedPrefs.userData!.cardCode.toString())
+          .then((value) {
         if (kDebugMode) {
           print("statement Response $value");
         }
-        if(value.runtimeType != int) {
+        if (value.runtimeType != int && value.runtimeType == String) {
           return jsonDecode(value);
-        }
-        else {
+        } else {
           // print("here");
           return value;
         }
-      }).catchError((e){
+      }).catchError((e) {
         throw e;
       });
-    }catch(e){
+    } catch (e) {
       rethrow;
     }
   }
-
 }

@@ -17,6 +17,7 @@ class UpdateUserDataCubit extends Cubit<UpdateUserDataState> {
     try {
       await AuthRepo().updateSharedPref(username, password).then((value) async {
         print("object");
+        print(value);
         // print(username + password);
         // print(value['UserDetails']);
         if (value['UserDetails'] != null && value['Message'] == null) {
@@ -54,15 +55,18 @@ class UpdateUserDataCubit extends Cubit<UpdateUserDataState> {
           emit(UpdateSuccess(customCardData: customCardData));
         }
         if (value['error'] != null) {
-          emit(UpdateError(error: value['error_description']));
+          emit(UpdateError(
+              error: value['error_description'] ?? value['error'],
+              status: value['status']));
         }
       }).catchError((e) {
         // throw e;
-        emit(UpdateError(error: e.toString()));
+        print('in this');
+        emit(UpdateError(error: e.toString(), status: 32));
       });
     } catch (e) {
       // rethrow;
-      emit(UpdateError(error: 'something went wrong'));
+      emit(UpdateError(error: 'something went wrong', status: 32));
     }
   }
 }

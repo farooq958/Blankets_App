@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hbk/Data/AppData/app_preferences.dart';
+import 'package:hbk/Data/DataSource/Resources/Extensions/extensions.dart';
 import 'package:hbk/Data/DataSource/Resources/imports.dart';
 import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
+import 'package:hbk/Presentation/Common/serverDownWidget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/update_user_data_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Components/bottom_cards.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/DashboardBottomScreen/Components/chart_dashboard.dart';
@@ -208,11 +210,11 @@ class _DashboardBottomState extends State<DashboardBottom> {
                         //   Navigate.pop(context);
                         //   showLoginDialog(context, fromSession: true);
                         // }
-                        // if (state is DashboardError) {
-                        //   Navigate.pop(context);
-                        //   WidgetFunctions.instance
-                        //       .snackBar(context, text: state.error);
-                        // }
+                        if (state is DashboardError) {
+                          Navigate.pop(context);
+                          WidgetFunctions.instance
+                              .snackBar(context, text: state.error);
+                        }
                         // TODO: implement listener
 
                         if (state is DashboardLogOutState) {
@@ -346,6 +348,19 @@ class _DashboardBottomState extends State<DashboardBottom> {
                     // )
                   ],
                 );
+              } else if (uState is UpdateError) {
+                return ServerDownWidget(
+                    errorMessage: uState.error,
+                    errorTitle:
+                        uState.status == 30 ? 'Internet Error' : 'Server Error',
+                    onTap: () {
+                      context.read<DashboardBottomCubit>().getDashboardData();
+                      Future.wait([
+                        context.read<UpdateUserDataCubit>().updateData(
+                            SharedPrefs.getUsername(),
+                            SharedPrefs.getPassword())
+                      ]);
+                    });
               } else {
                 return const SizedBox();
               }

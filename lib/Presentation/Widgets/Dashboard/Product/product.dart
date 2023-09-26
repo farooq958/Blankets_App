@@ -7,6 +7,7 @@ import 'package:hbk/Domain/Models/HomeScreen/product_model.dart';
 import 'package:hbk/Presentation/Common/Dialogs/custom_login_dialog.dart';
 import 'package:hbk/Presentation/Common/Dialogs/loading_dialog.dart';
 import 'package:hbk/Presentation/Common/custom_radio_button.dart';
+import 'package:hbk/Presentation/Common/serverDownWidget.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/Controller/cart_cubit.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/CartScreen/SqDb/cart_db.dart';
 import 'package:hbk/Presentation/Widgets/Dashboard/HomeScreen/Components/new_arrival_product_widget.dart';
@@ -432,9 +433,24 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ),
                           )
-                        : Expanded(
-                            child:
-                                Center(child: LoadingDialog.loadingWidget())),
+                        : state is AllProductsError
+                            ? Expanded(
+                                child: ServerDownWidget(
+                                    //height: 130.sp,
+                                    errorMessage: state.error.toString(),
+                                    errorTitle: state.status == 30
+                                        ? 'Internet Error'
+                                        : 'Server Error',
+                                    onTap: () {
+                                      context
+                                          .read<AllProductsCubit>()
+                                          .getAllProducts(
+                                              catId: widget.catId ?? 'all',
+                                              isGuest: widget.isGuest);
+                                    }))
+                            : Expanded(
+                                child: Center(
+                                    child: LoadingDialog.loadingWidget())),
                     //CustomSizedBox.height(100)
                   ],
                 );
